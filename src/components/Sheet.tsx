@@ -29,8 +29,20 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
   const mobile = useMediaQuery(SHEET_MOBILE);
   const body = useRef<HTMLDivElement>(null);
   useEffect(() => { if (body.current) body.current.scrollTop = 0; }, [scrollKey]);
-  useAndroidBack(open, onRequestClose);
-  const onOpenChange = sheetOpenChange(onRequestClose);
+  const inFlight = useRef(false);
+  const lastResult = useRef<boolean | void>(undefined);
+  const latest = useRef(onRequestClose);
+  latest.current = onRequestClose;
+  // сгруппированные CloseWatcher срабатывают от одного «Назад» вместе
+  const requestClose = useRef(() => {
+    if (inFlight.current) return lastResult.current;
+    inFlight.current = true;
+    setTimeout(() => { inFlight.current = false; }, 0);
+    lastResult.current = latest.current();
+    return lastResult.current;
+  }).current;
+  useAndroidBack(open, requestClose);
+  const onOpenChange = sheetOpenChange(requestClose);
   const Parts = mobile ? Drawer : Dialog;
   const frame = (
     <>

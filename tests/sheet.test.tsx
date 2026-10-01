@@ -108,3 +108,34 @@ describe("Sheet: клик по фону", () => {
     expect(sheet()).toBeInTheDocument();
   });
 });
+
+describe("Sheet: «Назад» на Android", () => {
+  class FakeWatcher {
+    static all: FakeWatcher[] = [];
+    onclose: (() => void) | null = null;
+    destroyed = false;
+    constructor() { FakeWatcher.all.push(this); }
+    destroy() { this.destroyed = true; }
+  }
+  beforeEach(() => {
+    FakeWatcher.all = [];
+    setMobile(true);
+    vi.stubGlobal("CloseWatcher", FakeWatcher);
+    vi.spyOn(navigator, "userAgent", "get").mockReturnValue("Mozilla/5.0 (Linux; Android 14) Chrome/130");
+  });
+  afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
+
+  it("два запроса закрытия в одной задаче — onRequestClose один раз; в следующей задаче снова вызывается", async () => {
+    const onRequest = vi.fn(() => false);
+    render(<Harness allowClose={false} onRequest={onRequest} />);
+    const watcher = FakeWatcher.all.find((w) => !w.destroyed)!;
+    act(() => {
+      watcher.onclose?.();
+      fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
+    });
+    expect(onRequest).toHaveBeenCalledTimes(1);
+    await act(() => new Promise((r) => setTimeout(r, 0)));
+    act(() => { FakeWatcher.all.filter((w) => !w.destroyed).at(-1)!.onclose?.(); });
+    expect(onRequest).toHaveBeenCalledTimes(2);
+  });
+});
