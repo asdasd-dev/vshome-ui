@@ -1,1 +1,3 @@
-[]
+[
+  { "name": "personalai", "repo": "asdasd-dev/personalai", "path": "/home/vyacheslav/personalai", "remote": "github", "base": "main", "web": ".", "test": "npm test", "build": "npm run build" }
+]
