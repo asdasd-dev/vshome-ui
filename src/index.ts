@@ -12,3 +12,4 @@ export { createQueryClient, shouldRetry } from "./data/query";
 export { ToastProvider, useToast } from "./components/Toast";
 export { Sheet, type SheetProps } from "./components/Sheet";
 export { storage, useLocalStorage } from "./hooks/useLocalStorage";
+export { useMediaQuery } from "./hooks/useMediaQuery";
