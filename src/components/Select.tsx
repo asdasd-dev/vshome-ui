@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { CSPProvider } from "@base-ui/react/csp-provider";
 import { Select as Base } from "@base-ui/react/select";
 import { cx } from "../utils/cx";
+import { trackOpenPopup } from "../utils/openPopups";
 
 export type SelectOption<T extends string> = { value: T; label: string };
 export type SelectProps<T extends string> = {
@@ -13,9 +15,11 @@ export type SelectProps<T extends string> = {
 };
 
 export function Select<T extends string>({ value, onChange, options, label, className, disabled }: SelectProps<T>) {
+  const [open, setOpen] = useState(false);
+  useEffect(() => (open ? trackOpenPopup() : undefined), [open]);
   return (
     <CSPProvider disableStyleElements>
-      <Base.Root value={value} onValueChange={(v) => { if (v !== null) onChange(v as T); }} items={options} disabled={disabled}>
+      <Base.Root open={open} onOpenChange={setOpen} value={value} onValueChange={(v) => { if (v !== null) onChange(v as T); }} items={options} disabled={disabled}>
         <div className={cx("vs-select", className)}>
           <Base.Label className="vs-select__label">{label}</Base.Label>
           <Base.Trigger className="vs-select__trigger">

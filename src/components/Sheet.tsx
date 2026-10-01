@@ -3,13 +3,19 @@ import { Dialog } from "@base-ui/react/dialog";
 import { Drawer } from "@base-ui/react/drawer";
 import { cx } from "../utils/cx";
 import { useMediaQuery } from "../hooks/useMediaQuery";
+import { hasOpenPopup } from "../utils/openPopups";
 import { useAndroidBack } from "../hooks/useAndroidBack";
 
 export const SHEET_MOBILE = "(max-width: 760px)";
 
 export function sheetOpenChange(onRequestClose: () => boolean | void) {
-  return (next: boolean, details: { cancel: () => void }) => {
+  return (next: boolean, details: { cancel: () => void; reason?: string }) => {
     if (next) return;
+    // Select закрывается на pointerdown, Dialog/Drawer — на click того же нажатия: к click список уже закрыт, но лист закрываться не должен
+    if (details.reason === "outside-press" && hasOpenPopup()) {
+      details.cancel();
+      return;
+    }
     if (onRequestClose() === false) details.cancel();
   };
 }

@@ -15,3 +15,5 @@
 .vs-select__item[data-highlighted] { background: color-mix(in srgb, var(--vs-accent) 14%, transparent); }
 .vs-select__check { grid-column: 1; color: var(--vs-accent); }
 .vs-select__item > :last-child { grid-column: 2; }
+
+@media (prefers-reduced-motion: reduce) { .vs-select__popup { transition: none; } }
