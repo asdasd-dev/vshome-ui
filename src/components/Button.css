@@ -1,0 +1,5 @@
+.vs-button { border: 1px solid var(--vs-line); background: var(--vs-bg); color: var(--vs-ink); border-radius: 8px; padding: .4rem .8rem; font: inherit; cursor: pointer; min-height: 2.5rem; }
+.vs-button:disabled { opacity: .5; cursor: progress; }
+.vs-button--primary { background: var(--vs-accent); border-color: var(--vs-accent); color: #fff; }
+.vs-button--danger { color: var(--vs-danger); }
+.vs-button:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }

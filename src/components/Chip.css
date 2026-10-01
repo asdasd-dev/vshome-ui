@@ -1,0 +1,2 @@
+.vs-chip { border: 1px solid var(--vs-line); background: transparent; color: var(--vs-muted); border-radius: 999px; padding: .2rem .65rem; font: inherit; white-space: nowrap; cursor: pointer; }
+.vs-chip[aria-pressed="true"] { border-color: var(--vs-accent); color: var(--vs-accent); background: color-mix(in srgb, var(--vs-accent) 12%, transparent); font-weight: 600; }
