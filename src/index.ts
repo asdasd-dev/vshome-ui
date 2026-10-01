@@ -10,3 +10,5 @@ export { Segment, type SegmentProps } from "./components/Segment";
 export { Switch, type SwitchProps } from "./components/Switch";
 export { createQueryClient, shouldRetry } from "./data/query";
 export { ToastProvider, useToast } from "./components/Toast";
+export { Sheet, type SheetProps } from "./components/Sheet";
+export { storage, useLocalStorage } from "./hooks/useLocalStorage";
