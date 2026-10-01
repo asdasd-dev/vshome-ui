@@ -23,6 +23,6 @@ say "выпущен $TAG"
 
 SUMMARY=$(node scripts/fanout.mjs "$TAG" 2>>"$LOG" | tail -1) || fail "$TAG выпущен, раскатка упала: $(tail -2 "$LOG" | tr '\n' ' ')"
 case "$SUMMARY" in
-  *красные*) fail "$SUMMARY" ;;
+  *красные*|*"не закрыта"*) fail "$SUMMARY" ;;
   *) ok "$TAG · $SUMMARY" ;;
 esac

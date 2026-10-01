@@ -31,10 +31,15 @@ async function must(sh, cmd, cwd) {
 
 const tail = (s, n = 40) => s.split("\n").slice(-n).join("\n");
 
+async function run(sh, cmd, cwd) {
+  const r = await sh(cmd, cwd);
+  return r.code === 0 ? { ok: true, log: "" } : { ok: false, log: `$ ${cmd}\n${tail(r.out)}` };
+}
+
 async function check(sh, c, web) {
   for (const cmd of [c.test, c.build]) {
-    const r = await sh(cmd, web);
-    if (r.code !== 0) return { ok: false, log: `$ ${cmd}\n${tail(r.out)}` };
+    const r = await run(sh, cmd, web);
+    if (!r.ok) return r;
   }
   return { ok: true, log: "" };
 }
@@ -43,33 +48,59 @@ async function rollOne({ c, tag, rollout, sh, task, log }) {
   const wt = `${c.path}-ui-${tag}`;
   const tmp = `ui-${tag}-tmp`;
   const web = path.join(wt, c.web);
+  let branch = null;
+  let key = null;
+  await sh(`git worktree remove --force ${wt}`, c.path);
+  await sh("git worktree prune", c.path);
+  await sh(`git branch -D ${tmp}`, c.path);
   await must(sh, `git fetch -q ${c.remote}`, c.path);
   await must(sh, `git worktree add -q ${wt} -b ${tmp} ${c.remote}/${c.base}`, c.path);
   try {
-    await must(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web);
-    const result = await check(sh, c, web);
-    const key = result.ok ? rollout : await createTask(task, [
+    let result = await run(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web);
+    if (result.ok) {
+      const status = await must(sh, "git status --porcelain", wt);
+      if (!status.trim()) {
+        log(`${c.name}: уже на ${tag}`);
+        return { ok: true };
+      }
+      result = await check(sh, c, web);
+    }
+    key = result.ok ? rollout : await createTask(task, [
       "--source", SOURCE, "--domain", "personal-os", "--agent", "true",
       "--title", `${c.name}: не собирается с @vshome/ui ${tag}`,
       "--body", `Где: раскатка @vshome/ui ${tag} (${rollout}), ${c.repo}.\nДоказательство:\n${result.log}\nЧем грозит: сайт остаётся на прежней версии UI.\nЧто предлагаю: починить сборку в открытом PR этой задачи (ветка <ключ>-ui-${tag}), смёржить — сайт получит новый UI.`,
     ]);
-    const branch = `${key}-ui-${tag}`;
+    branch = `${key}-ui-${tag}`;
     await must(sh, `git branch -m ${tmp} ${branch}`, wt);
     await must(sh, `git add -A ${c.web}`, wt);
     await must(sh, `git commit -q -m "${key} @vshome/ui ${tag}" -m "Раскатка ${rollout}."`, wt);
     await must(sh, `git push -q -u ${c.remote} ${branch}`, wt);
     const title = result.ok ? `[${key}] @vshome/ui ${tag}` : `[${key}] @vshome/ui ${tag} — не собирается`;
     await must(sh, `gh pr create --repo ${c.repo} --base ${c.base} --head ${branch} --title "${title}" --body "Раскатка @vshome/ui ${tag} (${rollout})."`, wt);
-    if (result.ok) await must(sh, `gh pr merge ${branch} --repo ${c.repo} --squash --delete-branch`, wt);
-    log(`${c.name}: ${result.ok ? "смёржено" : `красный → ${key}`}`);
-    return result.ok ? { ok: true } : { ok: false, task: key };
+    if (!result.ok) {
+      log(`${c.name}: красный → ${key}`);
+      return { ok: false, task: key };
+    }
+    const merged = await sh(`gh pr merge ${branch} --repo ${c.repo} --squash`, wt);
+    if (merged.code !== 0) {
+      log(`${c.name}: мёрж не удался — ${merged.out.slice(-300)}`);
+      return { ok: false, task: rollout };
+    }
+    await sh(`git push -q ${c.remote} --delete ${branch}`, wt);
+    log(`${c.name}: смёржено`);
+    return { ok: true };
+  } catch (e) {
+    if (key === null) throw e;
+    log(`${c.name}: ${e.message}`);
+    return { ok: false, task: key };
   } finally {
     await sh(`git worktree remove --force ${wt}`, c.path);
     await sh(`git branch -D ${tmp}`, c.path);
+    if (branch) await sh(`git branch -D ${branch}`, c.path);
   }
 }
 
-export async function fanout({ tag, consumers, sh, task, log = console.log }) {
+export async function fanout({ tag, consumers, sh, task, log = console.log, delay = (ms) => new Promise((res) => setTimeout(res, ms)) }) {
   if (!consumers.length) return { rollout: null, green: [], red: [] };
   const rollout = await createTask(task, [
     "--source", SOURCE, "--domain", "personal-os",
@@ -89,19 +120,24 @@ export async function fanout({ tag, consumers, sh, task, log = console.log }) {
     }
   }
   const result = { rollout, green, red };
-  // агент не может закрыть задачу с открытым PR, а статус PR обновляет вебхук — даём ему догнать мёрж
-  for (let i = 0; i < 3; i++) {
-    const r = await task(["close", "--id", rollout, "--source", SOURCE, "--as", "done", "--text", summary(tag, result)]);
-    if (r.code === 0) break;
-    await new Promise((res) => setTimeout(res, 5000));
+  let closed = false;
+  if (!red.some((r) => r.task === rollout)) {
+    // агент не может закрыть задачу с открытым PR, а статус PR обновляет вебхук — даём ему догнать мёрж
+    for (let i = 0; i < 3 && !closed; i++) {
+      const r = await task(["close", "--id", rollout, "--source", SOURCE, "--as", "done", "--text", summary(tag, result)]);
+      closed = r.code === 0;
+      if (!closed && i < 2) await delay(5000);
+    }
   }
+  if (!closed) result.unclosed = true;
   return result;
 }
 
-export function summary(tag, { rollout, green, red }) {
+export function summary(tag, { rollout, green, red, unclosed }) {
   if (!rollout) return `раскатка ${tag}: потребителей нет`;
   const parts = [`обновлены ${green.length ? green.join(", ") : "—"}`];
   if (red.length) parts.push(`красные: ${red.map((r) => `${r.name} → ${r.task}`).join(", ")}`);
+  if (unclosed) parts.push("задача раскатки не закрыта");
   return `раскатка ${tag} (${rollout}): ${parts.join("; ")}`;
 }
 
