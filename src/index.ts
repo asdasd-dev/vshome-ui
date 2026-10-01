@@ -11,5 +11,6 @@ export { Switch, type SwitchProps } from "./components/Switch";
 export { createQueryClient, shouldRetry } from "./data/query";
 export { ToastProvider, useToast } from "./components/Toast";
 export { Sheet, type SheetProps } from "./components/Sheet";
+export { Select, type SelectProps, type SelectOption } from "./components/Select";
 export { storage, useLocalStorage } from "./hooks/useLocalStorage";
 export { useMediaQuery } from "./hooks/useMediaQuery";
