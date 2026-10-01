@@ -1,5 +1,18 @@
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { Dialog } from "@base-ui/react/dialog";
+import { Drawer } from "@base-ui/react/drawer";
 import { cx } from "../utils/cx";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useAndroidBack } from "../hooks/useAndroidBack";
+
+export const SHEET_MOBILE = "(max-width: 760px)";
+
+export function sheetOpenChange(onRequestClose: () => boolean | void) {
+  return (next: boolean, details: { cancel: () => void }) => {
+    if (next) return;
+    if (onRequestClose() === false) details.cancel();
+  };
+}
 
 export type SheetProps = {
   open: boolean;
@@ -13,49 +26,48 @@ export type SheetProps = {
 };
 
 export function Sheet({ open, onRequestClose, head, actions, footer, children, scrollKey, className }: SheetProps) {
-  const ref = useRef<HTMLDialogElement>(null);
+  const mobile = useMediaQuery(SHEET_MOBILE);
   const body = useRef<HTMLDivElement>(null);
-  const closingByProp = useRef(false);
-  const titleId = useId();
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    if (open && !d.open) d.showModal();
-    if (!open && d.open) {
-      closingByProp.current = true;
-      d.close();
-    }
-  }, [open]);
   useEffect(() => { if (body.current) body.current.scrollTop = 0; }, [scrollKey]);
-  return (
-    <dialog
-      ref={ref}
-      className={cx("vs-sheet", className)}
-      aria-labelledby={titleId}
-      // Chrome даёт отменить cancel один раз на user activation: повторный Esc/Back приходит с cancelable: false
-      // и закрывает диалог сам — тогда решение принимает onClose
-      onCancel={(e) => {
-        if (!e.cancelable) return;
-        e.preventDefault();
-        onRequestClose();
-      }}
-      onClose={() => {
-        if (closingByProp.current) {
-          closingByProp.current = false;
-          return;
-        }
-        if (open && onRequestClose() === false) ref.current?.showModal();
-      }}
-    >
+  useAndroidBack(open, onRequestClose);
+  const onOpenChange = sheetOpenChange(onRequestClose);
+  const Parts = mobile ? Drawer : Dialog;
+  const frame = (
+    <>
       <header className="vs-sheet__head">
-        <span id={titleId} className="vs-sheet__title">{head}</span>
+        <Parts.Title className="vs-sheet__title">{head}</Parts.Title>
         <span className="vs-sheet__actions">
           {actions}
-          <button type="button" className="vs-sheet__close" aria-label="Закрыть" onClick={() => onRequestClose()}>✕</button>
+          <Parts.Close className="vs-sheet__close" aria-label="Закрыть">✕</Parts.Close>
         </span>
       </header>
       <div ref={body} className="vs-sheet__body">{children}</div>
       {footer != null && <footer className="vs-sheet__foot">{footer}</footer>}
-    </dialog>
+    </>
+  );
+  if (mobile) {
+    return (
+      <Drawer.Root open={open} onOpenChange={onOpenChange}>
+        <Drawer.VirtualKeyboardProvider>
+          <Drawer.Portal>
+            <Drawer.Backdrop className="vs-sheet-backdrop" />
+            <Drawer.Viewport className="vs-sheet-viewport">
+              <Drawer.Popup className={cx("vs-sheet", "vs-sheet--drawer", className)}>
+                <span className="vs-sheet__grip" aria-hidden="true" />
+                <Drawer.Content className="vs-sheet__content">{frame}</Drawer.Content>
+              </Drawer.Popup>
+            </Drawer.Viewport>
+          </Drawer.Portal>
+        </Drawer.VirtualKeyboardProvider>
+      </Drawer.Root>
+    );
+  }
+  return (
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="vs-sheet-backdrop" />
+        <Dialog.Popup className={cx("vs-sheet", className)}>{frame}</Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
