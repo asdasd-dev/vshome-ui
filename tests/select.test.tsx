@@ -54,10 +54,16 @@ describe("Select", () => {
       await userEvent.click(screen.getByRole("combobox", { name: "Приоритет" }));
       await screen.findByRole("listbox");
       const backdrop = () => document.querySelector(".vs-sheet-backdrop") as HTMLElement;
-      await userEvent.click(backdrop());
+      const user = userEvent.setup();
+      const press = async () => {
+        await user.pointer({ keys: "[MouseLeft>]", target: backdrop() });
+        await new Promise((r) => setTimeout(r, 30));
+        await user.pointer({ keys: "[/MouseLeft]", target: backdrop() });
+      };
+      await press();
       await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument());
       expect(onRequestClose).not.toHaveBeenCalled();
-      await userEvent.click(backdrop());
+      await press();
       expect(onRequestClose).toHaveBeenCalledTimes(1);
     });
   });

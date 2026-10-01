@@ -11,7 +11,7 @@ export const SHEET_MOBILE = "(max-width: 760px)";
 export function sheetOpenChange(onRequestClose: () => boolean | void) {
   return (next: boolean, details: { cancel: () => void; reason?: string }) => {
     if (next) return;
-    // тот же клик по фону закрывает и список Select, и лист — лист должен остаться
+    // Select закрывается на pointerdown, Dialog/Drawer — на click того же нажатия: к click список уже закрыт, но лист закрываться не должен
     if (details.reason === "outside-press" && hasOpenPopup()) {
       details.cancel();
       return;
