@@ -1,3 +1,4 @@
 [
-  { "name": "personalai", "repo": "asdasd-dev/personalai", "path": "/home/vyacheslav/personalai", "remote": "github", "base": "main", "web": ".", "test": "npm test", "build": "npm run build" }
+  { "name": "personalai", "repo": "asdasd-dev/personalai", "path": "/home/vyacheslav/personalai", "remote": "github", "base": "main", "web": ".", "test": "npm test", "build": "npm run build" },
+  { "name": "lenta-tracker", "repo": "asdasd-dev/lenta-tracker", "path": "/home/vyacheslav/lenta-tracker", "remote": "github", "base": "main", "web": "web", "test": "npm test", "build": "npm run build" }
 ]
