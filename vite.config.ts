@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: { entry: "src/index.ts", formats: ["es"], fileName: "index", cssFileName: "style" },
-    rollupOptions: { external: ["react", "react-dom", "react/jsx-runtime", "@tanstack/react-query"] },
+    rollupOptions: { external: [/^react($|\/)/, /^react-dom($|\/)/, /^@tanstack\/react-query($|\/)/, /^@base-ui\/react($|\/)/] },
     emptyOutDir: true,
   },
   test: {

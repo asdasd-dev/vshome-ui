@@ -1,5 +1,5 @@
 import { act, render, screen } from "@testing-library/react";
-import { ToastProvider, useToast } from "../src";
+import { ToastProvider, useToast, Sheet } from "../src";
 
 function Trigger({ text }: { text: string }) {
   const toast = useToast();
@@ -24,29 +24,17 @@ describe("Toast", () => {
     act(() => vi.advanceTimersByTime(300));
     expect(screen.queryByRole("status")).toBeNull();
   });
-  it("при открытом модальном dialog тост рендерится внутрь него (иначе он под backdrop)", () => {
-    const dialog = document.createElement("dialog");
-    document.body.append(dialog);
-    dialog.showModal();
-    render(<ToastProvider><Trigger text="Ссылка добавлена" /></ToastProvider>);
+  it("при открытом листе тост в body, вне листа (лист — портал Base UI, top layer нет)", () => {
+    render(
+      <ToastProvider>
+        <Sheet open onRequestClose={() => {}} head="T-1"><Trigger text="Ссылка добавлена" /></Sheet>
+      </ToastProvider>,
+    );
     act(() => screen.getByText("go").click());
-    expect(dialog).toContainElement(screen.getByRole("status"));
-    dialog.remove();
-  });
-  it("тост переезжает в body, если диалог закрылся", () => {
-    try {
-      const dialog = document.createElement("dialog");
-      document.body.append(dialog);
-      dialog.showModal();
-      render(<ToastProvider><Trigger text="Сохранено" /></ToastProvider>);
-      act(() => screen.getByText("go").click());
-      expect(dialog).toContainElement(screen.getByRole("status"));
-      act(() => dialog.close());
-      expect(document.body).toContainElement(screen.getByRole("status"));
-      expect(dialog).not.toContainElement(screen.getByRole("status"));
-    } finally {
-      document.querySelectorAll("dialog").forEach((d) => d.remove());
-    }
+    const toast = screen.getByRole("status");
+    expect(toast.parentElement).toBe(document.body);
+    expect(toast).toHaveClass("vs-toast");
+    expect(document.querySelector(".vs-sheet")).not.toContainElement(toast);
   });
   it("useToast вне провайдера — понятная ошибка", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
