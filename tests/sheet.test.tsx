@@ -1,12 +1,12 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { Sheet } from "../src";
 
-function Harness({ allowClose = true, scrollKey }: { allowClose?: boolean; scrollKey?: unknown }) {
+function Harness({ allowClose = true, scrollKey, onRequest = () => {} }: { allowClose?: boolean; scrollKey?: unknown; onRequest?: () => void }) {
   const [open, setOpen] = useState(true);
   return (
-    <Sheet open={open} onRequestClose={() => { if (allowClose) setOpen(false); return allowClose; }} head="T-1 · Review" footer={<button>Апрув</button>} scrollKey={scrollKey}>
+    <Sheet open={open} onRequestClose={() => { onRequest(); if (allowClose) setOpen(false); return allowClose; }} head="T-1 · Review" footer={<button>Апрув</button>} scrollKey={scrollKey}>
       <p>Тело</p>
     </Sheet>
   );
@@ -32,6 +32,36 @@ describe("Sheet", () => {
     const ev = new Event("cancel", { cancelable: true });
     fireEvent(dialog(), ev);
     expect(ev.defaultPrevented).toBe(true);
+    expect(dialog().open).toBe(true);
+  });
+  it("диалог назван заголовком", () => {
+    render(<Harness />);
+    expect(screen.getByRole("dialog", { name: "T-1 · Review" })).toBe(dialog());
+  });
+  it("неотменяемый cancel (повторный Esc/Back) и нативное закрытие: onRequestClose вернул false — лист снова открыт", () => {
+    const onRequest = vi.fn();
+    render(<Harness allowClose={false} onRequest={onRequest} />);
+    const ev = new Event("cancel", { cancelable: false });
+    fireEvent(dialog(), ev);
+    act(() => dialog().close());
+    expect(onRequest).toHaveBeenCalledTimes(1);
+    expect(dialog().open).toBe(true);
+  });
+  it("неотменяемый cancel и нативное закрытие: onRequestClose закрыл — лист закрыт, вызов один", () => {
+    const onRequest = vi.fn();
+    render(<Harness onRequest={onRequest} />);
+    fireEvent(dialog(), new Event("cancel", { cancelable: false }));
+    act(() => dialog().close());
+    expect(onRequest).toHaveBeenCalledTimes(1);
+    expect(dialog().open).toBe(false);
+  });
+  it("закрытие через проп open не зовёт onRequestClose", () => {
+    const onRequest = vi.fn();
+    const { rerender } = render(<Sheet open onRequestClose={onRequest} head="x"><p>a</p></Sheet>);
+    rerender(<Sheet open={false} onRequestClose={onRequest} head="x"><p>a</p></Sheet>);
+    expect(dialog().open).toBe(false);
+    expect(onRequest).not.toHaveBeenCalled();
+    rerender(<Sheet open onRequestClose={onRequest} head="x"><p>a</p></Sheet>);
     expect(dialog().open).toBe(true);
   });
   it("без footer подвала нет", () => {

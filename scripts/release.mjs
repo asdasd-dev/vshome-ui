@@ -5,11 +5,12 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const defaultGit = (cwd) => (args, env = {}) =>
-  execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, ...env } }).trim();
+const defaultGit = (cwd) => (args, { input, ...env } = {}) =>
+  execFileSync("git", args, { cwd, encoding: "utf8", input, stdio: [input === undefined ? "ignore" : "pipe", "pipe", "pipe"], env: { ...process.env, ...env } }).trim();
 
 export function release({ cwd, remote = "origin", git = defaultGit(cwd) }) {
-  const { version } = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
+  const pkg = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
+  const { version } = pkg;
   const tag = `v${version}`;
   if (git(["ls-remote", "--tags", remote, `refs/tags/${tag}`])) return { status: "exists", tag };
   if (!fs.existsSync(path.join(cwd, "dist", "index.js"))) throw new Error("нет dist/index.js — сначала npm run build");
@@ -19,6 +20,10 @@ export function release({ cwd, remote = "origin", git = defaultGit(cwd) }) {
   try {
     git(["read-tree", "HEAD"], env);
     git(["add", "-f", "dist"], env);
+    // npm ставит git-зависимость со скриптом build полной сборкой (npm install с dev-зависимостями) у каждого потребителя
+    const { scripts, devDependencies, ...published } = pkg;
+    const blob = git(["hash-object", "-w", "--stdin"], { input: `${JSON.stringify(published, null, 2)}\n` });
+    git(["update-index", "--add", "--cacheinfo", `100644,${blob},package.json`], env);
     const tree = git(["write-tree"], env);
     const commit = git(["commit-tree", tree, "-p", "HEAD", "-m", `release ${tag}`]);
     git(["push", "-q", remote, `${commit}:refs/tags/${tag}`]);

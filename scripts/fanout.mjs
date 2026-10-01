@@ -44,6 +44,14 @@ async function check(sh, c, web) {
   return { ok: true, log: "" };
 }
 
+function createFixTask(task, c, tag, rollout, evidence, proposal) {
+  return createTask(task, [
+    "--source", SOURCE, "--domain", "personal-os", "--agent", "true",
+    "--title", `${c.name}: не собирается с @vshome/ui ${tag}`,
+    "--body", `Где: раскатка @vshome/ui ${tag} (${rollout}), ${c.repo}.\nДоказательство:\n${evidence}\nЧем грозит: сайт остаётся на прежней версии UI.\nЧто предлагаю: ${proposal}`,
+  ]);
+}
+
 async function rollOne({ c, tag, rollout, sh, task, log }) {
   const wt = `${c.path}-ui-${tag}`;
   const tmp = `ui-${tag}-tmp`;
@@ -56,20 +64,21 @@ async function rollOne({ c, tag, rollout, sh, task, log }) {
   await must(sh, `git fetch -q ${c.remote}`, c.path);
   await must(sh, `git worktree add -q ${wt} -b ${tmp} ${c.remote}/${c.base}`, c.path);
   try {
-    let result = await run(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web);
-    if (result.ok) {
-      const status = await must(sh, "git status --porcelain", wt);
-      if (!status.trim()) {
-        log(`${c.name}: уже на ${tag}`);
-        return { ok: true };
-      }
-      result = await check(sh, c, web);
+    const installed = await run(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web);
+    if (!installed.ok) {
+      key = await createFixTask(task, c, tag, rollout, installed.log,
+        `обновить @vshome/ui до ${tag} в ${c.repo} вручную и починить установку; PR не открыт — установка упала до коммита.`);
+      log(`${c.name}: установка упала → ${key}`);
+      return { ok: false, task: key };
     }
-    key = result.ok ? rollout : await createTask(task, [
-      "--source", SOURCE, "--domain", "personal-os", "--agent", "true",
-      "--title", `${c.name}: не собирается с @vshome/ui ${tag}`,
-      "--body", `Где: раскатка @vshome/ui ${tag} (${rollout}), ${c.repo}.\nДоказательство:\n${result.log}\nЧем грозит: сайт остаётся на прежней версии UI.\nЧто предлагаю: починить сборку в открытом PR этой задачи (ветка <ключ>-ui-${tag}), смёржить — сайт получит новый UI.`,
-    ]);
+    const status = await must(sh, "git status --porcelain", wt);
+    if (!status.trim()) {
+      log(`${c.name}: уже на ${tag}`);
+      return { ok: true };
+    }
+    const result = await check(sh, c, web);
+    key = result.ok ? rollout : await createFixTask(task, c, tag, rollout, result.log,
+      "починить сборку в PR, привязанном к этой задаче, и смёржить — сайт получит новый UI.");
     branch = `${key}-ui-${tag}`;
     await must(sh, `git branch -m ${tmp} ${branch}`, wt);
     await must(sh, `git add -A ${c.web}`, wt);

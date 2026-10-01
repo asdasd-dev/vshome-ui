@@ -6,7 +6,7 @@ export const storage = {
   },
   set(key: string, value: string): void {
     // приватный режим и запрет cookies делают localStorage недоступным — тогда выбор просто не запоминается
-    try { localStorage.setItem(key, value); } catch { /* не запоминаем */ }
+    try { localStorage.setItem(key, value); } catch {}
   },
 };
 

@@ -22,7 +22,15 @@ function setup(version: string) {
   git(root, "clone", "-q", remote, work);
   git(work, "config", "user.email", "t@t");
   git(work, "config", "user.name", "t");
-  fs.writeFileSync(path.join(work, "package.json"), JSON.stringify({ name: "@vshome/ui", version }));
+  fs.writeFileSync(path.join(work, "package.json"), JSON.stringify({
+    name: "@vshome/ui",
+    version,
+    type: "module",
+    exports: { ".": "./dist/index.js" },
+    peerDependencies: { react: "^19.0.0" },
+    scripts: { build: "vite build" },
+    devDependencies: { vite: "7.3.5" },
+  }));
   fs.writeFileSync(path.join(work, ".gitignore"), "dist/\n");
   git(work, "add", "-A");
   git(work, "commit", "-q", "-m", "init");
@@ -41,6 +49,18 @@ describe("release", () => {
     expect(git(remote, "rev-parse", "v0.2.0^")).toBe(head);
     expect(git(remote, "rev-parse", "main")).toBe(head);
     expect(git(work, "rev-parse", "HEAD")).toBe(head);
+    expect(git(work, "status", "--porcelain")).toBe("");
+  });
+  it("package.json в теге без scripts и devDependencies — npm не собирает git-зависимость у потребителя", () => {
+    const { remote, work } = setup("0.2.0");
+    const before = fs.readFileSync(path.join(work, "package.json"), "utf8");
+    release({ cwd: work });
+    const tagged = JSON.parse(git(remote, "show", "v0.2.0:package.json"));
+    expect(tagged.scripts).toBeUndefined();
+    expect(tagged.devDependencies).toBeUndefined();
+    expect(tagged).toMatchObject({ name: "@vshome/ui", version: "0.2.0", type: "module", exports: { ".": "./dist/index.js" }, peerDependencies: { react: "^19.0.0" } });
+    expect(JSON.parse(git(remote, "show", "main:package.json")).scripts).toEqual({ build: "vite build" });
+    expect(fs.readFileSync(path.join(work, "package.json"), "utf8")).toBe(before);
     expect(git(work, "status", "--porcelain")).toBe("");
   });
   it("тег уже есть — exists, ничего не пушит", () => {

@@ -53,6 +53,9 @@ describe("fanout", () => {
     const fix = f.tasks.find((a) => a[0] === "create" && a.includes("--agent"))!;
     expect(fix).toEqual(expect.arrayContaining(["--agent", "true", "--title", "lenta-tracker: не собирается с @vshome/ui v0.2.0"]));
     expect(fix.join(" ")).toContain("expected 1 got 2");
+    const body = fix[fix.indexOf("--body") + 1];
+    expect(body).toContain("в PR, привязанном к этой задаче");
+    expect(body).not.toContain("<ключ>");
     const lenta = f.cmds.filter((c) => c.startsWith("/home/v/lenta-tracker-ui-"));
     expect(lenta.some((c) => c.includes("git push -q -u github T-302-ui-v0.2.0"))).toBe(true);
     expect(lenta.some((c) => c.includes("gh pr merge"))).toBe(false);
@@ -67,13 +70,18 @@ describe("fanout", () => {
     expect(await fanout({ tag: "v0.2.0", consumers: [], ...f })).toEqual({ rollout: null, green: [], red: [] });
     expect(f.tasks).toEqual([]);
   });
-  it("npm install упал: задача на починку с логом, красный с ключом, без push и мёржа", async () => {
+  it("npm install упал: задача на починку с логом и без PR, красный с ключом; без коммита, push и PR", async () => {
     const f = fakes({ failCmd: ["npm install"] });
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
     expect(r.red).toEqual([{ name: "personalai", task: "T-302" }]);
     const fix = f.tasks.find((a) => a[0] === "create" && a.includes("--agent"))!;
-    expect(fix.join(" ")).toContain("boom: npm install --save-exact");
-    expect(f.cmds.some((c) => c.includes("gh pr merge"))).toBe(false);
+    expect(fix).toEqual(expect.arrayContaining(["--agent", "true"]));
+    const body = fix[fix.indexOf("--body") + 1];
+    expect(body).toContain("boom: npm install --save-exact");
+    expect(body).toContain("PR не открыт");
+    expect(body).not.toContain("<ключ>");
+    expect(f.cmds.some((c) => /git branch -m|git commit|git push|gh pr/.test(c))).toBe(false);
+    expect(f.cmds.some((c) => c.includes("git worktree remove"))).toBe(true);
   });
   it("gh pr create упал после задачи на починку: красный с ключом починки", async () => {
     const f = fakes({ red: ["personalai"], failCmd: ["gh pr create"] });
