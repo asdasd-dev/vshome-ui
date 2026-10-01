@@ -1,7 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { Select, Sheet } from "../src";
+import { setMobile } from "./media";
 
 const PRIORITIES = [
   { value: "high", label: "🔴 высокий" },
@@ -42,5 +43,22 @@ describe("Select", () => {
     await userEvent.click(await screen.findByRole("option", { name: "🔴 высокий" }));
     expect(onRequestClose).not.toHaveBeenCalled();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  describe.each([["десктоп", false], ["телефон", true]])("клик по фону при открытом списке (%s)", (_, mobile) => {
+    afterEach(() => act(() => setMobile(false)));
+    it("закрывает только список, следующий — лист", async () => {
+      act(() => setMobile(mobile));
+      const onRequestClose = vi.fn();
+      render(<Sheet open onRequestClose={onRequestClose} head="T-1"><Harness /></Sheet>);
+      await userEvent.click(screen.getByRole("combobox", { name: "Приоритет" }));
+      await screen.findByRole("listbox");
+      const backdrop = () => document.querySelector(".vs-sheet-backdrop") as HTMLElement;
+      await userEvent.click(backdrop());
+      await waitFor(() => expect(screen.queryByRole("listbox")).not.toBeInTheDocument());
+      expect(onRequestClose).not.toHaveBeenCalled();
+      await userEvent.click(backdrop());
+      expect(onRequestClose).toHaveBeenCalledTimes(1);
+    });
   });
 });
