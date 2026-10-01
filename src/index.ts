@@ -7,4 +7,5 @@ export { api, ApiError } from "./data/api";
 export { Button, type ButtonProps } from "./components/Button";
 export { Chip, type ChipProps } from "./components/Chip";
 export { Segment, type SegmentProps } from "./components/Segment";
+export { Switch, type SwitchProps } from "./components/Switch";
 export { createQueryClient, shouldRetry } from "./data/query";
