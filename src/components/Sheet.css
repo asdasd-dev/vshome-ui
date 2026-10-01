@@ -24,3 +24,7 @@
 .vs-sheet--drawer .vs-sheet__foot { padding-bottom: calc(.6rem + env(safe-area-inset-bottom, 0px) + var(--drawer-keyboard-inset, 0px)); }
 .vs-sheet--drawer .vs-sheet__body { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
 .vs-sheet--drawer input, .vs-sheet--drawer select, .vs-sheet--drawer textarea { font-size: max(16px, 1rem); }
+
+@media (prefers-reduced-motion: reduce) {
+  .vs-sheet, .vs-sheet--drawer, .vs-sheet-backdrop { transition: none; }
+}
