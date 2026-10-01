@@ -1,6 +1,7 @@
 :root {
   --vs-bg: #f6f5f1; --vs-panel: #ffffff; --vs-ink: #1d1d1b; --vs-muted: #6b6a66; --vs-line: #e3e1da;
   --vs-accent: #2f6fdf; --vs-danger: #be123c; --vs-warn: #c2410c;
+  --vs-on-accent: #ffffff;
   --vs-radius: 10px;
   --vs-font: Manrope, system-ui, sans-serif;
   --vs-font-display: Unbounded, Manrope, sans-serif;
@@ -10,6 +11,7 @@
   :root {
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c;
+    --vs-on-accent: #0b1a33;
     color-scheme: dark;
   }
 }
