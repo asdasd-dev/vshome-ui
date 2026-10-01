@@ -12,10 +12,10 @@ describe("Switch", () => {
     await userEvent.click(s);
     expect(onChange).toHaveBeenCalledWith(true);
   });
-  it("клик, клавиши и pointerdown не всплывают к плитке", async () => {
+  it("клик, клавиши, pointerdown, mousedown и touchstart не всплывают к плитке", async () => {
     const onTile = vi.fn();
     render(
-      <div onClick={onTile} onKeyDown={onTile} onPointerDown={onTile}>
+      <div onClick={onTile} onKeyDown={onTile} onPointerDown={onTile} onMouseDown={onTile} onTouchStart={onTile}>
         <Switch checked onChange={() => {}} label="Делает агент" />
       </div>,
     );
@@ -23,6 +23,8 @@ describe("Switch", () => {
     await userEvent.click(s);
     fireEvent.keyDown(s, { key: "Enter" });
     fireEvent.pointerDown(s);
+    fireEvent.mouseDown(s);
+    fireEvent.touchStart(s);
     expect(onTile).not.toHaveBeenCalled();
   });
   it("размер sm — модификатор класса, title пробрасывается", () => {
