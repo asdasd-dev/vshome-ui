@@ -1,0 +1,3 @@
+.vs-segment { display: inline-flex; flex: 0 0 auto; padding: 3px; gap: 2px; border: 1px solid var(--vs-line); border-radius: var(--vs-radius); background: var(--vs-panel); }
+.vs-segment button { border: 0; background: transparent; color: var(--vs-muted); border-radius: 7px; padding: .35rem .9rem; font: inherit; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: .4rem; }
+.vs-segment button[aria-pressed="true"] { background: var(--vs-ink); color: var(--vs-bg); }

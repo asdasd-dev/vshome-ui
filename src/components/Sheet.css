@@ -1,0 +1,18 @@
+.vs-sheet { width: min(40rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); border: 1px solid var(--vs-line); border-radius: 14px; background: var(--vs-panel); color: var(--vs-ink); padding: 0; overflow: hidden; }
+.vs-sheet[open] { display: flex; flex-direction: column; }
+.vs-sheet::backdrop { background: rgb(0 0 0 / .4); }
+body:has(.vs-sheet[open]) { overflow: hidden; }
+.vs-sheet__head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; color: var(--vs-muted); font-size: .85rem; padding: .5rem .5rem .5rem 1rem; border-bottom: 1px solid var(--vs-line); }
+.vs-sheet__actions { display: flex; align-items: center; gap: .25rem; flex: 0 0 auto; }
+.vs-sheet__actions button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; min-width: 2.75rem; min-height: 2.75rem; border-radius: 8px; }
+.vs-sheet__close { font-size: 1.15rem; }
+.vs-sheet__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: .8rem 1rem 1rem; }
+.vs-sheet__foot { border-top: 1px solid var(--vs-line); padding: .6rem 1rem; display: flex; gap: .5rem; }
+.vs-sheet__foot > .vs-button { flex: 1; min-height: 2.75rem; border-radius: var(--vs-radius); font-weight: 600; }
+@media (max-width: 760px) {
+  .vs-sheet { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+  .vs-sheet__head { padding-top: calc(.5rem + env(safe-area-inset-top, 0px)); }
+  .vs-sheet__foot { padding-bottom: calc(.6rem + env(safe-area-inset-bottom, 0px)); }
+  .vs-sheet__body { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
+  .vs-sheet input, .vs-sheet select, .vs-sheet textarea { font-size: max(16px, 1rem); }
+}
