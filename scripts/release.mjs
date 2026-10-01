@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const defaultGit = (cwd) => (args, env = {}) =>
-  execFileSync("git", args, { cwd, encoding: "utf8", env: { ...process.env, ...env } }).trim();
+  execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, ...env } }).trim();
 
 export function release({ cwd, remote = "origin", git = defaultGit(cwd) }) {
   const { version } = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
@@ -21,8 +21,7 @@ export function release({ cwd, remote = "origin", git = defaultGit(cwd) }) {
     git(["add", "-f", "dist"], env);
     const tree = git(["write-tree"], env);
     const commit = git(["commit-tree", tree, "-p", "HEAD", "-m", `release ${tag}`]);
-    git(["tag", tag, commit]);
-    git(["push", "-q", remote, `refs/tags/${tag}`]);
+    git(["push", "-q", remote, `${commit}:refs/tags/${tag}`]);
   } finally {
     fs.rmSync(path.dirname(index), { recursive: true, force: true });
   }

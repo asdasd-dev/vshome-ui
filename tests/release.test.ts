@@ -6,7 +6,7 @@ import path from "node:path";
 // @ts-expect-error — scripts/release.mjs обычный node-модуль без типов
 import { release } from "../scripts/release.mjs";
 
-const git = (cwd: string, ...args: string[]) => execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
+const git = (cwd: string, ...args: string[]) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
 
 const roots: string[] = [];
 afterAll(() => {
@@ -55,5 +55,13 @@ describe("release", () => {
     fs.rmSync(path.join(work, "dist"), { recursive: true });
     expect(() => release({ cwd: work })).toThrow(/dist/);
     expect(git(remote, "tag")).toBe("");
+  });
+  it("упавший push не оставляет локальный тег — повтор проходит", () => {
+    const { remote, work } = setup("0.4.0");
+    git(work, "remote", "set-url", "origin", "/nonexistent.git");
+    expect(() => release({ cwd: work })).toThrow();
+    git(work, "remote", "set-url", "origin", remote);
+    expect(release({ cwd: work })).toEqual({ status: "released", tag: "v0.4.0" });
+    expect(git(remote, "ls-tree", "-r", "--name-only", "v0.4.0")).toContain("dist/index.js");
   });
 });
