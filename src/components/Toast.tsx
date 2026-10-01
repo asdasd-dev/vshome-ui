@@ -19,10 +19,19 @@ export function ToastProvider({ children, duration = 3500 }: { children: ReactNo
     timer.current = setTimeout(() => setShown(null), duration);
   }, [duration]);
   useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => {
+    if (!shown || !(shown.host instanceof HTMLDialogElement)) return;
+    const dialog = shown.host;
+    const handleClose = () => {
+      setShown((s) => (s && s.host === dialog ? { ...s, host: document.body } : s));
+    };
+    dialog.addEventListener("close", handleClose);
+    return () => dialog.removeEventListener("close", handleClose);
+  }, [shown]);
   return (
     <ToastContext.Provider value={show}>
       {children}
-      {shown && createPortal(<div className="vs-toast" role="status">{shown.text}</div>, shown.host)}
+      {shown && createPortal(<div className="vs-toast" role="status" key={shown.id}>{shown.text}</div>, shown.host)}
     </ToastContext.Provider>
   );
 }

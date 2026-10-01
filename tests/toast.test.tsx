@@ -33,6 +33,21 @@ describe("Toast", () => {
     expect(dialog).toContainElement(screen.getByRole("status"));
     dialog.remove();
   });
+  it("тост переезжает в body, если диалог закрылся", () => {
+    try {
+      const dialog = document.createElement("dialog");
+      document.body.append(dialog);
+      dialog.showModal();
+      render(<ToastProvider><Trigger text="Сохранено" /></ToastProvider>);
+      act(() => screen.getByText("go").click());
+      expect(dialog).toContainElement(screen.getByRole("status"));
+      act(() => dialog.close());
+      expect(document.body).toContainElement(screen.getByRole("status"));
+      expect(dialog).not.toContainElement(screen.getByRole("status"));
+    } finally {
+      document.querySelectorAll("dialog").forEach((d) => d.remove());
+    }
+  });
   it("useToast вне провайдера — понятная ошибка", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => render(<Trigger text="x" />)).toThrow("useToast вне ToastProvider");
