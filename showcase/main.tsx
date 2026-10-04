@@ -2,6 +2,11 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
 import { Button, Chip, Segment, Select, Sheet, Switch, ToastProvider, useToast, linkify } from "../src";
+import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
+
+const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
+const wave = (k: number) => Array.from({ length: 96 }, (_, i) => (i > 40 && i < 46 ? null : Math.round(60 + 30 * Math.sin(i / 8 + k) + k * 15)));
+const alive = Array.from({ length: 96 }, (_, i) => (i > 60 && i < 66 ? 0 : 1));
 
 function Demo() {
   const toast = useToast();
@@ -31,6 +36,14 @@ function Demo() {
       </section>
       <Select label="Приоритет" value={priority} onChange={setPriority} options={[{ value: "high", label: "🔴 высокий" }, { value: "normal", label: "🟡 обычный" }, { value: "low", label: "🟢 низкий" }]} />
       <p>{linkify("Ссылка: https://vshome.space и [доска](https://tasks.vshome.space).").map((p, i) => (p.url ? <a key={i} href={p.url}>{p.text}</a> : <span key={i}>{p.text}</span>))}</p>
+      <ChartCard title="Задержка выходов" sub="полосы — нет связи, линия рвётся на пропусках" legend={[{ name: "Швеция", color: chartPalette[0] }, { name: "Германия", color: chartPalette[2], extra: "доступен 97%" }]}>
+        <LineChart t0={T0} step={1800} unit=" мс" bands={outageBands(alive)} bandLabel="VPN не работал" marks={[{ i: 30, label: "выкатка abc123" }, { i: 70, dashed: true, label: "перезапуск" }]}
+          series={[{ name: "Швеция", color: chartPalette[0], data: wave(0), fmt: (v) => `${v} мс` }, { name: "Германия", color: chartPalette[2], data: wave(1), fmt: (v) => `${v} мс` }]} />
+      </ChartCard>
+      <ChartCard title="Расход по дням" sub="столбики с накоплением" legend={[{ name: "Мак", color: chartPalette[0] }, { name: "бокс", color: chartPalette[1] }]}>
+        <StackedBars labels={["2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04"]} fmt={(v) => `$${Math.round(v)}`}
+          series={[{ name: "Мак", color: chartPalette[0], data: [12, 30, 8, 22] }, { name: "бокс", color: chartPalette[1], data: [5, 0, 14, 9] }]} />
+      </ChartCard>
       <Button onClick={() => { setDirty(false); setOpen(true); }}>Открыть Sheet</Button>
       <Sheet
         open={open}
