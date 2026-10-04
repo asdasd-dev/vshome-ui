@@ -1,0 +1,19 @@
+.vs-chart-card { background: var(--vs-panel); border: 1px solid var(--vs-line); border-radius: 14px; padding: 14px 14px 8px; min-width: 0; }
+.vs-chart-title { font-weight: 650; font-size: 14.5px; }
+.vs-chart-sub { color: var(--vs-muted); font-size: 12.5px; margin-top: 3px; }
+.vs-chart-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; margin-top: 8px; }
+.vs-chart-legend em { color: var(--vs-muted); font-style: normal; }
+.vs-chart-legend i, .vs-chart-tip i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.vs-chart { position: relative; margin-top: 6px; }
+.vs-chart-view svg { display: block; max-width: 100%; height: auto; touch-action: pan-y; }
+.vs-chart-tip { position: absolute; z-index: 2; top: 8px; pointer-events: none; background: var(--vs-chart-bg, var(--vs-bg)); border: 1px solid var(--vs-line); border-radius: 8px; padding: 6px 9px; font-size: 12px; line-height: 1.5; white-space: nowrap; }
+.vs-chart-grid { stroke: var(--vs-chart-grid, var(--vs-line)); stroke-width: 1; }
+.vs-chart-axis { fill: var(--vs-chart-text, var(--vs-muted)); font-size: 10.5px; }
+.vs-chart-band { fill: var(--vs-chart-band, var(--vs-danger)); opacity: .14; }
+.vs-chart-mark { stroke: var(--vs-chart-mark, var(--vs-warn)); stroke-width: 1.5; opacity: .9; }
+.vs-chart-restart { stroke: var(--vs-chart-text, var(--vs-muted)); stroke-width: 1; stroke-dasharray: 3 3; opacity: .9; }
+.vs-chart-cross { stroke: var(--vs-chart-text, var(--vs-muted)); stroke-width: 1; opacity: .6; }
+.vs-chart-dot { stroke: var(--vs-chart-bg, var(--vs-panel)); }
+.vs-chart-tip-band { color: var(--vs-chart-band, var(--vs-danger)); }
+.vs-chart-tip-mark { color: var(--vs-chart-mark, var(--vs-warn)); }
+.vs-chart-tip-restart { color: var(--vs-chart-text, var(--vs-muted)); }
