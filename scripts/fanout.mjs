@@ -46,7 +46,7 @@ async function check(sh, c, web) {
 
 function createFixTask(task, c, tag, rollout, evidence, proposal) {
   return createTask(task, [
-    "--source", SOURCE, "--domain", "personal-os", "--agent", "true",
+    "--source", SOURCE, "--domain", "personal-os",
     "--title", `${c.name}: не собирается с @vshome/ui ${tag}`,
     "--body", `Где: раскатка @vshome/ui ${tag} (${rollout}), ${c.repo}.\nДоказательство:\n${evidence}\nЧем грозит: сайт остаётся на прежней версии UI.\nЧто предлагаю: ${proposal}`,
   ]);

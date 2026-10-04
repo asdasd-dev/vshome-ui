@@ -45,13 +45,14 @@ describe("fanout", () => {
     expect(f.cmds).toContain(`/home/v/personalai $ git branch -D T-301-ui-v0.2.0`);
     expect(f.tasks.at(-1)).toEqual(expect.arrayContaining(["close", "--id", "T-301", "--as", "done"]));
   });
-  it("красный сайт: задача на починку с agent true и логом, PR к ней, без мёржа; зелёные не блокирует", async () => {
+  it("красный сайт: задача на починку с логом, PR к ней, без мёржа; зелёные не блокирует", async () => {
     const f = fakes({ red: ["lenta-tracker"] });
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("lenta-tracker"), consumer("personalai")], ...f });
     expect(r.green).toEqual(["personalai"]);
     expect(r.red).toEqual([{ name: "lenta-tracker", task: "T-302" }]);
-    const fix = f.tasks.find((a) => a[0] === "create" && a.includes("--agent"))!;
-    expect(fix).toEqual(expect.arrayContaining(["--agent", "true", "--title", "lenta-tracker: не собирается с @vshome/ui v0.2.0"]));
+    const fix = f.tasks.find((a) => a[0] === "create" && a.join(" ").includes("не собирается"))!;
+    expect(fix).toEqual(expect.arrayContaining(["--title", "lenta-tracker: не собирается с @vshome/ui v0.2.0"]));
+    expect(fix).not.toContain("--agent");
     expect(fix.join(" ")).toContain("expected 1 got 2");
     const body = fix[fix.indexOf("--body") + 1];
     expect(body).toContain("в PR, привязанном к этой задаче");
@@ -74,8 +75,7 @@ describe("fanout", () => {
     const f = fakes({ failCmd: ["npm install"] });
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
     expect(r.red).toEqual([{ name: "personalai", task: "T-302" }]);
-    const fix = f.tasks.find((a) => a[0] === "create" && a.includes("--agent"))!;
-    expect(fix).toEqual(expect.arrayContaining(["--agent", "true"]));
+    const fix = f.tasks.find((a) => a[0] === "create" && a.join(" ").includes("не собирается"))!;
     const body = fix[fix.indexOf("--body") + 1];
     expect(body).toContain("boom: npm install --save-exact");
     expect(body).toContain("PR не открыт");
