@@ -1,7 +1,7 @@
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
-import { Button, Chip, Segment, Select, Sheet, Switch, ToastProvider, useToast, linkify } from "../src";
+import { Button, Chip, ContextMenu, Segment, Select, Sheet, Switch, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 
 const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
@@ -16,6 +16,7 @@ function Demo() {
   const [open, setOpen] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [priority, setPriority] = useState<"high" | "normal" | "low">("normal");
+  const [status, setStatus] = useState("doing");
   return (
     <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "40rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
       <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
@@ -35,6 +36,16 @@ function Demo() {
         <Switch checked={agent} onChange={setAgent} label="Делает агент (плитка)" icon="🤖" size="sm" />
       </section>
       <Select label="Приоритет" value={priority} onChange={setPriority} options={[{ value: "high", label: "🔴 высокий" }, { value: "normal", label: "🟡 обычный" }, { value: "low", label: "🟢 низкий" }]} />
+      <ContextMenu items={[
+        { label: "Открыть карточку", onSelect: () => toast("Открыть T-133") },
+        { label: "Скопировать T-133", onSelect: () => toast("Скопировано") },
+        "separator",
+        { label: "Статус", value: status, options: [{ value: "planned", label: "To do" }, { value: "doing", label: "Doing" }, { value: "review", label: "Review" }], onValueChange: setStatus },
+        "separator",
+        { label: "🤖 Делает агент", checked: agent, onCheckedChange: setAgent },
+      ]}>
+        <div style={{ padding: "1rem", border: "1px dashed var(--vs-line)", borderRadius: "var(--vs-radius)" }}>Правый клик или долгое нажатие · {status}</div>
+      </ContextMenu>
       <p>{linkify("Ссылка: https://vshome.space и [доска](https://tasks.vshome.space).").map((p, i) => (p.url ? <a key={i} href={p.url}>{p.text}</a> : <span key={i}>{p.text}</span>))}</p>
       <ChartCard title="Задержка выходов" sub="полосы — нет связи, линия рвётся на пропусках" legend={[{ name: "Швеция", color: chartPalette[0] }, { name: "Германия", color: chartPalette[2], extra: "доступен 97%" }]}>
         <LineChart t0={T0} step={1800} unit=" мс" bands={outageBands(alive)} bandLabel="VPN не работал" marks={[{ i: 30, label: "выкатка abc123" }, { i: 70, dashed: true, label: "перезапуск" }]}
