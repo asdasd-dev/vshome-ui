@@ -3,7 +3,7 @@ import { useMediaQuery } from "../src";
 import { setMobile } from "./media";
 
 function Probe() {
-  return <span>{useMediaQuery("(max-width: 760px)") ? "телефон" : "комп"}</span>;
+  return <span>{useMediaQuery("(max-width: 759px)") ? "телефон" : "комп"}</span>;
 }
 
 describe("useMediaQuery", () => {

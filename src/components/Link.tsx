@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Icon } from "./Icon";
 
 export type LinkProps = {
-  children: ReactNode; href?: string; onClick?: () => void; tone?: "accent" | "muted" | "danger"; external?: boolean;
+  children: ReactNode; href?: string; onClick?: (e: MouseEvent<HTMLElement>) => void; tone?: "accent" | "muted" | "danger"; external?: boolean;
   underline?: "hover" | "always"; disabled?: boolean; title?: string; className?: string;
 };
 

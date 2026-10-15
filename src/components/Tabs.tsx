@@ -7,11 +7,11 @@ import type { IconName } from "./icons";
 export type TabItem<T extends string> = { value: T; label: ReactNode; icon?: IconName; count?: number; href?: string };
 
 export type TabsProps<T extends string> = {
-  items: TabItem<T>[]; value: T; onChange?: (v: T) => void; label: string; variant?: "underline" | "bottom"; className?: string;
+  items: TabItem<T>[]; value: T; onChange?: (v: T) => void; label: string; variant?: "underline" | "bottom"; sticky?: boolean; className?: string;
 };
 
-export function Tabs<T extends string>({ items, value, onChange, label, variant = "underline", className }: TabsProps<T>) {
-  const cls = cx("vs-tabs", `vs-tabs--${variant}`, className);
+export function Tabs<T extends string>({ items, value, onChange, label, variant = "underline", sticky, className }: TabsProps<T>) {
+  const cls = cx("vs-tabs", `vs-tabs--${variant}`, sticky && "vs-tabs--sticky", className);
   const inner = (i: TabItem<T>) => <>
     {i.icon && <Icon name={i.icon} size="md" />}
     <span className="vs-tabs__label">{i.label}</span>

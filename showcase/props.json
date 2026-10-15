@@ -190,6 +190,13 @@
         "deprecated": false
       },
       {
+        "name": "external",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "title",
         "type": "string",
         "required": false,
@@ -376,7 +383,7 @@
       },
       {
         "name": "onClick",
-        "type": "() => void",
+        "type": "(e: MouseEvent<HTMLElement>) => void",
         "required": false,
         "default": null,
         "deprecated": false
@@ -573,6 +580,13 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLInputElement>",
+        "required": false,
+        "default": null,
+        "deprecated": false
       }
     ],
     "inherits": "InputHTMLAttributes"
@@ -639,6 +653,13 @@
       {
         "name": "className",
         "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLTextAreaElement>",
         "required": false,
         "default": null,
         "deprecated": false
@@ -967,7 +988,7 @@
       },
       {
         "name": "tone",
-        "type": "\"default\" | \"muted\" | \"ok\" | \"warn\" | \"danger\"",
+        "type": "\"default\" | Tone",
         "required": false,
         "default": "\"default\"",
         "deprecated": false
@@ -995,6 +1016,13 @@
       },
       {
         "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "id",
         "type": "string",
         "required": false,
         "default": null,
@@ -1044,6 +1072,336 @@
     ],
     "inherits": null
   },
+  "Grid": {
+    "file": "src/components/Grid.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "cols",
+        "type": "Responsive<number>",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "min",
+        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "gap",
+        "type": "\"2\" | \"3\" | \"4\" | \"6\" | \"8\"",
+        "required": false,
+        "default": "\"4\"",
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"ul\" | \"section\"",
+        "required": false,
+        "default": "\"div\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Container": {
+    "file": "src/components/Container.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
+        "required": false,
+        "default": "\"lg\"",
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"main\" | \"section\"",
+        "required": false,
+        "default": "\"div\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Show": {
+    "file": "src/components/Container.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "above",
+        "type": "\"tablet\" | \"desktop\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "below",
+        "type": "\"tablet\" | \"desktop\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "SidebarLayout": {
+    "file": "src/components/Container.tsx",
+    "props": [
+      {
+        "name": "sidebar",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "side",
+        "type": "\"start\" | \"end\"",
+        "required": false,
+        "default": "\"start\"",
+        "deprecated": false
+      },
+      {
+        "name": "width",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"sm\"",
+        "deprecated": false
+      },
+      {
+        "name": "sticky",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "collapse",
+        "type": "\"tablet\" | \"desktop\"",
+        "required": false,
+        "default": "\"tablet\"",
+        "deprecated": false
+      },
+      {
+        "name": "sidebarFirst",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Price": {
+    "file": "src/components/Price.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "old",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"deal\" | \"muted\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "gone",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "default": "\"₽\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "RangeSlider": {
+    "file": "src/components/RangeSlider.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "[number, number]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onCommit",
+        "type": "(lo: number, hi: number) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "default": "0",
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "deprecated": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "deprecated": false
+      },
+      {
+        "name": "format",
+        "type": "(v: number) => string",
+        "required": false,
+        "default": "String",
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(lo: number, hi: number) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "default": "\"accent\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
   "Cluster": {
     "file": "src/components/Layout.tsx",
     "props": [
@@ -1078,6 +1436,13 @@
       {
         "name": "rigid",
         "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "collapse",
+        "type": "\"tablet\" | \"desktop\"",
         "required": false,
         "default": null,
         "deprecated": false
@@ -1302,9 +1667,30 @@
       },
       {
         "name": "size",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"fill\"",
         "required": false,
         "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "fit",
+        "type": "\"cover\" | \"contain\"",
+        "required": false,
+        "default": "\"cover\"",
+        "deprecated": false
+      },
+      {
+        "name": "backdrop",
+        "type": "Tone",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "loading",
+        "type": "\"lazy\" | \"eager\"",
+        "required": false,
+        "default": "\"lazy\"",
         "deprecated": false
       },
       {
@@ -1507,6 +1893,20 @@
         "deprecated": false
       },
       {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "align",
+        "type": "\"baseline\" | \"center\"",
+        "required": false,
+        "default": "\"baseline\"",
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -1672,6 +2072,13 @@
         "deprecated": false
       },
       {
+        "name": "sticky",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -1741,6 +2148,34 @@
         "deprecated": false
       },
       {
+        "name": "external",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "expanded",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "controls",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "title",
         "type": "string",
         "required": false,
@@ -1793,6 +2228,13 @@
         "type": "\"default\" | \"muted\"",
         "required": false,
         "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "default": null,
         "deprecated": false
       },
       {
@@ -2009,7 +2451,7 @@
       },
       {
         "name": "cols",
-        "type": "1 | 2 | 3 | 4",
+        "type": "Responsive<1 | 2 | 3 | 4> | \"auto\"",
         "required": false,
         "default": "2",
         "deprecated": false
@@ -2097,7 +2539,21 @@
       },
       {
         "name": "count",
-        "type": "number",
+        "type": "number | string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "countTone",
+        "type": "\"muted\" | \"accent\" | \"warn\" | \"danger\"",
+        "required": false,
+        "default": "\"muted\"",
+        "deprecated": false
+      },
+      {
+        "name": "countLabel",
+        "type": "string",
         "required": false,
         "default": null,
         "deprecated": false
@@ -2162,6 +2618,13 @@
         "type": "\"sm\" | \"md\"",
         "required": false,
         "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "progress",
+        "type": "number",
+        "required": false,
+        "default": null,
         "deprecated": false
       },
       {
@@ -2610,6 +3073,89 @@
         "type": "(v: number) => string",
         "required": true,
         "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "xFormat",
+        "type": "(label: string) => string",
+        "required": false,
+        "default": "dm",
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "TimeChart": {
+    "file": "src/charts/TimeChart.tsx",
+    "props": [
+      {
+        "name": "series",
+        "type": "TimeSeries[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "refLines",
+        "type": "RefLine[]",
+        "required": false,
+        "default": "[]",
+        "deprecated": false
+      },
+      {
+        "name": "yFrom",
+        "type": "\"zero\" | \"data\"",
+        "required": false,
+        "default": "\"zero\"",
+        "deprecated": false
+      },
+      {
+        "name": "now",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "xFormat",
+        "type": "(t: number) => string",
+        "required": false,
+        "default": "(t) => DAY.format(t * 1000)",
+        "deprecated": false
+      },
+      {
+        "name": "tipFormat",
+        "type": "(t: number) => string",
+        "required": false,
+        "default": "(t) => FULL.format(t * 1000)",
+        "deprecated": false
+      },
+      {
+        "name": "yFormat",
+        "type": "(v: number) => string",
+        "required": false,
+        "default": "(v) => String(Math.round(v))",
         "deprecated": false
       },
       {

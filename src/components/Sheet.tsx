@@ -7,7 +7,7 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 import { hasOpenPopup } from "../utils/openPopups";
 import { useAndroidBack } from "../hooks/useAndroidBack";
 
-export const SHEET_MOBILE = "(max-width: 760px)";
+export const SHEET_MOBILE = "(max-width: 759px)";
 
 export function sheetOpenChange(onRequestClose: () => boolean | void) {
   return (next: boolean, details: { cancel: () => void; reason?: string }) => {

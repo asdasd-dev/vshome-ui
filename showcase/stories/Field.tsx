@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Field, Stack, TextArea, TextField } from "../../src";
+import { useRef, useState } from "react";
+import { Button, Cluster, Field, Stack, TextArea, TextField } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function TaskForm() {
@@ -33,6 +33,17 @@ function Custom() {
   );
 }
 
+function Focus() {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const [v, setV] = useState("");
+  return (
+    <Stack gap="2">
+      <TextArea ref={ref} label="Комментарий к задаче" value={v} onChange={setV} rows={2} />
+      <Cluster><Button size="sm" onClick={() => ref.current?.focus()}>Ответить</Button></Cluster>
+    </Stack>
+  );
+}
+
 export const meta: StoryFile["meta"] = { title: "Field", group: "Выбор и ввод", components: ["Field", "TextField", "TextArea"], doc: "Field" };
 
 export const stories: StoryFile["stories"] = [
@@ -41,4 +52,5 @@ export const stories: StoryFile["stories"] = [
   { name: "Пунктирный", render: () => <AddItem /> },
   { name: "Выключенный", render: () => <TextField label="Цена, ₽" inputMode="decimal" value="89" onChange={() => undefined} disabled hint="Цена из чека, менять нельзя" /> },
   { name: "Свой элемент в Field", render: () => <Custom /> },
+  { name: "Фокус через ref", render: () => <Focus /> },
 ];

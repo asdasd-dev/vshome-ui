@@ -1,0 +1,28 @@
+.vs-container { width: 100%; margin-inline: auto; padding-inline: calc(var(--vs-page-gutter) + env(safe-area-inset-left, 0px)) calc(var(--vs-page-gutter) + env(safe-area-inset-right, 0px)); min-width: 0; }
+.vs-container--sm { max-width: calc(720px * var(--vs-scale, 1)); }
+.vs-container--md { max-width: calc(1100px * var(--vs-scale, 1)); }
+.vs-container--lg { max-width: calc(1280px * var(--vs-scale, 1)); }
+.vs-container--full { max-width: none; }
+.vs-show { display: contents; }
+@media (max-width: 759px) { .vs-show--above-tablet { display: none; } }
+@media (max-width: 1199px) { .vs-show--above-desktop { display: none; } }
+@media (min-width: 760px) { .vs-show--below-tablet { display: none; } }
+@media (min-width: 1200px) { .vs-show--below-desktop { display: none; } }
+.vs-sidebar-layout { display: grid; gap: var(--vs-space-6); min-width: 0; }
+.vs-sidebar-layout--sm { --vs-sidebar-w: calc(260px * var(--vs-scale, 1)); }
+.vs-sidebar-layout--md { --vs-sidebar-w: calc(340px * var(--vs-scale, 1)); }
+.vs-sidebar-layout__main, .vs-sidebar-layout__side { min-width: 0; }
+@media (max-width: 759px) { .vs-sidebar-layout--collapse-tablet.vs-sidebar-layout--main-first .vs-sidebar-layout__side { order: 1; } }
+@media (max-width: 1199px) { .vs-sidebar-layout--collapse-desktop.vs-sidebar-layout--main-first .vs-sidebar-layout__side { order: 1; } }
+@media (min-width: 760px) {
+  .vs-sidebar-layout--collapse-tablet.vs-sidebar-layout--start { grid-template-columns: var(--vs-sidebar-w) minmax(0, 1fr); }
+  .vs-sidebar-layout--collapse-tablet.vs-sidebar-layout--end { grid-template-columns: minmax(0, 1fr) var(--vs-sidebar-w); }
+  .vs-sidebar-layout--collapse-tablet.vs-sidebar-layout--end .vs-sidebar-layout__side { order: 1; }
+  .vs-sidebar-layout--collapse-tablet .vs-sidebar-layout__side--sticky { position: sticky; top: var(--vs-space-4); align-self: start; }
+}
+@media (min-width: 1200px) {
+  .vs-sidebar-layout--collapse-desktop.vs-sidebar-layout--start { grid-template-columns: var(--vs-sidebar-w) minmax(0, 1fr); }
+  .vs-sidebar-layout--collapse-desktop.vs-sidebar-layout--end { grid-template-columns: minmax(0, 1fr) var(--vs-sidebar-w); }
+  .vs-sidebar-layout--collapse-desktop.vs-sidebar-layout--end .vs-sidebar-layout__side { order: 1; }
+  .vs-sidebar-layout--collapse-desktop .vs-sidebar-layout__side--sticky { position: sticky; top: var(--vs-space-4); align-self: start; }
+}

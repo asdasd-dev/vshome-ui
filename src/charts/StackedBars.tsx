@@ -10,12 +10,13 @@ export type StackedBarsProps = {
   fmt: (v: number) => string;
   label?: string;
   className?: string;
+  xFormat?: (label: string) => string;
 };
 
 const { L, R, T, B } = PAD;
 const dm = (d: string) => `${d.slice(8, 10)}.${d.slice(5, 7)}`;
 
-export function StackedBars({ labels, series, fmt, label, className }: StackedBarsProps) {
+export function StackedBars({ labels, series, fmt, label, className, xFormat = dm }: StackedBarsProps) {
   const [box, width] = useWidth();
   const svgRef = useRef<SVGSVGElement>(null);
   const [hover, setHover] = useState<(TipPos & { i: number }) | null>(null);
@@ -39,7 +40,7 @@ export function StackedBars({ labels, series, fmt, label, className }: StackedBa
       <div className="vs-chart-tip" ref={tipRef} hidden={!hover}>
         {hover && (
           <>
-            <b>{dm(labels[hover.i] ?? "")}</b> — {fmt(tot[hover.i] ?? 0)}
+            <b>{xFormat(labels[hover.i] ?? "")}</b> — {fmt(tot[hover.i] ?? 0)}
             {series.map((s) => <span key={s.name}><br /><i style={{ background: s.color }} />{s.name}: {fmt(s.data[hover.i] || 0)}</span>)}
           </>
         )}
@@ -74,7 +75,7 @@ export function StackedBars({ labels, series, fmt, label, className }: StackedBa
                     }
                     return <rect key={s.name} fill={s.color} x={cx} y={y1 + gap} width={w} height={hgt} />;
                   })}
-                  {i % 2 === (n - 1) % 2 && <text className="vs-chart-axis" x={cx + w / 2} y={H - 6} textAnchor="middle">{dm(lb)}</text>}
+                  {i % 2 === (n - 1) % 2 && <text className="vs-chart-axis" x={cx + w / 2} y={H - 6} textAnchor="middle">{xFormat(lb)}</text>}
                   <rect x={L + bw * i} y={0} width={bw} height={H} fill="transparent" onMouseMove={() => show(i)} onTouchStart={() => show(i)} onMouseLeave={() => setHover(null)} />
                 </g>
               );

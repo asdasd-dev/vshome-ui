@@ -23,6 +23,8 @@ export const stories: StoryFile["stories"] = [
         <Text as="p" tone="ok">Счёт за интернет оплачен</Text>
         <Text as="p" tone="warn">Встреча через 3 мин</Text>
         <Text as="p" tone="danger">VPN не в сети с 08:14</Text>
+        <Text as="p"><Text tone="gold">★★★★★</Text> 4,7 · 128 отзывов в Ленте</Text>
+        <Text as="p"><Text tone="accent">T-411</Text> перешла в Doing · <Text tone="violet">Домлаб</Text> · <Text tone="pink">Отдых</Text></Text>
         <Text as="p"><Text weight="semibold">Иван</Text> ответил в MM: «посмотрю после синка»</Text>
         <Text as="p"><Text weight="medium">T-411</Text> Каталог дизайн-системы</Text>
       </Stack>

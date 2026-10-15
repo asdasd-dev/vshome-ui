@@ -5,12 +5,12 @@ type Gap = "1" | "2" | "3" | "4" | "6" | "8";
 
 export type ClusterProps = {
   gap?: Gap; align?: "center" | "baseline" | "start" | "end" | "stretch"; justify?: "start" | "center" | "between" | "end";
-  wrap?: boolean; rigid?: boolean; as?: "div" | "span" | "header" | "footer"; className?: string; children: ReactNode;
+  wrap?: boolean; rigid?: boolean; collapse?: "tablet" | "desktop"; as?: "div" | "span" | "header" | "footer"; className?: string; children: ReactNode;
 };
 
-export function Cluster({ gap = "2", align = "center", justify, wrap, rigid, as: Tag = "div", className, children }: ClusterProps) {
+export function Cluster({ gap = "2", align = "center", justify, wrap, rigid, collapse, as: Tag = "div", className, children }: ClusterProps) {
   return (
-    <Tag className={cx("vs-cluster", `vs-cluster--gap-${gap}`, `vs-cluster--align-${align}`, justify && `vs-cluster--justify-${justify}`, wrap && "vs-cluster--wrap", rigid && "vs-cluster--rigid", className)}>
+    <Tag className={cx("vs-cluster", `vs-cluster--gap-${gap}`, `vs-cluster--align-${align}`, justify && `vs-cluster--justify-${justify}`, wrap && "vs-cluster--wrap", rigid && "vs-cluster--rigid", collapse && `vs-cluster--collapse-${collapse}`, className)}>
       {children}
     </Tag>
   );

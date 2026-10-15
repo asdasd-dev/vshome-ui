@@ -49,7 +49,7 @@ describe("компоненты на шкалах", () => {
   const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
   const files = fs.readdirSync(path.join(__dirname, "..", "src", "components")).filter((f) => f.endsWith(".css"));
   it.each(files)("%s — без литеральных отступов, радиусов и размеров текста", (f) => {
-    const css = comp(f).replace(/calc\(\d+px \* var\(--vs-scale, 1\)\)/g, "").replace(/(outline-offset|border(-top|-left|-bottom)?|letter-spacing): [^;]*/g, "").replace(/(width|height): 1em\b/g, "").replace(/font-size: max\(16px, 1rem\)/g, "").replace(/, 0px\)/g, ")").replace(/@media[^{]*\{/g, "");
+    const css = comp(f).replace(/calc\(\d+px \* var\(--vs-scale, 1\)\)/g, "").replace(/(outline-offset|border(-top|-left|-bottom)?|letter-spacing): [^;]*/g, "").replace(/(width|height): 1em\b/g, "").replace(/font-size: max\(16px, 1rem\)/g, "").replace(/, 0px\)/g, ")").replace(/@(media|container)[^{]*\{/g, "");
     expect(css).not.toMatch(/\d+(\.\d+)?(px|rem|em)\b/);
   });
   it.each(files)("%s — цвета, тени, слои и движение только из токенов", (f) => {

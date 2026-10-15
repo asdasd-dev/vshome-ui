@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, IconButton, PageHeader, Segment, TextField } from "../../src";
+import { Button, IconButton, PageHeader, Segment, Tabs, TextField } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function WithSearch() {
@@ -12,6 +12,19 @@ function WithSearch() {
   );
 }
 
+function AccentTabs() {
+  const [tab, setTab] = useState("feed");
+  return (
+    <PageHeader tone="accent" title="Лента" sub="12 новых постов" actions={<IconButton icon="search" label="Поиск" />}>
+      <Tabs label="Разделы Ленты" value={tab} onChange={setTab} items={[
+        { value: "feed", label: "Лента", count: 12 },
+        { value: "deals", label: "Скидки" },
+        { value: "saved", label: "Сохранённое" },
+      ]} />
+    </PageHeader>
+  );
+}
+
 export const meta: StoryFile["meta"] = { title: "PageHeader", group: "Раскладка и навигация", components: ["PageHeader"], doc: "PageHeader" };
 
 export const stories: StoryFile["stories"] = [
@@ -19,4 +32,5 @@ export const stories: StoryFile["stories"] = [
   { name: "Назад и действия", render: () => <PageHeader lead={<IconButton icon="arrow-left" label="Назад" />} title="T-411 · Каталог дизайн-системы" sub="Doing · claude-code" actions={<Button size="sm" variant="primary">Апрув</Button>} /> },
   { name: "Строка под заголовком", render: () => <WithSearch /> },
   { name: "Акцентный тон", render: () => <PageHeader tone="accent" title="vshome.space" sub="всё работает" actions={<IconButton icon="search" label="Поиск" />} /> },
+  { name: "Вкладки в акцентной шапке", render: () => <AccentTabs /> },
 ];

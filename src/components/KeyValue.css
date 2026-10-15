@@ -1,8 +1,4 @@
 .vs-kv { display: grid; gap: var(--vs-space-3) var(--vs-space-4); margin: 0; min-width: 0; }
-.vs-kv--cols-1 { grid-template-columns: minmax(0, 1fr); }
-.vs-kv--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.vs-kv--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.vs-kv--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .vs-kv__item { min-width: 0; }
 .vs-kv__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }
 .vs-kv__value { margin: 0; font-weight: var(--vs-weight-semibold); font-variant-numeric: tabular-nums; color: var(--vs-ink); }
@@ -13,3 +9,8 @@
 .vs-kv__value--warn { color: var(--vs-warn); }
 .vs-kv__value--danger { color: var(--vs-danger); }
 .vs-kv__hint { margin: 0; font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }
+.vs-kv-wrap { container-type: inline-size; min-width: 0; }
+.vs-kv { --vs-grid-c: var(--vs-grid-cols, 1); grid-template-columns: repeat(var(--vs-grid-c), minmax(0, 1fr)); }
+@container (min-width: 560px) { .vs-kv { --vs-grid-c: var(--vs-grid-cols-tablet, var(--vs-grid-cols, 1)); } }
+@container (min-width: 900px) { .vs-kv { --vs-grid-c: var(--vs-grid-cols-desktop, var(--vs-grid-cols-tablet, var(--vs-grid-cols, 1))); } }
+.vs-kv--auto { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(160px * var(--vs-scale, 1))), 1fr)); }
