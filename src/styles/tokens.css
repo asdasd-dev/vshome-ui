@@ -4,7 +4,7 @@
   --vs-on-accent: #ffffff;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
   --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 12%, var(--vs-panel));
-  --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 12%, var(--vs-panel));
+  --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 8%, var(--vs-panel));
   --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 12%, var(--vs-panel));
 
   --vs-weight-regular: 400; --vs-weight-medium: 500; --vs-weight-semibold: 600; --vs-weight-bold: 700;

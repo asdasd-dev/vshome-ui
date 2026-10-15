@@ -10,11 +10,12 @@ describe("Tile", () => {
     expect(t.className).toContain("vs-tile--warn");
     expect(t.lastElementChild!.textContent).toBe("подвал");
   });
-  it("с onClick — кнопка", async () => {
-    const onClick = vi.fn();
-    render(<Tile label="Встреча" onClick={onClick}>x</Tile>);
-    await userEvent.click(screen.getByRole("button", { name: "Встреча" }));
-    expect(onClick).toHaveBeenCalled();
+  it("плитка не бывает кнопкой — внутри можно класть кнопки", () => {
+    // @ts-expect-error onClick у плитки нет
+    render(<Tile label="Встреча" onClick={() => {}} footer={<button type="button">Войти</button>}>x</Tile>);
+    const t = screen.getByRole("region", { name: "Встреча" });
+    expect(t.tagName).toBe("SECTION");
+    expect(t.querySelector("button button")).toBeNull();
   });
 });
 

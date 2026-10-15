@@ -24,13 +24,14 @@
       "import": "./dist/node/test-setup.js"
     },
     "./style.css": "./dist/style.css",
-    "./tsconfig.base.json": "./dist/tsconfig.base.json"
+    "./tsconfig.base.json": "./dist/tsconfig.base.json",
+    "./fonts.css": "./dist/fonts.css"
   },
   "sideEffects": [
     "*.css"
   ],
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json && tsc -p tsconfig.node.json && cp tsconfig.base.json dist/",
+    "build": "vite build && node scripts/fonts.mjs && tsc -p tsconfig.build.json && tsc -p tsconfig.node.json && cp tsconfig.base.json dist/",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "showcase": "vite --config vite.showcase.config.ts",

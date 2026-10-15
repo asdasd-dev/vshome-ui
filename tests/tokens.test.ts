@@ -51,3 +51,13 @@ describe("компоненты на шкалах", () => {
     expect(css).not.toMatch(/\d+(\.\d+)?(px|rem|em)\b/);
   });
 });
+
+describe("киоск и контраст", () => {
+  const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
+  it.each(["Button.css", "Chip.css", "Segment.css"])("%s — в киоске текст масштабируется", (f) => {
+    expect(comp(f)).toMatch(/\.vs-kiosk [^{]*\{[^}]*font-size: var\(--vs-text-md\)/);
+  });
+  it("в светлой теме мягкий фон «внимания» не глушит текст: примесь 8%", () => {
+    expect(light).toMatch(/--vs-warn-soft: color-mix\(in srgb, var\(--vs-warn\) 8%/);
+  });
+});

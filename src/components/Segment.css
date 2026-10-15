@@ -1,3 +1,4 @@
 .vs-segment { display: inline-flex; flex: 0 0 auto; padding: var(--vs-space-0_5); gap: var(--vs-space-0_5); border: 1px solid var(--vs-line); border-radius: var(--vs-radius-md); background: var(--vs-surface-1); }
 .vs-segment button { border: 0; background: transparent; color: var(--vs-muted); border-radius: var(--vs-radius-sm); padding: var(--vs-space-1_5) var(--vs-space-4); font: inherit; font-weight: var(--vs-weight-semibold); cursor: pointer; display: inline-flex; align-items: center; gap: var(--vs-space-1_5); }
 .vs-segment button[aria-pressed="true"] { background: var(--vs-ink); color: var(--vs-bg); }
+.vs-kiosk .vs-segment button { font-size: var(--vs-text-md); line-height: var(--vs-leading-md); }

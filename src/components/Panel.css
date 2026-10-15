@@ -1,8 +1,6 @@
 .vs-tile { position: relative; display: flex; flex-direction: column; gap: var(--vs-space-3); min-width: 0; min-height: 0; overflow: hidden; padding: var(--vs-space-5); border: 0; border-radius: var(--vs-radius-xl); background: var(--vs-surface-1); color: var(--vs-ink); font: inherit; text-align: left; }
 .vs-tile--warn { background: var(--vs-warn-soft); }
 .vs-tile--danger { background: var(--vs-danger-soft); }
-.vs-tile--action { cursor: pointer; }
-.vs-tile--action:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }
 .vs-tile__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-semibold); letter-spacing: .06em; text-transform: uppercase; color: var(--vs-muted); }
 .vs-tile--warn .vs-tile__label { color: var(--vs-warn); }
 .vs-tile--danger .vs-tile__label { color: var(--vs-danger); }
