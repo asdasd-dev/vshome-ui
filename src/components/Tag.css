@@ -1,0 +1,10 @@
+.vs-tag { --vs-tag-fg: var(--vs-ink); --vs-tag-soft: var(--vs-surface-2); display: inline-flex; align-items: center; gap: var(--vs-space-1); max-width: 100%; border-radius: var(--vs-radius-pill); font-weight: var(--vs-weight-medium); white-space: nowrap; color: var(--vs-tag-fg); }
+.vs-tag--md { padding: var(--vs-space-0_5) var(--vs-space-2); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); }
+.vs-tag--sm { padding: 0 var(--vs-space-1_5); font-size: var(--vs-text-2xs); line-height: var(--vs-leading-2xs); }
+.vs-tag--soft { background: var(--vs-tag-soft); }
+.vs-tag--outline { background: transparent; border: 1px solid currentColor; }
+.vs-tag--accent { --vs-tag-fg: var(--vs-accent); --vs-tag-soft: var(--vs-accent-tint); }
+.vs-tag--ok { --vs-tag-fg: var(--vs-ok); --vs-tag-soft: var(--vs-ok-soft); }
+.vs-tag--warn { --vs-tag-fg: var(--vs-warn); --vs-tag-soft: var(--vs-warn-soft); }
+.vs-tag--danger { --vs-tag-fg: var(--vs-danger); --vs-tag-soft: var(--vs-danger-soft); }
+.vs-tag--muted { --vs-tag-fg: var(--vs-muted); }

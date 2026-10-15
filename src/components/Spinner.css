@@ -1,0 +1,6 @@
+.vs-spinner { display: inline-block; flex: none; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: vs-spin var(--vs-duration-spin) linear infinite; vertical-align: middle; }
+.vs-spinner--sm { width: var(--vs-space-4); height: var(--vs-space-4); }
+.vs-spinner--md { width: var(--vs-space-5); height: var(--vs-space-5); }
+.vs-spinner--lg { width: var(--vs-space-8); height: var(--vs-space-8); }
+@keyframes vs-spin { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) { .vs-spinner { animation-duration: calc(var(--vs-duration-spin) * 3); } }

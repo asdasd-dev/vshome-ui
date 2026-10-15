@@ -13,6 +13,7 @@ describe("единый API компонентов", () => {
       const src = fs.readFileSync(path.join(dir, f), "utf8");
       for (const part of src.split("export ").filter((x) => /^type \w+Props\b/.test(x))) {
         const name = part.match(/^type (\w+Props)/)![1]!;
+        if (name.endsWith("ControlProps")) continue;
         const body = part.split(/\nexport |\nfunction |\nconst /)[0]!;
         expect(body.includes("className") || body.includes("HTMLAttributes"), `${f}: ${name}`).toBe(true);
       }

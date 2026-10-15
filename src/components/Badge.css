@@ -1,0 +1,7 @@
+.vs-badge { display: inline-flex; align-items: center; justify-content: center; flex: none; min-width: calc(18px * var(--vs-scale, 1)); height: calc(18px * var(--vs-scale, 1)); padding: 0 var(--vs-space-1_5); border-radius: var(--vs-radius-pill); font-size: var(--vs-text-2xs); line-height: var(--vs-leading-2xs); font-weight: var(--vs-weight-semibold); font-variant-numeric: tabular-nums; background: var(--vs-badge-bg); color: var(--vs-badge-fg); }
+.vs-badge--accent { --vs-badge-bg: var(--vs-accent); --vs-badge-fg: var(--vs-on-accent); }
+.vs-badge--muted { --vs-badge-bg: var(--vs-surface-2); --vs-badge-fg: var(--vs-muted); }
+.vs-badge--ok { --vs-badge-bg: var(--vs-ok); --vs-badge-fg: var(--vs-on-accent); }
+.vs-badge--warn { --vs-badge-bg: var(--vs-warn); --vs-badge-fg: var(--vs-on-accent); }
+.vs-badge--danger { --vs-badge-bg: var(--vs-danger); --vs-badge-fg: var(--vs-on-accent); }
+.vs-badge--dot { min-width: 0; width: var(--vs-space-2); height: var(--vs-space-2); padding: 0; }
