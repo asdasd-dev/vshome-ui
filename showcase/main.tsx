@@ -2,7 +2,7 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Text, Tile, ToastProvider, useToast, linkify } from "../src";
+import { Artwork, Banner, Button, Clock, Cluster, Excerpt, Stack, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Text, Tile, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 
 const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
@@ -71,6 +71,20 @@ function Demo() {
   return (
     <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "72rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
       <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
+      <h2 style={{ margin: 0 }}>Раскладка, часы, медиа</h2>
+      <section className="vs-kiosk" data-part="kit" style={{ display: "grid", gap: "var(--vs-space-4)", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", padding: "var(--vs-space-4)", background: "var(--vs-surface-0)", borderRadius: "var(--vs-radius-lg)" }}>
+        <Tile label="Музыка" footer={<Cluster><Button size="sm">Пред.</Button><Button size="sm" variant="primary">Играть</Button></Cluster>}>
+          <Cluster gap="4"><Artwork src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27%3E%3Crect width=%271%27 height=%271%27 fill=%27%23b9a88f%27/%3E%3C/svg%3E" size="lg" /><Stack gap="1"><Text variant="title" lines={1}>Under the Milky Way</Text><Text tone="muted" lines={1}>The Church</Text></Stack></Cluster>
+        </Tile>
+        <Tile label="Встреча · 11:15" aside={<Button size="sm" variant="warn" icon="dot">2 в MM</Button>}>
+          <Excerpt title="Deimos PBR">{"Синхронизируем планы, обсуждаем реализацию.\nСмотрим метрики АБ и решаем, что катим.\nПотом — ретро спринта и вопросы."}</Excerpt>
+        </Tile>
+        <Tile label="Mattermost" dimmed>
+          <List label="Тебе пишут"><ListRow title="Никита" sub="глянь PR" /></List>
+          <List label="Ждёшь ответа"><ListRow title="anti-bot-public" sub="посмотрю" /></List>
+        </Tile>
+        <Clock size="hero" align="center">19:56</Clock>
+      </section>
       <h2 style={{ margin: 0 }}>Кнопки с иконкой и лампой</h2>
       <section className="vs-kiosk" data-part="lamp" style={{ display: "flex", gap: "var(--vs-space-3)", flexWrap: "wrap", padding: "var(--vs-space-4)", background: "var(--vs-surface-1)", borderRadius: "var(--vs-radius-lg)" }}>
         <SplitButton onClick={() => {}} more={{ label: "Коридор: лампы", onClick: () => {} }} indicator="lamp">Коридор</SplitButton>

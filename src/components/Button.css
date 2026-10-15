@@ -4,6 +4,7 @@
 .vs-button:disabled { opacity: .5; cursor: progress; }
 .vs-button--primary { --vs-button-bg: var(--vs-accent); --vs-button-line: var(--vs-button-accent-line, var(--vs-accent)); --vs-button-fg: var(--vs-on-accent); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--danger { --vs-button-fg: var(--vs-danger); }
+.vs-button--warn { --vs-button-bg: var(--vs-warn-soft); --vs-button-line: var(--vs-button-accent-line, var(--vs-warn)); --vs-button-fg: var(--vs-warn); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--icon { display: inline-flex; align-items: center; justify-content: center; gap: var(--vs-space-2); }
 .vs-button--lamp { --vs-button-pressed: var(--vs-button-bg); --vs-button-pl: var(--vs-space-6); }
 .vs-button__lamp { position: absolute; left: var(--vs-space-0_5); top: 50%; translate: 0 -50%; width: var(--vs-space-5); }

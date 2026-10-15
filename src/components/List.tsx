@@ -1,14 +1,16 @@
 import { Children, type ReactNode } from "react";
 import { cx } from "../utils/cx";
+import { Text } from "./Text";
 
-export type ListProps = { children: ReactNode; max?: number; empty?: ReactNode; className?: string };
+export type ListProps = { children: ReactNode; label?: ReactNode; max?: number; empty?: ReactNode; className?: string };
 
-export function List({ children, max, empty, className }: ListProps) {
+export function List({ children, label, max, empty, className }: ListProps) {
   const rows = Children.toArray(children);
   if (!rows.length) return empty ? <div className={cx("vs-list-empty", className)}>{empty}</div> : null;
   const shown = max ? rows.slice(0, max) : rows;
   return (
     <div className={cx("vs-list-wrap", className)}>
+      {label && <Text as="p" variant="label" className="vs-list__label">{label}</Text>}
       <ul className="vs-list">{shown}</ul>
       {max && rows.length > max && <div className="vs-list-more">ещё {rows.length - max}</div>}
     </div>

@@ -3,7 +3,7 @@ import { cx } from "../utils/cx";
 import { Icon } from "./Icon";
 import type { IconName } from "./icons";
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "danger"; size?: "sm" | "md"; pressed?: boolean; icon?: IconName; indicator?: "lamp" };
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "danger" | "warn"; size?: "sm" | "md"; pressed?: boolean; icon?: IconName; indicator?: "lamp" };
 
 export function Button({ variant, size, pressed, icon, indicator, className, type = "button", children, ...rest }: ButtonProps) {
   const lead = icon ? <Icon name={icon} size="sm" /> : null;

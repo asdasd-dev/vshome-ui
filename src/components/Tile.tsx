@@ -3,7 +3,7 @@ import { cx } from "../utils/cx";
 
 export type TileProps = {
   label?: string; aside?: ReactNode; tone?: "default" | "warn" | "danger"; children?: ReactNode; footer?: ReactNode;
-  scroll?: boolean; className?: string; "data-tile"?: string;
+  scroll?: boolean; dimmed?: boolean; className?: string; "data-tile"?: string;
 };
 
 function useFade(enabled: boolean) {
@@ -27,10 +27,10 @@ function useFade(enabled: boolean) {
   return { ref, fade, measure };
 }
 
-export function Tile({ label, aside, tone = "default", children, footer, scroll, className, ...data }: TileProps) {
+export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, className, ...data }: TileProps) {
   const id = useId();
   const { ref, fade, measure } = useFade(!!scroll);
-  const cls = cx("vs-tile", `vs-tile--${tone}`, className);
+  const cls = cx("vs-tile", `vs-tile--${tone}`, dimmed && "vs-tile--dimmed", className);
   const body = (
     <>
       {label && aside != null ? (

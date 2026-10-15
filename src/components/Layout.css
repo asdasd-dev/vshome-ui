@@ -1,0 +1,17 @@
+.vs-cluster { display: flex; min-width: 0; }
+.vs-stack { display: flex; flex-direction: column; min-width: 0; }
+.vs-cluster--gap-1, .vs-stack--gap-1 { gap: var(--vs-space-1); }
+.vs-cluster--gap-2, .vs-stack--gap-2 { gap: var(--vs-space-2); }
+.vs-cluster--gap-3, .vs-stack--gap-3 { gap: var(--vs-space-3); }
+.vs-cluster--gap-4, .vs-stack--gap-4 { gap: var(--vs-space-4); }
+.vs-cluster--gap-6, .vs-stack--gap-6 { gap: var(--vs-space-6); }
+.vs-cluster--align-center, .vs-stack--align-center { align-items: center; }
+.vs-cluster--align-baseline { align-items: baseline; }
+.vs-cluster--align-start, .vs-stack--align-start { align-items: flex-start; }
+.vs-cluster--align-stretch, .vs-stack--align-stretch { align-items: stretch; }
+.vs-cluster--justify-start { justify-content: flex-start; }
+.vs-cluster--justify-center { justify-content: center; }
+.vs-cluster--justify-between { justify-content: space-between; }
+.vs-cluster--justify-end { justify-content: flex-end; }
+.vs-cluster--wrap { flex-wrap: wrap; }
+.vs-cluster--rigid > * { flex: none; white-space: nowrap; }
