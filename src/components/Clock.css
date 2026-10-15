@@ -1,0 +1,7 @@
+.vs-clock { font-family: var(--vs-font-display); font-variant-numeric: tabular-nums; color: var(--vs-ink); }
+.vs-clock--lg { font-size: var(--vs-text-3xl); line-height: var(--vs-leading-3xl); }
+.vs-clock--xl { font-size: var(--vs-text-4xl); line-height: var(--vs-leading-4xl); }
+.vs-clock--hero { font-size: calc(var(--vs-text-4xl) * 2); line-height: 1; }
+.vs-clock--w-medium { font-weight: var(--vs-weight-medium); }
+.vs-clock--w-semibold { font-weight: var(--vs-weight-semibold); }
+.vs-clock--center { text-align: center; }

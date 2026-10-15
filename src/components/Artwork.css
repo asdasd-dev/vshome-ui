@@ -1,0 +1,3 @@
+.vs-artwork { flex: none; aspect-ratio: 1; border-radius: var(--vs-radius-md); object-fit: cover; }
+.vs-artwork--md { width: var(--vs-space-12); }
+.vs-artwork--lg { width: calc(var(--vs-space-12) * 2); }
