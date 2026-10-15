@@ -6,6 +6,7 @@ export { plural, compact } from "./utils/number";
 export { linkify, clampText, type TextPart } from "./utils/text";
 export { api, ApiError } from "./data/api";
 export { Button, type ButtonProps } from "./components/Button";
+export { SplitButton, type SplitButtonProps } from "./components/SplitButton";
 export { Chip, type ChipProps } from "./components/Chip";
 export { Icon, type IconProps } from "./components/Icon";
 export { IconButton, type IconButtonProps } from "./components/IconButton";

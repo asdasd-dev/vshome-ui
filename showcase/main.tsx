@@ -2,7 +2,7 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, Stat, Switch, Tile, ToastProvider, useToast, linkify } from "../src";
+import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Tile, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 
 const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
@@ -36,7 +36,7 @@ function Panels({ kiosk }: { kiosk?: boolean }) {
         </List>
       </Tile>
       <Tile label="Свет">
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--vs-space-2)" }}><Button pressed>Кухня · 2</Button><Button pressed={false}>Спальня</Button></div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--vs-space-2)" }}><SplitButton pressed more={{ label: "Кухня: лампы", onClick: () => {} }} onClick={() => {}}>Кухня · 2</SplitButton><SplitButton more={{ label: "Спальня: лампы", onClick: () => {} }} onClick={() => {}}>Спальня</SplitButton><Button pressed>Баня</Button></div>
         <Switch label="Большая лента" checked onChange={() => {}} />
         <Slider label="Большая лента: яркость" value={70} format={(v) => `${v}%`} onCommit={() => {}} />
       </Tile>
