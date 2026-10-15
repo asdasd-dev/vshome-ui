@@ -25,12 +25,10 @@ describe("indicator=lamp", () => {
     expect(screen.getByRole("button", { name: "Баня" }).firstElementChild).toBe(icon());
     rerender(<Button pressed={false} indicator="lamp">Баня</Button>);
     expect(icon()).toBeNull();
-    expect(read("components/Button.css")).toMatch(/\.vs-kiosk \.vs-button--lamp\[aria-pressed="true"\] \{[^}]*background: var\(--vs-surface-2\)/);
-    expect(read("components/SplitButton.css")).toMatch(/\.vs-split--lamp\[data-pressed\] \{[^}]*background: var\(--vs-surface-2\)/);
+    expect(read("components/Button.css")).toMatch(/\.vs-button--lamp \{[^}]*--vs-button-pressed: var\(--vs-button-bg\)[^}]*--vs-button-pl: var\(--vs-space-6\)/);
+    expect(read("components/SplitButton.css")).toMatch(/\.vs-split--lamp \{[^}]*--vs-split-pressed: var\(--vs-split-bg\)[^}]*--vs-split-main-pl: var\(--vs-space-6\)/);
     expect(screen.getByRole("button", { name: "Баня" }).className).not.toContain("vs-button--icon");
     expect(read("components/Button.css")).toMatch(/\.vs-button__lamp \{[^}]*position: absolute[^}]*left: var\(--vs-space-0_5\)[^}]*width: var\(--vs-space-5\)/);
-    expect(read("components/Button.css")).toMatch(/\.vs-button--lamp, \.vs-kiosk \.vs-button--lamp \{[^}]*position: relative[^}]*padding-left: var\(--vs-space-6\)/);
-    expect(read("components/SplitButton.css")).toMatch(/\.vs-split--lamp \.vs-split__main \{[^}]*position: relative[^}]*padding-left: var\(--vs-space-6\)/);
     expect(read("components/Icon.css")).toMatch(/\.vs-icon--lamp \{[^}]*color: var\(--vs-lamp\)/);
   });
   it("icon — иконка из набора слева от текста у Button и SplitButton", () => {

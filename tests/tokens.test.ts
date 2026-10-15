@@ -55,7 +55,7 @@ describe("компоненты на шкалах", () => {
 describe("киоск и контраст", () => {
   const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
   it.each(["Button.css", "Chip.css", "Segment.css"])("%s — в киоске текст масштабируется", (f) => {
-    expect(comp(f)).toMatch(/\.vs-kiosk [^{]*\{[^}]*font-size: var\(--vs-text-md\)/);
+    expect(comp(f)).toMatch(/\.vs-kiosk[^{]*\{[^}]*(font-size|--vs-button-size): var\(--vs-text-md\)/);
   });
   it("в светлой теме мягкий фон «внимания» не глушит текст: примесь 8%", () => {
     expect(light).toMatch(/--vs-warn-soft: color-mix\(in srgb, var\(--vs-warn\) 8%/);
@@ -71,22 +71,22 @@ describe("Segment soft", () => {
 });
 
 describe("Button в киоске", () => {
-  it("как IconButton: капсула без рамки, мягкая поверхность, высота 44", () => {
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Button.css"), "utf8");
-    expect(css).toMatch(/\.vs-kiosk \.vs-button \{[^}]*border-color: transparent[^}]*border-radius: var\(--vs-radius-pill\)[^}]*background: var\(--vs-surface-2\)[^}]*min-height: calc\(44px \* var\(--vs-scale, 1\)\)/);
-    expect(css).toMatch(/\.vs-kiosk \.vs-button--primary \{[^}]*background: var\(--vs-accent\)/);
+  const css = () => fs.readFileSync(path.join(__dirname, "..", "src", "components", "Button.css"), "utf8");
+  const kiosk = () => css().match(/(?:^|\n)\.vs-kiosk \{([^}]*)\}/)?.[1] ?? "";
+  it("как IconButton: капсула без рамки, мягкая поверхность, высота 44 — переменными на .vs-kiosk", () => {
+    for (const d of ["--vs-button-line: transparent", "--vs-button-radius: var(--vs-radius-pill)", "--vs-button-surface: var(--vs-surface-2)", "--vs-button-h: calc(44px * var(--vs-scale, 1))", "--vs-button-size: var(--vs-text-md)"]) expect(kiosk(), d).toContain(d);
+    expect(css()).toMatch(/\.vs-button--primary \{[^}]*--vs-button-bg: var\(--vs-accent\)/);
   });
   it("sm: ниже и мельче, высота 32", () => {
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Button.css"), "utf8");
-    expect(css).toMatch(/\.vs-button--sm \{[^}]*min-height: calc\(32px \* var\(--vs-scale, 1\)\)[^}]*font-size: var\(--vs-text-sm\)/);
-    expect(css).toMatch(/\.vs-kiosk \.vs-button--sm \{[^}]*min-height: calc\(32px \* var\(--vs-scale, 1\)\)[^}]*font-size: var\(--vs-text-sm\)/);
+    expect(css()).toMatch(/\.vs-button--sm \{[^}]*--vs-button-h: calc\(32px \* var\(--vs-scale, 1\)\)[^}]*--vs-button-size: var\(--vs-text-sm\)/);
+    expect(kiosk()).toContain("--vs-button-sm-px: var(--vs-space-4)");
   });
 });
 
 describe("киоск 0.6", () => {
   const read = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
   it("нажатая кнопка в киоске подсвечена акцентом", () => {
-    expect(read("Button.css")).toMatch(/\.vs-kiosk \.vs-button\[aria-pressed="true"\] \{[^}]*color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)/);
+    expect(read("Button.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-button-pressed: color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)/);
   });
   it("Sheet и Switch в киоске — на шкалах", () => {
     expect(read("Sheet.css")).toMatch(/\.vs-kiosk \.vs-sheet,\s*\.vs-sheet\.vs-kiosk \{[^}]*border-radius: var\(--vs-radius-xl\)/);
@@ -115,5 +115,15 @@ describe("принудительная тема", () => {
     expect(css).toMatch(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{/);
     expect(darkBlock(":root:not([data-theme=\"light\"])")).toBe(darkBlock(":root[data-theme=\"dark\"]"));
     expect(darkBlock(":root[data-theme=\"dark\"]")).toContain("color-scheme: dark");
+  });
+});
+
+describe("кнопки без борьбы селекторов", () => {
+  const read = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
+  it.each(["Button.css", "SplitButton.css"])("%s: киоск задаёт только переменные на .vs-kiosk, модификаторы — на самой кнопке", (f) => {
+    const css = read(f);
+    expect(css).not.toMatch(/\.vs-kiosk \./);
+    const kiosk = css.match(/(?:^|\n)\.vs-kiosk \{([^}]*)\}/)?.[1] ?? "";
+    expect(kiosk.split(";").map((d) => d.trim()).filter(Boolean).every((d) => d.startsWith("--vs-"))).toBe(true);
   });
 });
