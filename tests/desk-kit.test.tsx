@@ -89,3 +89,9 @@ describe("Button warn", () => {
     expect(css("Button.css")).toMatch(/\.vs-button--warn \{[^}]*--vs-button-bg: var\(--vs-warn-soft\)[^}]*--vs-button-fg: var\(--vs-warn\)/);
   });
 });
+
+describe("прокручиваемая плитка", () => {
+  it("содержимое не сжимается, а прокручивается", () => {
+    expect(css("Panel.css")).toMatch(/\.vs-tile__body--scroll > \* \{[^}]*flex-shrink: 0/);
+  });
+});
