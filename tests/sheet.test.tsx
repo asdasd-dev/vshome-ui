@@ -134,7 +134,10 @@ describe("ListRow sub в две строки", () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
     const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
-    expect(css).toMatch(/\.vs-list-row__sub--2 \{[^}]*white-space: normal[^}]*-webkit-line-clamp: 2/);
+    expect(css).toMatch(/\.vs-list-row__sub--2, \.vs-list-row__sub--3 \{[^}]*white-space: normal/);
+    expect(css).toMatch(/\.vs-list-row__sub--3 \{[^}]*-webkit-line-clamp: 3/);
+    render(<List><ListRow title="X" sub="Три строки" subLines={3} /></List>);
+    expect(document.querySelectorAll(".vs-list-row__sub--3")).toHaveLength(1);
   });
 });
 
