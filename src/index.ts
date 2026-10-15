@@ -12,6 +12,7 @@ export { Icon, type IconProps } from "./components/Icon";
 export { IconButton, type IconButtonProps } from "./components/IconButton";
 export { ICON_NAMES, type IconName } from "./components/icons";
 export { Tile, type TileProps } from "./components/Tile";
+export { Text, type TextProps } from "./components/Text";
 export { Stat, type StatProps } from "./components/Stat";
 export { List, ListRow, type ListProps, type ListRowProps } from "./components/List";
 export { Banner, type BannerProps } from "./components/Banner";

@@ -2,7 +2,7 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Tile, ToastProvider, useToast, linkify } from "../src";
+import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Text, Tile, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 
 const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
@@ -43,6 +43,21 @@ function Panels({ kiosk }: { kiosk?: boolean }) {
   );
 }
 
+function Texts({ kiosk }: { kiosk?: boolean }) {
+  return (
+    <section className={kiosk ? "vs-kiosk" : undefined} style={{ display: "grid", gap: "var(--vs-space-2)", padding: "var(--vs-space-4)", background: "var(--vs-surface-1)", borderRadius: "var(--vs-radius-lg)" }}>
+      <Text variant="label">label · подпись группы</Text>
+      <Text variant="display" as="h3">display · Встреча с командой</Text>
+      <Text variant="title">title · Заголовок карточки</Text>
+      <Text variant="lead">lead · Крупный текст для чтения с расстояния</Text>
+      <Text>body · Обычный текст строки</Text>
+      <Text variant="caption" tone="muted">caption · серая подпись под строкой</Text>
+      <span><Text tone="ok">ok</Text> · <Text tone="warn">warn</Text> · <Text tone="danger">danger</Text> · <Text weight="medium">medium</Text> · <Text weight="semibold">semibold</Text></span>
+      <div style={{ width: 220 }}><Text lines={1}>lines=1 · очень длинная строка, которая не влезает в ширину</Text></div>
+    </section>
+  );
+}
+
 function Demo() {
   const toast = useToast();
   const [view, setView] = useState<"board" | "backlog">("board");
@@ -55,6 +70,10 @@ function Demo() {
   return (
     <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "72rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
       <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
+      <h2 style={{ margin: 0 }}>Текст</h2>
+      <Texts />
+      <h2 style={{ margin: 0 }}>Текст · киоск</h2>
+      <Texts kiosk />
       <h2 style={{ margin: 0 }}>Панели</h2>
       <Panels />
       <h2 style={{ margin: 0 }}>Панели · киоск</h2>
