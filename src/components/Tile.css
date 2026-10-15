@@ -1,0 +1,18 @@
+.vs-tile { position: relative; display: flex; flex-direction: column; gap: var(--vs-space-3); min-width: 0; min-height: 0; overflow: hidden; padding: var(--vs-space-5); border: 0; border-radius: var(--vs-radius-xl); background: var(--vs-surface-1); color: var(--vs-ink); font: inherit; text-align: left; }
+.vs-tile--warn { background: var(--vs-warn-soft); }
+.vs-tile--dimmed { opacity: .5; }
+.vs-tile--danger { background: var(--vs-danger-soft); }
+.vs-tile__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-semibold); letter-spacing: .06em; text-transform: uppercase; color: var(--vs-muted); }
+.vs-tile__head { display: flex; justify-content: space-between; align-items: center; gap: var(--vs-space-3); }
+.vs-tile__aside { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-medium); color: var(--vs-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vs-tile--warn .vs-tile__aside { color: var(--vs-warn); }
+.vs-tile--warn .vs-tile__label { color: var(--vs-warn); }
+.vs-tile--danger .vs-tile__label { color: var(--vs-danger); }
+.vs-tile__body { display: flex; flex-direction: column; gap: var(--vs-space-3); min-height: 0; flex: 1; }
+.vs-tile__footer { margin-top: auto; }
+.vs-tile__body--scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.vs-tile__body--scroll > * { flex-shrink: 0; }
+.vs-tile__body--scroll::-webkit-scrollbar { display: none; }
+.vs-tile__body--scroll[data-fade="bottom"] { -webkit-mask-image: linear-gradient(to bottom, black calc(100% - var(--vs-space-10)), transparent); mask-image: linear-gradient(to bottom, black calc(100% - var(--vs-space-10)), transparent); }
+.vs-tile__body--scroll[data-fade="top"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10)); mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10)); }
+.vs-tile__body--scroll[data-fade="top bottom"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10), black calc(100% - var(--vs-space-10)), transparent); mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10), black calc(100% - var(--vs-space-10)), transparent); }

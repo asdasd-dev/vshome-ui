@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
+import { allCss } from "./css";
 import { describe, expect, it } from "vitest";
 import { Button, SplitButton } from "../src";
 
@@ -29,7 +30,7 @@ describe("indicator=lamp", () => {
     expect(read("components/SplitButton.css")).toMatch(/\.vs-split--lamp \{[^}]*--vs-split-pressed: var\(--vs-split-bg\)[^}]*--vs-split-main-pl: var\(--vs-space-6\)/);
     expect(screen.getByRole("button", { name: "Баня" }).className).not.toContain("vs-button--icon");
     expect(read("components/Button.css")).toMatch(/\.vs-button__lamp \{[^}]*position: absolute[^}]*left: var\(--vs-space-0_5\)[^}]*width: var\(--vs-space-5\)/);
-    expect(read("components/Icon.css")).toMatch(/\.vs-icon--lamp \{[^}]*color: var\(--vs-lamp\)/);
+    expect(allCss()).toMatch(/\.vs-icon--lamp \{[^}]*color: var\(--vs-lamp\)/);
   });
   it("icon — иконка из набора слева от текста у Button и SplitButton", () => {
     render(<><Button icon="check">Готово</Button><SplitButton icon="clock" onClick={() => {}} more={{ label: "ещё", onClick: () => {} }}>Таймер</SplitButton></>);

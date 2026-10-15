@@ -1,3 +1,4 @@
+import { allCss } from "./css";
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
@@ -46,9 +47,23 @@ describe("токены", () => {
 
 describe("компоненты на шкалах", () => {
   const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
-  it.each(["Segment.css", "Button.css", "Chip.css", "Icon.css", "Panel.css"])("%s — без литеральных отступов, радиусов и размеров текста", (f) => {
-    const css = comp(f).replace(/calc\(\d+px \* var\(--vs-scale, 1\)\)/g, "").replace(/(outline|outline-offset|border(-top)?|letter-spacing): [^;]*/g, "").replace(/(width|height): 1em\b/g, "");
+  const files = fs.readdirSync(path.join(__dirname, "..", "src", "components")).filter((f) => f.endsWith(".css"));
+  it.each(files)("%s — без литеральных отступов, радиусов и размеров текста", (f) => {
+    const css = comp(f).replace(/calc\(\d+px \* var\(--vs-scale, 1\)\)/g, "").replace(/(outline-offset|border(-top|-left|-bottom)?|letter-spacing): [^;]*/g, "").replace(/(width|height): 1em\b/g, "").replace(/font-size: max\(16px, 1rem\)/g, "").replace(/, 0px\)/g, ")");
     expect(css).not.toMatch(/\d+(\.\d+)?(px|rem|em)\b/);
+  });
+  it.each(files)("%s — цвета, тени, слои и движение только из токенов", (f) => {
+    const css = comp(f);
+    expect(css).not.toMatch(/#[0-9a-f]{3,8}\b|rgba?\(/i);
+    expect(css).not.toMatch(/z-index: \d/);
+    expect(css).not.toMatch(/(transition|transition-duration)[^;]*\b\d+m?s\b/);
+    expect(css).not.toMatch(/box-shadow: \d/);
+    expect(css).not.toMatch(/outline: \d+px/);
+  });
+  it("графики — на тех же правилах", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "charts", "charts.css"), "utf8").replace(/calc\(\d+(\.\d+)?px \* var\(--vs-scale, 1\)\)/g, "").replace(/border(-top)?: [^;]*/g, "");
+    expect(css).not.toMatch(/\d+(\.\d+)?(px|rem|em)\b/);
+    expect(css).not.toMatch(/#[0-9a-f]{3,8}\b|rgba?\(|z-index: \d|font-weight: \d/i);
   });
 });
 
@@ -86,7 +101,7 @@ describe("Button в киоске", () => {
 describe("киоск 0.6", () => {
   const read = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
   it("нажатая кнопка в киоске подсвечена акцентом", () => {
-    expect(read("Button.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-button-pressed: color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)/);
+    expect(read("Button.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-button-pressed: var\(--vs-accent-soft\)/);
   });
   it("Sheet и Switch в киоске — на шкалах", () => {
     expect(read("Sheet.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-sheet-radius: var\(--vs-radius-xl\)/);
@@ -125,5 +140,22 @@ describe("компоненты без борьбы селекторов", () => 
     expect(css).not.toMatch(/\.vs-kiosk \.|\.vs-kiosk\.|\.[a-z-_]+\.vs-kiosk/);
     const kiosk = css.match(/(?:^|\n)\.vs-kiosk \{([^}]*)\}/)?.[1] ?? "";
     expect(kiosk.split(";").map((d) => d.trim()).filter(Boolean).every((d) => d.startsWith("--vs-"))).toBe(true);
+  });
+});
+
+describe("основы: токены теней, слоёв, движения, фокуса, состояний", () => {
+  it("есть в светлой теме", () => {
+    for (const t of ["--vs-shadow-popover", "--vs-scrim", "--vs-scrim-blur", "--vs-knob", "--vs-knob-shadow", "--vs-z-raised", "--vs-z-overlay", "--vs-z-sheet", "--vs-z-popover", "--vs-z-toast",
+      "--vs-duration-fast", "--vs-duration-base", "--vs-duration-slow", "--vs-duration-sheet", "--vs-ease-sheet", "--vs-focus-ring", "--vs-accent-soft", "--vs-accent-tint", "--vs-accent-fill", "--vs-text-2xs", "--vs-leading-2xs"])
+      expect(css, t).toMatch(new RegExp(`${t}\\s*:`));
+  });
+  it("у интерактивных элементов есть видимый фокус", () => {
+    const all = allCss();
+    for (const sel of [".vs-button", ".vs-icon-button", ".vs-chip", ".vs-segment button", ".vs-split button", ".vs-list-row__inner", ".vs-excerpt", ".vs-select__trigger", ".vs-switch input", ".vs-slider input"])
+      expect(all, sel).toContain(`${sel}:focus-visible`);
+  });
+  it("иконки только из набора, без текстовых символов", () => {
+    const dir = path.join(__dirname, "..", "src", "components");
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".tsx"))) expect(fs.readFileSync(path.join(dir, f), "utf8"), f).not.toMatch(/[✕✓▾▸×]/);
   });
 });

@@ -2,10 +2,5 @@
 .vs-icon--sm { width: var(--vs-space-4); height: var(--vs-space-4); }
 .vs-icon--md { width: var(--vs-space-5); height: var(--vs-space-5); }
 .vs-icon--lg { width: var(--vs-space-6); height: var(--vs-space-6); }
-.vs-icon-button { display: inline-flex; align-items: center; justify-content: center; flex: none; border: 0; border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); color: var(--vs-ink); cursor: pointer; padding: 0; min-width: calc(44px * var(--vs-scale, 1)); min-height: calc(44px * var(--vs-scale, 1)); }
-.vs-icon-button--lg { min-width: calc(56px * var(--vs-scale, 1)); min-height: calc(56px * var(--vs-scale, 1)); }
-.vs-icon-button--primary { background: var(--vs-accent); color: var(--vs-on-accent); }
-.vs-icon-button:disabled { opacity: .5; cursor: progress; }
-.vs-icon-button:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }
 .vs-icon--lamp { color: var(--vs-lamp); filter: drop-shadow(0 0 var(--vs-space-1) var(--vs-lamp)); }
 .vs-icon--em { width: 1em; height: 1em; }

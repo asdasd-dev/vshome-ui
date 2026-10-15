@@ -1,3 +1,4 @@
+import { allCss } from "./css";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
@@ -133,7 +134,7 @@ describe("ListRow sub в две строки", () => {
     expect(document.querySelector(".vs-list-row__sub")!.className).toContain("vs-list-row__sub--2");
     const fs = await import("node:fs");
     const path = await import("node:path");
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    const css = allCss();
     expect(css).toMatch(/\.vs-list-row__sub--2, \.vs-list-row__sub--3 \{[^}]*white-space: normal/);
     expect(css).toMatch(/\.vs-list-row__sub--3 \{[^}]*-webkit-line-clamp: 3/);
     render(<List><ListRow title="X" sub="Три строки" subLines={3} /></List>);

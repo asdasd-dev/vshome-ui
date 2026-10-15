@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { allCss } from "./css";
 import { describe, expect, it, vi } from "vitest";
 import { Banner, List, ListRow, Stat, Tile } from "../src";
 
@@ -11,10 +12,10 @@ describe("Stat icon", () => {
     expect(icon.closest(".vs-stat__icon")).not.toBeNull();
     expect(container.querySelector(".vs-stat__line")!.lastElementChild!.className).toBe("vs-stat__icon");
     const fs = require("node:fs") as typeof import("node:fs");
-    const css = fs.readFileSync(require("node:path").join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    const css = allCss();
     expect(css).toMatch(/\.vs-stat__icon \{[^}]*align-self: center[^}]*color: var\(--vs-muted\)/);
     expect(css).toMatch(/\.vs-stat--md \.vs-stat__icon \{[^}]*font-size: var\(--vs-text-2xl\)/);
-    expect(fs.readFileSync(require("node:path").join(__dirname, "..", "src", "components", "Icon.css"), "utf8")).toMatch(/\.vs-icon--em \{[^}]*width: 1em[^}]*height: 1em/);
+    expect(allCss()).toMatch(/\.vs-icon--em \{[^}]*width: 1em[^}]*height: 1em/);
   });
 });
 
@@ -76,7 +77,7 @@ describe("Tile scroll: затемнение переполнения", () => {
   it("стили: прокрутка без полосы, маски краёв", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    const css = allCss();
     expect(css).toMatch(/\.vs-tile__body--scroll \{[^}]*overflow-y: auto/);
     expect(css).toMatch(/\.vs-tile__body--scroll\[data-fade="bottom"\] \{[^}]*mask-image/);
     expect(css).toMatch(/\.vs-tile__body--scroll\[data-fade="top"\] \{[^}]*mask-image/);
@@ -88,7 +89,7 @@ describe("ListRow в киоске", () => {
   it("заголовок двухстрочной строки — средний вес", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    const css = allCss();
     expect(css).toMatch(/\.vs-list-row--two \.vs-list-row__name \{[^}]*font-weight: var\(--vs-list-name-weight, inherit\)/);
     expect(css).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-list-name-weight: var\(--vs-weight-medium\)/);
   });
@@ -155,7 +156,7 @@ describe("ListRow sub", () => {
   it("стили: две строки с обрезкой каждой, sub мельче и серым", async () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    const css = allCss();
     expect(css).toMatch(/\.vs-list-row--two \.vs-list-row__inner \{[^}]*align-items: flex-start/);
     expect(css).toMatch(/\.vs-list-row__name, \.vs-list-row__sub \{[^}]*overflow: hidden[^}]*white-space: nowrap[^}]*text-overflow: ellipsis/);
     expect(css).toMatch(/\.vs-list-row__sub \{[^}]*font-size: var\(--vs-text-sm\)[^}]*color: var\(--vs-muted\)/);

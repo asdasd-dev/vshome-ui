@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { cx } from "../utils/cx";
 
-export type SliderProps = { value: number; min?: number; max?: number; step?: number; label: string; onCommit: (v: number) => void; format?: (v: number) => string };
+export type SliderProps = { value: number; min?: number; max?: number; step?: number; label: string; onCommit: (v: number) => void; format?: (v: number) => string; className?: string };
 
-export function Slider({ value, min = 1, max = 100, step = 1, label, onCommit, format = String }: SliderProps) {
+export function Slider({ value, min = 1, max = 100, step = 1, label, onCommit, format = String, className }: SliderProps) {
   const [v, setV] = useState(value);
   const dragging = useRef(false);
   const sent = useRef(value);
@@ -18,7 +19,7 @@ export function Slider({ value, min = 1, max = 100, step = 1, label, onCommit, f
   };
   const fill = `${((v - min) / (max - min)) * 100}%`;
   return (
-    <label className="vs-slider" style={{ "--vs-slider-fill": fill } as CSSProperties}>
+    <label className={cx("vs-slider", className)} style={{ "--vs-slider-fill": fill } as CSSProperties}>
       <input type="range" aria-label={label} min={min} max={max} step={step} value={v}
              onPointerDown={() => { dragging.current = true; }} onChange={(e) => setV(Number(e.target.value))}
              onPointerUp={commit} onPointerCancel={commit} onKeyUp={commit} onTouchEnd={commit} />

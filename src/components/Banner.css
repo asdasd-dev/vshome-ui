@@ -1,0 +1,6 @@
+.vs-banner { display: inline-flex; align-items: center; gap: var(--vs-space-1_5); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); font-weight: var(--vs-weight-semibold); }
+.vs-banner--warn { color: var(--vs-warn); }
+.vs-banner--truncate { min-width: 0; max-width: 100%; }
+.vs-banner--truncate .vs-banner__text { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.vs-banner--danger { color: var(--vs-danger); }
+.vs-banner--muted { color: var(--vs-muted); }

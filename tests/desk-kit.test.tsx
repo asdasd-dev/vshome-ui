@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fireEvent, render, screen, within } from "@testing-library/react";
+import { allCss } from "./css";
 import { describe, expect, it, vi } from "vitest";
 import { Artwork, Button, Clock, Cluster, Excerpt, List, ListRow, Stack, Tile } from "../src";
 
@@ -77,8 +78,8 @@ describe("Tile", () => {
   it("dimmed — приглушённая плитка; шапка выравнивает по центру", () => {
     render(<Tile label="Музыка" dimmed>x</Tile>);
     expect(screen.getByRole("region", { name: "Музыка" }).className).toContain("vs-tile--dimmed");
-    expect(css("Panel.css")).toMatch(/\.vs-tile__head \{[^}]*align-items: center/);
-    expect(css("Panel.css")).toMatch(/\.vs-tile--dimmed \{[^}]*opacity/);
+    expect(allCss()).toMatch(/\.vs-tile__head \{[^}]*align-items: center/);
+    expect(allCss()).toMatch(/\.vs-tile--dimmed \{[^}]*opacity/);
   });
 });
 
@@ -92,6 +93,6 @@ describe("Button warn", () => {
 
 describe("прокручиваемая плитка", () => {
   it("содержимое не сжимается, а прокручивается", () => {
-    expect(css("Panel.css")).toMatch(/\.vs-tile__body--scroll > \* \{[^}]*flex-shrink: 0/);
+    expect(allCss()).toMatch(/\.vs-tile__body--scroll > \* \{[^}]*flex-shrink: 0/);
   });
 });

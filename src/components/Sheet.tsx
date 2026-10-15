@@ -2,6 +2,7 @@ import { useEffect, useRef, type PointerEvent, type ReactNode } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Drawer } from "@base-ui/react/drawer";
 import { cx } from "../utils/cx";
+import { Icon } from "./Icon";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { hasOpenPopup } from "../utils/openPopups";
 import { useAndroidBack } from "../hooks/useAndroidBack";
@@ -57,7 +58,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
         <Parts.Title className="vs-sheet__title">{head}</Parts.Title>
         <span className="vs-sheet__actions">
           {actions}
-          <Parts.Close className="vs-sheet__close" aria-label="Закрыть">✕</Parts.Close>
+          <Parts.Close className="vs-sheet__close" aria-label="Закрыть"><Icon name="close" size="md" /></Parts.Close>
         </span>
       </header>
       <div ref={body} className="vs-sheet__body">{children}</div>

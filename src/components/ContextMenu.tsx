@@ -3,6 +3,7 @@ import { CSPProvider } from "@base-ui/react/csp-provider";
 import { ContextMenu as Base } from "@base-ui/react/context-menu";
 import type { BaseUIEvent } from "@base-ui/react";
 import { cx } from "../utils/cx";
+import { Icon } from "./Icon";
 import { trackOpenPopup } from "../utils/openPopups";
 
 const TOUCH_CONTEXTMENU_MS = 1500;
@@ -33,7 +34,7 @@ function Entry({ item }: { item: Exclude<ContextMenuEntry, "separator"> }) {
         <Base.RadioGroup value={item.value} onValueChange={(v) => { if (v !== item.value) item.onValueChange(v as string); }}>
           {item.options.map((o) => (
             <Base.RadioItem key={o.value} value={o.value} disabled={o.disabled} closeOnClick className="vs-menu__item">
-              <Base.RadioItemIndicator className="vs-menu__check">✓</Base.RadioItemIndicator>
+              <Base.RadioItemIndicator className="vs-menu__check"><Icon name="check" size="sm" /></Base.RadioItemIndicator>
               <span className="vs-menu__text">{o.label}</span>
             </Base.RadioItem>
           ))}
@@ -44,7 +45,7 @@ function Entry({ item }: { item: Exclude<ContextMenuEntry, "separator"> }) {
   if ("checked" in item) {
     return (
       <Base.CheckboxItem checked={item.checked} onCheckedChange={item.onCheckedChange} disabled={item.disabled} closeOnClick className="vs-menu__item">
-        <Base.CheckboxItemIndicator className="vs-menu__check">✓</Base.CheckboxItemIndicator>
+        <Base.CheckboxItemIndicator className="vs-menu__check"><Icon name="check" size="sm" /></Base.CheckboxItemIndicator>
         <span className="vs-menu__text">{item.label}</span>
       </Base.CheckboxItem>
     );

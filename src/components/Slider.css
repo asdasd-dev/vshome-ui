@@ -1,6 +1,6 @@
-.vs-slider { position: relative; display: block; height: calc(44px * var(--vs-scale, 1)); border-radius: var(--vs-radius-pill); background: linear-gradient(to right, color-mix(in srgb, var(--vs-accent) 35%, var(--vs-surface-2)) var(--vs-slider-fill), var(--vs-surface-2) var(--vs-slider-fill)); overflow: hidden; }
+.vs-slider { position: relative; display: block; height: calc(44px * var(--vs-scale, 1)); border-radius: var(--vs-radius-pill); background: linear-gradient(to right, var(--vs-accent-fill) var(--vs-slider-fill), var(--vs-surface-2) var(--vs-slider-fill)); overflow: hidden; }
 .vs-slider input { appearance: none; -webkit-appearance: none; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; background: transparent; cursor: pointer; }
 .vs-slider input::-webkit-slider-thumb { -webkit-appearance: none; width: calc(8px * var(--vs-scale, 1)); height: calc(44px * var(--vs-scale, 1)); background: transparent; }
 .vs-slider input::-moz-range-thumb { width: calc(8px * var(--vs-scale, 1)); height: calc(44px * var(--vs-scale, 1)); border: 0; background: transparent; }
-.vs-slider input:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: -2px; border-radius: var(--vs-radius-pill); }
+.vs-slider input:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; border-radius: var(--vs-radius-pill); }
 .vs-slider__value { position: absolute; right: var(--vs-space-4); top: 50%; transform: translateY(-50%); color: var(--vs-muted); font-weight: var(--vs-weight-medium); pointer-events: none; }
