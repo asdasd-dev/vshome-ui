@@ -13,3 +13,6 @@
 .vs-card--interactive { width: 100%; cursor: pointer; }
 .vs-card--interactive:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
 @media (hover: hover) { .vs-card--interactive:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }
+.vs-card--violet { --vs-card-bg: var(--vs-violet-soft); border-color: transparent; }
+.vs-card--pink { --vs-card-bg: var(--vs-pink-soft); border-color: transparent; }
+.vs-card--gold { --vs-card-bg: var(--vs-gold-soft); border-color: transparent; }

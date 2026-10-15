@@ -2,7 +2,7 @@ import { useId, type ReactNode, type InputHTMLAttributes, type TextareaHTMLAttri
 import { cx } from "../utils/cx";
 import { Icon } from "./Icon";
 
-export type FieldControlProps = { id: string; "aria-describedby"?: string; "aria-invalid"?: true };
+export type FieldControlProps = { id: string; className: string; "aria-describedby"?: string; "aria-invalid"?: true };
 
 export type FieldProps = { label: string; hint?: ReactNode; error?: ReactNode; hideLabel?: boolean; className?: string; children: (control: FieldControlProps) => ReactNode };
 
@@ -14,7 +14,7 @@ export function Field({ label, hint, error, hideLabel, className, children }: Fi
   return (
     <div className={cx("vs-field", className)}>
       <label htmlFor={id} className={cx("vs-field__label", hideLabel && "vs-visually-hidden")}>{label}</label>
-      <div className="vs-field__control">{children({ id, "aria-describedby": described, ...(error ? { "aria-invalid": true as const } : {}) })}</div>
+      <div className="vs-field__control">{children({ id, className: "vs-text-field", "aria-describedby": described, ...(error ? { "aria-invalid": true as const } : {}) })}</div>
       {hint && <p id={hintId} className="vs-field__hint">{hint}</p>}
       {error && <p id={errorId} className="vs-field__error">{error}</p>}
     </div>
@@ -30,9 +30,9 @@ export function TextField({ label, hint, error, hideLabel, value, onChange, size
   return (
     <Field label={label} hint={hint} error={error} hideLabel={hideLabel} className={className}>
       {(p) => <>
-        {search && <Icon name="search" size="sm" className="vs-text-field__icon" />}
+        {search && <Icon name="search" size="sm" className={cx("vs-text-field__icon", size === "sm" && "vs-text-field__icon--sm")} />}
         <input {...rest} {...p} type={type} value={value} onChange={(e) => onChange(e.target.value)}
-               className={cx("vs-text-field", `vs-text-field--${variant}`, size === "sm" && "vs-text-field--sm", search && "vs-text-field--with-icon")} />
+               className={cx(p.className, `vs-text-field--${variant}`, size === "sm" && "vs-text-field--sm", search && "vs-text-field--with-icon")} />
       </>}
     </Field>
   );
@@ -44,7 +44,7 @@ export function TextArea({ label, hint, error, hideLabel, value, onChange, size 
   return (
     <Field label={label} hint={hint} error={error} hideLabel={hideLabel} className={className}>
       {(p) => <textarea {...rest} {...p} rows={rows} value={value} onChange={(e) => onChange(e.target.value)}
-                        className={cx("vs-text-field", "vs-text-field--area", `vs-text-field--${variant}`, size === "sm" && "vs-text-field--sm")} />}
+                        className={cx(p.className, "vs-text-field--area", `vs-text-field--${variant}`, size === "sm" && "vs-text-field--sm")} />}
     </Field>
   );
 }

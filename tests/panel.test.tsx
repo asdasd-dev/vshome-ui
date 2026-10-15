@@ -166,9 +166,9 @@ describe("ListRow sub", () => {
 });
 
 describe("Banner", () => {
-  it("статус с иконкой и тоном", () => {
+  it("ошибка — alert с иконкой и тоном", () => {
     const { container } = render(<Banner tone="danger">Мак недоступен</Banner>);
-    const b = screen.getByRole("status");
+    const b = screen.getByRole("alert");
     expect(b.textContent).toBe("Мак недоступен");
     expect(b.className).toContain("vs-banner--danger");
     expect(container.querySelector("svg[data-icon=alert]")).not.toBeNull();

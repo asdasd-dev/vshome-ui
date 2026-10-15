@@ -6,11 +6,14 @@
 .vs-legend__swatch--line { width: var(--vs-space-3); height: calc(3px * var(--vs-scale, 1)); border-radius: var(--vs-radius-xs); }
 .vs-legend__swatch--dash { width: var(--vs-space-3); height: 0; background: none; border-top: 2px dashed var(--vs-legend-color); }
 .vs-status-dot { display: inline-block; flex: none; width: var(--vs-space-2); height: var(--vs-space-2); border-radius: 50%; background: var(--vs-status-color); }
+.vs-status-dot--accent { --vs-status-color: var(--vs-accent); }
 .vs-status-dot--ok { --vs-status-color: var(--vs-ok); }
 .vs-status-dot--warn { --vs-status-color: var(--vs-warn); }
 .vs-status-dot--danger { --vs-status-color: var(--vs-danger); }
 .vs-status-dot--muted { --vs-status-color: var(--vs-muted); }
-.vs-status-dot--accent { --vs-status-color: var(--vs-accent); }
+.vs-status-dot--violet { --vs-status-color: var(--vs-violet); }
+.vs-status-dot--pink { --vs-status-color: var(--vs-pink); }
+.vs-status-dot--gold { --vs-status-color: var(--vs-gold); }
 .vs-status-dot--pulse { animation: vs-pulse calc(var(--vs-duration-spin) * 2) ease-in-out infinite; }
 @keyframes vs-pulse { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .vs-status-dot--pulse { animation: none; } }

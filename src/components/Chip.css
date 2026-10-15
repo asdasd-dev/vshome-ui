@@ -1,9 +1,9 @@
 .vs-chip { display: inline-flex; align-items: center; gap: var(--vs-space-1_5); text-decoration: none; border: 1px solid var(--vs-line); background: transparent; color: var(--vs-muted); border-radius: var(--vs-radius-pill); padding: var(--vs-space-1) var(--vs-space-3); font: inherit; font-size: var(--vs-chip-size, inherit); line-height: var(--vs-chip-leading, inherit); white-space: nowrap; cursor: pointer; }
-.vs-chip[aria-pressed="true"] { border-color: var(--vs-accent); color: var(--vs-accent); background: color-mix(in srgb, var(--vs-accent) 12%, transparent); font-weight: var(--vs-weight-semibold); }
+.vs-chip[aria-pressed="true"] { border-color: var(--vs-accent); color: var(--vs-accent); background: var(--vs-accent-tint); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk { --vs-chip-size: var(--vs-text-md); --vs-chip-leading: var(--vs-leading-md); }
 .vs-chip:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
 .vs-chip--sm { padding: 0 var(--vs-space-2); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); }
-.vs-chip:disabled { opacity: .5; cursor: default; }
+.vs-chip:disabled { opacity: .5; cursor: not-allowed; }
 a.vs-chip[aria-current="page"] { border-color: var(--vs-accent); color: var(--vs-accent); background: var(--vs-accent-tint); font-weight: var(--vs-weight-semibold); }
 .vs-chip-group { display: flex; flex-wrap: wrap; gap: var(--vs-space-2); min-width: 0; }
 .vs-chip-group--scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }

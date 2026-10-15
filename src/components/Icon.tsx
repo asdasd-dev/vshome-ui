@@ -1,7 +1,8 @@
 import { cx } from "../utils/cx";
 import { ICONS, type IconName } from "./icons";
+import type { Tone } from "./tone";
 
-export type IconProps = { name: IconName; size?: "sm" | "md" | "lg" | "em"; tone?: "lamp"; label?: string; className?: string };
+export type IconProps = { name: IconName; size?: "sm" | "md" | "lg" | "em"; tone?: Tone | "lamp"; label?: string; className?: string };
 
 export function Icon({ name, size = "md", tone, label, className }: IconProps) {
   return (

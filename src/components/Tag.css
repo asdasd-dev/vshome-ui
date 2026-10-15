@@ -11,3 +11,4 @@
 .vs-tag--violet { --vs-tag-fg: var(--vs-violet); --vs-tag-soft: var(--vs-violet-soft); }
 .vs-tag--pink { --vs-tag-fg: var(--vs-pink); --vs-tag-soft: var(--vs-pink-soft); }
 .vs-tag--gold { --vs-tag-fg: var(--vs-gold); --vs-tag-soft: var(--vs-gold-soft); }
+.vs-tag__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }

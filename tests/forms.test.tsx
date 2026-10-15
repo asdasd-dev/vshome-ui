@@ -53,7 +53,7 @@ describe("Badge, Tag, Link", () => {
   });
   it("Tag: тон и вариант", () => {
     render(<Tag tone="ok" variant="outline" size="sm">скидка</Tag>);
-    expect(screen.getByText("скидка").className).toBe("vs-tag vs-tag--ok vs-tag--outline vs-tag--sm");
+    expect(screen.getByText("скидка").closest(".vs-tag")!.className).toBe("vs-tag vs-tag--ok vs-tag--outline vs-tag--sm");
   });
   it("Link: ссылка или кнопка; внешняя открывается в новой вкладке с иконкой", () => {
     const onClick = vi.fn();

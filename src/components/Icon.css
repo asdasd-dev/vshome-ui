@@ -4,3 +4,11 @@
 .vs-icon--lg { width: var(--vs-space-6); height: var(--vs-space-6); }
 .vs-icon--lamp { color: var(--vs-lamp); filter: drop-shadow(0 0 var(--vs-space-1) var(--vs-lamp)); }
 .vs-icon--em { width: 1em; height: 1em; }
+.vs-icon--accent { color: var(--vs-accent); }
+.vs-icon--ok { color: var(--vs-ok); }
+.vs-icon--warn { color: var(--vs-warn); }
+.vs-icon--danger { color: var(--vs-danger); }
+.vs-icon--muted { color: var(--vs-muted); }
+.vs-icon--violet { color: var(--vs-violet); }
+.vs-icon--pink { color: var(--vs-pink); }
+.vs-icon--gold { color: var(--vs-gold); }

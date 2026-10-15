@@ -1,0 +1,2680 @@
+{
+  "Button": {
+    "file": "src/components/Button.tsx",
+    "props": [
+      {
+        "name": "variant",
+        "type": "\"primary\" | \"secondary\" | \"ghost\" | \"danger\" | \"warn\"",
+        "required": false,
+        "default": "\"secondary\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "shape",
+        "type": "\"default\" | \"pill\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "indicator",
+        "type": "\"lamp\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": "ButtonHTMLAttributes"
+  },
+  "SplitButton": {
+    "file": "src/components/SplitButton.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onHold",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "holdMs",
+        "type": "number",
+        "required": false,
+        "default": "500",
+        "deprecated": false
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "indicator",
+        "type": "\"lamp\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "more",
+        "type": "{ label: string; onClick: () => void; icon?: IconName }",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Chip": {
+    "file": "src/components/Chip.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ChipGroup": {
+    "file": "src/components/Chip.tsx",
+    "props": [
+      {
+        "name": "options",
+        "type": "{ value: T; label: ReactNode; count?: number; disabled?: boolean }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "scroll",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Badge": {
+    "file": "src/components/Badge.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"accent\" | \"muted\" | \"ok\" | \"warn\" | \"danger\"",
+        "required": false,
+        "default": "\"accent\"",
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Tag": {
+    "file": "src/components/Tag.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"accent\" | \"ok\" | \"warn\" | \"danger\" | \"muted\" | \"violet\" | \"pink\" | \"gold\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"soft\" | \"outline\"",
+        "required": false,
+        "default": "\"soft\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Link": {
+    "file": "src/components/Link.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"accent\" | \"muted\" | \"danger\"",
+        "required": false,
+        "default": "\"accent\"",
+        "deprecated": false
+      },
+      {
+        "name": "external",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "underline",
+        "type": "\"hover\" | \"always\"",
+        "required": false,
+        "default": "\"hover\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Field": {
+    "file": "src/components/Field.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "error",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "(control: FieldControlProps) => ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "FieldControl": {
+    "file": "src/components/Field.tsx",
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "aria-describedby",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "aria-invalid",
+        "type": "true",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "TextField": {
+    "file": "src/components/Field.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "error",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"dashed\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": "InputHTMLAttributes"
+  },
+  "TextArea": {
+    "file": "src/components/Field.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "error",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(value: string) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"dashed\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": "TextareaHTMLAttributes"
+  },
+  "Checkbox": {
+    "file": "src/components/Checkbox.tsx",
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(checked: boolean) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "RadioGroup": {
+    "file": "src/components/Checkbox.tsx",
+    "props": [
+      {
+        "name": "legend",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "options",
+        "type": "{ value: T; label: ReactNode; hint?: ReactNode; disabled?: boolean }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "direction",
+        "type": "\"column\" | \"row\"",
+        "required": false,
+        "default": "\"column\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hideLegend",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Spinner": {
+    "file": "src/components/Spinner.tsx",
+    "props": [
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Icon": {
+    "file": "src/components/Icon.tsx",
+    "props": [
+      {
+        "name": "name",
+        "type": "IconName",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"em\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "Tone | \"lamp\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "IconButton": {
+    "file": "src/components/IconButton.tsx",
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"secondary\" | \"primary\" | \"ghost\" | \"plain\"",
+        "required": false,
+        "default": "\"secondary\"",
+        "deprecated": false
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": "DOMAttributes"
+  },
+  "Tile": {
+    "file": "src/components/Tile.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "aside",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"warn\" | \"danger\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "scroll",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "dimmed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "data-tile",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Text": {
+    "file": "src/components/Text.tsx",
+    "props": [
+      {
+        "name": "variant",
+        "type": "\"display\" | \"headline\" | \"title\" | \"lead\" | \"body\" | \"caption\" | \"label\"",
+        "required": false,
+        "default": "\"body\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"muted\" | \"ok\" | \"warn\" | \"danger\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "weight",
+        "type": "\"medium\" | \"semibold\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"span\" | \"p\" | \"div\" | \"h1\" | \"h2\" | \"h3\" | \"h4\"",
+        "required": false,
+        "default": "\"span\"",
+        "deprecated": false
+      },
+      {
+        "name": "lines",
+        "type": "1 | 2 | 3",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Prose": {
+    "file": "src/components/Prose.tsx",
+    "props": [
+      {
+        "name": "html",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Cluster": {
+    "file": "src/components/Layout.tsx",
+    "props": [
+      {
+        "name": "gap",
+        "type": "Gap",
+        "required": false,
+        "default": "\"2\"",
+        "deprecated": false
+      },
+      {
+        "name": "align",
+        "type": "\"center\" | \"baseline\" | \"start\" | \"end\" | \"stretch\"",
+        "required": false,
+        "default": "\"center\"",
+        "deprecated": false
+      },
+      {
+        "name": "justify",
+        "type": "\"start\" | \"center\" | \"between\" | \"end\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "wrap",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "rigid",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"span\" | \"header\" | \"footer\"",
+        "required": false,
+        "default": "\"div\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Divider": {
+    "file": "src/components/Layout.tsx",
+    "props": [
+      {
+        "name": "vertical",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Stack": {
+    "file": "src/components/Layout.tsx",
+    "props": [
+      {
+        "name": "gap",
+        "type": "Gap",
+        "required": false,
+        "default": "\"2\"",
+        "deprecated": false
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"center\" | \"end\" | \"stretch\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "justify",
+        "type": "\"start\" | \"center\" | \"between\" | \"end\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"span\"",
+        "required": false,
+        "default": "\"div\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ControlList": {
+    "file": "src/components/ControlList.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ControlRow": {
+    "file": "src/components/ControlList.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "control",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Clock": {
+    "file": "src/components/Clock.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"lg\" | \"xl\" | \"hero\"",
+        "required": false,
+        "default": "\"lg\"",
+        "deprecated": false
+      },
+      {
+        "name": "weight",
+        "type": "\"medium\" | \"semibold\"",
+        "required": false,
+        "default": "\"medium\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"soft\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "align",
+        "type": "\"start\" | \"center\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Artwork": {
+    "file": "src/components/Artwork.tsx",
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": false,
+        "default": "\"\"",
+        "deprecated": false
+      },
+      {
+        "name": "fallback",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Excerpt": {
+    "file": "src/components/Excerpt.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Stat": {
+    "file": "src/components/Stat.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "unit",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "{ name: IconName; label: string }",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "caption",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"md\" | \"lg\" | \"xl\"",
+        "required": false,
+        "default": "\"lg\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"muted\" | \"ok\" | \"warn\" | \"danger\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "List": {
+    "file": "src/components/List.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "empty",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ListRow": {
+    "file": "src/components/List.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "titleLines",
+        "type": "1 | 2",
+        "required": false,
+        "default": "1",
+        "deprecated": false
+      },
+      {
+        "name": "sub",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "subTone",
+        "type": "\"muted\" | \"warn\"",
+        "required": false,
+        "default": "\"muted\"",
+        "deprecated": false
+      },
+      {
+        "name": "subLines",
+        "type": "1 | 2 | 3",
+        "required": false,
+        "default": "1",
+        "deprecated": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "lead",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"warn\" | \"danger\" | \"muted\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Banner": {
+    "file": "src/components/Banner.tsx",
+    "props": [
+      {
+        "name": "tone",
+        "type": "\"warn\" | \"danger\" | \"muted\" | \"accent\" | \"ok\"",
+        "required": false,
+        "default": "\"warn\"",
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"inline\" | \"box\"",
+        "required": false,
+        "default": "\"inline\"",
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "truncate",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "PageHeader": {
+    "file": "src/components/PageHeader.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "sub",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "lead",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "sticky",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"accent\" | \"plain\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Tabs": {
+    "file": "src/components/Tabs.tsx",
+    "props": [
+      {
+        "name": "items",
+        "type": "TabItem<T>[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"underline\" | \"bottom\"",
+        "required": false,
+        "default": "\"underline\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Card": {
+    "file": "src/components/Card.tsx",
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"section\" | \"article\" | \"li\"",
+        "required": false,
+        "default": "\"div\"",
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"accent\" | \"ok\" | \"warn\" | \"danger\" | \"muted\" | \"violet\" | \"pink\" | \"gold\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "stripe",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "padding",
+        "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "elevated",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Disclosure": {
+    "file": "src/components/Disclosure.tsx",
+    "props": [
+      {
+        "name": "summary",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onToggle",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"muted\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "EmptyState": {
+    "file": "src/components/EmptyState.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Progress": {
+    "file": "src/components/Progress.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "default": "\"accent\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "SplitBar": {
+    "file": "src/components/Progress.tsx",
+    "props": [
+      {
+        "name": "parts",
+        "type": "{ value: number; label: string; tone?: Tone; color?: string }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Table": {
+    "file": "src/components/Table.tsx",
+    "props": [
+      {
+        "name": "columns",
+        "type": "TableColumn<R>[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "rows",
+        "type": "R[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "rowKey",
+        "type": "(row: R, index: number) => string | number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "dense",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onRowClick",
+        "type": "(row: R) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "empty",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "KeyValue": {
+    "file": "src/components/KeyValue.tsx",
+    "props": [
+      {
+        "name": "items",
+        "type": "{ label: ReactNode; value: ReactNode; hint?: ReactNode; tone?: \"default\" | \"muted\" | \"ok\" | \"warn\" | \"danger\" }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "cols",
+        "type": "1 | 2 | 3 | 4",
+        "required": false,
+        "default": "2",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Legend": {
+    "file": "src/components/Legend.tsx",
+    "props": [
+      {
+        "name": "items",
+        "type": "{ label: ReactNode; tone?: Tone; color?: string; shape?: \"dot\" | \"line\" | \"dash\" | \"square\" }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "StatusDot": {
+    "file": "src/components/Legend.tsx",
+    "props": [
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "default": "\"ok\"",
+        "deprecated": false
+      },
+      {
+        "name": "pulse",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "SectionHeader": {
+    "file": "src/components/SectionHeader.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "aside",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"h2\" | \"h3\" | \"h4\"",
+        "required": false,
+        "default": "\"h2\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Segment": {
+    "file": "src/components/Segment.tsx",
+    "props": [
+      {
+        "name": "options",
+        "type": "{ value: T; label: ReactNode; disabled?: boolean }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"default\" | \"soft\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "ariaLabel",
+        "type": "never",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Switch": {
+    "file": "src/components/Switch.tsx",
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(checked: boolean) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Slider": {
+    "file": "src/components/Slider.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "default": "100",
+        "deprecated": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "default": "1",
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onCommit",
+        "type": "(v: number) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "format",
+        "type": "(v: number) => string",
+        "required": false,
+        "default": "String",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Sheet": {
+    "file": "src/components/Sheet.tsx",
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onRequestClose",
+        "type": "() => boolean | void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "head",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "scrollKey",
+        "type": "unknown",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Select": {
+    "file": "src/components/Select.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(value: T) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "options",
+        "type": "SelectOption<T>[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "error",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hideLabel",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ContextMenu": {
+    "file": "src/components/ContextMenu.tsx",
+    "props": [
+      {
+        "name": "items",
+        "type": "ContextMenuEntry[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactElement",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "longPress",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "LineChart": {
+    "file": "src/charts/LineChart.tsx",
+    "props": [
+      {
+        "name": "t0",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "series",
+        "type": "Series[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "yMax",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "bands",
+        "type": "[number, number][]",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "bandLabel",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "marks",
+        "type": "ChartMark[]",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "connect",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "xEvery",
+        "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "note",
+        "type": "(i: number) => string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "StackedBars": {
+    "file": "src/charts/StackedBars.tsx",
+    "props": [
+      {
+        "name": "labels",
+        "type": "string[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "series",
+        "type": "{ name: string; color: string; data: number[] }[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "fmt",
+        "type": "(v: number) => string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ChartCard": {
+    "file": "src/charts/ChartCard.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "sub",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "legend",
+        "type": "LegendItem[]",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "extra",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  }
+}

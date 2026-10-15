@@ -3,7 +3,7 @@ import { cx } from "../utils/cx";
 
 export type LegendItem = { name: string; color: string; extra?: string };
 
-export function Legend({ items }: { items: LegendItem[] }) {
+export function ChartLegend({ items }: { items: LegendItem[] }) {
   return (
     <div className="vs-chart-legend">
       {items.map((s) => (
@@ -29,7 +29,7 @@ export function ChartCard({ title, sub, legend, extra, className, children }: Ch
       <div className="vs-chart-title">{title}</div>
       {sub != null && <div className="vs-chart-sub">{sub}</div>}
       {extra}
-      {legend && <Legend items={legend} />}
+      {legend && <ChartLegend items={legend} />}
       {children}
     </div>
   );

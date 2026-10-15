@@ -4,3 +4,5 @@
 .vs-slider input::-moz-range-thumb { width: calc(8px * var(--vs-scale, 1)); height: calc(44px * var(--vs-scale, 1)); border: 0; background: transparent; }
 .vs-slider input:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; border-radius: var(--vs-radius-pill); }
 .vs-slider__value { position: absolute; right: var(--vs-space-4); top: 50%; transform: translateY(-50%); color: var(--vs-muted); font-weight: var(--vs-weight-medium); pointer-events: none; }
+.vs-slider:has(input:disabled) { opacity: .5; }
+.vs-slider input:disabled { cursor: not-allowed; }

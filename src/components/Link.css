@@ -6,3 +6,4 @@
 .vs-link__external { align-self: center; }
 .vs-link:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
 @media (hover: hover) { .vs-link--underline-hover:hover { text-decoration: underline; text-underline-offset: var(--vs-space-0_5); } }
+.vs-link:disabled { color: var(--vs-muted); opacity: .6; cursor: not-allowed; text-decoration: none; }

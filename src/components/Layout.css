@@ -5,6 +5,7 @@
 .vs-cluster--gap-3, .vs-stack--gap-3 { gap: var(--vs-space-3); }
 .vs-cluster--gap-4, .vs-stack--gap-4 { gap: var(--vs-space-4); }
 .vs-cluster--gap-6, .vs-stack--gap-6 { gap: var(--vs-space-6); }
+.vs-cluster--gap-8, .vs-stack--gap-8 { gap: var(--vs-space-8); }
 .vs-cluster--align-center, .vs-stack--align-center { align-items: center; }
 .vs-cluster--align-baseline { align-items: baseline; }
 .vs-cluster--align-start, .vs-stack--align-start { align-items: flex-start; }
@@ -17,3 +18,8 @@
 .vs-cluster--rigid > * { flex: none; white-space: nowrap; }
 .vs-divider { display: block; align-self: stretch; border-top: thin solid var(--vs-line); }
 .vs-divider--vertical { align-self: stretch; border-top: 0; border-left: thin solid var(--vs-line); margin: 0 var(--vs-space-1); }
+.vs-cluster--align-end, .vs-stack--align-end { align-items: flex-end; }
+.vs-stack--justify-start { justify-content: flex-start; }
+.vs-stack--justify-center { justify-content: center; }
+.vs-stack--justify-between { justify-content: space-between; }
+.vs-stack--justify-end { justify-content: flex-end; }

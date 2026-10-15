@@ -5,7 +5,9 @@ type Shown = { text: string; id: number };
 
 const ToastContext = createContext<((text: string) => void) | null>(null);
 
-export function ToastProvider({ children, duration = 3500 }: { children: ReactNode; duration?: number }) {
+export type ToastProviderProps = { children: ReactNode; duration?: number; className?: string };
+
+export function ToastProvider({ children, duration = 3500, className }: ToastProviderProps) {
   const [shown, setShown] = useState<Shown | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const show = useCallback((text: string) => {
@@ -17,7 +19,7 @@ export function ToastProvider({ children, duration = 3500 }: { children: ReactNo
   return (
     <ToastContext.Provider value={show}>
       {children}
-      {shown && createPortal(<div className="vs-toast" role="status" key={shown.id}>{shown.text}</div>, document.body)}
+      {shown && createPortal(<div className={className ? `vs-toast ${className}` : "vs-toast"} role="status" key={shown.id}>{shown.text}</div>, document.body)}
     </ToastContext.Provider>
   );
 }
