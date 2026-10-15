@@ -7,26 +7,6 @@
   --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 12%, var(--vs-panel));
   --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 12%, var(--vs-panel));
 
-  --vs-space-0_5: calc(2px * var(--vs-scale, 1));
-  --vs-space-1: calc(4px * var(--vs-scale, 1));
-  --vs-space-1_5: calc(6px * var(--vs-scale, 1));
-  --vs-space-2: calc(8px * var(--vs-scale, 1));
-  --vs-space-3: calc(12px * var(--vs-scale, 1));
-  --vs-space-4: calc(16px * var(--vs-scale, 1));
-  --vs-space-5: calc(20px * var(--vs-scale, 1));
-  --vs-space-6: calc(24px * var(--vs-scale, 1));
-  --vs-space-8: calc(32px * var(--vs-scale, 1));
-  --vs-space-10: calc(40px * var(--vs-scale, 1));
-  --vs-space-12: calc(48px * var(--vs-scale, 1));
-
-  --vs-text-xs: calc(12px * var(--vs-scale, 1)); --vs-leading-xs: calc(16px * var(--vs-scale, 1));
-  --vs-text-sm: calc(14px * var(--vs-scale, 1)); --vs-leading-sm: calc(20px * var(--vs-scale, 1));
-  --vs-text-md: calc(16px * var(--vs-scale, 1)); --vs-leading-md: calc(24px * var(--vs-scale, 1));
-  --vs-text-lg: calc(20px * var(--vs-scale, 1)); --vs-leading-lg: calc(28px * var(--vs-scale, 1));
-  --vs-text-xl: calc(24px * var(--vs-scale, 1)); --vs-leading-xl: calc(32px * var(--vs-scale, 1));
-  --vs-text-2xl: calc(32px * var(--vs-scale, 1)); --vs-leading-2xl: calc(40px * var(--vs-scale, 1));
-  --vs-text-3xl: calc(48px * var(--vs-scale, 1)); --vs-leading-3xl: calc(52px * var(--vs-scale, 1));
-  --vs-text-4xl: calc(72px * var(--vs-scale, 1)); --vs-leading-4xl: calc(76px * var(--vs-scale, 1));
   --vs-weight-regular: 400; --vs-weight-medium: 500; --vs-weight-semibold: 600; --vs-weight-bold: 700;
 
   --vs-radius-xs: 4px;
@@ -52,5 +32,27 @@
     --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 14%, var(--vs-panel));
     color-scheme: dark;
   }
+}
+:root, .vs-kiosk {
+  --vs-space-0_5: calc(2px * var(--vs-scale, 1));
+  --vs-space-1: calc(4px * var(--vs-scale, 1));
+  --vs-space-1_5: calc(6px * var(--vs-scale, 1));
+  --vs-space-2: calc(8px * var(--vs-scale, 1));
+  --vs-space-3: calc(12px * var(--vs-scale, 1));
+  --vs-space-4: calc(16px * var(--vs-scale, 1));
+  --vs-space-5: calc(20px * var(--vs-scale, 1));
+  --vs-space-6: calc(24px * var(--vs-scale, 1));
+  --vs-space-8: calc(32px * var(--vs-scale, 1));
+  --vs-space-10: calc(40px * var(--vs-scale, 1));
+  --vs-space-12: calc(48px * var(--vs-scale, 1));
+
+  --vs-text-xs: calc(12px * var(--vs-scale, 1)); --vs-leading-xs: calc(16px * var(--vs-scale, 1));
+  --vs-text-sm: calc(14px * var(--vs-scale, 1)); --vs-leading-sm: calc(20px * var(--vs-scale, 1));
+  --vs-text-md: calc(16px * var(--vs-scale, 1)); --vs-leading-md: calc(24px * var(--vs-scale, 1));
+  --vs-text-lg: calc(20px * var(--vs-scale, 1)); --vs-leading-lg: calc(28px * var(--vs-scale, 1));
+  --vs-text-xl: calc(24px * var(--vs-scale, 1)); --vs-leading-xl: calc(32px * var(--vs-scale, 1));
+  --vs-text-2xl: calc(32px * var(--vs-scale, 1)); --vs-leading-2xl: calc(40px * var(--vs-scale, 1));
+  --vs-text-3xl: calc(48px * var(--vs-scale, 1)); --vs-leading-3xl: calc(52px * var(--vs-scale, 1));
+  --vs-text-4xl: calc(72px * var(--vs-scale, 1)); --vs-leading-4xl: calc(76px * var(--vs-scale, 1));
 }
 .vs-kiosk { --vs-scale: 1.25; }

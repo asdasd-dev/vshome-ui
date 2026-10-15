@@ -6,9 +6,9 @@ const css = fs.readFileSync(path.join(__dirname, "..", "src", "styles", "tokens.
 const block = (sel: RegExp) => css.match(sel)?.[1] ?? "";
 const light = block(/:root\s*\{([^}]*)\}/);
 const dark = block(/prefers-color-scheme: dark\)\s*\{\s*:root\s*\{([^}]*)\}/);
-const kiosk = block(/\.vs-kiosk\s*\{([^}]*)\}/);
+const kiosk = block(/(?:^|\n)\.vs-kiosk\s*\{([^}]*)\}/);
 const has = (body: string, name: string) => new RegExp(`${name}\\s*:`).test(body);
-const value = (name: string) => light.match(new RegExp(`${name}\\s*:\\s*([^;]+);`))?.[1]?.trim();
+const value = (name: string) => (light + (css.match(/:root,\s*\.vs-kiosk\s*\{([^}]*)\}/)?.[1] ?? "")).match(new RegExp(`${name}\\s*:\\s*([^;]+);`))?.[1]?.trim();
 
 const SPACE: Record<string, number> = { "0_5": 2, "1": 4, "1_5": 6, "2": 8, "3": 12, "4": 16, "5": 20, "6": 24, "8": 32, "10": 40, "12": 48 };
 const TEXT: Record<string, [number, number]> = { xs: [12, 16], sm: [14, 20], md: [16, 24], lg: [20, 28], xl: [24, 32], "2xl": [32, 40], "3xl": [48, 52], "4xl": [72, 76] };
@@ -36,6 +36,11 @@ describe("токены", () => {
   });
   it("киоск увеличивает шкалы в 1.25 раза", () => {
     expect(kiosk).toMatch(/--vs-scale\s*:\s*1\.25/);
+  });
+  it("шкалы пересчитываются внутри .vs-kiosk, а не только на :root", () => {
+    const scaled = css.match(/:root,\s*\.vs-kiosk\s*\{([^}]*)\}/)?.[1] ?? "";
+    for (const k of Object.keys(SPACE)) expect(has(scaled, `--vs-space-${k}`), k).toBe(true);
+    for (const k of Object.keys(TEXT)) expect(has(scaled, `--vs-text-${k}`), k).toBe(true);
   });
 });
 
