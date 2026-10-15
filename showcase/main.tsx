@@ -1,6 +1,7 @@
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
+import "../src/styles/fonts.css";
 import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Stat, Switch, Tile, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 

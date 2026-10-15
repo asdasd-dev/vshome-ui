@@ -15,7 +15,7 @@
 - Режим плотности «киоск» — класс `.vs-kiosk` на корне страницы: умножает шкалы отступов и текста на `--vs-scale` (1.25) — для экранов, на которые смотрят с метра. Компоненты используют только токены, поэтому масштабируются сами.
 
 ### Шрифты
-Manrope (400/500/600/700) и Unbounded (300/500) — через `@fontsource/manrope` и `@fontsource/unbounded`, подключаются в `styles.css` (woff2 попадают в сборку потребителя, без внешних запросов). `--vs-font` и `--vs-font-display` не меняются. `base.css`: `body { font-family: var(--vs-font); }` если ещё не задан.
+Manrope и Unbounded — вариативные (`@fontsource-variable`, только кириллица и латиница), отдельным файлом `@vshome/ui/fonts.css` (woff2 встроены как data:, ~160 КБ, без внешних запросов). Подключают только те, кому нужны шрифты системы (первый — «Стол»): в `style.css` они не входят, чтобы страницы со своим шрифтом не платили за них. `--vs-font` и `--vs-font-display` не меняются; `base.css`: `body { font-family: var(--vs-font); }`.
 
 ### Компоненты (`src/components`, экспорт из `index.ts`, примеры в `showcase`)
 - `Tile` — плитка-поверхность: `label?` (подпись капсом, `--vs-text-xs`, `--vs-muted`), `tone?: "default" | "warn" | "danger"` (фон `*-soft`), `children`, `footer?` (прижат книзу), `onClick?` (тогда кнопка с фокусом). Отступ `--vs-space-5`, скругление `--vs-radius-xl`, фон `--vs-surface-1`.
