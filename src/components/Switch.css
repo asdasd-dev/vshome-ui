@@ -10,3 +10,6 @@
 .vs-switch--sm input::before { width: calc(1.1rem - 6px); height: calc(1.1rem - 6px); }
 .vs-switch--sm input:checked::before { transform: translateX(.8rem); }
 @media (prefers-reduced-motion: reduce) { .vs-switch input, .vs-switch input::before { transition: none; } }
+.vs-kiosk .vs-switch input { width: calc(56px * var(--vs-scale, 1)); height: calc(32px * var(--vs-scale, 1)); }
+.vs-kiosk .vs-switch input::before { top: calc(4px * var(--vs-scale, 1)); left: calc(4px * var(--vs-scale, 1)); width: calc(24px * var(--vs-scale, 1)); height: calc(24px * var(--vs-scale, 1)); }
+.vs-kiosk .vs-switch input:checked::before { transform: translateX(calc(24px * var(--vs-scale, 1))); }

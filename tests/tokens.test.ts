@@ -78,3 +78,16 @@ describe("Button в киоске", () => {
   });
 });
 
+describe("киоск 0.6", () => {
+  const read = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
+  it("нажатая кнопка в киоске подсвечена акцентом", () => {
+    expect(read("Button.css")).toMatch(/\.vs-kiosk \.vs-button\[aria-pressed="true"\] \{[^}]*color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)/);
+  });
+  it("Sheet и Switch в киоске — на шкалах", () => {
+    expect(read("Sheet.css")).toMatch(/\.vs-kiosk \.vs-sheet,\s*\.vs-sheet\.vs-kiosk \{[^}]*border-radius: var\(--vs-radius-xl\)/);
+    expect(read("Switch.css")).toMatch(/\.vs-kiosk \.vs-switch input \{[^}]*calc\(56px \* var\(--vs-scale, 1\)\)/);
+  });
+  it("Slider без своих цветов", () => {
+    expect(read("Slider.css")).not.toMatch(/#[0-9a-f]{3,8}\b/i);
+  });
+});

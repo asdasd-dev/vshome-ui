@@ -3,6 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { Button, Chip, Segment } from "../src";
 
 describe("Button", () => {
+  it("pressed → aria-pressed, без pressed атрибута нет", () => {
+    const { rerender } = render(<Button pressed>Кухня</Button>);
+    expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "true");
+    rerender(<Button pressed={false}>Кухня</Button>);
+    expect(screen.getByRole("button")).toHaveAttribute("aria-pressed", "false");
+    rerender(<Button>Кухня</Button>);
+    expect(screen.getByRole("button")).not.toHaveAttribute("aria-pressed");
+  });
   it("по умолчанию type=button, вариант в классе", () => {
     render(<Button variant="primary">Апрув</Button>);
     const b = screen.getByRole("button", { name: "Апрув" });

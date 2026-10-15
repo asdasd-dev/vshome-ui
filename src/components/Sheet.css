@@ -28,3 +28,7 @@
 @media (prefers-reduced-motion: reduce) {
   .vs-sheet, .vs-sheet--drawer, .vs-sheet-backdrop { transition: none; }
 }
+.vs-kiosk .vs-sheet, .vs-sheet.vs-kiosk { border: 0; border-radius: var(--vs-radius-xl); background: var(--vs-surface-1); width: min(calc(var(--vs-space-12) * 14), calc(100vw - var(--vs-space-8))); }
+.vs-kiosk .vs-sheet__head, .vs-sheet.vs-kiosk .vs-sheet__head { border-bottom: 0; padding: var(--vs-space-5) var(--vs-space-5) 0 var(--vs-space-6); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); }
+.vs-kiosk .vs-sheet__body, .vs-sheet.vs-kiosk .vs-sheet__body { padding: var(--vs-space-4) var(--vs-space-6) var(--vs-space-6); }
+.vs-kiosk .vs-sheet__actions button, .vs-sheet.vs-kiosk .vs-sheet__actions button { min-width: calc(44px * var(--vs-scale, 1)); min-height: calc(44px * var(--vs-scale, 1)); border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); }
