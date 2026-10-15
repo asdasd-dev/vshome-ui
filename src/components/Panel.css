@@ -48,6 +48,7 @@ button.vs-list-row__inner { cursor: pointer; }
 .vs-list-row__sub--3 { -webkit-line-clamp: 3; }
 .vs-list-row__name--2, .vs-list-row__title--2 { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .vs-tile__body--scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.vs-tile__body--scroll > * { flex-shrink: 0; }
 .vs-tile__body--scroll::-webkit-scrollbar { display: none; }
 .vs-tile__body--scroll[data-fade="bottom"] { -webkit-mask-image: linear-gradient(to bottom, black calc(100% - var(--vs-space-10)), transparent); mask-image: linear-gradient(to bottom, black calc(100% - var(--vs-space-10)), transparent); }
 .vs-tile__body--scroll[data-fade="top"] { -webkit-mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10)); mask-image: linear-gradient(to bottom, transparent, black var(--vs-space-10)); }
