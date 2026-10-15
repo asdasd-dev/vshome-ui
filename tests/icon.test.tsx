@@ -13,7 +13,13 @@ describe("Icon", () => {
     expect(svg.classList.contains("vs-icon--md")).toBe(true);
   });
   it("в наборе ровно иконки из спеки", () => {
-    expect([...ICON_NAMES].sort()).toEqual(["alert", "check", "chevron-right", "clock", "dot", "external", "next", "pause", "play", "prev"]);
+    expect([...ICON_NAMES].sort()).toEqual(["alert", "check", "chevron-right", "clock", "dot", "external", "next", "pause", "play", "prev", "weather-clear-night", "weather-cloudy", "weather-exceptional", "weather-fog", "weather-hail", "weather-lightning", "weather-lightning-rainy", "weather-partlycloudy", "weather-pouring", "weather-rainy", "weather-snowy", "weather-snowy-rainy", "weather-sunny", "weather-windy"]);
+  });
+  it("label — подписанная картинка для скринридера", () => {
+    render(<Icon name="weather-partlycloudy" label="облачно" />);
+    const img = screen.getByRole("img", { name: "облачно" });
+    expect(img.getAttribute("aria-hidden")).toBeNull();
+    expect(img.dataset.icon).toBe("weather-partlycloudy");
   });
   it("неизвестное имя — ошибка типов", () => {
     // @ts-expect-error нет такой иконки
