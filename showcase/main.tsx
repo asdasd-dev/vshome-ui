@@ -70,6 +70,14 @@ function Demo() {
   return (
     <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "72rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
       <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
+      <h2 style={{ margin: 0 }}>Кнопки с иконкой и лампой</h2>
+      <section className="vs-kiosk" data-part="lamp" style={{ display: "flex", gap: "var(--vs-space-3)", flexWrap: "wrap", padding: "var(--vs-space-4)", background: "var(--vs-surface-1)", borderRadius: "var(--vs-radius-lg)" }}>
+        <SplitButton onClick={() => {}} more={{ label: "Коридор: лампы", onClick: () => {} }} indicator="lamp">Коридор</SplitButton>
+        <SplitButton pressed onClick={() => {}} more={{ label: "Кухня: лампы", onClick: () => {} }} indicator="lamp">Кухня · 3</SplitButton>
+        <Button pressed indicator="lamp">Баня</Button>
+        <Button>Парадная</Button>
+        <Button icon="check">С иконкой</Button>
+      </section>
       <h2 style={{ margin: 0 }}>Текст</h2>
       <Texts />
       <h2 style={{ margin: 0 }}>Текст · киоск</h2>
