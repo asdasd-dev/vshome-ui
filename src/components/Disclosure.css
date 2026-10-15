@@ -1,0 +1,10 @@
+.vs-disclosure { min-width: 0; }
+.vs-disclosure__summary { display: flex; align-items: center; gap: var(--vs-space-1_5); list-style: none; cursor: pointer; color: var(--vs-disclosure-fg); font-weight: var(--vs-weight-medium); }
+.vs-disclosure--default { --vs-disclosure-fg: var(--vs-ink); }
+.vs-disclosure--muted { --vs-disclosure-fg: var(--vs-muted); }
+.vs-disclosure__summary::-webkit-details-marker { display: none; }
+.vs-disclosure__summary:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
+.vs-disclosure__chevron { transition: transform var(--vs-duration-fast); }
+.vs-disclosure[open] > .vs-disclosure__summary .vs-disclosure__chevron { transform: rotate(90deg); }
+.vs-disclosure__body { padding-top: var(--vs-space-2); }
+@media (prefers-reduced-motion: reduce) { .vs-disclosure__chevron { transition: none; } }

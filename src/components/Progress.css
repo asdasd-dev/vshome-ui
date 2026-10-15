@@ -1,0 +1,7 @@
+.vs-progress, .vs-split-bar { display: flex; overflow: hidden; border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); min-width: 0; }
+.vs-progress--sm { height: var(--vs-space-1); }
+.vs-progress--md { height: var(--vs-space-2); }
+.vs-progress__fill { display: block; height: 100%; border-radius: inherit; background: var(--vs-progress-color); transition: width var(--vs-duration-base); }
+.vs-split-bar { gap: var(--vs-space-0_5); background: transparent; }
+.vs-split-bar__part { flex-basis: 0; min-width: var(--vs-space-0_5); height: 100%; background: var(--vs-progress-color); }
+@media (prefers-reduced-motion: reduce) { .vs-progress__fill { transition: none; } }

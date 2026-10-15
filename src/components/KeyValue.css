@@ -1,0 +1,15 @@
+.vs-kv { display: grid; gap: var(--vs-space-3) var(--vs-space-4); margin: 0; min-width: 0; }
+.vs-kv--cols-1 { grid-template-columns: minmax(0, 1fr); }
+.vs-kv--cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vs-kv--cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.vs-kv--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.vs-kv__item { min-width: 0; }
+.vs-kv__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }
+.vs-kv__value { margin: 0; font-weight: var(--vs-weight-semibold); font-variant-numeric: tabular-nums; color: var(--vs-ink); }
+.vs-kv--md .vs-kv__value { font-size: var(--vs-text-lg); line-height: var(--vs-leading-lg); }
+.vs-kv--sm .vs-kv__value { font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
+.vs-kv__value--muted { color: var(--vs-muted); }
+.vs-kv__value--ok { color: var(--vs-ok); }
+.vs-kv__value--warn { color: var(--vs-warn); }
+.vs-kv__value--danger { color: var(--vs-danger); }
+.vs-kv__hint { margin: 0; font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }

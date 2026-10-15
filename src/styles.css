@@ -28,3 +28,13 @@
 @import "./components/Sheet.css";
 @import "./components/Select.css";
 @import "./components/ContextMenu.css";
+@import "./components/PageHeader.css";
+@import "./components/Tabs.css";
+@import "./components/Card.css";
+@import "./components/Disclosure.css";
+@import "./components/EmptyState.css";
+@import "./components/Progress.css";
+@import "./components/Table.css";
+@import "./components/KeyValue.css";
+@import "./components/Legend.css";
+@import "./components/SectionHeader.css";

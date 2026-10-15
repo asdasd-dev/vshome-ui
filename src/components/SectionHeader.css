@@ -1,0 +1,3 @@
+.vs-section-header { display: flex; justify-content: space-between; align-items: center; gap: var(--vs-space-3); min-width: 0; }
+.vs-section-header__title { display: inline-flex; align-items: center; gap: var(--vs-space-1_5); margin: 0; font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-semibold); letter-spacing: .06em; text-transform: uppercase; color: var(--vs-muted); }
+.vs-section-header__aside { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); white-space: nowrap; }
