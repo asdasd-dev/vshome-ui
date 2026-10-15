@@ -43,3 +43,10 @@ describe("indicator=lamp", () => {
     expect(t.match(/--vs-lamp:/g)).toHaveLength(3);
   });
 });
+
+describe("подпись кнопки", () => {
+  it("не переносится ни у Button, ни у SplitButton", () => {
+    expect(read("components/Button.css")).toMatch(/\.vs-button \{[^}]*white-space: nowrap/);
+    expect(read("components/SplitButton.css")).toMatch(/\.vs-split button \{[^}]*white-space: nowrap/);
+  });
+});
