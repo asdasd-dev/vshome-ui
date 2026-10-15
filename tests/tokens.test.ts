@@ -55,7 +55,7 @@ describe("компоненты на шкалах", () => {
 describe("киоск и контраст", () => {
   const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
   it.each(["Button.css", "Chip.css", "Segment.css"])("%s — в киоске текст масштабируется", (f) => {
-    expect(comp(f)).toMatch(/\.vs-kiosk[^{]*\{[^}]*(font-size|--vs-button-size): var\(--vs-text-md\)/);
+    expect(comp(f)).toMatch(/\.vs-kiosk[^{]*\{[^}]*(font-size|--vs-[a-z]+-size): var\(--vs-text-md\)/);
   });
   it("в светлой теме мягкий фон «внимания» не глушит текст: примесь 8%", () => {
     expect(light).toMatch(/--vs-warn-soft: color-mix\(in srgb, var\(--vs-warn\) 8%/);
@@ -89,8 +89,8 @@ describe("киоск 0.6", () => {
     expect(read("Button.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-button-pressed: color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)/);
   });
   it("Sheet и Switch в киоске — на шкалах", () => {
-    expect(read("Sheet.css")).toMatch(/\.vs-kiosk \.vs-sheet,\s*\.vs-sheet\.vs-kiosk \{[^}]*border-radius: var\(--vs-radius-xl\)/);
-    expect(read("Switch.css")).toMatch(/\.vs-kiosk \.vs-switch input \{[^}]*calc\(56px \* var\(--vs-scale, 1\)\)/);
+    expect(read("Sheet.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-sheet-radius: var\(--vs-radius-xl\)/);
+    expect(read("Switch.css")).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-switch-w: calc\(56px \* var\(--vs-scale, 1\)\)/);
   });
   it("Slider без своих цветов", () => {
     expect(read("Slider.css")).not.toMatch(/#[0-9a-f]{3,8}\b/i);
@@ -118,11 +118,11 @@ describe("принудительная тема", () => {
   });
 });
 
-describe("кнопки без борьбы селекторов", () => {
+describe("компоненты без борьбы селекторов", () => {
   const read = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
-  it.each(["Button.css", "SplitButton.css"])("%s: киоск задаёт только переменные на .vs-kiosk, модификаторы — на самой кнопке", (f) => {
+  it.each(fs.readdirSync(path.join(__dirname, "..", "src", "components")).filter((f) => f.endsWith(".css")))("%s: киоск задаёт только переменные на .vs-kiosk, модификаторы — на самом компоненте", (f) => {
     const css = read(f);
-    expect(css).not.toMatch(/\.vs-kiosk \./);
+    expect(css).not.toMatch(/\.vs-kiosk \.|\.vs-kiosk\.|\.[a-z-_]+\.vs-kiosk/);
     const kiosk = css.match(/(?:^|\n)\.vs-kiosk \{([^}]*)\}/)?.[1] ?? "";
     expect(kiosk.split(";").map((d) => d.trim()).filter(Boolean).every((d) => d.startsWith("--vs-"))).toBe(true);
   });
