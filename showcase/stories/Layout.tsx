@@ -38,6 +38,21 @@ export const stories: StoryFile["stories"] = [
     ),
   },
   {
+    name: "Cluster: collapse — колонка на телефоне",
+    render: () => (
+      <Card>
+        <Stack gap="3">
+          <Cluster collapse="tablet" justify="between" align="baseline">
+            <Stack gap="1"><Text variant="title">48 230 ₽</Text><Text tone="muted">расходы за октябрь</Text></Stack>
+            <Stack gap="1"><Text variant="title">23 из 24</Text><Text tone="muted">сервисов в сети</Text></Stack>
+            <Stack gap="1"><Text variant="title">2</Text><Text tone="muted">агента ждут</Text></Stack>
+          </Cluster>
+          <Cluster collapse="tablet" justify="end"><Button variant="ghost">Отмена</Button><Button variant="primary">Сохранить</Button></Cluster>
+        </Stack>
+      </Card>
+    ),
+  },
+  {
     name: "Stack: колонка",
     render: () => (
       <Cluster gap="6" align="start">

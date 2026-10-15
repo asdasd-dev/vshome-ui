@@ -17,6 +17,22 @@ function Clickable() {
   );
 }
 
+function Folder() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Stack gap="2">
+      <Card onClick={() => setOpen(!open)} expanded={open} controls="media-folder" label={`${open ? "Свернуть" : "Открыть"} папку Медиа, 3 сервиса`}>
+        <Cluster as="span" justify="between"><Text weight="medium">Медиа</Text><Badge tone="muted">3</Badge></Cluster>
+      </Card>
+      <div id="media-folder" hidden={!open}>
+        <Stack gap="2">
+          {["Jellyfin", "Фото", "Музыка"].map((s) => <Card key={s} padding="sm"><Text>{s}</Text></Card>)}
+        </Stack>
+      </div>
+    </Stack>
+  );
+}
+
 export const meta: StoryFile["meta"] = { title: "Card", group: "Поверхности", components: ["Card"], doc: "Card" };
 
 export const stories: StoryFile["stories"] = [
@@ -58,6 +74,15 @@ export const stories: StoryFile["stories"] = [
     ),
   },
   { name: "Клик", render: () => <Clickable /> },
+  { name: "Раскрывает блок: expanded и controls", render: () => <Folder /> },
+  {
+    name: "Внешняя ссылка",
+    render: () => (
+      <Card href="https://grafana.vshome.space" external stripe="violet">
+        <Stack as="span" gap="1"><Text weight="medium">Мониторинг</Text><Text variant="caption" tone="muted">grafana.vshome.space · откроется в новой вкладке</Text></Stack>
+      </Card>
+    ),
+  },
   {
     name: "Ссылка",
     render: () => (

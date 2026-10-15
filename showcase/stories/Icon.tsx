@@ -1,4 +1,4 @@
-import { Cluster, ICON_NAMES, Icon, Stack, Text } from "../../src";
+import { Cluster, Grid, ICON_NAMES, Icon, Stack, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
 export const meta: StoryFile["meta"] = { title: "Icon", group: "Текст и медиа", components: ["Icon"], doc: "Icon" };
@@ -7,13 +7,11 @@ export const stories: StoryFile["stories"] = [
   {
     name: "Все иконки",
     render: () => (
-      <Cluster wrap gap="4" align="start">
+      <Grid min="xs" gap="4">
         {ICON_NAMES.map((n) => (
-          <div key={n} style={{ width: 120 }}>
-            <Stack gap="1" align="center"><Icon name={n} size="lg" /><Text variant="caption" tone="muted">{n}</Text></Stack>
-          </div>
+          <Stack key={n} gap="1" align="center"><Icon name={n} size="lg" /><Text variant="caption" tone="muted" lines={1} title={n}>{n}</Text></Stack>
         ))}
-      </Cluster>
+      </Grid>
     ),
   },
   {

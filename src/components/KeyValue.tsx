@@ -1,14 +1,17 @@
 import type { ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { cx } from "../utils/cx";
+import { responsiveVars, type Responsive } from "../responsive";
 
 export type KeyValueProps = {
   items: { label: ReactNode; value: ReactNode; hint?: ReactNode; tone?: "default" | "muted" | "ok" | "warn" | "danger" }[];
-  cols?: 1 | 2 | 3 | 4; size?: "sm" | "md"; className?: string;
+  cols?: Responsive<1 | 2 | 3 | 4> | "auto"; size?: "sm" | "md"; className?: string;
 };
 
 export function KeyValue({ items, cols = 2, size = "md", className }: KeyValueProps) {
   return (
-    <dl className={cx("vs-kv", `vs-kv--cols-${cols}`, `vs-kv--${size}`, className)}>
+    <div className={cx("vs-kv-wrap", className)}>
+    <dl className={cx("vs-kv", cols === "auto" && "vs-kv--auto", `vs-kv--${size}`)} style={(cols === "auto" ? {} : responsiveVars("vs-grid-cols", cols)) as CSSProperties}>
       {items.map((it, i) => (
         <div key={i} className="vs-kv__item">
           <dt className="vs-kv__label">{it.label}</dt>
@@ -17,5 +20,6 @@ export function KeyValue({ items, cols = 2, size = "md", className }: KeyValuePr
         </div>
       ))}
     </dl>
+    </div>
   );
 }

@@ -7,6 +7,13 @@
 - Значок внутри компонента: `icon` у [Button](#/c/Button), [Tag](#/c/Tag), [Tabs](#/c/Tabs).
 - Погода на стене: `weather-*` по коду состояния.
 - Пометка в строке: `alert`, `check`, `clock`.
+- Действия в кнопках и меню: `edit`, `trash`, `copy`, `refresh`, `filter`, `settings`, `link`.
+- Ленты и покупки: `cart`, `tag`, `percent`, `heart` / `heart-filled` (отслеживать), `star` / `star-outline` (рейтинг).
+- Разделы и навигация: `home`, `list`, `chart`, `calendar`, `bell`, `user`, стрелки `arrow-*` и `chevron-*`.
+- Дом и сервисы: `server`, `wifi`, `lock`, `door`, `gate`, `lightbulb`, `robot`, `message`, `music`, `video`, `album`.
+- События и досуг на «Столе»: `presentation`, `ticket`, `beach`, `soccer`, `volleyball`, `hockey`, `basketball`; оценка — `thumb-up`, `thumb-down`.
+
+Полный список с подписями — в примере «Все иконки» ниже.
 
 ## Когда не применять
 

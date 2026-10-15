@@ -1,0 +1,10 @@
+.vs-range { position: relative; height: calc(32px * var(--vs-scale, 1)); min-width: 0; }
+.vs-range__track { position: absolute; left: 0; right: 0; top: 50%; height: var(--vs-space-1); translate: 0 -50%; border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); }
+.vs-range__fill { position: absolute; top: 0; bottom: 0; left: var(--vs-range-lo); right: calc(100% - var(--vs-range-hi)); border-radius: inherit; background: var(--vs-range-color); }
+.vs-range__input { position: absolute; inset: 0; width: 100%; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; pointer-events: none; }
+.vs-range__input::-webkit-slider-thumb { -webkit-appearance: none; pointer-events: auto; width: calc(22px * var(--vs-scale, 1)); height: calc(22px * var(--vs-scale, 1)); border-radius: 50%; border: 3px solid var(--vs-range-color); background: var(--vs-knob); box-shadow: var(--vs-knob-shadow); cursor: pointer; }
+.vs-range__input::-moz-range-thumb { pointer-events: auto; width: calc(22px * var(--vs-scale, 1)); height: calc(22px * var(--vs-scale, 1)); border-radius: 50%; border: 3px solid var(--vs-range-color); background: var(--vs-knob); box-shadow: var(--vs-knob-shadow); cursor: pointer; }
+.vs-range__input:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-pill); }
+.vs-range__input:disabled { cursor: not-allowed; }
+.vs-range:has(input:disabled) { opacity: .5; }
+.vs-range__input--top { z-index: var(--vs-z-raised); }

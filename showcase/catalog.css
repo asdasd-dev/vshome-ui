@@ -12,3 +12,6 @@ body { margin: 0; background: var(--vs-surface-0); }
 }
 .cat-tokens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--vs-space-3); }
 .cat-token-name { width: 180px; flex: none; }
+.cat-story--framed { display: flex; justify-content: center; }
+.cat-frame { display: block; max-width: 100%; border: 0; border-radius: var(--vs-radius-md); background: var(--vs-surface-0); box-shadow: 0 0 0 1px var(--vs-line); }
+.cat-frame-body { padding: var(--vs-space-4); }

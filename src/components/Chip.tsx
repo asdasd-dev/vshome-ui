@@ -1,16 +1,17 @@
 import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Badge } from "./Badge";
+import { Icon } from "./Icon";
 
 export type ChipProps = {
   children: ReactNode; pressed?: boolean; onClick?: () => void; href?: string; size?: "sm" | "md"; disabled?: boolean; count?: number;
-  title?: string; className?: string;
+  external?: boolean; title?: string; className?: string;
 };
 
-export function Chip({ children, pressed, onClick, href, size = "md", disabled, count, title, className }: ChipProps) {
+export function Chip({ children, pressed, onClick, href, size = "md", disabled, count, external, title, className }: ChipProps) {
   const cls = cx("vs-chip", size === "sm" && "vs-chip--sm", className);
   const inner = <>{children}{count != null && <Badge tone={pressed ? "accent" : "muted"}>{count}</Badge>}</>;
-  if (href != null) return <a className={cls} href={href} title={title} aria-current={pressed ? "page" : undefined}>{inner}</a>;
+  if (href != null) return <a className={cls} href={href} title={title} aria-current={pressed ? "page" : undefined} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{inner}{external && <Icon name="external" size="em" />}</a>;
   return (
     <button type="button" className={cls} aria-pressed={pressed === undefined ? undefined : pressed} onClick={onClick} title={title} disabled={disabled}>
       {inner}

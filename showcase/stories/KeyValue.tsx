@@ -1,5 +1,12 @@
-import { KeyValue } from "../../src";
+import { Cluster, KeyValue, Stack, Text } from "../../src";
 import type { StoryFile } from "../catalog";
+
+const month = [
+  { label: "Расходы", value: "48 230 ₽", hint: "−18% к сентябрю", tone: "ok" as const },
+  { label: "Еда", value: "31 400 ₽" },
+  { label: "Подписки", value: "4 980 ₽", tone: "warn" as const },
+  { label: "Транспорт", value: "2 150 ₽" },
+];
 
 export const meta: StoryFile["meta"] = { title: "KeyValue", group: "Данные", components: ["KeyValue"], doc: "KeyValue" };
 
@@ -26,6 +33,19 @@ export const stories: StoryFile["stories"] = [
         { label: "Транспорт", value: "2 150 ₽" },
         { label: "Кафе", value: "—", tone: "muted" },
       ]} />
+    ),
+  },
+  {
+    name: "Колонки по ширине места",
+    render: () => (
+      <Stack gap="4">
+        <KeyValue cols={{ phone: 2, tablet: 4 }} items={month} />
+        <Text variant="caption" tone="muted">Та же сводка в колонке 360px — уже phone, 2 колонки; cols="auto" — сколько пар по 160px влезает</Text>
+        <Cluster gap="6" align="start" wrap>
+          <div style={{ maxWidth: 360, width: "100%" }}><KeyValue cols={{ phone: 2, tablet: 4 }} items={month} /></div>
+          <div style={{ maxWidth: 360, width: "100%" }}><KeyValue cols="auto" size="sm" items={month} /></div>
+        </Cluster>
+      </Stack>
     ),
   },
   {

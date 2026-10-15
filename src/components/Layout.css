@@ -23,3 +23,5 @@
 .vs-stack--justify-center { justify-content: center; }
 .vs-stack--justify-between { justify-content: space-between; }
 .vs-stack--justify-end { justify-content: flex-end; }
+@media (max-width: 759px) { .vs-cluster--collapse-tablet { flex-direction: column; align-items: stretch; } }
+@media (max-width: 1199px) { .vs-cluster--collapse-desktop { flex-direction: column; align-items: stretch; } }

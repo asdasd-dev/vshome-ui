@@ -1,4 +1,4 @@
-import { useId, type ReactNode, type InputHTMLAttributes, type TextareaHTMLAttributes } from "react";
+import { useId, type ReactNode, type InputHTMLAttributes, type Ref, type TextareaHTMLAttributes } from "react";
 import { cx } from "../utils/cx";
 import { Icon } from "./Icon";
 
@@ -23,7 +23,7 @@ export function Field({ label, hint, error, hideLabel, className, children }: Fi
 
 type Common = { label: string; hint?: ReactNode; error?: ReactNode; hideLabel?: boolean; value: string; onChange: (value: string) => void; size?: "sm" | "md"; variant?: "default" | "dashed"; className?: string };
 
-export type TextFieldProps = Common & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "size" | "className">;
+export type TextFieldProps = Common & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "size" | "className"> & { ref?: Ref<HTMLInputElement> };
 
 export function TextField({ label, hint, error, hideLabel, value, onChange, size = "md", variant = "default", className, type = "text", ...rest }: TextFieldProps) {
   const search = type === "search";
@@ -38,7 +38,7 @@ export function TextField({ label, hint, error, hideLabel, value, onChange, size
   );
 }
 
-export type TextAreaProps = Common & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "value" | "className">;
+export type TextAreaProps = Common & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "value" | "className"> & { ref?: Ref<HTMLTextAreaElement> };
 
 export function TextArea({ label, hint, error, hideLabel, value, onChange, size = "md", variant = "default", className, rows = 3, ...rest }: TextAreaProps) {
   return (

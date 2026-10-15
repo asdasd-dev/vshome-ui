@@ -50,5 +50,6 @@ export const stories: StoryFile["stories"] = [
   { name: "Прокрутка", render: () => <Categories /> },
   { name: "Независимые фильтры и выключенный", render: () => <Filters /> },
   { name: "Ссылки", render: () => <Cluster wrap><Chip href="#/c/Chip" pressed>Все списки</Chip><Chip href="#/c/Chip">Дом</Chip><Chip href="#/c/Chip">Дача</Chip></Cluster> },
+  { name: "Внешние ссылки", render: () => <Cluster wrap><Chip href="https://lenta.com" external>lenta.com</Chip><Chip href="https://t.me" external count={12}>Ритм заводов</Chip></Cluster> },
   { name: "В киоске", kiosk: true, render: () => <Stack gap="3"><Statuses /><Filters /></Stack> },
 ];

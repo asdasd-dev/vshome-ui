@@ -2,6 +2,7 @@ import "./charts.css";
 
 export { LineChart, type LineChartProps, type Series, type ChartMark } from "./LineChart";
 export { StackedBars, type StackedBarsProps } from "./StackedBars";
+export { TimeChart, type TimeChartProps, type TimeSeries, type RefLine } from "./TimeChart";
 export { ChartCard, ChartLegend, type ChartCardProps, type LegendItem } from "./ChartCard";
 export { niceMax, dayTicks, outageBands, linePath, fmtStamp } from "./scale";
 

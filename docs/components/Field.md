@@ -49,6 +49,7 @@
 - `label` обязателен и связан с полем через `htmlFor`: даже у поиска с `hideLabel` скринридер слышит «Поиск товаров».
 - `hint` и `error` подключены к полю через `aria-describedby` и читаются после подписи.
 - Остальные атрибуты `<input>` и `<textarea>` (`placeholder`, `autoComplete`, `inputMode`, `maxLength`) передаются как есть.
+- `ref` у `TextField` и `TextArea` ведёт на сам `input`/`textarea`: поставить фокус в поле после открытия шторки или после ошибки, `ref.current?.focus()`.
 
 ## Делай / не делай
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { List, ListRow, Stack, Tag, Text } from "../../src";
+import { Artwork, List, ListRow, Price, Stack, Tag, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Clickable() {
@@ -14,6 +14,8 @@ function Clickable() {
     </Stack>
   );
 }
+
+const photo = (color: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"><rect width="1" height="1" fill="${color}"/></svg>`)}`;
 
 export const meta: StoryFile["meta"] = { title: "List", group: "Данные", components: ["List", "ListRow"], doc: "List" };
 
@@ -42,6 +44,16 @@ export const stories: StoryFile["stories"] = [
   {
     name: "Нажимаемые строки",
     render: () => <Clickable />,
+  },
+  {
+    name: "Ссылки с картинкой: href и align=\"center\"",
+    render: () => (
+      <List label="Подешевело в Ленте">
+        <ListRow align="center" href="#/c/List" lead={<Artwork size="sm" src={photo("#9fb4cf")} />} title="Молоко 3,2%, 930 мл" sub="−25% к медиане" meta={<Price size="sm" value={8999} tone="deal" />} />
+        <ListRow align="center" href="#/c/List" lead={<Artwork size="sm" src={photo("#e3c25a")} />} title="Бананы" sub="−10% к медиане" meta={<Price size="sm" value={12999} unit="кг" />} />
+        <ListRow align="center" href="#/c/List" lead={<Artwork size="sm" fallback="?" />} title="Пармезан, 200 г" sub="нет в наличии" tone="muted" meta={<Price size="sm" value={34999} gone />} />
+      </List>
+    ),
   },
   {
     name: "Предел и длинный текст",

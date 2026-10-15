@@ -30,7 +30,7 @@ describe("Tabs", () => {
     expect(screen.getByRole("navigation", { name: "Меню" }).className).toContain("vs-tabs--bottom");
     expect(screen.getByRole("link", { name: "Б" })).toHaveAttribute("aria-current", "page");
     expect(container.querySelector("[role=tablist]")).toBeNull();
-    expect(allCss()).toMatch(/@media \(max-width: 760px\)[^{]*\{\s*\.vs-tabs--bottom \{[^}]*position: fixed/);
+    expect(allCss()).toMatch(/@media \(max-width: 759px\)[^{]*\{\s*\.vs-tabs--bottom \{[^}]*position: fixed/);
   });
 });
 
@@ -116,7 +116,7 @@ describe("KeyValue, Legend, StatusDot, SectionHeader", () => {
   it("KeyValue: dl с подписями и значениями, колонки", () => {
     const { container } = render(<KeyValue cols={2} items={[{ label: "Белки", value: "12 г" }, { label: "Цена", value: "99 ₽", tone: "ok", hint: "за кг" }]} />);
     const dl = container.querySelector("dl")!;
-    expect(dl.className).toContain("vs-kv--cols-2");
+    expect(dl.style.getPropertyValue("--vs-grid-cols")).toBe("2");
     expect([...dl.querySelectorAll("dt")].map((x) => x.textContent)).toEqual(["Белки", "Цена"]);
     expect(dl.querySelectorAll("dd")[1]!.className).toContain("vs-kv__value--ok");
   });

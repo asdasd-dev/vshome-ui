@@ -9,3 +9,9 @@
 @media (hover: hover) { .vs-segment button:hover:not([aria-pressed=true]) { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }
 .vs-segment--sm button { padding: var(--vs-space-1) var(--vs-space-3); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-segment button:disabled { opacity: .5; cursor: not-allowed; }
+.vs-segment--thumb { position: relative; isolation: isolate; }
+.vs-segment--thumb button { flex: 1 1 0; justify-content: center; position: relative; }
+.vs-segment--thumb button[aria-pressed="true"] { background: transparent; }
+.vs-segment__thumb { position: absolute; top: var(--vs-space-0_5); bottom: var(--vs-space-0_5); left: var(--vs-space-0_5); width: calc((100% - var(--vs-space-0_5) * 2) / var(--vs-segment-n)); translate: calc(100% * var(--vs-segment-pos)) 0; border-radius: var(--vs-radius-sm); background: var(--vs-ink); }
+.vs-segment--thumb:not(.vs-segment--soft) button[aria-pressed="true"] { color: var(--vs-bg); }
+.vs-segment--soft .vs-segment__thumb { top: var(--vs-space-1); bottom: var(--vs-space-1); left: var(--vs-space-1); width: calc((100% - var(--vs-space-1) * 2) / var(--vs-segment-n)); border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); }

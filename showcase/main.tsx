@@ -1,9 +1,9 @@
-import { StrictMode, useEffect, useMemo, useState } from "react";
+import { StrictMode, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { marked } from "marked";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Card, Cluster, EmptyState, IconButton, Link, PageHeader, Prose, SectionHeader, Segment, Sheet, Stack, Switch, Table, Text, TextField, ToastProvider, useMediaQuery } from "../src";
+import { Card, Cluster, EmptyState, IconButton, Link, PageHeader, Prose, SectionHeader, Segment, Sheet, Stack, Switch, Table, Text, TextField, ToastProvider, useMediaQuery, MEDIA } from "../src";
 import "../src/charts/charts.css";
 import pkg from "../package.json";
 import props from "./props.json";
@@ -12,12 +12,13 @@ import "./catalog.css";
 import { TokensPage } from "./tokens-page";
 
 type Theme = "system" | "light" | "dark";
-type Route = { kind: "guide"; slug: string } | { kind: "component"; title: string } | { kind: "tokens" };
+type Route = { kind: "guide"; slug: string } | { kind: "component"; title: string } | { kind: "tokens" } | { kind: "frame"; title: string; index: number; theme: string; kiosk: boolean };
 type PropRow = { name: string; type: string; required: boolean; default: string | null; deprecated: boolean };
 type PropsInfo = Record<string, { file: string; props: PropRow[]; inherits: string | null }>;
 
 const parse = (hash: string): Route => {
-  const [kind, id] = decodeURIComponent(hash.replace(/^#\/?/, "")).split("/");
+  const [kind, id, a, b, c] = hash.replace(/^#\/?/, "").split("/").map(decodeURIComponent);
+  if (kind === "frame" && id) return { kind: "frame", title: id, index: Number(a ?? 0), theme: b ?? "system", kiosk: c === "1" };
   if (kind === "c" && id) return { kind: "component", title: id };
   if (kind === "tokens") return { kind: "tokens" };
   return { kind: "guide", slug: id && kind === "g" ? id : guides[0]?.slug ?? "" };
@@ -78,18 +79,53 @@ function PropsTable({ name }: { name: string }) {
   );
 }
 
-function ComponentPage({ family, kiosk }: { family: StoryFile; kiosk: boolean }) {
+type Viewport = "full" | "tablet" | "phone";
+const WIDTH: Record<Viewport, number> = { full: 0, tablet: 820, phone: 390 };
+
+function Frame({ title, index, width, theme, kiosk }: { title: string; index: number; width: number; theme: string; kiosk: boolean }) {
+  const ref = useRef<HTMLIFrameElement>(null);
+  const [height, setHeight] = useState(160);
+  useEffect(() => {
+    const on = (e: MessageEvent) => { if (e.source === ref.current?.contentWindow && typeof e.data?.catHeight === "number") setHeight(e.data.catHeight); };
+    addEventListener("message", on);
+    return () => removeEventListener("message", on);
+  }, []);
+  const src = `#/frame/${encodeURIComponent(title)}/${index}/${theme}/${kiosk ? 1 : 0}`;
+  return <iframe ref={ref} title={`${title}: пример ${index + 1}`} src={src} className="cat-frame" style={{ width, height }} />;
+}
+
+function FramePage({ title, index, theme, kiosk }: { title: string; index: number; theme: string; kiosk: boolean }) {
+  const story = families.find((f) => f.meta.title === title)?.stories[index];
+  useEffect(() => {
+    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+    const post = () => parent.postMessage({ catHeight: document.documentElement.scrollHeight }, "*");
+    post();
+    const ro = new ResizeObserver(post);
+    ro.observe(document.body);
+    return () => ro.disconnect();
+  }, [theme]);
+  if (!story) return null;
+  return <div className={kiosk || story.kiosk ? "cat-frame-body vs-kiosk" : "cat-frame-body"}>{story.render()}</div>;
+}
+
+function ComponentPage({ family, kiosk, theme }: { family: StoryFile; kiosk: boolean; theme: string }) {
   const doc = componentDoc(family.meta.doc);
+  const [viewport, setViewport] = useState<Viewport>("full");
   return (
     <Stack gap="6">
       <Text variant="display" as="h1">{family.meta.title}</Text>
       {doc ? <Prose html={html(doc.replace(/^#\s+.+\n/, ""))} /> : <EmptyState title="Нет страницы">docs/components/{family.meta.doc}.md</EmptyState>}
       <Stack gap="3">
-        <SectionHeader title="Примеры" count={family.stories.length} />
-        {family.stories.map((s) => (
+        <Cluster justify="between" wrap>
+          <SectionHeader title="Примеры" count={family.stories.length} />
+          <Segment label="Ширина" size="sm" variant="soft" value={viewport} onChange={setViewport} options={[{ value: "full", label: "Компьютер" }, { value: "tablet", label: "Планшет" }, { value: "phone", label: "Телефон" }]} />
+        </Cluster>
+        {family.stories.map((s, i) => (
           <Card key={s.name} padding="none">
             <div className="cat-story-head"><Text variant="caption" tone="muted">{s.name}</Text></div>
-            <div className={kiosk || s.kiosk ? "cat-story vs-kiosk" : "cat-story"}>{s.render()}</div>
+            {viewport === "full"
+              ? <div className={kiosk || s.kiosk ? "cat-story vs-kiosk" : "cat-story"}>{s.render()}</div>
+              : <div className="cat-story cat-story--framed"><Frame title={family.meta.title} index={i} width={WIDTH[viewport]} theme={theme} kiosk={kiosk} /></div>}
           </Card>
         ))}
       </Stack>
@@ -103,11 +139,16 @@ function ComponentPage({ family, kiosk }: { family: StoryFile; kiosk: boolean })
 
 function App() {
   const route = useRoute();
+  if (route.kind === "frame") return <FramePage title={route.title} index={route.index} theme={route.theme} kiosk={route.kiosk} />;
+  return <Catalog route={route} />;
+}
+
+function Catalog({ route }: { route: Exclude<Route, { kind: "frame" }> }) {
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem("cat.theme") as Theme) || "system");
   const [kiosk, setKiosk] = useState(() => localStorage.getItem("cat.kiosk") === "1");
   const [query, setQuery] = useState("");
   const [menu, setMenu] = useState(false);
-  const phone = useMediaQuery("(max-width: 760px)");
+  const phone = useMediaQuery(MEDIA.phone);
   useEffect(() => setMenu(false), [route]);
   useEffect(() => {
     localStorage.setItem("cat.theme", theme);
@@ -132,7 +173,7 @@ function App() {
         <main className="cat-main">
           {phone && <Sheet open={menu} onRequestClose={() => setMenu(false)} head="Разделы"><Stack gap="4"><Cluster wrap gap="3">{controls}</Cluster>{search}{nav}</Stack></Sheet>}
           {route.kind === "tokens" ? <div className={kiosk ? "vs-kiosk" : undefined}><TokensPage /></div>
-            : family ? <ComponentPage family={family} kiosk={kiosk} />
+            : family ? <ComponentPage family={family} kiosk={kiosk} theme={theme} />
             : guide ? <Prose html={guideHtml} />
             : <EmptyState title="Нет такой страницы" action={<Link href="#/">К началу</Link>} />}
         </main>

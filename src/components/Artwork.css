@@ -4,3 +4,13 @@
 .vs-artwork--lg { width: calc(var(--vs-space-12) * 2); }
 .vs-artwork--fallback { display: inline-flex; align-items: center; justify-content: center; background: var(--vs-surface-2); color: var(--vs-muted); font-size: var(--vs-text-xl); }
 .vs-artwork--lg.vs-artwork--fallback { font-size: var(--vs-text-3xl); }
+.vs-artwork--fill { width: 100%; }
+.vs-artwork--contain { object-fit: contain; }
+.vs-artwork--backdrop-accent { background: var(--vs-accent-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-ok { background: var(--vs-ok-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-warn { background: var(--vs-warn-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-danger { background: var(--vs-danger-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-muted { background: var(--vs-muted-soft); }
+.vs-artwork--backdrop-violet { background: var(--vs-violet-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-pink { background: var(--vs-pink-soft, var(--vs-surface-2)); }
+.vs-artwork--backdrop-gold { background: var(--vs-gold-soft, var(--vs-surface-2)); }

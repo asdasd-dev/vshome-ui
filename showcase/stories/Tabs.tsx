@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tabs, Text, Stack } from "../../src";
+import { PageHeader, Tabs, Text, Stack } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Underline() {
@@ -39,10 +39,41 @@ function Bottom() {
   );
 }
 
+function InAccentHeader() {
+  const [tab, setTab] = useState("services");
+  return (
+    <PageHeader tone="accent" title="vshome.space" sub="всё работает">
+      <Tabs label="Разделы дашборда" value={tab} onChange={setTab} items={[
+        { value: "services", label: "Сервисы", count: 24 },
+        { value: "agents", label: "Агенты", count: 2 },
+        { value: "spend", label: "Расходы" },
+      ]} />
+    </PageHeader>
+  );
+}
+
+function Sticky() {
+  const [tab, setTab] = useState("doing");
+  return (
+    <div style={{ height: 220, overflowY: "auto" }}>
+      <Stack gap="3">
+        <Tabs sticky label="Статус задач" value={tab} onChange={setTab} items={[
+          { value: "inbox", label: "Inbox", count: 4 },
+          { value: "doing", label: "Doing", count: 2 },
+          { value: "done", label: "Done" },
+        ]} />
+        {Array.from({ length: 12 }, (_, i) => <Text key={i}>T-{400 + i} · задача в {tab}</Text>)}
+      </Stack>
+    </div>
+  );
+}
+
 export const meta: StoryFile["meta"] = { title: "Tabs", group: "Раскладка и навигация", components: ["Tabs"], doc: "Tabs" };
 
 export const stories: StoryFile["stories"] = [
   { name: "Подчёркивание и счётчики", render: () => <Underline /> },
   { name: "Ссылки", render: () => <Links /> },
   { name: "Нижняя панель на телефоне", render: () => <Bottom /> },
+  { name: "В акцентной шапке", render: () => <InAccentHeader /> },
+  { name: "Липкие при прокрутке", render: () => <Sticky /> },
 ];

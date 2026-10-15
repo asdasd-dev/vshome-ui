@@ -3,7 +3,7 @@ type Listener = (e: { matches: boolean }) => void;
 const listeners = new Set<Listener>();
 let mobile = false;
 
-const matches = (query: string) => (query.includes("max-width: 760px") ? mobile : false);
+const matches = (query: string) => (query.includes("max-width: 759px") ? mobile : query.includes("min-width") ? !mobile : false);
 
 export function installMatchMedia(): void {
   window.matchMedia = (query: string) =>
