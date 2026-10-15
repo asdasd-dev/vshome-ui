@@ -65,6 +65,7 @@ function Demo() {
         <Button variant="primary" onClick={() => toast("Апрув")}>Апрув</Button>
         <Button variant="danger">На доработку</Button>
         <Button disabled>Занята</Button>
+        <Button size="sm">Открыть в Толке</Button>
       </section>
       <Segment ariaLabel="Вид" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />
       <Segment ariaLabel="Вид (soft)" variant="soft" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />

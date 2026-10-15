@@ -76,6 +76,11 @@ describe("Button в киоске", () => {
     expect(css).toMatch(/\.vs-kiosk \.vs-button \{[^}]*border-color: transparent[^}]*border-radius: var\(--vs-radius-pill\)[^}]*background: var\(--vs-surface-2\)[^}]*min-height: calc\(44px \* var\(--vs-scale, 1\)\)/);
     expect(css).toMatch(/\.vs-kiosk \.vs-button--primary \{[^}]*background: var\(--vs-accent\)/);
   });
+  it("sm: ниже и мельче, высота 32", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Button.css"), "utf8");
+    expect(css).toMatch(/\.vs-button--sm \{[^}]*min-height: calc\(32px \* var\(--vs-scale, 1\)\)[^}]*font-size: var\(--vs-text-sm\)/);
+    expect(css).toMatch(/\.vs-kiosk \.vs-button--sm \{[^}]*min-height: calc\(32px \* var\(--vs-scale, 1\)\)[^}]*font-size: var\(--vs-text-sm\)/);
+  });
 });
 
 describe("киоск 0.6", () => {

@@ -17,6 +17,12 @@ describe("Button", () => {
     expect(b).toHaveAttribute("type", "button");
     expect(b).toHaveClass("vs-button", "vs-button--primary");
   });
+  it("size=sm — класс размера, без size класса нет", () => {
+    const { rerender } = render(<Button size="sm">Открыть</Button>);
+    expect(screen.getByRole("button")).toHaveClass("vs-button--sm");
+    rerender(<Button>Открыть</Button>);
+    expect(screen.getByRole("button").className).not.toMatch(/--sm/);
+  });
   it("type=submit пробрасывается", () => {
     render(<Button type="submit">Сохранить</Button>);
     expect(screen.getByRole("button")).toHaveAttribute("type", "submit");

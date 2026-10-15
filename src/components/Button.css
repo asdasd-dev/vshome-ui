@@ -1,4 +1,5 @@
 .vs-button { border: 1px solid var(--vs-line); background: var(--vs-bg); color: var(--vs-ink); border-radius: var(--vs-radius-sm); padding: var(--vs-space-1_5) var(--vs-space-3); font: inherit; cursor: pointer; min-height: calc(40px * var(--vs-scale, 1)); }
+.vs-button--sm { min-height: calc(32px * var(--vs-scale, 1)); padding: var(--vs-space-1) var(--vs-space-2); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-button:disabled { opacity: .5; cursor: progress; }
 .vs-button--primary { background: var(--vs-accent); border-color: var(--vs-accent); color: var(--vs-on-accent); font-weight: var(--vs-weight-semibold); }
 .vs-button--danger { color: var(--vs-danger); }
@@ -6,3 +7,4 @@
 .vs-kiosk .vs-button { border-color: transparent; border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); padding: var(--vs-space-2) var(--vs-space-5); min-height: calc(44px * var(--vs-scale, 1)); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); font-weight: var(--vs-weight-medium); }
 .vs-kiosk .vs-button--primary { background: var(--vs-accent); color: var(--vs-on-accent); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk .vs-button[aria-pressed="true"] { background: color-mix(in srgb, var(--vs-accent) 22%, var(--vs-surface-2)); color: var(--vs-ink); }
+.vs-kiosk .vs-button--sm { min-height: calc(32px * var(--vs-scale, 1)); padding: var(--vs-space-1) var(--vs-space-4); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
