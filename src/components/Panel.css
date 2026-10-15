@@ -12,7 +12,7 @@
 .vs-tile__body { display: flex; flex-direction: column; gap: var(--vs-space-3); min-height: 0; flex: 1; }
 .vs-tile__footer { margin-top: auto; }
 
-.vs-stat { display: flex; flex-direction: column; gap: var(--vs-space-1); min-width: 0; }
+.vs-stat { display: flex; flex-direction: column; gap: var(--vs-space-1); min-width: 0; flex: none; }
 .vs-stat__line { display: flex; align-items: baseline; gap: var(--vs-space-1_5); }
 .vs-stat__value { font-family: var(--vs-font-display); font-weight: var(--vs-weight-medium); font-variant-numeric: tabular-nums; }
 .vs-stat__unit { color: var(--vs-muted); font-weight: var(--vs-weight-semibold); }
@@ -61,6 +61,8 @@ button.vs-list-row__inner { cursor: pointer; }
 
 .vs-banner { display: inline-flex; align-items: center; gap: var(--vs-space-1_5); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); font-weight: var(--vs-weight-semibold); }
 .vs-banner--warn { color: var(--vs-warn); }
+.vs-banner--truncate { min-width: 0; max-width: 100%; }
+.vs-banner--truncate .vs-banner__text { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .vs-banner--danger { color: var(--vs-danger); }
 .vs-banner--muted { color: var(--vs-muted); }
 .vs-list-row--two .vs-list-row__name { font-weight: var(--vs-list-name-weight, inherit); }

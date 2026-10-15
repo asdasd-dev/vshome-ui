@@ -1,0 +1,5 @@
+.vs-control-list { list-style: none; margin: 0; padding: 0; }
+.vs-control-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--vs-space-2) var(--vs-space-4); padding: var(--vs-space-3) 0; border-top: thin solid var(--vs-line); }
+.vs-control-row__label { min-width: 0; }
+.vs-control-row__control { display: flex; justify-content: flex-end; }
+.vs-control-row__extra { grid-column: 1 / -1; }

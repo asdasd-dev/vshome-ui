@@ -5,3 +5,4 @@
 .vs-clock--w-medium { font-weight: var(--vs-weight-medium); }
 .vs-clock--w-semibold { font-weight: var(--vs-weight-semibold); }
 .vs-clock--center { text-align: center; }
+.vs-clock--soft { color: color-mix(in srgb, var(--vs-ink) 80%, transparent); }

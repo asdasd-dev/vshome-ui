@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 
 export type TextProps = {
-  variant?: "display" | "title" | "lead" | "body" | "caption" | "label";
+  variant?: "display" | "headline" | "title" | "lead" | "body" | "caption" | "label";
   tone?: "default" | "muted" | "ok" | "warn" | "danger";
   weight?: "medium" | "semibold";
   as?: "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4";

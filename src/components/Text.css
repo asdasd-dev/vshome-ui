@@ -1,5 +1,6 @@
 .vs-text { margin: 0; color: var(--vs-ink); font-weight: var(--vs-weight-regular); }
 .vs-text--display { font-family: var(--vs-font-display); font-size: var(--vs-text-2xl); line-height: var(--vs-leading-2xl); font-weight: var(--vs-weight-semibold); }
+.vs-text--headline { font-size: var(--vs-text-xl); line-height: var(--vs-leading-xl); }
 .vs-text--title { font-size: var(--vs-text-lg); line-height: var(--vs-leading-lg); font-weight: var(--vs-weight-semibold); }
 .vs-text--lead { font-size: var(--vs-text-lg); line-height: var(--vs-leading-lg); }
 .vs-text--body { font-size: var(--vs-text-md); line-height: var(--vs-leading-md); }

@@ -21,3 +21,9 @@ export type StackProps = { gap?: Gap; align?: "start" | "center" | "stretch"; as
 export function Stack({ gap = "2", align, as: Tag = "div", className, children }: StackProps) {
   return <Tag className={cx("vs-stack", `vs-stack--gap-${gap}`, align && `vs-stack--align-${align}`, className)}>{children}</Tag>;
 }
+
+export type DividerProps = { vertical?: boolean; className?: string };
+
+export function Divider({ vertical, className }: DividerProps) {
+  return <span role="separator" aria-orientation={vertical ? "vertical" : "horizontal"} className={cx("vs-divider", vertical && "vs-divider--vertical", className)} />;
+}
