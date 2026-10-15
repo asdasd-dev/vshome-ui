@@ -6,12 +6,9 @@ body { margin: 0; background: var(--vs-surface-0); }
 .cat-story-head { padding: var(--vs-space-2) var(--vs-space-4); }
 .cat-story { padding: var(--vs-space-6) var(--vs-space-4); background: var(--vs-surface-0); border-radius: 0 0 var(--vs-radius-lg) var(--vs-radius-lg); overflow-x: auto; }
 .cat-type { word-break: break-word; }
-.cat-nav-narrow { display: none; }
 @media (max-width: 760px) {
-  .cat-body { grid-template-columns: minmax(0, 1fr); gap: var(--vs-space-4); }
-  .cat-side { position: static; max-height: none; }
-  .cat-nav-wide { display: none; }
-  .cat-nav-narrow { display: block; }
+  .cat-body { grid-template-columns: minmax(0, 1fr); gap: var(--vs-space-4); padding: var(--vs-space-4) var(--vs-space-3); }
+  .cat-story { padding: var(--vs-space-4) var(--vs-space-3); }
 }
 .cat-tokens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--vs-space-3); }
 .cat-token-name { width: 180px; flex: none; }
