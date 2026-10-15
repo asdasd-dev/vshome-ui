@@ -19,3 +19,5 @@
 .vs-text--violet { color: var(--vs-violet); }
 .vs-text--pink { color: var(--vs-pink); }
 .vs-text--gold { color: var(--vs-gold); }
+.vs-text--align-center { text-align: center; }
+.vs-text--align-end { text-align: end; }

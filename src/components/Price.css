@@ -1,7 +1,7 @@
 .vs-price { display: inline-flex; align-items: center; gap: var(--vs-space-2); flex-wrap: wrap; font-variant-numeric: tabular-nums; }
 .vs-price__tag { display: inline-flex; align-items: flex-start; gap: var(--vs-space-0_5); padding: var(--vs-space-0_5) var(--vs-space-2); border-radius: var(--vs-radius-sm); background: var(--vs-price-bg); color: var(--vs-price-fg); line-height: 1; }
 .vs-price--default { --vs-price-bg: var(--vs-surface-2); --vs-price-fg: var(--vs-ink); }
-.vs-price--deal { --vs-price-bg: var(--vs-gold); --vs-price-fg: var(--vs-ink); }
+.vs-price--deal { --vs-price-bg: var(--vs-deal); --vs-price-fg: var(--vs-on-deal); }
 .vs-price--muted { --vs-price-bg: var(--vs-surface-2); --vs-price-fg: var(--vs-muted); }
 .vs-price__rub { font-weight: var(--vs-weight-semibold); }
 .vs-price__kop { font-weight: var(--vs-weight-medium); }

@@ -5,7 +5,7 @@
 .vs-tabs__item:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; border-radius: var(--vs-radius-xs); }
 @media (hover: hover) { .vs-tabs__item:hover { color: var(--vs-tabs-fg-active, var(--vs-ink)); } }
 @media (max-width: 759px) {
-  .vs-tabs--bottom { position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--vs-z-header); justify-content: space-around; gap: 0; padding-bottom: env(safe-area-inset-bottom, 0px); border-bottom: 0; border-top: 1px solid var(--vs-line); background: var(--vs-surface-1); }
+  .vs-tabs--bottom { --vs-tabs-fg: var(--vs-muted); --vs-tabs-fg-active: var(--vs-accent); --vs-tabs-indicator: transparent; --vs-tabs-line: var(--vs-line); position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--vs-z-header); justify-content: space-around; gap: 0; padding-bottom: env(safe-area-inset-bottom, 0px); border-bottom: 0; border-top: 1px solid var(--vs-line); background: var(--vs-surface-1); }
   .vs-tabs--bottom .vs-tabs__item { flex: 1 1 0; min-width: 0; flex-direction: column; gap: var(--vs-space-0_5); padding: var(--vs-space-1_5) 0; font-size: var(--vs-text-2xs); line-height: var(--vs-leading-2xs); }
   .vs-tabs--bottom .vs-tabs__item[aria-selected="true"], .vs-tabs--bottom .vs-tabs__item[aria-current="page"] { color: var(--vs-accent); box-shadow: none; }
 }
