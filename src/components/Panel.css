@@ -14,6 +14,10 @@
 .vs-stat__line { display: flex; align-items: baseline; gap: var(--vs-space-1_5); }
 .vs-stat__value { font-family: var(--vs-font-display); font-weight: var(--vs-weight-medium); font-variant-numeric: tabular-nums; }
 .vs-stat__unit { color: var(--vs-muted); font-weight: var(--vs-weight-semibold); }
+.vs-stat__icon { display: inline-flex; align-self: center; color: var(--vs-muted); }
+.vs-stat--md .vs-stat__icon { font-size: var(--vs-text-2xl); }
+.vs-stat--lg .vs-stat__icon { font-size: var(--vs-text-3xl); }
+.vs-stat--xl .vs-stat__icon { font-size: var(--vs-text-4xl); }
 .vs-stat__caption { color: var(--vs-muted); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-stat--md .vs-stat__value { font-size: var(--vs-text-2xl); line-height: var(--vs-leading-2xl); }
 .vs-stat--md .vs-stat__unit { font-size: var(--vs-text-md); }

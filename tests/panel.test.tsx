@@ -3,6 +3,21 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Banner, List, ListRow, Stat, Tile } from "../src";
 
+describe("Stat icon", () => {
+  it("иконка после значения, размером с цифры, с подписью", () => {
+    const { container } = render(<Stat value="+7°" icon={{ name: "weather-partlycloudy", label: "облачно" }} size="md" />);
+    const icon = screen.getByRole("img", { name: "облачно" });
+    expect(icon.classList.contains("vs-icon--em")).toBe(true);
+    expect(icon.closest(".vs-stat__icon")).not.toBeNull();
+    expect(container.querySelector(".vs-stat__line")!.lastElementChild!.className).toBe("vs-stat__icon");
+    const fs = require("node:fs") as typeof import("node:fs");
+    const css = fs.readFileSync(require("node:path").join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    expect(css).toMatch(/\.vs-stat__icon \{[^}]*align-self: center[^}]*color: var\(--vs-muted\)/);
+    expect(css).toMatch(/\.vs-stat--md \.vs-stat__icon \{[^}]*font-size: var\(--vs-text-2xl\)/);
+    expect(fs.readFileSync(require("node:path").join(__dirname, "..", "src", "components", "Icon.css"), "utf8")).toMatch(/\.vs-icon--em \{[^}]*width: 1em[^}]*height: 1em/);
+  });
+});
+
 describe("Tile", () => {
   it("секция с подписью, тоном и подвалом в конце", () => {
     render(<Tile label="Агенты" tone="warn" footer={<span>подвал</span>}><p>тело</p></Tile>);

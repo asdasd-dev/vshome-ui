@@ -15,6 +15,7 @@ function Panels({ kiosk }: { kiosk?: boolean }) {
       <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <Banner tone="warn">Мак не на связи с 14:02</Banner>
         <Stat value="10:46" size="md" />
+        <Stat value="+7°" icon={{ name: "weather-partlycloudy", label: "облачно" }} caption="чт, 15 октября · утром +4°, днём до +11°" size="md" />
       </div>
       <Tile label="Встреча · 11:15" tone="warn" footer={<Button variant="primary">Войти</Button>}>
         <Stat value={1} unit="мин" caption="Deimos PBR" size="xl" tone="warn" />
