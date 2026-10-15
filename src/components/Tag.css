@@ -8,3 +8,6 @@
 .vs-tag--warn { --vs-tag-fg: var(--vs-warn); --vs-tag-soft: var(--vs-warn-soft); }
 .vs-tag--danger { --vs-tag-fg: var(--vs-danger); --vs-tag-soft: var(--vs-danger-soft); }
 .vs-tag--muted { --vs-tag-fg: var(--vs-muted); }
+.vs-tag--violet { --vs-tag-fg: var(--vs-violet); --vs-tag-soft: var(--vs-violet-soft); }
+.vs-tag--pink { --vs-tag-fg: var(--vs-pink); --vs-tag-soft: var(--vs-pink-soft); }
+.vs-tag--gold { --vs-tag-fg: var(--vs-gold); --vs-tag-soft: var(--vs-gold-soft); }

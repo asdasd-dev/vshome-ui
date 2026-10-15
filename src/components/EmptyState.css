@@ -1,0 +1,7 @@
+.vs-empty { display: flex; flex-direction: column; align-items: center; gap: var(--vs-space-1_5); text-align: center; color: var(--vs-muted); }
+.vs-empty--md { padding: var(--vs-space-8) var(--vs-space-4); }
+.vs-empty--sm { padding: var(--vs-space-4) var(--vs-space-2); }
+.vs-empty__icon { color: var(--vs-muted); }
+.vs-empty__title { margin: 0; font-size: var(--vs-text-md); line-height: var(--vs-leading-md); font-weight: var(--vs-weight-semibold); color: var(--vs-ink); }
+.vs-empty__text { font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
+.vs-empty__action { margin-top: var(--vs-space-2); }

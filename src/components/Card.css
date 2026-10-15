@@ -1,0 +1,15 @@
+.vs-card { display: block; min-width: 0; border: 1px solid var(--vs-line); border-radius: var(--vs-radius-lg); background: var(--vs-card-bg, var(--vs-surface-1)); color: var(--vs-ink); text-align: left; font: inherit; text-decoration: none; }
+.vs-card--pad-none { padding: 0; }
+.vs-card--pad-sm { padding: var(--vs-space-3); }
+.vs-card--pad-md { padding: var(--vs-space-4); }
+.vs-card--pad-lg { padding: var(--vs-space-6); }
+.vs-card--elevated { border-color: transparent; box-shadow: var(--vs-shadow-card); }
+.vs-card--accent { --vs-card-bg: var(--vs-accent-tint); border-color: transparent; }
+.vs-card--ok { --vs-card-bg: var(--vs-ok-soft); border-color: transparent; }
+.vs-card--warn { --vs-card-bg: var(--vs-warn-soft); border-color: transparent; }
+.vs-card--danger { --vs-card-bg: var(--vs-danger-soft); border-color: transparent; }
+.vs-card--muted { --vs-card-bg: var(--vs-surface-2); border-color: transparent; }
+.vs-card--stripe { border-left: 4px solid var(--vs-card-stripe); }
+.vs-card--interactive { width: 100%; cursor: pointer; }
+.vs-card--interactive:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
+@media (hover: hover) { .vs-card--interactive:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }

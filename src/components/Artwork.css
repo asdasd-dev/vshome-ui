@@ -1,3 +1,6 @@
 .vs-artwork { flex: none; aspect-ratio: 1; border-radius: var(--vs-radius-md); object-fit: cover; }
-.vs-artwork--md { width: var(--vs-space-12); }
+.vs-artwork--sm { width: calc(44px * var(--vs-scale, 1)); }
+.vs-artwork--md { width: calc(56px * var(--vs-scale, 1)); }
 .vs-artwork--lg { width: calc(var(--vs-space-12) * 2); }
+.vs-artwork--fallback { display: inline-flex; align-items: center; justify-content: center; background: var(--vs-surface-2); color: var(--vs-muted); font-size: var(--vs-text-xl); }
+.vs-artwork--lg.vs-artwork--fallback { font-size: var(--vs-text-3xl); }

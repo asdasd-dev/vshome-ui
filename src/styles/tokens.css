@@ -2,20 +2,25 @@
   --vs-bg: #f6f5f1; --vs-panel: #ffffff; --vs-ink: #1d1d1b; --vs-muted: #6b6a66; --vs-line: #e3e1da;
   --vs-accent: #2f6fdf; --vs-danger: #be123c; --vs-warn: #c2410c; --vs-ok: #15803d;
   --vs-on-accent: #ffffff; --vs-lamp: #d97706;
+  --vs-violet: #7c3aed; --vs-pink: #db2777; --vs-gold: #b7791f;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
   --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 12%, var(--vs-panel));
   --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 8%, var(--vs-panel));
   --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 12%, var(--vs-panel));
+  --vs-gold-soft: color-mix(in srgb, var(--vs-gold) 12%, var(--vs-panel));
+  --vs-pink-soft: color-mix(in srgb, var(--vs-pink) 12%, var(--vs-panel));
+  --vs-violet-soft: color-mix(in srgb, var(--vs-violet) 12%, var(--vs-panel));
   --vs-accent-soft: color-mix(in srgb, var(--vs-accent) 22%, var(--vs-surface-2));
   --vs-accent-tint: color-mix(in srgb, var(--vs-accent) 14%, transparent);
   --vs-accent-fill: color-mix(in srgb, var(--vs-accent) 35%, var(--vs-surface-2));
   --vs-knob: #ffffff; --vs-knob-shadow: 0 1px 2px rgb(0 0 0 / .3);
   --vs-scrim: rgb(0 0 0 / .4); --vs-scrim-blur: 8px;
   --vs-shadow-popover: 0 6px 24px rgb(0 0 0 / .18);
+  --vs-shadow-card: 0 1px 2px rgb(0 0 0 / .06), 0 4px 16px rgb(0 0 0 / .06);
   --vs-focus-ring: 2px solid var(--vs-accent);
   --vs-hover: color-mix(in srgb, var(--vs-ink) 6%, transparent);
   --vs-duration-spin: 800ms;
-  --vs-z-raised: 2; --vs-z-overlay: 20; --vs-z-sheet: 21; --vs-z-popover: 30; --vs-z-toast: 40;
+  --vs-z-raised: 2; --vs-z-header: 10; --vs-z-overlay: 20; --vs-z-sheet: 21; --vs-z-popover: 30; --vs-z-toast: 40;
   --vs-duration-fast: 100ms; --vs-duration-base: 150ms; --vs-duration-slow: 200ms; --vs-duration-sheet: 450ms;
   --vs-ease-sheet: cubic-bezier(.32, .72, 0, 1);
 
@@ -38,6 +43,7 @@
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
+    --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
@@ -49,6 +55,7 @@
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
+    --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));

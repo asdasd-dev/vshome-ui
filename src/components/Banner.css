@@ -4,3 +4,15 @@
 .vs-banner--truncate .vs-banner__text { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .vs-banner--danger { color: var(--vs-danger); }
 .vs-banner--muted { color: var(--vs-muted); }
+.vs-banner--accent { color: var(--vs-accent); }
+.vs-banner--ok { color: var(--vs-ok); }
+.vs-banner--box { display: flex; align-items: flex-start; gap: var(--vs-space-2); padding: var(--vs-space-3) var(--vs-space-4); border-radius: var(--vs-radius-md); background: var(--vs-banner-soft, var(--vs-surface-2)); font-weight: var(--vs-weight-regular); }
+.vs-banner--box > .vs-icon { margin-top: var(--vs-space-0_5); }
+.vs-banner--box.vs-banner--warn { --vs-banner-soft: var(--vs-warn-soft); }
+.vs-banner--box.vs-banner--danger { --vs-banner-soft: var(--vs-danger-soft); }
+.vs-banner--box.vs-banner--accent { --vs-banner-soft: var(--vs-accent-tint); }
+.vs-banner--box.vs-banner--ok { --vs-banner-soft: var(--vs-ok-soft); }
+.vs-banner__body { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.vs-banner__title { font-weight: var(--vs-weight-semibold); }
+.vs-banner--box .vs-banner__text { color: var(--vs-ink); }
+.vs-banner__action { flex: none; margin-left: auto; }
