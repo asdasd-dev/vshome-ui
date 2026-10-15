@@ -103,3 +103,25 @@ describe("безопасные зоны экрана", async () => {
     expect(allCss()).toMatch(/\.vs-container \{[^}]*env\(safe-area-inset-left/);
   });
 });
+
+describe("правки 0.24", async () => {
+  const { Grid, Price, Segment, Text } = await import("../src");
+  const { createRef } = await import("react");
+  const { allCss } = await import("./css");
+  it("Price: без «00» у целой цены, ценник акции — свой яркий токен", () => {
+    const { container } = render(<><Price value={129900} tone="deal" /><Price value={129900} kopecks="always" /></>);
+    expect(container.querySelectorAll(".vs-price__kop")).toHaveLength(1);
+    expect(allCss()).toMatch(/\.vs-price--deal \{[^}]*var\(--vs-deal\)/);
+  });
+  it("Text align, Grid 2xs, Segment ref и @property", () => {
+    const ref = createRef<HTMLDivElement>();
+    const { container } = render(<><Text align="center">a</Text><Grid min="2xs"><span>b</span></Grid><Segment label="x" value="a" onChange={() => {}} options={[{ value: "a", label: "A" }]} ref={ref} /></>);
+    expect(container.querySelector(".vs-text--align-center")).not.toBeNull();
+    expect(container.querySelector(".vs-grid__items--min-2xs")).not.toBeNull();
+    expect(ref.current?.getAttribute("role")).toBe("group");
+    expect(allCss()).toContain("@property --vs-segment-pos");
+  });
+  it("нижние вкладки на телефоне не берут светлые цвета акцентной шапки", () => {
+    expect(allCss()).toMatch(/\.vs-tabs--bottom \{ --vs-tabs-fg: var\(--vs-muted\)/);
+  });
+});

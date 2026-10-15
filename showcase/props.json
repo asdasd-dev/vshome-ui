@@ -1015,6 +1015,13 @@
         "deprecated": false
       },
       {
+        "name": "align",
+        "type": "\"start\" | \"center\" | \"end\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -1091,7 +1098,7 @@
       },
       {
         "name": "min",
-        "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+        "type": "\"2xs\" | \"xs\" | \"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": null,
         "deprecated": false
@@ -1307,6 +1314,13 @@
         "type": "string",
         "required": false,
         "default": "\"₽\"",
+        "deprecated": false
+      },
+      {
+        "name": "kopecks",
+        "type": "\"auto\" | \"always\"",
+        "required": false,
+        "default": "\"auto\"",
         "deprecated": false
       },
       {
@@ -2623,6 +2637,13 @@
       {
         "name": "progress",
         "type": "number",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLDivElement>",
         "required": false,
         "default": null,
         "deprecated": false

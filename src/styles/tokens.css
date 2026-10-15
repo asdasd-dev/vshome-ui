@@ -3,6 +3,7 @@
   --vs-accent: #2f6fdf; --vs-danger: #be123c; --vs-warn: #c2410c; --vs-ok: #15803d;
   --vs-on-accent: #ffffff; --vs-lamp: #d97706;
   --vs-violet: #7c3aed; --vs-pink: #db2777; --vs-gold: #b7791f;
+  --vs-deal: #ffd43b; --vs-on-deal: #1d1d1b;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
   --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 12%, var(--vs-panel));
   --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 8%, var(--vs-panel));
@@ -45,6 +46,7 @@
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
+    --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
@@ -57,6 +59,7 @@
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
+    --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
