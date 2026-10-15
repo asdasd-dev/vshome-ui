@@ -19,11 +19,10 @@ function Panels({ kiosk }: { kiosk?: boolean }) {
       <Tile label="Встреча · 11:15" tone="warn" footer={<Button variant="primary">Войти</Button>}>
         <Stat value={1} unit="мин" caption="Deimos PBR" size="xl" tone="warn" />
       </Tile>
-      <Tile label="Агенты">
-        <Stat value={2} caption="ждут тебя · работают: 3" tone="warn" />
-        <List max={3}>
-          <ListRow title="Sync agenda" meta="12 мин" tone="warn" onClick={() => {}} />
-          <ListRow title="TDRs" meta="3 мин" onClick={() => {}} />
+      <Tile label="Ждут тебя · 2" aside="1 работает" tone="warn">
+        <List max={4}>
+          <ListRow lead="14 мин" title="GD · BX-55704" sub="Делать новости до четырёх или сначала скажешь?" tone="warn" onClick={() => {}} />
+          <ListRow lead="2 мин" title="Опрос Avito" sub="Нужно разрешение: git push" subTone="warn" onClick={() => {}} />
         </List>
       </Tile>
       <Tile label="Музыка" footer={<div style={{ display: "flex", gap: "var(--vs-space-2)" }}><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></div>}>
