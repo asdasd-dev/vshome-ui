@@ -1,5 +1,5 @@
 .vs-page-header { display: flex; flex-direction: column; gap: var(--vs-space-2); padding: var(--vs-space-3) var(--vs-space-4); background: var(--vs-page-header-bg); color: var(--vs-page-header-fg); }
-.vs-page-header--plain { --vs-page-header-bg: var(--vs-surface-0); --vs-page-header-fg: var(--vs-ink); --vs-page-header-sub: var(--vs-muted); border-bottom: 1px solid var(--vs-line); }
+.vs-page-header--default { --vs-page-header-bg: var(--vs-surface-0); --vs-page-header-fg: var(--vs-ink); --vs-page-header-sub: var(--vs-muted); border-bottom: 1px solid var(--vs-line); }
 .vs-page-header--accent { --vs-page-header-bg: var(--vs-accent); --vs-page-header-fg: var(--vs-on-accent); --vs-page-header-sub: color-mix(in srgb, var(--vs-on-accent) 80%, transparent); }
 .vs-page-header--sticky { position: sticky; top: 0; z-index: var(--vs-z-header); }
 .vs-page-header__row { display: flex; align-items: center; gap: var(--vs-space-3); min-width: 0; }

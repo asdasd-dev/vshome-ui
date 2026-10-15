@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 
-type Gap = "1" | "2" | "3" | "4" | "6";
+type Gap = "1" | "2" | "3" | "4" | "6" | "8";
 
 export type ClusterProps = {
-  gap?: Gap; align?: "center" | "baseline" | "start" | "stretch"; justify?: "start" | "center" | "between" | "end";
+  gap?: Gap; align?: "center" | "baseline" | "start" | "end" | "stretch"; justify?: "start" | "center" | "between" | "end";
   wrap?: boolean; rigid?: boolean; as?: "div" | "span" | "header" | "footer"; className?: string; children: ReactNode;
 };
 
@@ -16,10 +16,10 @@ export function Cluster({ gap = "2", align = "center", justify, wrap, rigid, as:
   );
 }
 
-export type StackProps = { gap?: Gap; align?: "start" | "center" | "stretch"; as?: "div" | "span"; className?: string; children: ReactNode };
+export type StackProps = { gap?: Gap; align?: "start" | "center" | "end" | "stretch"; justify?: "start" | "center" | "between" | "end"; as?: "div" | "span"; className?: string; children: ReactNode };
 
-export function Stack({ gap = "2", align, as: Tag = "div", className, children }: StackProps) {
-  return <Tag className={cx("vs-stack", `vs-stack--gap-${gap}`, align && `vs-stack--align-${align}`, className)}>{children}</Tag>;
+export function Stack({ gap = "2", align, justify, as: Tag = "div", className, children }: StackProps) {
+  return <Tag className={cx("vs-stack", `vs-stack--gap-${gap}`, align && `vs-stack--align-${align}`, justify && `vs-stack--justify-${justify}`, className)}>{children}</Tag>;
 }
 
 export type DividerProps = { vertical?: boolean; className?: string };

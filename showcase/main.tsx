@@ -1,167 +1,145 @@
-import { StrictMode, useState } from "react";
+import { StrictMode, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { marked } from "marked";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Artwork, Banner, Button, Clock, Cluster, Excerpt, Stack, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Slider, SplitButton, Stat, Switch, Text, Tile, ToastProvider, useToast, linkify } from "../src";
-import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
+import { Card, Cluster, Disclosure, EmptyState, Link, PageHeader, Prose, SectionHeader, Segment, Stack, Switch, Table, Text, TextField, ToastProvider } from "../src";
+import "../src/charts/charts.css";
+import pkg from "../package.json";
+import props from "./props.json";
+import { componentDoc, families, GROUPS, guides, type StoryFile } from "./catalog";
+import "./catalog.css";
+import { TokensPage } from "./tokens-page";
 
-const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
-const wave = (k: number) => Array.from({ length: 96 }, (_, i) => (i > 40 && i < 46 ? null : Math.round(60 + 30 * Math.sin(i / 8 + k) + k * 15)));
-const alive = Array.from({ length: 96 }, (_, i) => (i > 60 && i < 66 ? 0 : 1));
+type Theme = "system" | "light" | "dark";
+type Route = { kind: "guide"; slug: string } | { kind: "component"; title: string } | { kind: "tokens" };
+type PropRow = { name: string; type: string; required: boolean; default: string | null; deprecated: boolean };
+type PropsInfo = Record<string, { file: string; props: PropRow[]; inherits: string | null }>;
 
-function Panels({ kiosk }: { kiosk?: boolean }) {
+const parse = (hash: string): Route => {
+  const [kind, id] = decodeURIComponent(hash.replace(/^#\/?/, "")).split("/");
+  if (kind === "c" && id) return { kind: "component", title: id };
+  if (kind === "tokens") return { kind: "tokens" };
+  return { kind: "guide", slug: id && kind === "g" ? id : guides[0]?.slug ?? "" };
+};
+
+const html = (md: string) => marked.parse(md, { async: false }) as string;
+
+function useRoute() {
+  const [route, setRoute] = useState(() => parse(location.hash));
+  useEffect(() => {
+    const on = () => { setRoute(parse(location.hash)); document.querySelector(".cat-main")?.scrollTo(0, 0); };
+    addEventListener("hashchange", on);
+    return () => removeEventListener("hashchange", on);
+  }, []);
+  return route;
+}
+
+function Nav({ query, route }: { query: string; route: Route }) {
+  const q = query.trim().toLowerCase();
+  const match = (s: string) => !q || s.toLowerCase().includes(q);
+  const current = (href: string) => (route.kind === "guide" ? `#/g/${route.slug}` : route.kind === "tokens" ? "#/tokens" : `#/c/${route.title}`) === href;
   return (
-    <section className={kiosk ? "vs-kiosk" : undefined} style={{ display: "grid", gap: "var(--vs-space-4)", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", padding: "var(--vs-space-4)", background: "var(--vs-surface-0)", borderRadius: "var(--vs-radius-lg)" }}>
-      <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Banner tone="warn">Мак не на связи с 14:02</Banner>
-        <Stat value="10:46" size="md" />
-        <Stat value="+7°" icon={{ name: "weather-partlycloudy", label: "облачно" }} caption="чт, 15 октября · утром +4°, днём до +11°" size="md" />
+    <Stack gap="4">
+      <Stack gap="1">
+        <SectionHeader title="Гайдлайны" as="h2" />
+        {guides.filter((g) => match(g.title)).map((g) => <Link key={g.slug} href={`#/g/${g.slug}`} tone={current(`#/g/${g.slug}`) ? "accent" : "muted"}>{g.title}</Link>)}
+        {match("Токены") && <Link href="#/tokens" tone={current("#/tokens") ? "accent" : "muted"}>Токены</Link>}
+      </Stack>
+      {GROUPS.map((group) => {
+        const items = families.filter((f) => f.meta.group === group && (match(f.meta.title) || f.meta.components.some(match)));
+        if (!items.length) return null;
+        return (
+          <Stack key={group} gap="1">
+            <SectionHeader title={group} as="h2" count={items.length} />
+            {items.map((f) => <Link key={f.meta.title} href={`#/c/${f.meta.title}`} tone={current(`#/c/${f.meta.title}`) ? "accent" : "muted"}>{f.meta.title}</Link>)}
+          </Stack>
+        );
+      })}
+    </Stack>
+  );
+}
+
+function PropsTable({ name }: { name: string }) {
+  const info = (props as PropsInfo)[name];
+  if (!info) return null;
+  return (
+    <Stack gap="2">
+      <Text variant="title" as="h3">{name}</Text>
+      <Table caption={`Свойства ${name}`} dense rowKey={(r) => r.name} rows={info.props} empty="без свойств"
+             columns={[
+               { key: "name", label: "Свойство", nowrap: true, render: (r) => <code>{r.name}{r.required ? "" : "?"}{r.deprecated ? " · устарело" : ""}</code> },
+               { key: "type", label: "Тип", render: (r) => <code className="cat-type">{r.type}</code> },
+               { key: "default", label: "По умолчанию", nowrap: true, muted: true, render: (r) => (r.default ? <code>{r.default}</code> : "—") },
+             ]} />
+      {info.inherits && <Text variant="caption" tone="muted">Плюс все атрибуты {info.inherits}. Исходник: {info.file}</Text>}
+      {!info.inherits && <Text variant="caption" tone="muted">Исходник: {info.file}</Text>}
+    </Stack>
+  );
+}
+
+function ComponentPage({ family, kiosk }: { family: StoryFile; kiosk: boolean }) {
+  const doc = componentDoc(family.meta.doc);
+  return (
+    <Stack gap="6">
+      <Text variant="display" as="h1">{family.meta.title}</Text>
+      {doc ? <Prose html={html(doc.replace(/^#\s+.+\n/, ""))} /> : <EmptyState title="Нет страницы">docs/components/{family.meta.doc}.md</EmptyState>}
+      <Stack gap="3">
+        <SectionHeader title="Примеры" count={family.stories.length} />
+        {family.stories.map((s) => (
+          <Card key={s.name} padding="none">
+            <div className="cat-story-head"><Text variant="caption" tone="muted">{s.name}</Text></div>
+            <div className={kiosk || s.kiosk ? "cat-story vs-kiosk" : "cat-story"}>{s.render()}</div>
+          </Card>
+        ))}
+      </Stack>
+      <Stack gap="4">
+        <SectionHeader title="Свойства" />
+        {family.meta.components.map((c) => <PropsTable key={c} name={c} />)}
+      </Stack>
+    </Stack>
+  );
+}
+
+function App() {
+  const route = useRoute();
+  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem("cat.theme") as Theme) || "system");
+  const [kiosk, setKiosk] = useState(() => localStorage.getItem("cat.kiosk") === "1");
+  const [query, setQuery] = useState("");
+  useEffect(() => {
+    localStorage.setItem("cat.theme", theme);
+    if (theme === "system") delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = theme;
+  }, [theme]);
+  useEffect(() => localStorage.setItem("cat.kiosk", kiosk ? "1" : "0"), [kiosk]);
+  const family = route.kind === "component" ? families.find((f) => f.meta.title === route.title) : undefined;
+  const guide = route.kind === "guide" ? guides.find((g) => g.slug === route.slug) : undefined;
+  const guideHtml = useMemo(() => (guide ? html(guide.md) : ""), [guide]);
+  const nav = <Nav query={query} route={route} />;
+  return (
+    <div className="cat">
+      <PageHeader sticky title="vshome-ui" sub={`дизайн-система · v${pkg.version} · ${families.length} разделов`}
+                  actions={<>
+                    <Segment label="Тема" variant="soft" value={theme} onChange={setTheme} options={[{ value: "system", label: "Система" }, { value: "light", label: "Светлая" }, { value: "dark", label: "Тёмная" }]} />
+                    <Cluster gap="2"><Text variant="caption" tone="muted">Киоск</Text><Switch label="Киоск" checked={kiosk} onChange={setKiosk} /></Cluster>
+                  </>} />
+      <div className="cat-body">
+        <aside className="cat-side">
+          <Stack gap="4">
+            <TextField label="Поиск" hideLabel type="search" placeholder="Найти компонент" value={query} onChange={setQuery} size="sm" />
+            <div className="cat-nav-wide">{nav}</div>
+            <div className="cat-nav-narrow"><Disclosure summary="Разделы">{nav}</Disclosure></div>
+          </Stack>
+        </aside>
+        <main className="cat-main">
+          {route.kind === "tokens" ? <div className={kiosk ? "vs-kiosk" : undefined}><TokensPage /></div>
+            : family ? <ComponentPage family={family} kiosk={kiosk} />
+            : guide ? <Prose html={guideHtml} />
+            : <EmptyState title="Нет такой страницы" action={<Link href="#/">К началу</Link>} />}
+        </main>
       </div>
-      <Tile label="Встреча · 11:15" tone="warn" footer={<Button variant="primary">Войти</Button>}>
-        <Stat value={1} unit="мин" caption="Deimos PBR" size="xl" tone="warn" />
-      </Tile>
-      <Tile label="Ждут тебя · 2" aside="1 работает" tone="warn">
-        <List max={4}>
-          <ListRow lead="14 мин" title="GD · BX-55704" sub="Делать новости до четырёх или сначала скажешь?" tone="warn" onClick={() => {}} />
-          <ListRow lead="2 мин" title="Опрос Avito" sub="Нужно разрешение: git push" subTone="warn" onClick={() => {}} />
-        </List>
-      </Tile>
-      <Tile label="Музыка" footer={<div style={{ display: "flex", gap: "var(--vs-space-2)" }}><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></div>}>
-        <Stat value="If You Need Someone" caption="The Field Mice" size="md" />
-      </Tile>
-      <Tile label="Сегодня" scroll>
-        <List empty="встреч нет">
-          <ListRow lead="11:00" title="AI Demo №4" />
-          <ListRow lead="11:15" title="Deimos PBR" />
-        </List>
-      </Tile>
-      <Tile label="Свет">
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--vs-space-2)" }}><SplitButton pressed more={{ label: "Кухня: лампы", onClick: () => {} }} onClick={() => {}}>Кухня · 2</SplitButton><SplitButton more={{ label: "Спальня: лампы", onClick: () => {} }} onClick={() => {}}>Спальня</SplitButton><Button pressed>Баня</Button></div>
-        <Switch label="Большая лента" checked onChange={() => {}} />
-        <Slider label="Большая лента: яркость" value={70} format={(v) => `${v}%`} onCommit={() => {}} />
-      </Tile>
-    </section>
+    </div>
   );
 }
 
-function Texts({ kiosk }: { kiosk?: boolean }) {
-  return (
-    <section className={kiosk ? "vs-kiosk" : undefined} style={{ display: "grid", gap: "var(--vs-space-2)", padding: "var(--vs-space-4)", background: "var(--vs-surface-1)", borderRadius: "var(--vs-radius-lg)" }}>
-      <Text variant="label">label · подпись группы</Text>
-      <Text variant="display" as="h3">display · Встреча с командой</Text>
-      <Text variant="title">title · Заголовок карточки</Text>
-      <Text variant="lead">lead · Крупный текст для чтения с расстояния</Text>
-      <Text>body · Обычный текст строки</Text>
-      <Text variant="caption" tone="muted">caption · серая подпись под строкой</Text>
-      <span><Text tone="ok">ok</Text> · <Text tone="warn">warn</Text> · <Text tone="danger">danger</Text> · <Text weight="medium">medium</Text> · <Text weight="semibold">semibold</Text></span>
-      <div style={{ width: 220 }}><Text lines={1}>lines=1 · очень длинная строка, которая не влезает в ширину</Text></div>
-    </section>
-  );
-}
-
-function Demo() {
-  const toast = useToast();
-  const [view, setView] = useState<"board" | "backlog">("board");
-  const [agent, setAgent] = useState(true);
-  const [domain, setDomain] = useState("personal-os");
-  const [open, setOpen] = useState(false);
-  const [dirty, setDirty] = useState(false);
-  const [priority, setPriority] = useState<"high" | "normal" | "low">("normal");
-  const [status, setStatus] = useState("doing");
-  return (
-    <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "72rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
-      <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
-      <h2 style={{ margin: 0 }}>Раскладка, часы, медиа</h2>
-      <section className="vs-kiosk" data-part="kit" style={{ display: "grid", gap: "var(--vs-space-4)", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", padding: "var(--vs-space-4)", background: "var(--vs-surface-0)", borderRadius: "var(--vs-radius-lg)" }}>
-        <Tile label="Музыка" footer={<Cluster><Button size="sm">Пред.</Button><Button size="sm" variant="primary">Играть</Button></Cluster>}>
-          <Cluster gap="4"><Artwork src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 1 1%27%3E%3Crect width=%271%27 height=%271%27 fill=%27%23b9a88f%27/%3E%3C/svg%3E" size="lg" /><Stack gap="1"><Text variant="title" lines={1}>Under the Milky Way</Text><Text tone="muted" lines={1}>The Church</Text></Stack></Cluster>
-        </Tile>
-        <Tile label="Встреча · 11:15" aside={<Button size="sm" variant="warn" icon="dot">2 в MM</Button>}>
-          <Excerpt title="Deimos PBR">{"Синхронизируем планы, обсуждаем реализацию.\nСмотрим метрики АБ и решаем, что катим.\nПотом — ретро спринта и вопросы."}</Excerpt>
-        </Tile>
-        <Tile label="Mattermost" dimmed>
-          <List label="Тебе пишут"><ListRow title="Никита" sub="глянь PR" /></List>
-          <List label="Ждёшь ответа"><ListRow title="anti-bot-public" sub="посмотрю" /></List>
-        </Tile>
-        <Clock size="hero" align="center">19:56</Clock>
-      </section>
-      <h2 style={{ margin: 0 }}>Кнопки с иконкой и лампой</h2>
-      <section className="vs-kiosk" data-part="lamp" style={{ display: "flex", gap: "var(--vs-space-3)", flexWrap: "wrap", padding: "var(--vs-space-4)", background: "var(--vs-surface-1)", borderRadius: "var(--vs-radius-lg)" }}>
-        <SplitButton onClick={() => {}} more={{ label: "Коридор: лампы", onClick: () => {} }} indicator="lamp">Коридор</SplitButton>
-        <SplitButton pressed onClick={() => {}} more={{ label: "Кухня: лампы", onClick: () => {} }} indicator="lamp">Кухня · 3</SplitButton>
-        <Button pressed indicator="lamp">Баня</Button>
-        <Button>Парадная</Button>
-        <Button icon="check">С иконкой</Button>
-      </section>
-      <h2 style={{ margin: 0 }}>Текст</h2>
-      <Texts />
-      <h2 style={{ margin: 0 }}>Текст · киоск</h2>
-      <Texts kiosk />
-      <h2 style={{ margin: 0 }}>Панели</h2>
-      <Panels />
-      <h2 style={{ margin: 0 }}>Панели · киоск</h2>
-      <Panels kiosk />
-      <section style={{ display: "flex", gap: ".5rem", flexWrap: "wrap" }}>
-        <Button onClick={() => toast("Обычная кнопка")}>Обычная</Button>
-        <Button variant="primary" onClick={() => toast("Апрув")}>Апрув</Button>
-        <Button variant="danger">На доработку</Button>
-        <Button disabled>Занята</Button>
-        <Button size="sm">Открыть в Толке</Button>
-      </section>
-      <Segment label="Вид" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />
-      <Segment label="Вид (soft)" variant="soft" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />
-      <section style={{ display: "flex", gap: ".3rem" }}>
-        {["personal-os", "personal"].map((d) => <Chip key={d} pressed={d === domain} onClick={() => setDomain(d)}>{d}</Chip>)}
-        <Chip>PR 1 · open</Chip>
-      </section>
-      <section style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-        <Switch checked={agent} onChange={setAgent} label="Делает агент" icon="🤖" />
-        <Switch checked={agent} onChange={setAgent} label="Делает агент (плитка)" icon="🤖" size="sm" />
-      </section>
-      <Select label="Приоритет" value={priority} onChange={setPriority} options={[{ value: "high", label: "🔴 высокий" }, { value: "normal", label: "🟡 обычный" }, { value: "low", label: "🟢 низкий" }]} />
-      <ContextMenu items={[
-        { label: "Открыть карточку", onSelect: () => toast("Открыть T-133") },
-        { label: "Скопировать T-133", onSelect: () => toast("Скопировано") },
-        "separator",
-        { label: "Статус", value: status, options: [{ value: "planned", label: "To do" }, { value: "doing", label: "Doing" }, { value: "review", label: "Review" }], onValueChange: setStatus },
-        "separator",
-        { label: "🤖 Делает агент", checked: agent, onCheckedChange: setAgent },
-      ]}>
-        <div style={{ padding: "1rem", border: "1px dashed var(--vs-line)", borderRadius: "var(--vs-radius)" }}>Правый клик или долгое нажатие · {status}</div>
-      </ContextMenu>
-      <p>{linkify("Ссылка: https://vshome.space и [доска](https://tasks.vshome.space).").map((p, i) => (p.url ? <a key={i} href={p.url}>{p.text}</a> : <span key={i}>{p.text}</span>))}</p>
-      <ChartCard title="Задержка выходов" sub="полосы — нет связи, линия рвётся на пропусках" legend={[{ name: "Швеция", color: chartPalette[0] }, { name: "Германия", color: chartPalette[2], extra: "доступен 97%" }]}>
-        <LineChart t0={T0} step={1800} unit=" мс" bands={outageBands(alive)} bandLabel="VPN не работал" marks={[{ i: 30, label: "выкатка abc123" }, { i: 70, dashed: true, label: "перезапуск" }]}
-          series={[{ name: "Швеция", color: chartPalette[0], data: wave(0), fmt: (v) => `${v} мс` }, { name: "Германия", color: chartPalette[2], data: wave(1), fmt: (v) => `${v} мс` }]} />
-      </ChartCard>
-      <ChartCard title="Расход по дням" sub="столбики с накоплением" legend={[{ name: "Мак", color: chartPalette[0] }, { name: "бокс", color: chartPalette[1] }]}>
-        <StackedBars labels={["2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04"]} fmt={(v) => `$${Math.round(v)}`}
-          series={[{ name: "Мак", color: chartPalette[0], data: [12, 30, 8, 22] }, { name: "бокс", color: chartPalette[1], data: [5, 0, 14, 9] }]} />
-      </ChartCard>
-      <Button onClick={() => { setDirty(false); setOpen(true); }}>Открыть Sheet</Button>
-      <Sheet
-        open={open}
-        head="T-121 · Review"
-        actions={<button type="button" onClick={() => setDirty(true)}>Изменить</button>}
-        onRequestClose={() => {
-          if (dirty && !confirm("Есть несохранённые правки. Выйти без сохранения?")) return false;
-          setOpen(false);
-          return true;
-        }}
-        footer={<><Button variant="danger">На доработку</Button><Button variant="primary" onClick={() => { setOpen(false); toast("T-121: Всё смёржено"); }}>Апрув</Button></>}
-      >
-        <h2 style={{ marginTop: 0 }}>Карточка задачи</h2>
-        {Array.from({ length: 30 }, (_, i) => <p key={i}>Строка {i + 1} — проверка прокрутки тела при закреплённых шапке и подвале.</p>)}
-        <Select label="Приоритет" value={priority} onChange={setPriority} options={[{ value: "high", label: "🔴 высокий" }, { value: "normal", label: "🟡 обычный" }, { value: "low", label: "🟢 низкий" }]} />
-        <textarea rows={3} onInput={() => setDirty(true)} />
-        <Button onClick={() => toast("Тост поверх листа")}>Тост внутри листа</Button>
-      </Sheet>
-    </main>
-  );
-}
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ToastProvider><Demo /></ToastProvider>
-  </StrictMode>,
-);
+createRoot(document.getElementById("root")!).render(<StrictMode><ToastProvider><App /></ToastProvider></StrictMode>);

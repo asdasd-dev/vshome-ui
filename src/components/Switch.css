@@ -4,7 +4,7 @@
 .vs-switch input:checked { background: var(--vs-accent); }
 .vs-switch input:checked::before { transform: translateX(var(--vs-switch-travel, calc(18px * var(--vs-scale, 1)))); }
 .vs-switch input:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
-.vs-switch input:disabled { opacity: .5; cursor: progress; }
+.vs-switch input:disabled { opacity: .5; cursor: not-allowed; }
 .vs-switch--sm { font-size: var(--vs-text-xs); gap: var(--vs-space-0_5); padding: var(--vs-space-1_5) 0 var(--vs-space-1_5) var(--vs-space-2); margin-block: calc(var(--vs-space-1_5) * -1); }
 .vs-switch--sm input { width: var(--vs-switch-w, calc(30px * var(--vs-scale, 1))); height: var(--vs-switch-h, calc(18px * var(--vs-scale, 1))); }
 .vs-switch--sm input::before { width: var(--vs-switch-knob, calc(12px * var(--vs-scale, 1))); height: var(--vs-switch-knob, calc(12px * var(--vs-scale, 1))); }

@@ -14,6 +14,10 @@ step npm run typecheck
 step npm run build
 step npm run showcase:build
 
+K=(-o BatchMode=yes -o LogLevel=ERROR -i /root/.ssh/id_ed25519)
+tar -C dist-showcase -cf - . | sudo ssh "${K[@]}" root@ssh.vshome.space 'set -e; W=/var/www/vshome; rm -rf $W/ui.new $W/ui.old; mkdir -p $W/ui.new; tar -C $W/ui.new -xf -; if [ -d $W/ui ]; then mv $W/ui $W/ui.old; fi; mv $W/ui.new $W/ui; rm -rf $W/ui.old' >>"$LOG" 2>&1 \
+  || fail "каталог не выложен на vshome.space/ui/: $(tail -2 "$LOG" | tr '\n' ' ')"
+
 OUT=$(node scripts/release.mjs 2>>"$LOG") || fail "релиз упал: $(tail -2 "$LOG" | tr '\n' ' ')"
 case "$OUT" in
   exists*) say "версия ${OUT#exists } уже выпущена — релиза нет"; exit 0 ;;

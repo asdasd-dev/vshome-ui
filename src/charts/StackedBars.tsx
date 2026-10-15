@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { cx } from "../utils/cx";
 import { niceMax } from "./scale";
 import { CHART_H as H, PAD, useTipLeft, useWidth, type TipPos } from "./useChartFrame";
 
@@ -7,12 +8,14 @@ export type StackedBarsProps = {
   labels: string[];
   series: { name: string; color: string; data: number[] }[];
   fmt: (v: number) => string;
+  label?: string;
+  className?: string;
 };
 
 const { L, R, T, B } = PAD;
 const dm = (d: string) => `${d.slice(8, 10)}.${d.slice(5, 7)}`;
 
-export function StackedBars({ labels, series, fmt }: StackedBarsProps) {
+export function StackedBars({ labels, series, fmt, label, className }: StackedBarsProps) {
   const [box, width] = useWidth();
   const svgRef = useRef<SVGSVGElement>(null);
   const [hover, setHover] = useState<(TipPos & { i: number }) | null>(null);
@@ -32,7 +35,7 @@ export function StackedBars({ labels, series, fmt }: StackedBarsProps) {
   }
 
   return (
-    <div className="vs-chart">
+    <div className={cx("vs-chart", className)}>
       <div className="vs-chart-tip" ref={tipRef} hidden={!hover}>
         {hover && (
           <>
@@ -43,7 +46,7 @@ export function StackedBars({ labels, series, fmt }: StackedBarsProps) {
       </div>
       <div className="vs-chart-view" ref={box}>
         {width > 0 && (
-          <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img">
+          <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={label}>
             {[0, 1, 2, 3, 4].map((g) => {
               const v = (max * g) / 4;
               return (

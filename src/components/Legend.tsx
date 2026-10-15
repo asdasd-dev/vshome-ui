@@ -1,7 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cx } from "../utils/cx";
-
-type Tone = "accent" | "ok" | "warn" | "danger" | "muted" | "violet" | "pink" | "gold";
+import type { Tone } from "./tone";
 
 export type LegendProps = { items: { label: ReactNode; tone?: Tone; color?: string; shape?: "dot" | "line" | "dash" | "square" }[]; className?: string };
 
@@ -18,8 +17,8 @@ export function Legend({ items, className }: LegendProps) {
   );
 }
 
-export type StatusDotProps = { tone: "ok" | "warn" | "danger" | "muted" | "accent"; pulse?: boolean; label?: string; className?: string };
+export type StatusDotProps = { tone?: Tone; pulse?: boolean; label?: string; className?: string };
 
-export function StatusDot({ tone, pulse, label, className }: StatusDotProps) {
+export function StatusDot({ tone = "ok", pulse, label, className }: StatusDotProps) {
   return <span className={cx("vs-status-dot", `vs-status-dot--${tone}`, pulse && "vs-status-dot--pulse", className)} {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })} />;
 }

@@ -150,7 +150,7 @@ describe("Artwork и цвета категорий", () => {
   });
   it("Tag в цветах категорий", () => {
     render(<Tag tone="violet">магазин</Tag>);
-    expect(screen.getByText("магазин").className).toContain("vs-tag--violet");
+    expect(screen.getByText("магазин").closest(".vs-tag")!.className).toContain("vs-tag--violet");
     expect(allCss()).toMatch(/\.vs-tag--violet \{[^}]*--vs-tag-fg: var\(--vs-violet\)/);
   });
 });

@@ -1,4 +1,5 @@
 import { useRef, useState, type ReactNode } from "react";
+import { cx } from "../utils/cx";
 import { dayTicks, fmtStamp, linePath, niceMax } from "./scale";
 import { CHART_H as H, PAD, pointerX, useTipLeft, useWidth, type TipPos } from "./useChartFrame";
 
@@ -10,6 +11,8 @@ export type LineChartProps = {
   t0: number;
   step: number;
   series: Series[];
+  label?: string;
+  className?: string;
   unit?: string;
   yMax?: number;
   bands?: [number, number][];
@@ -72,11 +75,11 @@ export function LineChart(p: LineChartProps) {
   }
 
   return (
-    <div className="vs-chart">
+    <div className={cx("vs-chart", p.className)}>
       <div className="vs-chart-tip" ref={tipRef} hidden={!hover}>{tip}</div>
       <div className="vs-chart-view" ref={box}>
         {width > 0 && (
-          <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img">
+          <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={p.label}>
             {(p.bands ?? []).map(([a, b], k) => (
               <rect key={k} className="vs-chart-band" x={x(a)} y={T} width={Math.max(2, x(b) - x(a))} height={H - T - B} />
             ))}

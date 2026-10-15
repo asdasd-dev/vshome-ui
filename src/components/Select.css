@@ -1,8 +1,9 @@
 .vs-select { display: flex; flex-direction: column; gap: var(--vs-space-0_5); min-width: 0; }
-.vs-select__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }
+.vs-select__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-medium); color: var(--vs-muted); }
+.vs-select__trigger[aria-invalid="true"] { border-color: var(--vs-danger); }
 .vs-select__trigger { display: flex; align-items: center; justify-content: space-between; gap: var(--vs-space-2); min-height: calc(40px * var(--vs-scale, 1)); padding: var(--vs-space-2); border: 1px solid var(--vs-line); border-radius: var(--vs-radius-sm); background: var(--vs-bg); color: var(--vs-ink); font: inherit; text-align: left; cursor: pointer; }
 .vs-select__trigger:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
-.vs-select__trigger[data-disabled] { opacity: .5; cursor: default; }
+.vs-select__trigger[data-disabled] { opacity: .5; cursor: not-allowed; }
 .vs-select__value { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vs-select__icon { display: inline-flex; flex: 0 0 auto; color: var(--vs-muted); }
 .vs-select__positioner { z-index: var(--vs-z-popover); outline: 0; }

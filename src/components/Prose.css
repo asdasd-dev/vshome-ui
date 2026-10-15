@@ -1,0 +1,19 @@
+.vs-prose { max-width: 72ch; color: var(--vs-ink); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); overflow-wrap: break-word; }
+.vs-prose > :first-child { margin-top: 0; }
+.vs-prose > :last-child { margin-bottom: 0; }
+.vs-prose h1 { margin: 0 0 var(--vs-space-4); font-family: var(--vs-font-display); font-size: var(--vs-text-2xl); line-height: var(--vs-leading-2xl); font-weight: var(--vs-weight-semibold); }
+.vs-prose h2 { margin: var(--vs-space-8) 0 var(--vs-space-3); font-size: var(--vs-text-xl); line-height: var(--vs-leading-xl); font-weight: var(--vs-weight-semibold); }
+.vs-prose h3 { margin: var(--vs-space-6) 0 var(--vs-space-2); font-size: var(--vs-text-lg); line-height: var(--vs-leading-lg); font-weight: var(--vs-weight-semibold); }
+.vs-prose h4 { margin: var(--vs-space-4) 0 var(--vs-space-1); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); font-weight: var(--vs-weight-semibold); }
+.vs-prose p, .vs-prose ul, .vs-prose ol, .vs-prose blockquote, .vs-prose pre, .vs-prose table { margin: 0 0 var(--vs-space-3); }
+.vs-prose ul, .vs-prose ol { padding-left: var(--vs-space-6); }
+.vs-prose li + li { margin-top: var(--vs-space-1); }
+.vs-prose a { color: var(--vs-accent); text-underline-offset: var(--vs-space-0_5); }
+.vs-prose code { padding: 0 var(--vs-space-1); border-radius: var(--vs-radius-xs); background: var(--vs-surface-2); font-size: var(--vs-text-sm); }
+.vs-prose pre { padding: var(--vs-space-3) var(--vs-space-4); border-radius: var(--vs-radius-md); background: var(--vs-surface-2); overflow-x: auto; font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
+.vs-prose pre code { padding: 0; background: none; font-size: inherit; }
+.vs-prose blockquote { padding-left: var(--vs-space-4); border-left: 3px solid var(--vs-line); color: var(--vs-muted); }
+.vs-prose table { width: 100%; border-collapse: collapse; font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
+.vs-prose th, .vs-prose td { padding: var(--vs-space-1_5) var(--vs-space-2); border-bottom: 1px solid var(--vs-line); text-align: left; vertical-align: top; }
+.vs-prose th { font-weight: var(--vs-weight-semibold); color: var(--vs-muted); }
+.vs-prose hr { border: 0; border-top: 1px solid var(--vs-line); margin: var(--vs-space-6) 0; }

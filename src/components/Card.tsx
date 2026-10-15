@@ -4,7 +4,7 @@ import { cx } from "../utils/cx";
 const TONES = ["accent", "ok", "warn", "danger", "muted", "violet", "pink", "gold"];
 
 export type CardProps = {
-  children: ReactNode; as?: "div" | "section" | "article" | "li"; tone?: "default" | "accent" | "ok" | "warn" | "danger" | "muted";
+  children: ReactNode; as?: "div" | "section" | "article" | "li"; tone?: "default" | "accent" | "ok" | "warn" | "danger" | "muted" | "violet" | "pink" | "gold";
   stripe?: string; padding?: "none" | "sm" | "md" | "lg"; elevated?: boolean; onClick?: () => void; href?: string; title?: string; className?: string;
 };
 

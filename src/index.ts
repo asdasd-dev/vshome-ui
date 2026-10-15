@@ -19,6 +19,8 @@ export { IconButton, type IconButtonProps } from "./components/IconButton";
 export { ICON_NAMES, type IconName } from "./components/icons";
 export { Tile, type TileProps } from "./components/Tile";
 export { Text, type TextProps } from "./components/Text";
+export type { Tone } from "./components/tone";
+export { Prose, type ProseProps } from "./components/Prose";
 export { Cluster, Divider, Stack, type ClusterProps, type DividerProps, type StackProps } from "./components/Layout";
 export { ControlList, ControlRow, type ControlListProps, type ControlRowProps } from "./components/ControlList";
 export { Clock, type ClockProps } from "./components/Clock";

@@ -7,9 +7,11 @@
 .vs-text-field::placeholder { color: var(--vs-muted); }
 .vs-text-field:focus-visible { outline: var(--vs-focus-ring); outline-offset: -1px; border-color: transparent; }
 .vs-text-field[aria-invalid="true"] { border-color: var(--vs-danger); }
-.vs-text-field:disabled { opacity: .5; }
+.vs-text-field:disabled { opacity: .5; cursor: not-allowed; }
 .vs-text-field--dashed { border-style: dashed; background: transparent; }
 .vs-text-field--sm { min-height: calc(32px * var(--vs-scale, 1)); padding: var(--vs-space-1) var(--vs-space-2); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-text-field--area { resize: vertical; }
 .vs-text-field--with-icon { padding-left: calc(var(--vs-space-3) + var(--vs-space-4) + var(--vs-space-2)); }
 .vs-text-field__icon { position: absolute; left: var(--vs-space-3); top: 50%; translate: 0 -50%; color: var(--vs-muted); pointer-events: none; }
+.vs-text-field__icon--sm { left: var(--vs-space-2); }
+.vs-text-field--sm.vs-text-field--with-icon { padding-left: calc(var(--vs-space-2) * 2 + var(--vs-space-4)); }

@@ -9,7 +9,8 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom", "vite/client"],
+    "resolveJsonModule": true
   },
   "include": ["src", "tests", "showcase", "vite.config.ts", "vite.showcase.config.ts"]
 }
