@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { Banner, List, ListRow, Stat, Tile } from "../src";
@@ -29,6 +29,51 @@ describe("Tile", () => {
     const t = screen.getByRole("region", { name: "Встреча" });
     expect(t.tagName).toBe("SECTION");
     expect(t.querySelector("button button")).toBeNull();
+  });
+});
+
+describe("Tile scroll: затемнение переполнения", () => {
+  const size = (el: HTMLElement, sh: number, ch: number, st = 0) => {
+    Object.defineProperty(el, "scrollHeight", { configurable: true, value: sh });
+    Object.defineProperty(el, "clientHeight", { configurable: true, value: ch });
+    el.scrollTop = st;
+  };
+  it("не влезает — снизу затемнение; прокрутил — сверху и снизу; до конца — только сверху", () => {
+    const { container, rerender } = render(<Tile label="Новости" scroll>a</Tile>);
+    const body = container.querySelector(".vs-tile__body") as HTMLElement;
+    expect(body.className).toContain("vs-tile__body--scroll");
+    size(body, 500, 200);
+    rerender(<Tile label="Новости" scroll>b</Tile>);
+    expect(body.dataset.fade).toBe("bottom");
+    size(body, 500, 200, 100);
+    fireEvent.scroll(body);
+    expect(body.dataset.fade).toBe("top bottom");
+    size(body, 500, 200, 300);
+    fireEvent.scroll(body);
+    expect(body.dataset.fade).toBe("top");
+  });
+  it("влезает — без затемнения; без scroll — тело прежнее", () => {
+    const { container } = render(<Tile label="Дела" scroll>a</Tile>);
+    expect((container.querySelector(".vs-tile__body") as HTMLElement).dataset.fade).toBeUndefined();
+    const plain = render(<Tile label="Скоро">a</Tile>).container.querySelector(".vs-tile__body") as HTMLElement;
+    expect(plain.className).toBe("vs-tile__body");
+  });
+  it("стили: прокрутка без полосы, маски краёв", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    expect(css).toMatch(/\.vs-tile__body--scroll \{[^}]*overflow-y: auto/);
+    expect(css).toMatch(/\.vs-tile__body--scroll\[data-fade="bottom"\] \{[^}]*mask-image/);
+    expect(css).toMatch(/\.vs-tile__body--scroll\[data-fade="top"\] \{[^}]*mask-image/);
+    expect(css).toMatch(/\.vs-tile__body--scroll\[data-fade="top bottom"\] \{[^}]*mask-image/);
+  });
+});
+
+describe("ListRow titleLines", () => {
+  it("заголовок в две строки — со второй строкой и без", () => {
+    render(<List><ListRow title="Наблюдаемость агентов" sub="Claude" titleLines={2} /><ListRow title="Кардиолог" titleLines={2} /></List>);
+    expect(document.querySelector(".vs-list-row__name")!.className).toContain("vs-list-row__name--2");
+    expect(document.querySelectorAll(".vs-list-row__title")[1]!.className).toContain("vs-list-row__title--2");
   });
 });
 
