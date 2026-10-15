@@ -31,6 +31,12 @@ describe("Chip", () => {
 });
 
 describe("Segment", () => {
+  it("вариант soft — класс модификатора, по умолчанию его нет", () => {
+    const { container, rerender } = render(<Segment ariaLabel="Режим" value="a" onChange={() => {}} options={[{ value: "a", label: "А" }]} variant="soft" />);
+    expect(container.firstElementChild!.className).toContain("vs-segment--soft");
+    rerender(<Segment ariaLabel="Режим" value="a" onChange={() => {}} options={[{ value: "a", label: "А" }]} />);
+    expect(container.firstElementChild!.className).not.toContain("vs-segment--soft");
+  });
   it("отмечает выбранное и сообщает о выборе", async () => {
     const onChange = vi.fn();
     render(<Segment ariaLabel="Вид" value="board" onChange={onChange} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />);

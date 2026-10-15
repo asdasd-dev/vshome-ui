@@ -62,6 +62,7 @@ function Demo() {
         <Button disabled>Занята</Button>
       </section>
       <Segment ariaLabel="Вид" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />
+      <Segment ariaLabel="Вид (soft)" variant="soft" value={view} onChange={setView} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />
       <section style={{ display: "flex", gap: ".3rem" }}>
         {["personal-os", "personal"].map((d) => <Chip key={d} pressed={d === domain} onClick={() => setDomain(d)}>{d}</Chip>)}
         <Chip>PR 1 · open</Chip>
