@@ -16,16 +16,16 @@ export function List({ children, max, empty, className }: ListProps) {
 }
 
 export type ListRowProps = {
-  title: ReactNode; sub?: ReactNode; subTone?: "muted" | "warn"; meta?: ReactNode; lead?: ReactNode;
+  title: ReactNode; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2; meta?: ReactNode; lead?: ReactNode;
   tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void;
 };
 
-export function ListRow({ title, sub, subTone = "muted", meta, lead, tone = "default", onClick }: ListRowProps) {
+export function ListRow({ title, sub, subTone = "muted", subLines = 1, meta, lead, tone = "default", onClick }: ListRowProps) {
   const inner = (
     <>
       {lead && <span className="vs-list-row__lead">{lead}</span>}
       {sub != null ? (
-        <span className="vs-list-row__title"><span className="vs-list-row__name">{title}</span><span className={cx("vs-list-row__sub", `vs-list-row__sub--${subTone}`)}>{sub}</span></span>
+        <span className="vs-list-row__title"><span className="vs-list-row__name">{title}</span><span className={cx("vs-list-row__sub", `vs-list-row__sub--${subTone}`, subLines === 2 && "vs-list-row__sub--2")}>{sub}</span></span>
       ) : <span className="vs-list-row__title">{title}</span>}
       {meta && <span className="vs-list-row__meta">{meta}</span>}
     </>
