@@ -1,0 +1,8 @@
+.vs-link { display: inline-flex; align-items: baseline; gap: var(--vs-space-0_5); padding: 0; border: 0; background: none; font: inherit; color: var(--vs-link-fg); text-decoration: none; cursor: pointer; }
+.vs-link--accent { --vs-link-fg: var(--vs-accent); }
+.vs-link--muted { --vs-link-fg: var(--vs-muted); }
+.vs-link--danger { --vs-link-fg: var(--vs-danger); }
+.vs-link--underline-always { text-decoration: underline; text-underline-offset: var(--vs-space-0_5); }
+.vs-link__external { align-self: center; }
+.vs-link:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
+@media (hover: hover) { .vs-link--underline-hover:hover { text-decoration: underline; text-underline-offset: var(--vs-space-0_5); } }

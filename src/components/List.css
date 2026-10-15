@@ -22,3 +22,4 @@ button.vs-list-row__inner { cursor: pointer; }
 .vs-list-row--two .vs-list-row__name { font-weight: var(--vs-list-name-weight, inherit); }
 .vs-kiosk { --vs-list-name-weight: var(--vs-weight-medium); }
 .vs-list-row__inner:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
+@media (hover: hover) { button.vs-list-row__inner:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); border-radius: var(--vs-radius-xs); } }

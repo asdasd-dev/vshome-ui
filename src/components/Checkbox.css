@@ -1,0 +1,18 @@
+.vs-checkbox, .vs-radio { display: inline-flex; align-items: flex-start; gap: var(--vs-space-2); cursor: pointer; color: var(--vs-ink); }
+.vs-checkbox__box { position: relative; display: inline-flex; flex: none; width: var(--vs-checkbox-size); height: var(--vs-checkbox-size); font-size: var(--vs-checkbox-size); }
+.vs-checkbox--md { --vs-checkbox-size: var(--vs-space-5); }
+.vs-checkbox--lg { --vs-checkbox-size: calc(28px * var(--vs-scale, 1)); }
+.vs-checkbox__input { appearance: none; -webkit-appearance: none; margin: 0; width: 100%; height: 100%; border: 2px solid var(--vs-line); border-radius: var(--vs-radius-xs); background: var(--vs-bg); cursor: pointer; }
+.vs-checkbox__input:checked { border-color: var(--vs-accent); background: var(--vs-accent); }
+.vs-checkbox__mark { position: absolute; inset: 0; padding: 10%; color: var(--vs-on-accent); opacity: 0; pointer-events: none; }
+.vs-checkbox__input:checked + .vs-checkbox__mark { opacity: 1; }
+.vs-checkbox__input:focus-visible, .vs-radio__input:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
+.vs-checkbox__input:disabled, .vs-radio__input:disabled { opacity: .5; cursor: default; }
+.vs-checkbox__text { display: flex; flex-direction: column; min-width: 0; }
+.vs-checkbox__hint { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }
+.vs-radio-group { display: flex; gap: var(--vs-space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.vs-radio-group--column { flex-direction: column; }
+.vs-radio-group--row { flex-wrap: wrap; column-gap: var(--vs-space-4); }
+.vs-radio-group__legend { padding: 0; margin-bottom: var(--vs-space-1); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-medium); color: var(--vs-muted); }
+.vs-radio__input { appearance: none; -webkit-appearance: none; flex: none; margin: 0; width: var(--vs-space-5); height: var(--vs-space-5); border: 2px solid var(--vs-line); border-radius: 50%; background: var(--vs-bg); cursor: pointer; }
+.vs-radio__input:checked { border-color: var(--vs-accent); background: var(--vs-accent); box-shadow: inset 0 0 0 calc(4px * var(--vs-scale, 1)) var(--vs-bg); }
