@@ -1,12 +1,43 @@
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../src/styles.css";
-import { Button, Chip, ContextMenu, Segment, Select, Sheet, Switch, ToastProvider, useToast, linkify } from "../src";
+import "../src/styles/fonts.css";
+import { Banner, Button, Chip, ContextMenu, IconButton, List, ListRow, Segment, Select, Sheet, Stat, Switch, Tile, ToastProvider, useToast, linkify } from "../src";
 import { ChartCard, LineChart, StackedBars, chartPalette, outageBands } from "../src/charts";
 
 const T0 = Math.floor(new Date(2026, 9, 1).getTime() / 1000);
 const wave = (k: number) => Array.from({ length: 96 }, (_, i) => (i > 40 && i < 46 ? null : Math.round(60 + 30 * Math.sin(i / 8 + k) + k * 15)));
 const alive = Array.from({ length: 96 }, (_, i) => (i > 60 && i < 66 ? 0 : 1));
+
+function Panels({ kiosk }: { kiosk?: boolean }) {
+  return (
+    <section className={kiosk ? "vs-kiosk" : undefined} style={{ display: "grid", gap: "var(--vs-space-4)", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", padding: "var(--vs-space-4)", background: "var(--vs-surface-0)", borderRadius: "var(--vs-radius-lg)" }}>
+      <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Banner tone="warn">Мак не на связи с 14:02</Banner>
+        <Stat value="10:46" size="md" />
+      </div>
+      <Tile label="Встреча · 11:15" tone="warn" footer={<Button variant="primary">Войти</Button>}>
+        <Stat value={1} unit="мин" caption="Deimos PBR" size="xl" tone="warn" />
+      </Tile>
+      <Tile label="Агенты">
+        <Stat value={2} caption="ждут тебя · работают: 3" tone="warn" />
+        <List max={3}>
+          <ListRow title="Sync agenda" meta="12 мин" tone="warn" onClick={() => {}} />
+          <ListRow title="TDRs" meta="3 мин" onClick={() => {}} />
+        </List>
+      </Tile>
+      <Tile label="Музыка" footer={<div style={{ display: "flex", gap: "var(--vs-space-2)" }}><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></div>}>
+        <Stat value="If You Need Someone" caption="The Field Mice" size="md" />
+      </Tile>
+      <Tile label="Сегодня">
+        <List empty="встреч нет">
+          <ListRow lead="11:00" title="AI Demo №4" />
+          <ListRow lead="11:15" title="Deimos PBR" />
+        </List>
+      </Tile>
+    </section>
+  );
+}
 
 function Demo() {
   const toast = useToast();
@@ -18,8 +49,12 @@ function Demo() {
   const [priority, setPriority] = useState<"high" | "normal" | "low">("normal");
   const [status, setStatus] = useState("doing");
   return (
-    <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "40rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
+    <main style={{ padding: "1rem", display: "grid", gap: "1rem", maxWidth: "72rem", background: "var(--vs-bg)", color: "var(--vs-ink)", fontFamily: "var(--vs-font)" }}>
       <h1 style={{ fontFamily: "var(--vs-font-display)", margin: 0 }}>vshome-ui</h1>
+      <h2 style={{ margin: 0 }}>Панели</h2>
+      <Panels />
+      <h2 style={{ margin: 0 }}>Панели · киоск</h2>
+      <Panels kiosk />
       <section style={{ display: "flex", gap: ".5rem", flexWrap: "wrap" }}>
         <Button onClick={() => toast("Обычная кнопка")}>Обычная</Button>
         <Button variant="primary" onClick={() => toast("Апрув")}>Апрув</Button>
