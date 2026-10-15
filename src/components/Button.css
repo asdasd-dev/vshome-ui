@@ -10,3 +10,5 @@
 .vs-kiosk .vs-button--sm { min-height: calc(32px * var(--vs-scale, 1)); padding: var(--vs-space-1) var(--vs-space-4); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-kiosk .vs-button--lamp[aria-pressed="true"] { background: var(--vs-surface-2); }
 .vs-button--icon { display: inline-flex; align-items: center; justify-content: center; gap: var(--vs-space-2); }
+.vs-button--lamp, .vs-kiosk .vs-button--lamp { position: relative; padding-left: var(--vs-space-6); }
+.vs-button__lamp { position: absolute; left: var(--vs-space-0_5); top: 50%; translate: 0 -50%; width: var(--vs-space-5); }

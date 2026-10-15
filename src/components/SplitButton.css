@@ -11,3 +11,5 @@
 .vs-kiosk .vs-split[data-pressed] .vs-split__more { color: var(--vs-ink); }
 .vs-split--lamp[data-pressed] { background: var(--vs-surface-2); }
 .vs-split__main { display: inline-flex; align-items: center; gap: var(--vs-space-2); }
+.vs-split--lamp .vs-split__main { position: relative; padding-left: var(--vs-space-6); }
+.vs-split__lamp { position: absolute; left: var(--vs-space-0_5); top: 50%; translate: 0 -50%; width: var(--vs-space-5); }
