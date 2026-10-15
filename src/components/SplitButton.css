@@ -9,3 +9,5 @@
 .vs-kiosk .vs-split__main { padding: var(--vs-space-2) var(--vs-space-4) var(--vs-space-2) var(--vs-space-5); }
 .vs-kiosk .vs-split__more { min-width: calc(44px * var(--vs-scale, 1)); padding: 0 var(--vs-space-3) 0 var(--vs-space-2); }
 .vs-kiosk .vs-split[data-pressed] .vs-split__more { color: var(--vs-ink); }
+.vs-split--lamp[data-pressed] { background: var(--vs-surface-2); }
+.vs-split__main { display: inline-flex; align-items: center; gap: var(--vs-space-2); }

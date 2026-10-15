@@ -1,7 +1,7 @@
 :root {
   --vs-bg: #f6f5f1; --vs-panel: #ffffff; --vs-ink: #1d1d1b; --vs-muted: #6b6a66; --vs-line: #e3e1da;
   --vs-accent: #2f6fdf; --vs-danger: #be123c; --vs-warn: #c2410c; --vs-ok: #15803d;
-  --vs-on-accent: #ffffff;
+  --vs-on-accent: #ffffff; --vs-lamp: #d97706;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
   --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 12%, var(--vs-panel));
   --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 8%, var(--vs-panel));
@@ -25,7 +25,7 @@
   :root:not([data-theme="light"]) {
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
-    --vs-on-accent: #0b1a33;
+    --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
@@ -36,7 +36,7 @@
 :root[data-theme="dark"] {
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
-    --vs-on-accent: #0b1a33;
+    --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
