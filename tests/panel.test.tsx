@@ -69,6 +69,15 @@ describe("Tile scroll: затемнение переполнения", () => {
   });
 });
 
+describe("ListRow в киоске", () => {
+  it("заголовок двухстрочной строки — средний вес", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    expect(css).toMatch(/\.vs-kiosk \.vs-list-row--two \.vs-list-row__name \{[^}]*font-weight: var\(--vs-weight-medium\)/);
+  });
+});
+
 describe("ListRow titleLines", () => {
   it("заголовок в две строки — со второй строкой и без", () => {
     render(<List><ListRow title="Наблюдаемость агентов" sub="Claude" titleLines={2} /><ListRow title="Кардиолог" titleLines={2} /></List>);
