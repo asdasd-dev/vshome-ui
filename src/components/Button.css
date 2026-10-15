@@ -3,4 +3,5 @@
 .vs-button--primary { background: var(--vs-accent); border-color: var(--vs-accent); color: var(--vs-on-accent); font-weight: var(--vs-weight-semibold); }
 .vs-button--danger { color: var(--vs-danger); }
 .vs-button:focus-visible { outline: 2px solid var(--vs-accent); outline-offset: 2px; }
-.vs-kiosk .vs-button { font-size: var(--vs-text-md); line-height: var(--vs-leading-md); }
+.vs-kiosk .vs-button { border-color: transparent; border-radius: var(--vs-radius-pill); background: var(--vs-surface-2); padding: var(--vs-space-2) var(--vs-space-5); min-height: calc(44px * var(--vs-scale, 1)); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); font-weight: var(--vs-weight-medium); }
+.vs-kiosk .vs-button--primary { background: var(--vs-accent); color: var(--vs-on-accent); font-weight: var(--vs-weight-semibold); }

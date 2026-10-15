@@ -69,3 +69,12 @@ describe("Segment soft", () => {
     expect(css).toMatch(/\.vs-segment--soft button\[aria-pressed="true"\] \{[^}]*background: var\(--vs-surface-2\)[^}]*color: var\(--vs-ink\)/);
   });
 });
+
+describe("Button в киоске", () => {
+  it("как IconButton: капсула без рамки, мягкая поверхность, высота 44", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Button.css"), "utf8");
+    expect(css).toMatch(/\.vs-kiosk \.vs-button \{[^}]*border-color: transparent[^}]*border-radius: var\(--vs-radius-pill\)[^}]*background: var\(--vs-surface-2\)[^}]*min-height: calc\(44px \* var\(--vs-scale, 1\)\)/);
+    expect(css).toMatch(/\.vs-kiosk \.vs-button--primary \{[^}]*background: var\(--vs-accent\)/);
+  });
+});
+
