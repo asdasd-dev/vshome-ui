@@ -34,4 +34,24 @@ describe("Slider", () => {
     rerender(<Slider label="x" value={55} onCommit={() => {}} />);
     expect((screen.getByRole("slider") as HTMLInputElement).value).toBe("55");
   });
+  it("тач: pointerup и touchend одного касания — один commit", () => {
+    const onCommit = vi.fn();
+    render(<Slider label="x" value={10} onCommit={onCommit} />);
+    const r = screen.getByRole("slider");
+    fireEvent.change(r, { target: { value: "30" } });
+    fireEvent.pointerUp(r);
+    fireEvent.touchEnd(r);
+    expect(onCommit).toHaveBeenCalledTimes(1);
+  });
+  it("пока палец на ползунке, новое value снаружи не сбивает", () => {
+    const { rerender } = render(<Slider label="x" value={10} onCommit={() => {}} />);
+    const r = screen.getByRole("slider") as HTMLInputElement;
+    fireEvent.pointerDown(r);
+    fireEvent.change(r, { target: { value: "60" } });
+    rerender(<Slider label="x" value={20} onCommit={() => {}} />);
+    expect(r.value).toBe("60");
+    fireEvent.pointerUp(r);
+    rerender(<Slider label="x" value={25} onCommit={() => {}} />);
+    expect(r.value).toBe("25");
+  });
 });
