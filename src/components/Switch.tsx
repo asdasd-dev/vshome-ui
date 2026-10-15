@@ -9,13 +9,14 @@ export type SwitchProps = {
   title?: string;
   size?: "sm" | "md";
   disabled?: boolean;
+  className?: string;
 };
 
 const stop = (e: SyntheticEvent) => e.stopPropagation();
 
-export function Switch({ checked, onChange, label, icon, title, size = "md", disabled }: SwitchProps) {
+export function Switch({ checked, onChange, label, icon, title, size = "md", disabled, className }: SwitchProps) {
   return (
-    <label className={cx("vs-switch", size === "sm" && "vs-switch--sm")} title={title} onClick={stop} onKeyDown={stop} onPointerDown={stop} onMouseDown={stop} onTouchStart={stop}>
+    <label className={cx("vs-switch", size === "sm" && "vs-switch--sm", className)} title={title} onClick={stop} onKeyDown={stop} onPointerDown={stop} onMouseDown={stop} onTouchStart={stop}>
       {icon != null && <span aria-hidden="true">{icon}</span>}
       <input type="checkbox" role="switch" aria-label={label} checked={checked} disabled={disabled} onChange={(e) => onChange(e.target.checked)} />
     </label>

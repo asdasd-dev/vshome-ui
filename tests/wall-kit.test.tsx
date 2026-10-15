@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { render, screen } from "@testing-library/react";
+import { allCss } from "./css";
 import { describe, expect, it } from "vitest";
 import { Banner, Clock, ControlList, ControlRow, Divider, Text } from "../src";
 
@@ -50,13 +51,13 @@ describe("Banner truncate", () => {
     const b = screen.getByRole("status");
     expect(b.className).toContain("vs-banner--truncate");
     expect(b.querySelector(".vs-banner__text")!.textContent).toBe("очень длинная причина");
-    expect(css("components/Panel.css")).toMatch(/\.vs-banner--truncate \.vs-banner__text \{[^}]*text-overflow: ellipsis/);
+    expect(allCss()).toMatch(/\.vs-banner--truncate \.vs-banner__text \{[^}]*text-overflow: ellipsis/);
   });
 });
 
 describe("основа", () => {
   it("Stat не сжимается в ряду; кнопки не выделяются и без задержки касания", () => {
-    expect(css("components/Panel.css")).toMatch(/\.vs-stat \{[^}]*flex: none/);
+    expect(allCss()).toMatch(/\.vs-stat \{[^}]*flex: none/);
     expect(css("styles/base.css")).toMatch(/button \{[^}]*touch-action: manipulation[^}]*user-select: none/);
   });
 });

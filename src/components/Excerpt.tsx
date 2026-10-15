@@ -23,7 +23,8 @@ export function Excerpt({ children, title, className }: ExcerptProps) {
   return (
     <>
       <div ref={ref} className={cx("vs-excerpt", className)} data-more={more ? "" : undefined} role={more ? "button" : undefined}
-           tabIndex={more ? 0 : undefined} onClick={more ? () => setOpen(true) : undefined}>{children}</div>
+           tabIndex={more ? 0 : undefined} onClick={more ? () => setOpen(true) : undefined}
+           onKeyDown={more ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(true); } } : undefined}>{children}</div>
       {open && (
         <Sheet open onRequestClose={() => setOpen(false)} className={kiosk ? "vs-kiosk" : undefined} head={<Text variant="display">{title}</Text>}>
           <Text as="p" variant="lead" className="vs-excerpt__full">{children}</Text>

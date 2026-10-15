@@ -1,3 +1,4 @@
 .vs-chip { border: 1px solid var(--vs-line); background: transparent; color: var(--vs-muted); border-radius: var(--vs-radius-pill); padding: var(--vs-space-1) var(--vs-space-3); font: inherit; font-size: var(--vs-chip-size, inherit); line-height: var(--vs-chip-leading, inherit); white-space: nowrap; cursor: pointer; }
 .vs-chip[aria-pressed="true"] { border-color: var(--vs-accent); color: var(--vs-accent); background: color-mix(in srgb, var(--vs-accent) 12%, transparent); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk { --vs-chip-size: var(--vs-text-md); --vs-chip-leading: var(--vs-leading-md); }
+.vs-chip:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }

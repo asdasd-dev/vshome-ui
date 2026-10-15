@@ -5,3 +5,4 @@
 .vs-segment--soft button { border-radius: var(--vs-radius-pill); padding: var(--vs-space-2) var(--vs-space-5); font-weight: var(--vs-weight-medium); }
 .vs-segment--soft button[aria-pressed="true"] { background: var(--vs-surface-2); color: var(--vs-ink); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk { --vs-segment-size: var(--vs-text-md); --vs-segment-leading: var(--vs-leading-md); }
+.vs-segment button:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; }

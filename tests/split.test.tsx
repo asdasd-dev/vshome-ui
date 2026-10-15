@@ -65,7 +65,7 @@ describe("SplitButton", () => {
     const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "SplitButton.css"), "utf8");
     expect(css).toMatch(/\.vs-split \{[^}]*--vs-split-bg: var\(--vs-surface-2\)[^}]*border-radius: var\(--vs-radius-pill\)[^}]*background: var\(--vs-split-bg\)/);
     expect(css).toMatch(/\.vs-split__more::before \{[^}]*top: 25%[^}]*bottom: 25%/);
-    expect(css).toMatch(/\.vs-split\[data-pressed\] \{[^}]*background: var\(--vs-split-pressed, color-mix\(in srgb, var\(--vs-accent\) 22%, var\(--vs-surface-2\)\)\)/);
+    expect(css).toMatch(/\.vs-split\[data-pressed\] \{[^}]*background: var\(--vs-split-pressed, var\(--vs-accent-soft\)\)/);
     expect(css).not.toMatch(/#[0-9a-f]{3,8}\b/i);
   });
 });

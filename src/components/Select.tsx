@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CSPProvider } from "@base-ui/react/csp-provider";
 import { Select as Base } from "@base-ui/react/select";
 import { cx } from "../utils/cx";
+import { Icon } from "./Icon";
 import { trackOpenPopup } from "../utils/openPopups";
 
 export type SelectOption<T extends string> = { value: T; label: string };
@@ -24,7 +25,7 @@ export function Select<T extends string>({ value, onChange, options, label, clas
           <Base.Label className="vs-select__label">{label}</Base.Label>
           <Base.Trigger className="vs-select__trigger">
             <Base.Value className="vs-select__value" />
-            <Base.Icon className="vs-select__icon">▾</Base.Icon>
+            <Base.Icon className="vs-select__icon"><Icon name="chevron-down" size="sm" /></Base.Icon>
           </Base.Trigger>
         </div>
         <Base.Portal>
@@ -33,7 +34,7 @@ export function Select<T extends string>({ value, onChange, options, label, clas
               <Base.List className="vs-select__list">
                 {options.map((o) => (
                   <Base.Item key={o.value} value={o.value} className="vs-select__item">
-                    <Base.ItemIndicator className="vs-select__check">✓</Base.ItemIndicator>
+                    <Base.ItemIndicator className="vs-select__check"><Icon name="check" size="sm" /></Base.ItemIndicator>
                     <Base.ItemText>{o.label}</Base.ItemText>
                   </Base.Item>
                 ))}

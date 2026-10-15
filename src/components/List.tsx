@@ -19,10 +19,10 @@ export function List({ children, label, max, empty, className }: ListProps) {
 
 export type ListRowProps = {
   title: ReactNode; titleLines?: 1 | 2; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2 | 3; meta?: ReactNode; lead?: ReactNode;
-  tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void;
+  tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void; className?: string;
 };
 
-export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, tone = "default", onClick }: ListRowProps) {
+export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, tone = "default", onClick, className }: ListRowProps) {
   const inner = (
     <>
       {lead && <span className="vs-list-row__lead">{lead}</span>}
@@ -33,7 +33,7 @@ export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLine
     </>
   );
   return (
-    <li className={cx("vs-list-row", `vs-list-row--${tone}`, sub != null && "vs-list-row--two")}>
+    <li className={cx("vs-list-row", `vs-list-row--${tone}`, sub != null && "vs-list-row--two", className)}>
       {onClick ? <button type="button" className="vs-list-row__inner" onClick={onClick}>{inner}</button> : <div className="vs-list-row__inner">{inner}</div>}
     </li>
   );

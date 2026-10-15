@@ -1,3 +1,4 @@
 .vs-excerpt { flex: 1 1 0; min-height: 0; overflow: hidden; margin: 0; color: var(--vs-muted); font-size: var(--vs-text-md); line-height: var(--vs-leading-md); white-space: pre-line; }
 .vs-excerpt[data-more] { cursor: pointer; -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent); mask-image: linear-gradient(to bottom, black 55%, transparent); }
 .vs-excerpt__full { white-space: pre-line; }
+.vs-excerpt:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
