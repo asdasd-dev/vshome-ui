@@ -10,6 +10,19 @@ describe("Tile", () => {
     expect(t.className).toContain("vs-tile--warn");
     expect(t.lastElementChild!.textContent).toBe("подвал");
   });
+  it("aside — справа в строке подписи, подпись остаётся именем плитки", () => {
+    const { container } = render(<Tile label="Ждут тебя · 3" aside="1 работает">x</Tile>);
+    const t = screen.getByRole("region", { name: "Ждут тебя · 3" });
+    const head = container.querySelector(".vs-tile__head")!;
+    expect(head.querySelector(".vs-tile__label")!.textContent).toBe("Ждут тебя · 3");
+    expect(head.querySelector(".vs-tile__aside")!.textContent).toBe("1 работает");
+    expect(t.contains(head)).toBe(true);
+  });
+  it("без aside разметка прежняя", () => {
+    const { container } = render(<Tile label="Агенты">x</Tile>);
+    expect(container.querySelector(".vs-tile__head")).toBeNull();
+    expect(container.querySelector(".vs-tile > .vs-tile__label")).not.toBeNull();
+  });
   it("плитка не бывает кнопкой — внутри можно класть кнопки", () => {
     // @ts-expect-error onClick у плитки нет
     render(<Tile label="Встреча" onClick={() => {}} footer={<button type="button">Войти</button>}>x</Tile>);
@@ -49,6 +62,35 @@ describe("List и ListRow", () => {
     expect(b.closest("li")!.className).toContain("vs-list-row--warn");
     await userEvent.click(b);
     expect(onClick).toHaveBeenCalled();
+  });
+});
+
+describe("ListRow sub", () => {
+  it("вторая строка под заголовком, тон отдельно", () => {
+    render(<List><ListRow lead="14 мин" title="GD · BX-55704" sub="Нужно разрешение: git push" subTone="warn" onClick={() => {}} /></List>);
+    const li = screen.getByRole("listitem");
+    expect(li.className).toContain("vs-list-row--two");
+    expect(li.querySelector(".vs-list-row__name")!.textContent).toBe("GD · BX-55704");
+    const sub = li.querySelector(".vs-list-row__sub")!;
+    expect(sub.textContent).toBe("Нужно разрешение: git push");
+    expect(sub.className).toContain("vs-list-row__sub--warn");
+  });
+  it("без sub строка прежняя", () => {
+    render(<List><ListRow title="Sync" /></List>);
+    const li = screen.getByRole("listitem");
+    expect(li.className).not.toContain("--two");
+    expect(li.querySelector(".vs-list-row__sub")).toBeNull();
+    expect(li.querySelector(".vs-list-row__title")!.textContent).toBe("Sync");
+  });
+  it("стили: две строки с обрезкой каждой, sub мельче и серым", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    expect(css).toMatch(/\.vs-list-row--two \.vs-list-row__inner \{[^}]*align-items: flex-start/);
+    expect(css).toMatch(/\.vs-list-row__name, \.vs-list-row__sub \{[^}]*overflow: hidden[^}]*white-space: nowrap[^}]*text-overflow: ellipsis/);
+    expect(css).toMatch(/\.vs-list-row__sub \{[^}]*font-size: var\(--vs-text-sm\)[^}]*color: var\(--vs-muted\)/);
+    expect(css).toMatch(/\.vs-list-row__sub--warn \{[^}]*color: var\(--vs-warn\)/);
+    expect(css).toMatch(/\.vs-tile__head \{[^}]*display: flex[^}]*justify-content: space-between/);
   });
 });
 
