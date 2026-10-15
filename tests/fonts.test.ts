@@ -10,7 +10,7 @@ describe("шрифты", () => {
   });
   it("вариативные Manrope и Unbounded, только кириллица и латиница, без внешних адресов", () => {
     const css = src("styles/fonts.css");
-    const faces = [...css.matchAll(/font-family: '([^']+)';[\s\S]*?url\(([^)]+)\)/g)].map((m) => `${m[1]} ${m[2].split("/").pop()}`);
+    const faces = [...css.matchAll(/font-family: '([^']+)';[\s\S]*?url\(([^)]+)\)/g)].map((m) => `${m[1]} ${m[2]!.split("/").pop()}`);
     expect(faces.sort()).toEqual([
       "Manrope manrope-cyrillic-wght-normal.woff2", "Manrope manrope-latin-wght-normal.woff2",
       "Unbounded unbounded-cyrillic-wght-normal.woff2", "Unbounded unbounded-latin-wght-normal.woff2",
