@@ -11,7 +11,7 @@
 .vs-sheet__close { font-size: 1.15rem; }
 .vs-sheet__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: .8rem 1rem 1rem; }
 .vs-sheet__foot { border-top: 1px solid var(--vs-line); padding: .6rem 1rem; display: flex; gap: .5rem; }
-.vs-sheet__foot > .vs-button { flex: 1; min-height: 2.75rem; border-radius: var(--vs-radius); font-weight: 600; }
+.vs-sheet__foot > .vs-button { flex: 1; --vs-button-h: 2.75rem; --vs-button-radius: var(--vs-radius); --vs-button-weight: 600; }
 .vs-sheet__grip { display: none; }
 
 .vs-sheet-viewport { position: fixed; inset: 0; z-index: 21; display: flex; align-items: flex-end; justify-content: center; }
