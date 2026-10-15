@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { marked } from "marked";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Card, Cluster, Disclosure, EmptyState, Link, PageHeader, Prose, SectionHeader, Segment, Stack, Switch, Table, Text, TextField, ToastProvider } from "../src";
+import { Card, Cluster, EmptyState, IconButton, Link, PageHeader, Prose, SectionHeader, Segment, Sheet, Stack, Switch, Table, Text, TextField, ToastProvider, useMediaQuery } from "../src";
 import "../src/charts/charts.css";
 import pkg from "../package.json";
 import props from "./props.json";
@@ -106,6 +106,9 @@ function App() {
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem("cat.theme") as Theme) || "system");
   const [kiosk, setKiosk] = useState(() => localStorage.getItem("cat.kiosk") === "1");
   const [query, setQuery] = useState("");
+  const [menu, setMenu] = useState(false);
+  const phone = useMediaQuery("(max-width: 760px)");
+  useEffect(() => setMenu(false), [route]);
   useEffect(() => {
     localStorage.setItem("cat.theme", theme);
     if (theme === "system") delete document.documentElement.dataset.theme;
@@ -116,22 +119,18 @@ function App() {
   const guide = route.kind === "guide" ? guides.find((g) => g.slug === route.slug) : undefined;
   const guideHtml = useMemo(() => (guide ? html(guide.md) : ""), [guide]);
   const nav = <Nav query={query} route={route} />;
+  const controls = <><Segment label="Тема" variant="soft" size={phone ? "sm" : "md"} value={theme} onChange={setTheme} options={[{ value: "system", label: "Система" }, { value: "light", label: "Светлая" }, { value: "dark", label: "Тёмная" }]} />
+                    <Cluster gap="2"><Text variant="caption" tone="muted">Киоск</Text><Switch label="Киоск" checked={kiosk} onChange={setKiosk} /></Cluster></>;
+  const search = <TextField label="Поиск" hideLabel type="search" placeholder="Найти компонент" value={query} onChange={setQuery} size="sm" />;
   return (
     <div className="cat">
-      <PageHeader sticky title="vshome-ui" sub={`дизайн-система · v${pkg.version} · ${families.length} разделов`}
-                  actions={<>
-                    <Segment label="Тема" variant="soft" value={theme} onChange={setTheme} options={[{ value: "system", label: "Система" }, { value: "light", label: "Светлая" }, { value: "dark", label: "Тёмная" }]} />
-                    <Cluster gap="2"><Text variant="caption" tone="muted">Киоск</Text><Switch label="Киоск" checked={kiosk} onChange={setKiosk} /></Cluster>
-                  </>} />
+      <PageHeader sticky title="vshome-ui" sub={phone ? `v${pkg.version}` : `дизайн-система · v${pkg.version} · ${families.length} разделов`}
+                  lead={phone ? <IconButton icon="menu" label="Разделы" variant="ghost" onClick={() => setMenu(true)} /> : undefined}
+                  actions={phone ? undefined : controls} />
       <div className="cat-body">
-        <aside className="cat-side">
-          <Stack gap="4">
-            <TextField label="Поиск" hideLabel type="search" placeholder="Найти компонент" value={query} onChange={setQuery} size="sm" />
-            <div className="cat-nav-wide">{nav}</div>
-            <div className="cat-nav-narrow"><Disclosure summary="Разделы">{nav}</Disclosure></div>
-          </Stack>
-        </aside>
+        {!phone && <aside className="cat-side"><Stack gap="4">{search}{nav}</Stack></aside>}
         <main className="cat-main">
+          {phone && <Sheet open={menu} onRequestClose={() => setMenu(false)} head="Разделы"><Stack gap="4"><Cluster wrap gap="3">{controls}</Cluster>{search}{nav}</Stack></Sheet>}
           {route.kind === "tokens" ? <div className={kiosk ? "vs-kiosk" : undefined}><TokensPage /></div>
             : family ? <ComponentPage family={family} kiosk={kiosk} />
             : guide ? <Prose html={guideHtml} />

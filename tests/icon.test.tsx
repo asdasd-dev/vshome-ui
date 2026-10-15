@@ -13,7 +13,7 @@ describe("Icon", () => {
     expect(svg.classList.contains("vs-icon--md")).toBe(true);
   });
   it("в наборе ровно иконки из спеки", () => {
-    expect([...ICON_NAMES].sort()).toEqual(["alert", "arrow-left", "check", "chevron-down", "chevron-right", "clock", "close", "dot", "external", "info", "next", "pause", "play", "plus", "prev", "search", "weather-clear-night", "weather-cloudy", "weather-exceptional", "weather-fog", "weather-hail", "weather-lightning", "weather-lightning-rainy", "weather-partlycloudy", "weather-pouring", "weather-rainy", "weather-snowy", "weather-snowy-rainy", "weather-sunny", "weather-windy"]);
+    expect([...ICON_NAMES].sort()).toEqual(["alert", "arrow-left", "check", "chevron-down", "chevron-right", "clock", "close", "dot", "external", "info", "menu", "next", "pause", "play", "plus", "prev", "search", "weather-clear-night", "weather-cloudy", "weather-exceptional", "weather-fog", "weather-hail", "weather-lightning", "weather-lightning-rainy", "weather-partlycloudy", "weather-pouring", "weather-rainy", "weather-snowy", "weather-snowy-rainy", "weather-sunny", "weather-windy"]);
   });
   it("label — подписанная картинка для скринридера", () => {
     render(<Icon name="weather-partlycloudy" label="облачно" />);
