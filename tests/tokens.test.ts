@@ -38,3 +38,11 @@ describe("токены", () => {
     expect(kiosk).toMatch(/--vs-scale\s*:\s*1\.25/);
   });
 });
+
+describe("компоненты на шкалах", () => {
+  const comp = (f: string) => fs.readFileSync(path.join(__dirname, "..", "src", "components", f), "utf8");
+  it.each(["Segment.css", "Button.css", "Chip.css", "Icon.css", "Panel.css"])("%s — без литеральных отступов, радиусов и размеров текста", (f) => {
+    const css = comp(f).replace(/calc\(\d+px \* var\(--vs-scale, 1\)\)/g, "").replace(/(outline|outline-offset|border(-top)?|letter-spacing): [^;]*/g, "");
+    expect(css).not.toMatch(/\d+(\.\d+)?(px|rem|em)\b/);
+  });
+});
