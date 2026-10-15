@@ -28,7 +28,7 @@ function Panels({ kiosk }: { kiosk?: boolean }) {
       <Tile label="Музыка" footer={<div style={{ display: "flex", gap: "var(--vs-space-2)" }}><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></div>}>
         <Stat value="If You Need Someone" caption="The Field Mice" size="md" />
       </Tile>
-      <Tile label="Сегодня">
+      <Tile label="Сегодня" scroll>
         <List empty="встреч нет">
           <ListRow lead="11:00" title="AI Demo №4" />
           <ListRow lead="11:15" title="Deimos PBR" />
