@@ -91,3 +91,10 @@ describe("киоск 0.6", () => {
     expect(read("Slider.css")).not.toMatch(/#[0-9a-f]{3,8}\b/i);
   });
 });
+
+describe("Sheet: подложка", () => {
+  it("размывает фон под попапом", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Sheet.css"), "utf8");
+    expect(css).toMatch(/\.vs-sheet-backdrop \{[^}]*-webkit-backdrop-filter: blur\(var\(--vs-backdrop-blur\)\)[^}]*backdrop-filter: blur\(var\(--vs-backdrop-blur\)\)/);
+  });
+});
