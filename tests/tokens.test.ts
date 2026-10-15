@@ -61,3 +61,11 @@ describe("киоск и контраст", () => {
     expect(light).toMatch(/--vs-warn-soft: color-mix\(in srgb, var\(--vs-warn\) 8%/);
   });
 });
+
+describe("Segment soft", () => {
+  it("без рамки, капсулы, выбранный — мягкая поверхность", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Segment.css"), "utf8");
+    expect(css).toMatch(/\.vs-segment--soft \{[^}]*border-color: transparent[^}]*border-radius: var\(--vs-radius-pill\)/);
+    expect(css).toMatch(/\.vs-segment--soft button\[aria-pressed="true"\] \{[^}]*background: var\(--vs-surface-2\)[^}]*color: var\(--vs-ink\)/);
+  });
+});
