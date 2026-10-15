@@ -22,7 +22,7 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33;
@@ -32,6 +32,16 @@
     --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 14%, var(--vs-panel));
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+    --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
+    --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
+    --vs-on-accent: #0b1a33;
+    --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
+    --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
+    --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
+    --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 14%, var(--vs-panel));
+    color-scheme: dark;
 }
 :root, .vs-kiosk {
   --vs-space-0_5: calc(2px * var(--vs-scale, 1));
