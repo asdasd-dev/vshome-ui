@@ -60,4 +60,5 @@ button.vs-list-row__inner { cursor: pointer; }
 .vs-banner--warn { color: var(--vs-warn); }
 .vs-banner--danger { color: var(--vs-danger); }
 .vs-banner--muted { color: var(--vs-muted); }
-.vs-kiosk .vs-list-row--two .vs-list-row__name { font-weight: var(--vs-weight-medium); }
+.vs-list-row--two .vs-list-row__name { font-weight: var(--vs-list-name-weight, inherit); }
+.vs-kiosk { --vs-list-name-weight: var(--vs-weight-medium); }

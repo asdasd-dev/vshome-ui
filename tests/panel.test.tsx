@@ -89,7 +89,8 @@ describe("ListRow в киоске", () => {
     const fs = await import("node:fs");
     const path = await import("node:path");
     const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
-    expect(css).toMatch(/\.vs-kiosk \.vs-list-row--two \.vs-list-row__name \{[^}]*font-weight: var\(--vs-weight-medium\)/);
+    expect(css).toMatch(/\.vs-list-row--two \.vs-list-row__name \{[^}]*font-weight: var\(--vs-list-name-weight, inherit\)/);
+    expect(css).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-list-name-weight: var\(--vs-weight-medium\)/);
   });
 });
 
