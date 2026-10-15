@@ -1,2 +1,3 @@
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
+body { font-family: var(--vs-font); }
