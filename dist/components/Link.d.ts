@@ -1,0 +1,12 @@
+import type { ReactNode } from "react";
+export type LinkProps = {
+    children: ReactNode;
+    href?: string;
+    onClick?: () => void;
+    tone?: "accent" | "muted" | "danger";
+    external?: boolean;
+    underline?: "hover" | "always";
+    title?: string;
+    className?: string;
+};
+export declare function Link({ children, href, onClick, tone, external, underline, title, className }: LinkProps): import("react").JSX.Element;
