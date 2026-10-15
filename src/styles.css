@@ -9,6 +9,7 @@
 @import "./components/Clock.css";
 @import "./components/Artwork.css";
 @import "./components/Excerpt.css";
+@import "./components/ControlList.css";
 @import "./components/Panel.css";
 @import "./components/Segment.css";
 @import "./components/Switch.css";
