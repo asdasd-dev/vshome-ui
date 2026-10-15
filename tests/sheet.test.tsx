@@ -109,6 +109,35 @@ describe("Sheet: клик по фону", () => {
   });
 });
 
+describe("Sheet: касание фона пальцем", () => {
+  it("закрывает по отпусканию пальца, даже если браузер не прислал click", async () => {
+    const onRequest = vi.fn();
+    render(<Harness onRequest={onRequest} />);
+    const backdrop = document.querySelector(".vs-sheet-backdrop")!;
+    fireEvent.pointerDown(backdrop, { pointerType: "touch" });
+    fireEvent.pointerUp(backdrop, { pointerType: "touch" });
+    await waitFor(() => expect(onRequest).toHaveBeenCalledTimes(1));
+  });
+  it("мышь по-прежнему закрывает только кликом Base UI", () => {
+    const onRequest = vi.fn();
+    render(<Harness onRequest={onRequest} />);
+    fireEvent.pointerUp(document.querySelector(".vs-sheet-backdrop")!, { pointerType: "mouse" });
+    expect(onRequest).not.toHaveBeenCalled();
+  });
+});
+
+describe("ListRow sub в две строки", () => {
+  it("subLines=2 — класс и стиль с обрезкой по второй строке", async () => {
+    const { List, ListRow } = await import("../src");
+    render(<List><ListRow title="GD" sub="Длинный вопрос агента" subLines={2} /></List>);
+    expect(document.querySelector(".vs-list-row__sub")!.className).toContain("vs-list-row__sub--2");
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Panel.css"), "utf8");
+    expect(css).toMatch(/\.vs-list-row__sub--2 \{[^}]*white-space: normal[^}]*-webkit-line-clamp: 2/);
+  });
+});
+
 describe("Sheet: «Назад» на Android", () => {
   class FakeWatcher {
     static all: FakeWatcher[] = [];
