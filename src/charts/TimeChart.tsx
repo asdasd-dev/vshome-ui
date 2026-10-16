@@ -56,6 +56,7 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
   if (hover) {
     tip = <><b>{tipFormat(hover.t)}</b>{series.map((s) => { const p = s.points.reduce<[number, number] | undefined>((best, q) => (!best || Math.abs(q[0] - hover.t) < Math.abs(best[0] - hover.t) ? q : best), undefined); return p ? <span key={s.name}><br /><i style={{ background: s.color }} />{s.name}: {s.fmt ? s.fmt(p[1]) : p[1]}</span> : null; })}</>;
   }
+  const refX = (now != null ? Math.min(x(now), W - R) : W - R) - 8;
   const path = (pts: [number, number][]) => pts.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join("");
   return (
     <div className={cx("vs-chart", className)}>
@@ -71,7 +72,7 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
             {placeRefs(refLines, y).map(({ r, below }, k) => (
               <g key={`r${k}`}>
                 <line x1={L} x2={W - R} y1={y(r.y)} y2={y(r.y)} stroke={r.color ?? "var(--vs-muted)"} strokeWidth={1} strokeDasharray={r.dashed === false ? undefined : "4 3"} />
-                <text className="vs-chart-axis" x={W - R} y={y(r.y) + (below ? 12 : -4)} textAnchor="end">{r.label}</text>
+                <text className="vs-chart-axis vs-chart-ref" x={refX} y={y(r.y) + (below ? 12 : -4)} textAnchor="end">{r.label}</text>
               </g>
             ))}
             {now != null && <line className="vs-chart-restart" x1={x(now)} x2={x(now)} y1={T} y2={H - B} />}

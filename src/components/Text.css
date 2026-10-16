@@ -5,6 +5,7 @@
 .vs-text--lead { font-size: var(--vs-text-lg); line-height: var(--vs-leading-lg); }
 .vs-text--body { font-size: var(--vs-text-md); line-height: var(--vs-leading-md); }
 .vs-text--caption { font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
+.vs-text--footnote { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); }
 .vs-text--label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-semibold); letter-spacing: .06em; text-transform: uppercase; color: var(--vs-muted); }
 .vs-text--muted { color: var(--vs-muted); }
 .vs-text--ok { color: var(--vs-ok); }

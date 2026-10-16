@@ -3,7 +3,7 @@ import { cx } from "../utils/cx";
 import type { Tone } from "./tone";
 
 export type TextProps = {
-  variant?: "display" | "headline" | "title" | "lead" | "body" | "caption" | "label";
+  variant?: "display" | "headline" | "title" | "lead" | "body" | "caption" | "footnote" | "label";
   tone?: "default" | Tone;
   weight?: "medium" | "semibold";
   as?: "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4";

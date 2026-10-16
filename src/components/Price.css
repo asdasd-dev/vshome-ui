@@ -14,4 +14,4 @@
 .vs-price--lg .vs-price__rub { font-size: var(--vs-text-2xl); }
 .vs-price--lg .vs-price__kop, .vs-price--lg .vs-price__cur { font-size: var(--vs-text-sm); }
 .vs-price__old { color: var(--vs-muted); font-size: var(--vs-text-sm); }
-.vs-price--gone .vs-price__tag { opacity: .5; }
+.vs-price--gone { --vs-price-bg: var(--vs-surface-2); --vs-price-fg: var(--vs-muted); }
