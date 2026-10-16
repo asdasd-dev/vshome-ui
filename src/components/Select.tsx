@@ -16,9 +16,10 @@ export type SelectProps<T extends string> = {
   hideLabel?: boolean;
   className?: string;
   disabled?: boolean;
+  size?: "sm" | "md";
 };
 
-export function Select<T extends string>({ value, onChange, options, label, hint, error, hideLabel, className, disabled }: SelectProps<T>) {
+export function Select<T extends string>({ value, onChange, options, label, hint, error, hideLabel, className, disabled, size = "md" }: SelectProps<T>) {
   const [open, setOpen] = useState(false);
   const id = useId();
   const described = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(" ") || undefined;
@@ -26,7 +27,7 @@ export function Select<T extends string>({ value, onChange, options, label, hint
   return (
     <CSPProvider disableStyleElements>
       <Base.Root open={open} onOpenChange={setOpen} value={value} onValueChange={(v) => { if (v !== null) onChange(v as T); }} items={options} disabled={disabled}>
-        <div className={cx("vs-select", className)}>
+        <div className={cx("vs-select", size === "sm" && "vs-select--sm", className)}>
           <Base.Label className={cx("vs-select__label", hideLabel && "vs-visually-hidden")}>{label}</Base.Label>
           <Base.Trigger className="vs-select__trigger" aria-describedby={described} aria-invalid={error ? true : undefined}>
             <Base.Value className="vs-select__value" />
