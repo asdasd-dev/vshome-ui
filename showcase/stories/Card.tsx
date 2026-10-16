@@ -37,10 +37,23 @@ export const meta: StoryFile["meta"] = { title: "Card", group: "Поверхно
 
 export const stories: StoryFile["stories"] = [
   {
+    name: "Колонка с карточками",
+    render: () => (
+      <Card tone="sunken" padding="sm">
+        <Stack gap="2">
+          <Text variant="label">To do</Text>
+          <Card stripe="violet" padding="xs"><Text>Перевести доску на дизайн-систему</Text></Card>
+          <Card stripe="pink" padding="xs"><Text>Записаться к стоматологу</Text></Card>
+        </Stack>
+      </Card>
+    ),
+  },
+  {
     name: "Тона",
     render: () => (
       <Stack gap="2">
         <Card><Text>default · обычная карточка доски</Text></Card>
+        <Card tone="sunken"><Text>sunken · колонка доски, в ней обычные карточки</Text></Card>
         <Card tone="accent"><Text>accent · выбранная задача</Text></Card>
         <Card tone="ok"><Text>ok · деплой прошёл</Text></Card>
         <Card tone="warn"><Text>warn · ждёт ответа</Text></Card>
@@ -66,6 +79,7 @@ export const stories: StoryFile["stories"] = [
     name: "Отступы и тень",
     render: () => (
       <Cluster wrap align="start" gap="4">
+        <Card padding="xs"><Text>padding xs</Text></Card>
         <Card padding="sm"><Text>padding sm</Text></Card>
         <Card><Text>padding md</Text></Card>
         <Card padding="lg"><Text>padding lg</Text></Card>

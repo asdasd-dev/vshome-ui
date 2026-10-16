@@ -3,10 +3,10 @@ import { cx } from "../utils/cx";
 
 export type PageHeaderProps = {
   title: ReactNode; sub?: ReactNode; lead?: ReactNode; actions?: ReactNode; children?: ReactNode;
-  sticky?: boolean; tone?: "default" | "accent" | "plain"; contained?: "sm" | "md" | "lg"; className?: string;
+  sticky?: boolean; tone?: "default" | "accent" | "plain"; size?: "md" | "lg"; actionsAlign?: "end" | "start"; contained?: "sm" | "md" | "lg"; className?: string;
 };
 
-export function PageHeader({ title, sub, lead, actions, children, sticky, tone = "default", contained, className }: PageHeaderProps) {
+export function PageHeader({ title, sub, lead, actions, children, sticky, tone = "default", size = "md", actionsAlign = "end", contained, className }: PageHeaderProps) {
   const body = (
     <>
       <div className="vs-page-header__row">
@@ -21,7 +21,7 @@ export function PageHeader({ title, sub, lead, actions, children, sticky, tone =
     </>
   );
   return (
-    <header className={cx("vs-page-header", `vs-page-header--${tone === "plain" ? "default" : tone}`, sticky && "vs-page-header--sticky", contained && "vs-page-header--contained", className)}>
+    <header className={cx("vs-page-header", `vs-page-header--${tone === "plain" ? "default" : tone}`, size === "lg" && "vs-page-header--lg", actionsAlign === "start" && "vs-page-header--actions-start", sticky && "vs-page-header--sticky", contained && "vs-page-header--contained", className)}>
       {contained ? <div className={cx("vs-container", `vs-container--${contained}`, "vs-page-header__inner")}>{body}</div> : body}
     </header>
   );

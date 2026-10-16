@@ -1,9 +1,11 @@
 .vs-card { display: block; min-width: 0; border: 1px solid var(--vs-line); border-radius: var(--vs-radius-lg); background: var(--vs-card-bg, var(--vs-surface-1)); color: var(--vs-ink); text-align: left; font: inherit; text-decoration: none; }
 .vs-card--pad-none { padding: 0; }
+.vs-card--pad-xs { padding: var(--vs-space-2); }
 .vs-card--pad-sm { padding: var(--vs-space-3); }
 .vs-card--pad-md { padding: var(--vs-space-4); }
 .vs-card--pad-lg { padding: var(--vs-space-6); }
 .vs-card--elevated { border-color: transparent; box-shadow: var(--vs-shadow-card); }
+.vs-card--sunken { --vs-card-bg: color-mix(in srgb, var(--vs-surface-1) 55%, var(--vs-surface-0)); }
 .vs-card--accent { --vs-card-bg: var(--vs-accent-tint); border-color: transparent; }
 .vs-card--ok { --vs-card-bg: var(--vs-ok-soft); border-color: transparent; }
 .vs-card--warn { --vs-card-bg: var(--vs-warn-soft); border-color: transparent; }
