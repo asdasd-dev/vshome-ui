@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cx } from "../utils/cx";
 
-export type ContainerProps = { children: ReactNode; size?: "sm" | "md" | "lg" | "full"; as?: "div" | "main" | "section"; className?: string };
+export type ContainerProps = { children: ReactNode; size?: "sm" | "md" | "lg" | "xl" | "full"; as?: "div" | "main" | "section"; className?: string };
 
 export function Container({ children, size = "lg", as: Tag = "div", className }: ContainerProps) {
   return <Tag className={cx("vs-container", `vs-container--${size}`, className)}>{children}</Tag>;
