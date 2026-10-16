@@ -4,10 +4,12 @@ import { ChipGroup, IconButton, Select, Snippet } from "../src";
 import { allCss } from "./css";
 
 describe("правки 0.30", () => {
-  it("Snippet: действия в одну строку, карточка по верху ряда", () => {
+  it("Snippet: действия в одну строку внизу, карточка на высоту ряда", () => {
     const css = allCss();
     expect(css).toMatch(/\.vs-snippet__actions \{[^}]*flex-wrap: nowrap/);
-    expect(css).toMatch(/\.vs-snippet \{[^}]*align-self: start/);
+    expect(css).toMatch(/\.vs-snippet \{[^}]*height: 100%/);
+    expect(css).not.toMatch(/\.vs-snippet \{[^}]*align-self: start/);
+    expect(css).toMatch(/\.vs-snippet__actions \{ margin-top: auto/);
     render(<Snippet title="Котлеты" actions={<IconButton icon="eye-off" size="sm" label="Не показывать" />} />);
     expect(screen.getByRole("button", { name: "Не показывать" })).toBeInTheDocument();
   });
