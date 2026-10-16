@@ -33,5 +33,6 @@ export const stories: StoryFile["stories"] = [
   { name: "Строка под заголовком", render: () => <WithSearch /> },
   { name: "Акцентный тон", render: () => <PageHeader tone="accent" title="vshome.space" sub="всё работает" actions={<IconButton icon="search" label="Поиск" />} /> },
   { name: "Вкладки в акцентной шапке", render: () => <AccentTabs /> },
+  { name: "Крупный заголовок, действия рядом", render: () => <PageHeader size="lg" actionsAlign="start" title="Задачи" actions={<Segment label="Вид" value="board" onChange={() => {}} options={[{ value: "board", label: "Доска" }, { value: "backlog", label: "Бэклог" }]} />} /> },
   { name: "По ширине контейнера", render: () => <PageHeader tone="accent" contained="sm" title="Лента на Будённого" sub="Цены на 15 октября" /> },
 ];

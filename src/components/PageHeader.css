@@ -12,3 +12,6 @@
 .vs-page-header--accent { --vs-tabs-fg: color-mix(in srgb, var(--vs-on-header-accent) 80%, transparent); --vs-tabs-fg-active: var(--vs-on-header-accent); --vs-tabs-indicator: var(--vs-on-header-accent); --vs-tabs-line: transparent; --vs-focus-ring: var(--vs-focus-ring-on-header); }
 .vs-page-header--contained { padding-inline: 0; }
 .vs-page-header__inner { display: flex; flex-direction: column; gap: var(--vs-space-2); }
+.vs-page-header--lg .vs-page-header__title { font-family: var(--vs-font-display); font-size: var(--vs-text-xl); line-height: var(--vs-leading-xl); }
+.vs-page-header--actions-start .vs-page-header__titles { flex: 0 1 auto; }
+.vs-page-header--actions-start .vs-page-header__actions { flex: 1 1 0; min-width: min-content; }

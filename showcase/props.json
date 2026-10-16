@@ -2059,6 +2059,20 @@
         "deprecated": false
       },
       {
+        "name": "size",
+        "type": "\"md\" | \"lg\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
+        "name": "actionsAlign",
+        "type": "\"end\" | \"start\"",
+        "required": false,
+        "default": "\"end\"",
+        "deprecated": false
+      },
+      {
         "name": "contained",
         "type": "\"sm\" | \"md\" | \"lg\"",
         "required": false,
@@ -2149,7 +2163,7 @@
       },
       {
         "name": "tone",
-        "type": "\"default\" | \"accent\" | \"ok\" | \"warn\" | \"danger\" | \"muted\" | \"violet\" | \"pink\" | \"gold\"",
+        "type": "\"default\" | \"sunken\" | \"accent\" | \"ok\" | \"warn\" | \"danger\" | \"muted\" | \"violet\" | \"pink\" | \"gold\"",
         "required": false,
         "default": "\"default\"",
         "deprecated": false
@@ -2163,7 +2177,7 @@
       },
       {
         "name": "padding",
-        "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+        "type": "\"none\" | \"xs\" | \"sm\" | \"md\" | \"lg\"",
         "required": false,
         "default": "\"md\"",
         "deprecated": false
