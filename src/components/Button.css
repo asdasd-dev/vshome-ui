@@ -10,8 +10,9 @@
 .vs-button--danger { --vs-button-fg: var(--vs-danger); }
 .vs-button--warn { --vs-button-bg: var(--vs-warn-soft); --vs-button-line: var(--vs-button-accent-line, var(--vs-warn)); --vs-button-fg: var(--vs-warn); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--icon { display: inline-flex; align-items: center; justify-content: center; gap: var(--vs-space-2); }
-.vs-button--lamp { --vs-button-pressed: var(--vs-button-bg); --vs-button-pl: var(--vs-space-6); }
-.vs-button__lamp { position: absolute; left: var(--vs-space-0_5); top: 50%; translate: 0 -50%; width: var(--vs-space-5); }
+.vs-button--lamp { --vs-button-pressed: var(--vs-button-bg); }
+.vs-button__lamp { margin-left: calc(var(--vs-space-5) / -3); }
+.vs-button__lamp--off { color: var(--vs-muted); opacity: .45; filter: none; }
 .vs-button:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
 .vs-kiosk { --vs-button-surface: var(--vs-surface-2); --vs-button-line: transparent; --vs-button-accent-line: transparent; --vs-button-radius: var(--vs-radius-pill); --vs-button-py: var(--vs-space-2); --vs-button-px: var(--vs-space-5); --vs-button-sm-px: var(--vs-space-4); --vs-button-h: calc(44px * var(--vs-scale, 1)); --vs-button-size: var(--vs-text-md); --vs-button-leading: var(--vs-leading-md); --vs-button-weight: var(--vs-weight-medium); --vs-button-pressed: var(--vs-accent-soft); --vs-button-pressed-fg: var(--vs-ink); }
 @media (hover: hover) { .vs-button:hover:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }

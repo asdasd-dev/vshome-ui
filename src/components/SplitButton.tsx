@@ -35,7 +35,7 @@ export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, 
       <button type="button" className="vs-split__main" aria-pressed={pressed} disabled={disabled} onClick={click}
               onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
               onContextMenu={onHold ? (e) => e.preventDefault() : undefined}>
-        {indicator === "lamp" && pressed && <Icon name="dot" size="md" tone="lamp" className="vs-split__lamp" />}
+        {indicator === "lamp" && <Icon name="dot" size="md" tone={pressed ? "lamp" : undefined} className={cx("vs-split__lamp", !pressed && "vs-split__lamp--off")} />}
         {icon && <Icon name={icon} size="sm" />}
         {children}
       </button>

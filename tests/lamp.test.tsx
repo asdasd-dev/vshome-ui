@@ -17,19 +17,26 @@ describe("indicator=lamp", () => {
     expect(main.closest(".vs-split")!.className).toContain("vs-split--lamp");
     expect(main).toHaveAttribute("aria-pressed", "true");
   });
-  it("нажатая лампа — иконка dot тоном lamp слева, без заливки; отжатая — без иконки", () => {
+  it("лампа видна всегда: горит — тон lamp, выключена — потухшая, текст не сдвигается", () => {
     const { rerender } = render(<Button pressed indicator="lamp">Баня</Button>);
     const icon = () => screen.getByRole("button", { name: "Баня" }).querySelector("svg[data-icon]");
     expect(icon()!.getAttribute("data-icon")).toBe("dot");
     expect(icon()!.classList.contains("vs-icon--lamp")).toBe(true);
     expect(icon()!.classList.contains("vs-button__lamp")).toBe(true);
     expect(screen.getByRole("button", { name: "Баня" }).firstElementChild).toBe(icon());
+    expect(screen.getByRole("button", { name: "Баня" }).className).toContain("vs-button--icon");
     rerender(<Button pressed={false} indicator="lamp">Баня</Button>);
-    expect(icon()).toBeNull();
-    expect(read("components/Button.css")).toMatch(/\.vs-button--lamp \{[^}]*--vs-button-pressed: var\(--vs-button-bg\)[^}]*--vs-button-pl: var\(--vs-space-6\)/);
-    expect(read("components/SplitButton.css")).toMatch(/\.vs-split--lamp \{[^}]*--vs-split-pressed: var\(--vs-split-bg\)[^}]*--vs-split-main-pl: var\(--vs-space-6\)/);
-    expect(screen.getByRole("button", { name: "Баня" }).className).not.toContain("vs-button--icon");
-    expect(read("components/Button.css")).toMatch(/\.vs-button__lamp \{[^}]*position: absolute[^}]*left: var\(--vs-space-0_5\)[^}]*width: var\(--vs-space-5\)/);
+    expect(icon()!.classList.contains("vs-icon--lamp")).toBe(false);
+    expect(icon()!.classList.contains("vs-button__lamp--off")).toBe(true);
+    rerender(<SplitButton pressed={false} indicator="lamp" onClick={() => {}} more={{ label: "Кухня: лампы", onClick: () => {} }}>Кухня</SplitButton>);
+    const split = screen.getByRole("button", { name: "Кухня" }).querySelector("svg[data-icon=dot]")!;
+    expect(split.classList.contains("vs-split__lamp--off")).toBe(true);
+    for (const f of ["components/Button.css", "components/SplitButton.css"]) {
+      expect(read(f)).not.toMatch(/__lamp \{[^}]*position: absolute/);
+      expect(read(f)).not.toMatch(/--vs-(button|split-main)-pl: var\(--vs-space-6\)/);
+    }
+    expect(read("components/Button.css")).toMatch(/\.vs-button__lamp--off \{[^}]*color: var\(--vs-muted\)[^}]*filter: none/);
+    expect(read("components/SplitButton.css")).toMatch(/\.vs-split__lamp--off \{[^}]*color: var\(--vs-muted\)[^}]*filter: none/);
     expect(allCss()).toMatch(/\.vs-icon--lamp \{[^}]*color: var\(--vs-lamp\)/);
   });
   it("icon — иконка из набора слева от текста у Button и SplitButton", () => {

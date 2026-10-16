@@ -11,10 +11,10 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function Button({ variant = "secondary", size, shape, block, loading, pressed, icon, indicator, disabled, className, type = "button", children, ...rest }: ButtonProps) {
   const lead = loading ? <Spinner size="sm" /> : icon ? <Icon name={icon} size="sm" /> : null;
-  const lamp = indicator === "lamp" && pressed ? <Icon name="dot" size="md" tone="lamp" className="vs-button__lamp" /> : null;
+  const lamp = indicator === "lamp" ? <Icon name="dot" size="md" tone={pressed ? "lamp" : undefined} className={cx("vs-button__lamp", !pressed && "vs-button__lamp--off")} /> : null;
   return (
     <button type={type} disabled={disabled || loading} aria-busy={loading || undefined} aria-pressed={pressed}
-            className={cx("vs-button", `vs-button--${variant}`, size && size !== "md" && `vs-button--${size}`, shape === "pill" && "vs-button--pill", block && "vs-button--block", lead && "vs-button--icon", indicator && `vs-button--${indicator}`, className)} {...rest}>
+            className={cx("vs-button", `vs-button--${variant}`, size && size !== "md" && `vs-button--${size}`, shape === "pill" && "vs-button--pill", block && "vs-button--block", (lead || lamp) && "vs-button--icon", indicator && `vs-button--${indicator}`, className)} {...rest}>
       {lamp}{lead}{children}
     </button>
   );
