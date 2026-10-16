@@ -26,6 +26,7 @@
 @import "./components/Segment.css";
 @import "./components/Switch.css";
 @import "./components/Slider.css";
+@import "./components/RangeLine.css";
 @import "./components/Seek.css";
 @import "./components/Toast.css";
 @import "./components/Sheet.css";

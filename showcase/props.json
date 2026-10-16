@@ -3057,6 +3057,13 @@
         "deprecated": false
       },
       {
+        "name": "variant",
+        "type": "\"bar\" | \"line\"",
+        "required": false,
+        "default": "\"bar\"",
+        "deprecated": false
+      },
+      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
