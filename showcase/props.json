@@ -1779,6 +1779,40 @@
     ],
     "inherits": null
   },
+  "Frame": {
+    "file": "src/components/Frame.tsx",
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "loading",
+        "type": "\"lazy\" | \"eager\"",
+        "required": false,
+        "default": "\"lazy\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
   "Stat": {
     "file": "src/components/Stat.tsx",
     "props": [
