@@ -18,7 +18,7 @@ export function Seek({ value, max, label, onCommit, disabled, className }: SeekP
   return (
     <div className={cx("vs-seek", className)}>
       <span className="vs-seek__time">{formatDuration(v)}</span>
-      <label className="vs-seek__track" style={{ "--vs-seek-fill": fill } as CSSProperties}>
+      <label className="vs-range-line" style={{ "--vs-range-fill": fill } as CSSProperties}>
         <input type="range" aria-label={label} aria-valuetext={`${formatDuration(v)} из ${formatDuration(max)}`} min={0} max={max} step={1} disabled={disabled} {...input} />
       </label>
       <span className="vs-seek__time">{formatDuration(max)}</span>

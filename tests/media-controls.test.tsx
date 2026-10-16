@@ -35,7 +35,7 @@ describe("Seek", () => {
   });
   it("заливка и ручка на токенах, полоса тянется", () => {
     expect(allCss()).toMatch(/\.vs-seek \{[^}]*grid-template-columns: auto minmax\(0, 1fr\) auto[^}]*font-variant-numeric: tabular-nums/);
-    expect(allCss()).toMatch(/\.vs-seek__track::before \{[^}]*var\(--vs-seek-fill\)/);
+    expect(allCss()).toMatch(/\.vs-range-line::before \{[^}]*var\(--vs-range-fill\)/);
   });
 });
 
@@ -45,6 +45,21 @@ describe("Slider icon", () => {
     const icon = container.querySelector(".vs-slider__icon")!;
     expect(icon.getAttribute("data-icon")).toBe("volume");
     expect(icon).toHaveAttribute("aria-hidden", "true");
+  });
+});
+
+describe("Slider line", () => {
+  it("тонкая линия с ручкой, как перемотка: иконка слева, без подписи значения, onCommit при отпускании", () => {
+    const onCommit = vi.fn();
+    const { container } = render(<Slider variant="line" label="Громкость" value={60} min={0} icon="volume" format={(v) => `${v}%`} onCommit={onCommit} />);
+    const r = screen.getByRole("slider", { name: "Громкость" });
+    expect(r).toHaveAttribute("aria-valuetext", "60%");
+    expect(container.querySelector(".vs-slider-line .vs-range-line input")).toBe(r);
+    expect(container.querySelector(".vs-slider-line [data-icon=\"volume\"]")).not.toBeNull();
+    expect(container.querySelector(".vs-slider__value")).toBeNull();
+    fireEvent.change(r, { target: { value: "30" } });
+    fireEvent.pointerUp(r);
+    expect(onCommit).toHaveBeenCalledWith(30);
   });
 });
 

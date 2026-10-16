@@ -94,7 +94,7 @@ export const stories: StoryFile["stories"] = [
             <Stack gap="1"><Text variant="title" lines={2}>If You Need Someone</Text><Text tone="muted" lines={1}>The Field Mice</Text></Stack>
             <Seek label="Перемотка трека" value={86} max={263} onCommit={() => undefined} />
             <Cluster justify="center"><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></Cluster>
-            <Slider label="Громкость" value={62} min={0} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} />
+            <Slider variant="line" label="Громкость" value={62} min={0} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} />
           </Stack>
         </Tile>
       </div>
