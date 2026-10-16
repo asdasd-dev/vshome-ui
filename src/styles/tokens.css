@@ -27,7 +27,7 @@
   --vs-duration-fast: 100ms; --vs-duration-base: 150ms; --vs-duration-slow: 200ms; --vs-duration-sheet: 450ms;
   --vs-ease-sheet: cubic-bezier(.32, .72, 0, 1);
 
-  --vs-weight-regular: 400; --vs-weight-medium: 500; --vs-weight-semibold: 600; --vs-weight-bold: 700;
+  --vs-weight-regular: 500; --vs-weight-medium: 580; --vs-weight-semibold: 600; --vs-weight-bold: 700;
 
   --vs-radius-xs: 4px;
   --vs-radius-sm: 8px;
