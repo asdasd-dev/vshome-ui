@@ -8,3 +8,4 @@
 .vs-slider input:disabled { cursor: not-allowed; }
 .vs-slider__icon { position: absolute; left: var(--vs-space-4); top: 50%; transform: translateY(-50%); color: var(--vs-ink); pointer-events: none; }
 .vs-slider-line { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--vs-space-3); color: var(--vs-muted); }
+.vs-slider-line--vertical { grid-template-columns: auto; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; height: 100%; }

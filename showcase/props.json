@@ -3064,6 +3064,13 @@
         "deprecated": false
       },
       {
+        "name": "orientation",
+        "type": "\"horizontal\" | \"vertical\"",
+        "required": false,
+        "default": "\"horizontal\"",
+        "deprecated": false
+      },
+      {
         "name": "disabled",
         "type": "boolean",
         "required": false,

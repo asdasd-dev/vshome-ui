@@ -63,6 +63,19 @@ describe("Slider line", () => {
   });
 });
 
+describe("Slider line vertical", () => {
+  it("вертикальная полоса: иконка снизу, заливка снизу вверх, ползунок вертикальный", () => {
+    const { container } = render(<Slider variant="line" orientation="vertical" label="Громкость" value={40} min={0} icon="volume" onCommit={() => undefined} />);
+    const r = screen.getByRole("slider", { name: "Громкость" });
+    expect(r).toHaveAttribute("aria-orientation", "vertical");
+    const root = container.querySelector(".vs-slider-line--vertical")!;
+    expect(root.firstElementChild!.classList.contains("vs-range-line--vertical")).toBe(true);
+    expect(root.lastElementChild!.getAttribute("data-icon")).toBe("volume");
+    expect(allCss()).toMatch(/\.vs-range-line--vertical::before \{[^}]*linear-gradient\(to top/);
+    expect(allCss()).toMatch(/\.vs-range-line--vertical input \{[^}]*writing-mode: vertical-lr/);
+  });
+});
+
 describe("Tile backdrop", () => {
   it("картинка фоном под затемнением, декоративная, содержимое поверх", () => {
     const { container } = render(<Tile label="Музыка" backdrop="https://i.scdn.co/image/x">трек</Tile>);
