@@ -12,6 +12,7 @@
 - Разделы и навигация: `home`, `list`, `chart`, `calendar`, `bell`, `user`, стрелки `arrow-*` и `chevron-*`.
 - Дом и сервисы: `server`, `wifi`, `lock`, `door`, `gate`, `lightbulb`, `robot`, `message`, `music`, `video`, `album`.
 - События и досуг на «Столе»: `presentation`, `ticket`, `beach`, `soccer`, `volleyball`, `hockey`, `basketball`; оценка — `thumb-up`, `thumb-down`; дело из списка задач — `task`, событие на весь день — `calendar`; суперзнаковая новость или событие — `fire` (тон `warn`, перед заголовком строки).
+- Режимы дома: «Ночной» — `moon`, «Спокойной ночи» — `bed`.
 
 Полный список с подписями — в примере «Все иконки» ниже.
 

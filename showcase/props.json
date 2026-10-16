@@ -137,6 +137,33 @@
     ],
     "inherits": null
   },
+  "ButtonGroup": {
+    "file": "src/components/ButtonGroup.tsx",
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "items",
+        "type": "ButtonGroupItem[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
   "Chip": {
     "file": "src/components/Chip.tsx",
     "props": [
@@ -1635,6 +1662,13 @@
       {
         "name": "children",
         "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
         "required": false,
         "default": null,
         "deprecated": false
