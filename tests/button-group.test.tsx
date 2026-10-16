@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ButtonGroup, ControlRow } from "../src";
+import { ButtonGroup, ControlRow, SplitButton } from "../src";
 
 const gates = (fn = vi.fn()) => [1, 2, 5].map((n) => ({ label: String(n), ariaLabel: `Калитка ${n}`, onClick: () => fn(n), disabled: n === 5 }));
 
@@ -31,5 +31,19 @@ describe("ControlRow inline", () => {
     const row = container.querySelector("li")!;
     expect(row.className).not.toContain("vs-control-row--inline");
     expect(row.lastElementChild!.className).toBe("vs-control-row__extra");
+  });
+});
+
+describe("размер sm", () => {
+  it("ButtonGroup size=sm — модификатор, по умолчанию его нет", () => {
+    const { container, rerender } = render(<ButtonGroup label="Калитка" items={gates()} size="sm" />);
+    expect(container.firstElementChild!.className).toContain("vs-button-group--sm");
+    rerender(<ButtonGroup label="Калитка" items={gates()} />);
+    expect(container.firstElementChild!.className).not.toContain("vs-button-group--sm");
+  });
+  it("SplitButton size=sm — модификатор вместе с лампой", () => {
+    const { container } = render(<SplitButton size="sm" indicator="lamp" pressed more={{ label: "Кухня: лампы", onClick: () => {} }} onClick={() => {}}>Кухня</SplitButton>);
+    expect(container.firstElementChild!.className).toContain("vs-split--sm");
+    expect(container.firstElementChild!.className).toContain("vs-split--lamp");
   });
 });

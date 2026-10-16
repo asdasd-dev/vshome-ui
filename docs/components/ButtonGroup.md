@@ -26,6 +26,8 @@
 
 ## В киоске
 
+`size="sm"` — высота 32 × масштаб и текст `sm`, в пару к [Button](#/c/Button) и [SplitButton](#/c/SplitButton) `sm`.
+
 Внутри `.vs-kiosk` высота 44 × масштаб, текст `md` и вес `medium`, как у [SplitButton](#/c/SplitButton). Задаётся переменными `--vs-button-group-*`.
 
 ## Доступность

@@ -114,6 +114,13 @@
         "deprecated": false
       },
       {
+        "name": "size",
+        "type": "\"md\" | \"sm\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
+      },
+      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
@@ -152,6 +159,13 @@
         "type": "ButtonGroupItem[]",
         "required": true,
         "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"md\" | \"sm\"",
+        "required": false,
+        "default": "\"md\"",
         "deprecated": false
       },
       {

@@ -27,4 +27,5 @@ export const stories: StoryFile["stories"] = [
   { name: "Калитки", render: () => <Gates /> },
   { name: "Иконки и выключенная", render: () => <Disabled /> },
   { name: "В киоске", kiosk: true, render: () => <Gates /> },
+  { name: "Маленькая в киоске", kiosk: true, render: () => <ButtonGroup size="sm" label="Калитка" items={[1, 2, 5].map((n) => ({ label: String(n), ariaLabel: `Калитка ${n}`, onClick: () => {} }))} /> },
 ];

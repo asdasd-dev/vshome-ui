@@ -11,12 +11,13 @@ export type SplitButtonProps = {
   pressed?: boolean;
   icon?: IconName;
   indicator?: "lamp";
+  size?: "md" | "sm";
   disabled?: boolean;
   more: { label: string; onClick: () => void; icon?: IconName };
   className?: string;
 };
 
-export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, icon, indicator, disabled, more, className }: SplitButtonProps) {
+export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, icon, indicator, size = "md", disabled, more, className }: SplitButtonProps) {
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const held = useRef(false);
   const stop = () => clearTimeout(timer.current);
@@ -30,7 +31,7 @@ export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, 
     onClick();
   };
   return (
-    <span className={cx("vs-split", indicator && `vs-split--${indicator}`, className)} data-pressed={pressed || undefined}>
+    <span className={cx("vs-split", indicator && `vs-split--${indicator}`, size === "sm" && "vs-split--sm", className)} data-pressed={pressed || undefined}>
       <button type="button" className="vs-split__main" aria-pressed={pressed} disabled={disabled} onClick={click}
               onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
               onContextMenu={onHold ? (e) => e.preventDefault() : undefined}>
