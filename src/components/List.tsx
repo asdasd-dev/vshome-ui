@@ -2,7 +2,7 @@ import { Children, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Text } from "./Text";
 
-export type ListProps = { children: ReactNode; label?: ReactNode; max?: number; empty?: ReactNode; divided?: boolean; lead?: "time"; className?: string };
+export type ListProps = { children: ReactNode; label?: ReactNode; max?: number; empty?: ReactNode; divided?: boolean; lead?: "time" | "icon"; className?: string };
 
 export function List({ children, label, max, empty, divided = true, lead, className }: ListProps) {
   const rows = Children.toArray(children);

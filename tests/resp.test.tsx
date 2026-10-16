@@ -219,3 +219,14 @@ describe("правки 0.41", async () => {
     expect(allCss()).toMatch(/\.vs-list-row__inner \{[^}]*gap: var\(--vs-list-gap, var\(--vs-space-3\)\)/);
   });
 });
+
+describe("правки 0.44", async () => {
+  const { List, ListRow } = await import("../src");
+  const { allCss } = await import("./css");
+  it("List lead=icon: колонка по ширине значка, отступ как у lead=time", () => {
+    const { container } = render(<List lead="icon"><ListRow lead="✓" title="Забрать посылку" /></List>);
+    expect(container.querySelector(".vs-list--lead-icon")).not.toBeNull();
+    expect(allCss()).toMatch(/\.vs-list--lead-icon \{ --vs-list-gap: var\(--vs-space-2\); \}/);
+    expect(allCss()).not.toMatch(/\.vs-list--lead-icon \{[^}]*--vs-list-lead-w/);
+  });
+});

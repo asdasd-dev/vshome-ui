@@ -6,6 +6,7 @@
 button.vs-list-row__inner { cursor: pointer; }
 .vs-list-row__lead { flex: none; width: var(--vs-list-lead-w, auto); color: var(--vs-muted); font-size: var(--vs-list-lead-size, inherit); line-height: var(--vs-list-lead-leading, inherit); font-variant-numeric: tabular-nums; }
 .vs-list--lead-time { --vs-list-lead-w: var(--vs-space-12); --vs-list-lead-size: var(--vs-text-sm); --vs-list-lead-leading: var(--vs-leading-sm); --vs-list-gap: var(--vs-space-2); }
+.vs-list--lead-icon { --vs-list-gap: var(--vs-space-2); }
 .vs-list-row__title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; word-break: var(--vs-list-break, normal); }
 .vs-list-row--two .vs-list-row__inner { align-items: flex-start; }
 .vs-list-row--two .vs-list-row__title { display: flex; flex-direction: column; white-space: normal; }
