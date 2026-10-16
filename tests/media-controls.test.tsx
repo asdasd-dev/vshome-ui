@@ -81,6 +81,7 @@ describe("Slider line elevated", () => {
     const { container } = render(<Slider variant="line" orientation="vertical" elevated label="Громкость" value={40} min={0} onCommit={() => undefined} />);
     expect(container.querySelector(".vs-slider-line")!.className).toContain("vs-slider-line--elevated");
     expect(allCss()).toMatch(/\.vs-slider-line--elevated \{[^}]*border-radius: var\(--vs-radius-pill\)[^}]*box-shadow: var\(--vs-shadow-popover\)/);
+    expect(allCss()).toMatch(/\.vs-slider-line--elevated \{[^}]*z-index: var\(--vs-z-raised\)/);
   });
 });
 
