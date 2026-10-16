@@ -2,9 +2,10 @@
 .vs-segment { display: inline-flex; flex: 0 0 auto; padding: var(--vs-space-0_5); gap: var(--vs-space-0_5); border: 1px solid var(--vs-line); border-radius: var(--vs-radius-md); background: var(--vs-surface-1); }
 .vs-segment button { border: 0; background: transparent; color: var(--vs-muted); border-radius: var(--vs-radius-sm); padding: var(--vs-space-1_5) var(--vs-space-4); font: inherit; font-size: var(--vs-segment-size, inherit); line-height: var(--vs-segment-leading, inherit); font-weight: var(--vs-weight-semibold); cursor: pointer; display: inline-flex; align-items: center; gap: var(--vs-space-1_5); }
 .vs-segment button[aria-pressed="true"] { background: var(--vs-ink); color: var(--vs-bg); }
-.vs-segment--soft { border-color: transparent; border-radius: var(--vs-radius-pill); padding: var(--vs-space-1); gap: var(--vs-space-1); }
+.vs-segment--soft { border-color: transparent; border-radius: var(--vs-radius-pill); padding: var(--vs-space-1); gap: var(--vs-space-1); background: var(--vs-segment-soft-bg, var(--vs-surface-1)); }
+.vs-segment--soft button { color: var(--vs-segment-soft-fg, var(--vs-muted)); }
 .vs-segment--soft button { border-radius: var(--vs-radius-pill); padding: var(--vs-space-2) var(--vs-space-5); font-weight: var(--vs-weight-medium); }
-.vs-segment--soft button[aria-pressed="true"] { background: var(--vs-surface-2); color: var(--vs-ink); font-weight: var(--vs-weight-semibold); }
+.vs-segment--soft button[aria-pressed="true"] { background: var(--vs-segment-soft-active-bg, var(--vs-surface-2)); color: var(--vs-segment-soft-active-fg, var(--vs-ink)); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk { --vs-segment-size: var(--vs-text-md); --vs-segment-leading: var(--vs-leading-md); }
 .vs-segment button:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; }
 @media (hover: hover) { .vs-segment button:hover:not([aria-pressed=true]) { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }

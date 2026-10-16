@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { marked } from "marked";
 import "../src/styles.css";
 import "../src/styles/fonts.css";
-import { Card, Cluster, EmptyState, IconButton, Link, PageHeader, Prose, SectionHeader, Segment, Sheet, Stack, Switch, Table, Text, TextField, ToastProvider, useMediaQuery, MEDIA } from "../src";
+import { Card, Cluster, EmptyState, IconButton, Link, PageHeader, Prose, SectionHeader, Segment, Sheet, Stack, Switch, Table, Text, TextField, ThemeSwitch, ToastProvider, useMediaQuery, useTheme, MEDIA } from "../src";
 import "../src/charts/charts.css";
 import pkg from "../package.json";
 import props from "./props.json";
@@ -11,7 +11,6 @@ import { componentDoc, families, GROUPS, guides, type StoryFile } from "./catalo
 import "./catalog.css";
 import { TokensPage } from "./tokens-page";
 
-type Theme = "system" | "light" | "dark";
 type Route = { kind: "guide"; slug: string } | { kind: "component"; title: string } | { kind: "tokens" } | { kind: "frame"; title: string; index: number; theme: string; kiosk: boolean };
 type PropRow = { name: string; type: string; required: boolean; default: string | null; deprecated: boolean };
 type PropsInfo = Record<string, { file: string; props: PropRow[]; inherits: string | null }>;
@@ -144,23 +143,18 @@ function App() {
 }
 
 function Catalog({ route }: { route: Exclude<Route, { kind: "frame" }> }) {
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem("cat.theme") as Theme) || "system");
+  const { value: theme, set: setTheme } = useTheme({ key: "cat.theme" });
   const [kiosk, setKiosk] = useState(() => localStorage.getItem("cat.kiosk") === "1");
   const [query, setQuery] = useState("");
   const [menu, setMenu] = useState(false);
   const phone = useMediaQuery(MEDIA.phone);
   useEffect(() => setMenu(false), [route]);
-  useEffect(() => {
-    localStorage.setItem("cat.theme", theme);
-    if (theme === "system") delete document.documentElement.dataset.theme;
-    else document.documentElement.dataset.theme = theme;
-  }, [theme]);
   useEffect(() => localStorage.setItem("cat.kiosk", kiosk ? "1" : "0"), [kiosk]);
   const family = route.kind === "component" ? families.find((f) => f.meta.title === route.title) : undefined;
   const guide = route.kind === "guide" ? guides.find((g) => g.slug === route.slug) : undefined;
   const guideHtml = useMemo(() => (guide ? html(guide.md) : ""), [guide]);
   const nav = <Nav query={query} route={route} />;
-  const controls = <><Segment label="Тема" variant="soft" size={phone ? "sm" : "md"} value={theme} onChange={setTheme} options={[{ value: "system", label: "Система" }, { value: "light", label: "Светлая" }, { value: "dark", label: "Тёмная" }]} />
+  const controls = <><ThemeSwitch size={phone ? "sm" : "md"} value={theme} onChange={setTheme} />
                     <Cluster gap="2"><Text variant="caption" tone="muted">Киоск</Text><Switch label="Киоск" checked={kiosk} onChange={setKiosk} /></Cluster></>;
   const search = <TextField label="Поиск" hideLabel type="search" placeholder="Найти компонент" value={query} onChange={setQuery} size="sm" />;
   return (

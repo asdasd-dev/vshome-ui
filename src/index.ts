@@ -38,6 +38,7 @@ export { PageHeader, type PageHeaderProps } from "./components/PageHeader";
 export { Tabs, type TabsProps, type TabItem } from "./components/Tabs";
 export { Card, type CardProps } from "./components/Card";
 export { Snippet, type SnippetProps } from "./components/Snippet";
+export { ThemeSwitch, type ThemeSwitchProps } from "./components/ThemeSwitch";
 export { Disclosure, type DisclosureProps } from "./components/Disclosure";
 export { EmptyState, type EmptyStateProps } from "./components/EmptyState";
 export { Progress, SplitBar, type ProgressProps, type SplitBarProps } from "./components/Progress";
@@ -56,3 +57,4 @@ export { Select, type SelectProps, type SelectOption } from "./components/Select
 export { ContextMenu, type ContextMenuProps, type ContextMenuEntry, type ContextMenuAction, type ContextMenuCheckbox, type ContextMenuRadio } from "./components/ContextMenu";
 export { storage, useLocalStorage } from "./hooks/useLocalStorage";
 export { useMediaQuery } from "./hooks/useMediaQuery";
+export { useTheme, readTheme, applyTheme, themeBootScript, type ThemeChoice, type ThemeOptions } from "./hooks/useTheme";

@@ -38,6 +38,7 @@
 @import "./components/Tabs.css";
 @import "./components/Card.css";
 @import "./components/Snippet.css";
+@import "./components/ThemeSwitch.css";
 @import "./components/Disclosure.css";
 @import "./components/EmptyState.css";
 @import "./components/Progress.css";
