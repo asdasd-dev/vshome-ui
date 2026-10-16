@@ -207,3 +207,15 @@ describe("правки 0.38", async () => {
     expect(allCss()).toMatch(/\.vs-list-row__lead \{[^}]*width: var\(--vs-list-lead-w, auto\)/);
   });
 });
+
+describe("правки 0.41", async () => {
+  const { allCss } = await import("./css");
+  it("в киоске перенос строк списка по символам — переменной на .vs-kiosk", () => {
+    expect(allCss()).toMatch(/\.vs-list-row__name, \.vs-list-row__sub \{[^}]*word-break: var\(--vs-list-break, normal\)/);
+    expect(allCss()).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-list-break: break-all/);
+  });
+  it("lead=time — колонка ближе к названию", () => {
+    expect(allCss()).toMatch(/\.vs-list--lead-time \{[^}]*--vs-list-gap: var\(--vs-space-2\)/);
+    expect(allCss()).toMatch(/\.vs-list-row__inner \{[^}]*gap: var\(--vs-list-gap, var\(--vs-space-3\)\)/);
+  });
+});
