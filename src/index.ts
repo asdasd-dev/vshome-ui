@@ -49,6 +49,7 @@ export { SectionHeader, type SectionHeaderProps } from "./components/SectionHead
 export { Segment, type SegmentProps } from "./components/Segment";
 export { Switch, type SwitchProps } from "./components/Switch";
 export { Slider, type SliderProps } from "./components/Slider";
+export { Seek, formatDuration, type SeekProps } from "./components/Seek";
 export { createQueryClient, shouldRetry } from "./data/query";
 export { ToastProvider, useToast } from "./components/Toast";
 export { Sheet, type SheetProps } from "./components/Sheet";

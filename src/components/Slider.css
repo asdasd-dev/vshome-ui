@@ -6,3 +6,4 @@
 .vs-slider__value { position: absolute; right: var(--vs-space-4); top: 50%; transform: translateY(-50%); color: var(--vs-muted); font-weight: var(--vs-weight-medium); pointer-events: none; }
 .vs-slider:has(input:disabled) { opacity: .5; }
 .vs-slider input:disabled { cursor: not-allowed; }
+.vs-slider__icon { position: absolute; left: var(--vs-space-4); top: 50%; transform: translateY(-50%); color: var(--vs-ink); pointer-events: none; }

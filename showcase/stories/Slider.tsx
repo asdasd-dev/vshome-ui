@@ -28,6 +28,7 @@ export const stories: StoryFile["stories"] = [
   { name: "Проценты", render: () => <Brightness /> },
   { name: "Шаг и единицы", render: () => <Thermostat /> },
   { name: "Шкала от нуля", render: () => <Volume /> },
+  { name: "С иконкой", render: () => <Slider label="Громкость Spotify" value={62} min={0} max={100} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} /> },
   { name: "Выключенный", render: () => <Slider label="Яркость света на кухне" value={40} onCommit={() => undefined} format={(x) => `${x}%`} disabled /> },
   { name: "В киоске", kiosk: true, render: () => <Stack gap="3"><Brightness /><Thermostat /></Stack> },
 ];

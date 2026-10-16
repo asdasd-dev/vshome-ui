@@ -1,0 +1,9 @@
+.vs-seek { --vs-seek-thumb: calc(14px * var(--vs-scale, 1)); --vs-seek-rest: color-mix(in srgb, var(--vs-ink) 18%, transparent); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--vs-space-3); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-medium); color: var(--vs-muted); font-variant-numeric: tabular-nums; }
+.vs-seek__track { position: relative; display: block; height: calc(44px * var(--vs-scale, 1)); }
+.vs-seek__track::before { content: ""; position: absolute; left: calc(var(--vs-seek-thumb) / 2); right: calc(var(--vs-seek-thumb) / 2); top: 50%; height: var(--vs-space-1_5); transform: translateY(-50%); border-radius: var(--vs-radius-pill); background: linear-gradient(to right, var(--vs-accent) var(--vs-seek-fill), var(--vs-seek-rest) var(--vs-seek-fill)); pointer-events: none; }
+.vs-seek__track input { appearance: none; -webkit-appearance: none; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; background: transparent; cursor: pointer; }
+.vs-seek__track input::-webkit-slider-thumb { -webkit-appearance: none; width: var(--vs-seek-thumb); height: var(--vs-seek-thumb); border-radius: var(--vs-radius-pill); background: var(--vs-ink); }
+.vs-seek__track input::-moz-range-thumb { width: var(--vs-seek-thumb); height: var(--vs-seek-thumb); border: 0; border-radius: var(--vs-radius-pill); background: var(--vs-ink); }
+.vs-seek__track input:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; border-radius: var(--vs-radius-pill); }
+.vs-seek__track:has(input:disabled) { opacity: .5; }
+.vs-seek__track input:disabled { cursor: not-allowed; }

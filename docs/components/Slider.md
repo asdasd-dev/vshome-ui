@@ -49,6 +49,10 @@
 | `step={0.5}` для термостата | Шкала 0–1000 с шагом 1 для пальца |
 | Высоту и цвета — через токены в дизайн-системе | `.wall .vs-slider { height: 60px }` на сайте |
 
+## Новое в 0.39
+
+- `icon` — иконка слева внутри полосы: `icon="volume"` для громкости. Декоративная, имя полосы по-прежнему из `label`.
+
 ## Связанные
 
-[Switch](#/c/Switch) · [Segment](#/c/Segment) · [Progress](#/c/Progress) · [Field](#/c/Field)
+[Switch](#/c/Switch) · [Segment](#/c/Segment) · [Progress](#/c/Progress) · [Seek](#/c/Seek) · [Field](#/c/Field)

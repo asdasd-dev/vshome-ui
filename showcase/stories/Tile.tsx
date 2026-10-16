@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Cluster, IconButton, List, ListRow, Stat, Switch, Text, Tile } from "../../src";
+import { Button, Cluster, IconButton, List, ListRow, Seek, Slider, Stack, Stat, Switch, Text, Tile } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Light() {
@@ -10,6 +10,8 @@ function Light() {
     </Tile>
   );
 }
+
+const cover = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><rect width="2" height="2" fill="#4a6f8a"/><circle cx="1.3" cy=".8" r=".6" fill="#c9a36b"/></svg>')}`;
 
 const meetings = ["AI Demo №4", "Deimos PBR", "1:1 с тимлидом", "Груминг BX", "Ретро", "Синк платформы", "Обед", "Ревью дизайна"];
 
@@ -80,6 +82,22 @@ export const stories: StoryFile["stories"] = [
           </Tile>
         </div>
       </Cluster>
+    ),
+  },
+  {
+    name: "Картинка фоном",
+    kiosk: true,
+    render: () => (
+      <div style={{ width: 360, height: 360, display: "grid" }}>
+        <Tile label="Музыка" backdrop={cover}>
+          <Stack gap="3">
+            <Stack gap="1"><Text variant="title" lines={2}>If You Need Someone</Text><Text tone="muted" lines={1}>The Field Mice</Text></Stack>
+            <Seek label="Перемотка трека" value={86} max={263} onCommit={() => undefined} />
+            <Cluster justify="center"><IconButton icon="prev" label="Предыдущий" /><IconButton icon="pause" label="Пауза" variant="primary" /><IconButton icon="next" label="Следующий" /></Cluster>
+            <Slider label="Громкость" value={62} min={0} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} />
+          </Stack>
+        </Tile>
+      </div>
     ),
   },
   {
