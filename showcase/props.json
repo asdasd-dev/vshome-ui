@@ -2879,6 +2879,75 @@
     ],
     "inherits": null
   },
+  "Folder": {
+    "file": "src/components/Folder.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "trigger",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tooltip",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "panelClassName",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
   "Select": {
     "file": "src/components/Select.tsx",
     "props": [
