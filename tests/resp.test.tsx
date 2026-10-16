@@ -176,3 +176,10 @@ describe("правки 0.35", async () => {
     expect(allCss()).toMatch(/\.vs-sidebar-layout__side--sticky \{[^}]*overscroll-behavior: contain/);
   });
 });
+
+describe("правки 0.36", async () => {
+  const fs = await import("node:fs");
+  it("место под полосу прокрутки зарезервировано — шапка не сдвигается между короткой и длинной страницей", () => {
+    expect(fs.readFileSync(`${__dirname}/../src/styles/base.css`, "utf8")).toMatch(/html \{ scrollbar-gutter: stable; \}/);
+  });
+});
