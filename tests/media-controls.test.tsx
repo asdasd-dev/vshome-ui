@@ -110,6 +110,19 @@ describe("Tile backdrop", () => {
     expect(container.querySelector(".vs-tile__backdrop img")).not.toBeNull();
     expect(allCss()).toMatch(/@media \(prefers-reduced-motion: reduce\) \{ \.vs-tile__backdrop video \{ display: none; \} \}/);
   });
+  it("backdropPaused ставит видео на паузу и снова запускает", () => {
+    const play = vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(() => Promise.resolve());
+    const pause = vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => undefined);
+    const { container, rerender } = render(<Tile label="Музыка" backdropVideo="https://canvaz.scdn.co/v.mp4" backdropPaused>трек</Tile>);
+    const v = container.querySelector(".vs-tile__backdrop video") as HTMLVideoElement;
+    expect(v.autoplay).toBe(false);
+    expect(pause).toHaveBeenCalledTimes(1);
+    rerender(<Tile label="Музыка" backdropVideo="https://canvaz.scdn.co/v.mp4">трек</Tile>);
+    expect(play).toHaveBeenCalledTimes(1);
+    expect(container.querySelector(".vs-tile__backdrop video")).toBe(v);
+    play.mockRestore();
+    pause.mockRestore();
+  });
   it("без backdrop разметка прежняя", () => {
     const { container } = render(<Tile label="Музыка">x</Tile>);
     expect(container.querySelector(".vs-tile__backdrop")).toBeNull();
