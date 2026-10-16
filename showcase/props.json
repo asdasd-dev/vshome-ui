@@ -1866,6 +1866,13 @@
         "deprecated": false
       },
       {
+        "name": "lead",
+        "type": "\"time\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,

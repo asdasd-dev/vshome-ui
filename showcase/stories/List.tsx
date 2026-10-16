@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Artwork, List, ListRow, Price, Stack, Tag, Text } from "../../src";
+import { Artwork, Icon, List, ListRow, Price, Stack, Tag, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Categories() {
@@ -31,6 +31,17 @@ export const meta: StoryFile["meta"] = { title: "List", group: "Данные", c
 
 export const stories: StoryFile["stories"] = [
   { name: "Список-навигация: выбранная строка и число справа", render: () => <Categories /> },
+  {
+    name: "Колонка времени: lead=\"time\"",
+    render: () => (
+      <List lead="time">
+        <ListRow lead="9:30" title="Дейли" />
+        <ListRow lead="12:35" title="Sprint review PU (BX) Cluster" titleLines={2} />
+        <ListRow lead={<Icon name="calendar" size="sm" label="весь день" />} title="Отпуск у Ильдара" />
+        <ListRow lead={<Icon name="task" size="sm" label="дело" />} title="АБ 40117: проверить, что сплит ровный" titleLines={2} tone="muted" />
+      </List>
+    ),
+  },
   {
     name: "Строки и тоны",
     render: () => (

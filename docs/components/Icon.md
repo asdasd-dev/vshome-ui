@@ -11,7 +11,7 @@
 - Ленты и покупки: `cart`, `tag`, `percent`, `heart` / `heart-filled` (отслеживать), `star` / `star-outline` (рейтинг).
 - Разделы и навигация: `home`, `list`, `chart`, `calendar`, `bell`, `user`, стрелки `arrow-*` и `chevron-*`.
 - Дом и сервисы: `server`, `wifi`, `lock`, `door`, `gate`, `lightbulb`, `robot`, `message`, `music`, `video`, `album`.
-- События и досуг на «Столе»: `presentation`, `ticket`, `beach`, `soccer`, `volleyball`, `hockey`, `basketball`; оценка — `thumb-up`, `thumb-down`.
+- События и досуг на «Столе»: `presentation`, `ticket`, `beach`, `soccer`, `volleyball`, `hockey`, `basketball`; оценка — `thumb-up`, `thumb-down`; дело из списка задач — `task`, событие на весь день — `calendar`.
 
 Полный список с подписями — в примере «Все иконки» ниже.
 

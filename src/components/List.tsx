@@ -2,16 +2,16 @@ import { Children, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Text } from "./Text";
 
-export type ListProps = { children: ReactNode; label?: ReactNode; max?: number; empty?: ReactNode; divided?: boolean; className?: string };
+export type ListProps = { children: ReactNode; label?: ReactNode; max?: number; empty?: ReactNode; divided?: boolean; lead?: "time"; className?: string };
 
-export function List({ children, label, max, empty, divided = true, className }: ListProps) {
+export function List({ children, label, max, empty, divided = true, lead, className }: ListProps) {
   const rows = Children.toArray(children);
   if (!rows.length) return empty ? <div className={cx("vs-list-empty", className)}>{empty}</div> : null;
   const shown = max ? rows.slice(0, max) : rows;
   return (
     <div className={cx("vs-list-wrap", className)}>
       {label && <Text as="p" variant="label" className="vs-list__label">{label}</Text>}
-      <ul className={cx("vs-list", !divided && "vs-list--plain")}>{shown}</ul>
+      <ul className={cx("vs-list", !divided && "vs-list--plain", lead && `vs-list--lead-${lead}`)}>{shown}</ul>
       {max && rows.length > max && <div className="vs-list-more">ещё {rows.length - max}</div>}
     </div>
   );

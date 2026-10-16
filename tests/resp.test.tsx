@@ -195,3 +195,15 @@ describe("правки 0.37", async () => {
     expect(screen.getByRole("button", { name: "Новости" })).toHaveAttribute("aria-pressed", "true");
   });
 });
+
+describe("правки 0.38", async () => {
+  const { List, ListRow, Icon } = await import("../src");
+  const { allCss } = await import("./css");
+  it("List lead=time — ровная колонка мелким кеглем", () => {
+    const { container } = render(<List lead="time"><ListRow lead="9:30" title="a" /><ListRow lead={<Icon name="task" size="sm" />} title="b" /></List>);
+    expect(container.querySelector(".vs-list--lead-time")).not.toBeNull();
+    expect(container.querySelectorAll(".vs-list-row__lead")).toHaveLength(2);
+    expect(allCss()).toMatch(/\.vs-list--lead-time \{ --vs-list-lead-w: var\(--vs-space-12\); --vs-list-lead-size: var\(--vs-text-sm\);/);
+    expect(allCss()).toMatch(/\.vs-list-row__lead \{[^}]*width: var\(--vs-list-lead-w, auto\)/);
+  });
+});
