@@ -17,6 +17,7 @@
 @import "./components/Clock.css";
 @import "./components/Artwork.css";
 @import "./components/Excerpt.css";
+@import "./components/Frame.css";
 @import "./components/ControlList.css";
 @import "./components/Tile.css";
 @import "./components/Stat.css";

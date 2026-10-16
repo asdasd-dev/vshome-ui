@@ -31,6 +31,7 @@ export { ControlList, ControlRow, type ControlListProps, type ControlRowProps } 
 export { Clock, type ClockProps } from "./components/Clock";
 export { Artwork, type ArtworkProps } from "./components/Artwork";
 export { Excerpt, type ExcerptProps } from "./components/Excerpt";
+export { Frame, type FrameProps } from "./components/Frame";
 export { Stat, type StatProps } from "./components/Stat";
 export { List, ListRow, type ListProps, type ListRowProps } from "./components/List";
 export { Banner, type BannerProps } from "./components/Banner";
