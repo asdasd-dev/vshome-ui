@@ -903,6 +903,13 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
       }
     ],
     "inherits": "DOMAttributes"
@@ -981,7 +988,7 @@
     "props": [
       {
         "name": "variant",
-        "type": "\"display\" | \"headline\" | \"title\" | \"lead\" | \"body\" | \"caption\" | \"label\"",
+        "type": "\"display\" | \"headline\" | \"title\" | \"lead\" | \"body\" | \"caption\" | \"footnote\" | \"label\"",
         "required": false,
         "default": "\"body\"",
         "deprecated": false
@@ -2052,6 +2059,13 @@
         "deprecated": false
       },
       {
+        "name": "contained",
+        "type": "\"sm\" | \"md\" | \"lg\"",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -2208,6 +2222,110 @@
         "type": "string",
         "required": false,
         "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Snippet": {
+    "file": "src/components/Snippet.tsx",
+    "props": [
+      {
+        "name": "title",
+        "type": "ReactNode",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "external",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "titleLines",
+        "type": "1 | 2 | 3",
+        "required": false,
+        "default": "2",
+        "deprecated": false
+      },
+      {
+        "name": "media",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "price",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tags",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "corner",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "tone",
+        "type": "\"default\" | \"muted\"",
+        "required": false,
+        "default": "\"default\"",
+        "deprecated": false
+      },
+      {
+        "name": "elevated",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "as",
+        "type": "\"div\" | \"article\" | \"li\"",
+        "required": false,
+        "default": "\"article\"",
         "deprecated": false
       },
       {

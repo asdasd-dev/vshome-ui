@@ -37,6 +37,7 @@ export { Banner, type BannerProps } from "./components/Banner";
 export { PageHeader, type PageHeaderProps } from "./components/PageHeader";
 export { Tabs, type TabsProps, type TabItem } from "./components/Tabs";
 export { Card, type CardProps } from "./components/Card";
+export { Snippet, type SnippetProps } from "./components/Snippet";
 export { Disclosure, type DisclosureProps } from "./components/Disclosure";
 export { EmptyState, type EmptyStateProps } from "./components/EmptyState";
 export { Progress, SplitBar, type ProgressProps, type SplitBarProps } from "./components/Progress";

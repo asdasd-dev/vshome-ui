@@ -4,6 +4,7 @@
   --vs-on-accent: #ffffff; --vs-lamp: #d97706;
   --vs-violet: #7c3aed; --vs-pink: #db2777; --vs-gold: #b7791f;
   --vs-deal: #ffd43b; --vs-on-deal: #1d1d1b;
+  --vs-header-accent-bg: linear-gradient(160deg, #2450d8 0%, #1a3aa8 100%); --vs-on-header-accent: #ffffff;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
   --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 12%, var(--vs-panel));
   --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 8%, var(--vs-panel));
@@ -19,7 +20,7 @@
   --vs-scrim: rgb(0 0 0 / .4); --vs-scrim-blur: 8px;
   --vs-shadow-popover: 0 6px 24px rgb(0 0 0 / .18);
   --vs-shadow-card: 0 1px 2px rgb(0 0 0 / .06), 0 4px 16px rgb(0 0 0 / .06);
-  --vs-focus-ring: 2px solid var(--vs-accent);
+  --vs-focus-ring: 2px solid var(--vs-accent); --vs-focus-ring-on-header: 2px solid var(--vs-on-header-accent); --vs-focus-ring-on-surface: 2px solid var(--vs-accent);
   --vs-hover: color-mix(in srgb, var(--vs-ink) 6%, transparent);
   --vs-duration-spin: 800ms;
   --vs-z-raised: 2; --vs-z-header: 10; --vs-z-overlay: 20; --vs-z-sheet: 21; --vs-z-popover: 30; --vs-z-toast: 40;
@@ -47,6 +48,7 @@
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
+    --vs-header-accent-bg: linear-gradient(160deg, #1f3f9e 0%, #152c72 100%); --vs-on-header-accent: #ffffff;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
@@ -60,6 +62,7 @@
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
+    --vs-header-accent-bg: linear-gradient(160deg, #1f3f9e 0%, #152c72 100%); --vs-on-header-accent: #ffffff;
     --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));

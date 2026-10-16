@@ -7,3 +7,4 @@
 .vs-icon-button--sm { min-width: calc(32px * var(--vs-scale, 1)); min-height: calc(32px * var(--vs-scale, 1)); }
 .vs-icon-button--ghost { background: transparent; }
 .vs-icon-button[aria-busy="true"] { cursor: progress; }
+.vs-icon-button[aria-pressed="true"] { background: var(--vs-accent-soft); color: var(--vs-accent); }
