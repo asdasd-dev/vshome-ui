@@ -967,6 +967,13 @@
         "deprecated": false
       },
       {
+        "name": "backdrop",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -3006,6 +3013,61 @@
         "type": "(v: number) => string",
         "required": false,
         "default": "String",
+        "deprecated": false
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "Seek": {
+    "file": "src/components/Seek.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onCommit",
+        "type": "(seconds: number) => void",
+        "required": true,
+        "default": null,
         "deprecated": false
       },
       {
