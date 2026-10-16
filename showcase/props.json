@@ -3145,6 +3145,13 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"md\"",
+        "deprecated": false
       }
     ],
     "inherits": null

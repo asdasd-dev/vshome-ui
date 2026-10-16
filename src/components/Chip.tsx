@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Badge } from "./Badge";
 import { Icon } from "./Icon";
@@ -25,8 +25,24 @@ export type ChipGroupProps<T extends string> = {
 };
 
 export function ChipGroup<T extends string>({ options, value, onChange, label, scroll, size, className }: ChipGroupProps<T>) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [fade, setFade] = useState({ start: false, end: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!scroll || !el) return;
+    const update = () => {
+      const start = el.scrollLeft > 1, end = el.scrollLeft + el.clientWidth < el.scrollWidth - 1;
+      setFade((f) => (f.start === start && f.end === end ? f : { start, end }));
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
+    ro?.observe(el);
+    return () => { el.removeEventListener("scroll", update); ro?.disconnect(); };
+  }, [scroll, options.length]);
   return (
-    <div role="group" aria-label={label} className={cx("vs-chip-group", scroll && "vs-chip-group--scroll", className)}>
+    <div role="group" aria-label={label} ref={ref}
+         className={cx("vs-chip-group", scroll && "vs-chip-group--scroll", scroll && fade.start && "vs-chip-group--fade-start", scroll && fade.end && "vs-chip-group--fade-end", className)}>
       {options.map((o) => <Chip key={o.value} size={size} pressed={o.value === value} count={o.count} disabled={o.disabled} onClick={() => onChange(o.value)}>{o.label}</Chip>)}
     </div>
   );

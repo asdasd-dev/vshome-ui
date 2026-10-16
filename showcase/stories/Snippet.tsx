@@ -12,7 +12,7 @@ function Product({ name, price, old, gone }: { name: string; price: number; old?
       meta={<><Text variant="footnote" tone="muted">★ 4,8 · 975 отзывов</Text><Text variant="footnote" tone="muted">70 ккал · Б 0 · Ж 0 · У 16</Text></>}
       price={<><Price value={price} old={old} note="по карте" tone="deal" size="sm" gone={gone} />{old && !gone ? <Tag size="sm" tone="ok">−30% к обычной</Tag> : null}</>}
       tags={<><Text variant="footnote" tone="muted">осталось 76 шт · 188,21 ₽/л</Text>{gone && <Tag size="sm" tone="muted">нет в наличии</Tag>}</>}
-      actions={<><Button size="sm" variant="ghost" icon="cart" pressed={inList} onClick={() => setInList(!inList)}>{inList ? "В списке" : "В список"}</Button><Button size="sm" variant="ghost">Не показывать</Button></>} />
+      actions={<><Button size="sm" variant="ghost" icon="cart" pressed={inList} onClick={() => setInList(!inList)}>{inList ? "В списке" : "В список"}</Button><IconButton icon="eye-off" size="sm" variant="ghost" label="Не показывать" /></>} />
   );
 }
 

@@ -18,3 +18,4 @@
 .vs-select__item > :last-child { grid-column: 2; }
 
 @media (prefers-reduced-motion: reduce) { .vs-select__popup { transition: none; } }
+.vs-select--sm .vs-select__trigger { min-height: calc(32px * var(--vs-scale, 1)); padding: var(--vs-space-1) var(--vs-space-2); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }

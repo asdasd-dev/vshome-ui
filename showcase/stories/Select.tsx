@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Select, Stack } from "../../src";
+import { Cluster, Select, Stack, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Shop() {
@@ -32,6 +32,12 @@ export const meta: StoryFile["meta"] = { title: "Select", group: "Выбор и 
 
 export const stories: StoryFile["stories"] = [
   { name: "Обычный", render: () => <Shop /> },
+  { name: "Маленький в панели фильтров", render: () => (
+    <Cluster gap="2" wrap>
+      <Text variant="caption" tone="muted">Сортировка</Text>
+      <Select size="sm" hideLabel label="Сортировка" value="discount" onChange={() => undefined} options={[{ value: "discount", label: "Скидка" }, { value: "price", label: "Дешевле" }]} />
+    </Cluster>
+  ) },
   { name: "Несколько в форме", render: () => <Stack gap="3"><Room /><Shop /></Stack> },
   { name: "Длинная подпись", render: () => <Select label="Канал Mattermost" value="long" onChange={() => undefined} options={[{ value: "long", label: "Уведомления о встречах и задачах из доски агентов" }, { value: "short", label: "Личка" }]} /> },
   { name: "Подсказка и ошибка", render: () => (
