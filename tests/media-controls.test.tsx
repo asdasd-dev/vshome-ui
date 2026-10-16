@@ -96,6 +96,20 @@ describe("Tile backdrop", () => {
     expect(t.firstElementChild).toBe(bd);
     expect(allCss()).toMatch(/\.vs-tile__backdrop::after \{[^}]*linear-gradient/);
   });
+  it("видео фоном поверх картинки: без звука, по кругу, inline; сломалось — остаётся картинка", () => {
+    const { container } = render(<Tile label="Музыка" backdrop="https://i.scdn.co/image/x" backdropVideo="https://canvaz.scdn.co/v.mp4">трек</Tile>);
+    const v = container.querySelector(".vs-tile__backdrop video") as HTMLVideoElement;
+    expect(v.getAttribute("src")).toBe("https://canvaz.scdn.co/v.mp4");
+    expect(v.muted).toBe(true);
+    expect(v.loop).toBe(true);
+    expect(v.autoplay).toBe(true);
+    expect(v.hasAttribute("playsinline")).toBe(true);
+    expect(container.querySelector(".vs-tile__backdrop img")).not.toBeNull();
+    fireEvent.error(v);
+    expect(container.querySelector(".vs-tile__backdrop video")).toBeNull();
+    expect(container.querySelector(".vs-tile__backdrop img")).not.toBeNull();
+    expect(allCss()).toMatch(/@media \(prefers-reduced-motion: reduce\) \{ \.vs-tile__backdrop video \{ display: none; \} \}/);
+  });
   it("без backdrop разметка прежняя", () => {
     const { container } = render(<Tile label="Музыка">x</Tile>);
     expect(container.querySelector(".vs-tile__backdrop")).toBeNull();
