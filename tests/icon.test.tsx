@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
 import { Icon, IconButton, ICON_NAMES } from "../src";
 
 describe("Icon", () => {
@@ -20,6 +22,10 @@ describe("Icon", () => {
     const img = screen.getByRole("img", { name: "облачно" });
     expect(img.getAttribute("aria-hidden")).toBeNull();
     expect(img.dataset.icon).toBe("weather-partlycloudy");
+  });
+  it("em внутри текста — центр по заглавным, а не по строчным", () => {
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Icon.css"), "utf8");
+    expect(css).toMatch(/\.vs-icon--em \{[^}]*vertical-align: -0\.15em/);
   });
   it("неизвестное имя — ошибка типов", () => {
     // @ts-expect-error нет такой иконки
