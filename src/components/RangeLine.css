@@ -6,3 +6,6 @@
 .vs-range-line input:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; border-radius: var(--vs-radius-pill); }
 .vs-range-line:has(input:disabled) { opacity: .5; }
 .vs-range-line input:disabled { cursor: not-allowed; }
+.vs-range-line--vertical { width: calc(44px * var(--vs-scale, 1)); height: 100%; min-height: calc(var(--vs-space-12) * 2); }
+.vs-range-line--vertical::before { left: 50%; right: auto; top: calc(var(--vs-range-thumb) / 2); bottom: calc(var(--vs-range-thumb) / 2); width: var(--vs-space-1_5); height: auto; transform: translateX(-50%); background: linear-gradient(to top, var(--vs-accent) var(--vs-range-fill), var(--vs-range-rest) var(--vs-range-fill)); }
+.vs-range-line--vertical input { writing-mode: vertical-lr; direction: rtl; }

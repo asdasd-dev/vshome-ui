@@ -30,6 +30,7 @@ export const stories: StoryFile["stories"] = [
   { name: "Шкала от нуля", render: () => <Volume /> },
   { name: "С иконкой", render: () => <Slider label="Громкость Spotify" value={62} min={0} max={100} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} /> },
   { name: "Тонкая линия", kiosk: true, render: () => <div style={{ width: 320 }}><Slider variant="line" label="Громкость Spotify" value={62} min={0} max={100} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} /></div> },
+  { name: "Вертикальная линия", kiosk: true, render: () => <div style={{ height: 220 }}><Slider variant="line" orientation="vertical" label="Громкость Spotify" value={62} min={0} max={100} icon="volume" onCommit={() => undefined} format={(x) => `${x}%`} /></div> },
   { name: "Выключенный", render: () => <Slider label="Яркость света на кухне" value={40} onCommit={() => undefined} format={(x) => `${x}%`} disabled /> },
   { name: "В киоске", kiosk: true, render: () => <Stack gap="3"><Brightness /><Thermostat /></Stack> },
 ];
