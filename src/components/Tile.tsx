@@ -1,10 +1,10 @@
-import { useCallback, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Segment } from "./Segment";
 
 export type TileProps = {
   label?: string; aside?: ReactNode; tone?: "default" | "warn" | "danger"; children?: ReactNode; footer?: ReactNode;
-  scroll?: boolean; dimmed?: boolean; backdrop?: string; backdropVideo?: string; className?: string; "data-tile"?: string;
+  scroll?: boolean; dimmed?: boolean; backdrop?: string; backdropVideo?: string; backdropPaused?: boolean; className?: string; "data-tile"?: string;
   switcher?: { label: string; value: string; options: { value: string; label: ReactNode }[]; onChange: (v: string) => void };
 };
 
@@ -29,13 +29,20 @@ function useFade(enabled: boolean) {
   return { ref, fade, measure };
 }
 
-function BackdropVideo({ src }: { src: string }) {
+function BackdropVideo({ src, paused }: { src: string; paused: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
   const [broken, setBroken] = useState(false);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    if (paused) v.pause();
+    else v.play()?.catch(() => undefined);
+  }, [paused]);
   if (broken) return null;
-  return <video src={src} muted loop autoPlay playsInline preload="auto" onError={() => setBroken(true)} />;
+  return <video ref={ref} src={src} muted loop autoPlay={!paused} playsInline preload="auto" onError={() => setBroken(true)} />;
 }
 
-export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, backdrop, backdropVideo, className, switcher, ...data }: TileProps) {
+export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, backdrop, backdropVideo, backdropPaused = false, className, switcher, ...data }: TileProps) {
   const id = useId();
   const { ref, fade, measure } = useFade(!!scroll);
   const cls = cx("vs-tile", `vs-tile--${tone}`, dimmed && "vs-tile--dimmed", (backdrop || backdropVideo) && "vs-tile--backdrop", className);
@@ -44,7 +51,7 @@ export function Tile({ label, aside, tone = "default", children, footer, scroll,
       {(backdrop || backdropVideo) && (
         <span className="vs-tile__backdrop" aria-hidden="true">
           {backdrop && <img src={backdrop} alt="" />}
-          {backdropVideo && <BackdropVideo key={backdropVideo} src={backdropVideo} />}
+          {backdropVideo && <BackdropVideo key={backdropVideo} src={backdropVideo} paused={backdropPaused} />}
         </span>
       )}
       {switcher ? (
