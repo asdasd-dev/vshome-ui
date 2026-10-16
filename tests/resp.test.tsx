@@ -230,3 +230,11 @@ describe("правки 0.44", async () => {
     expect(allCss()).not.toMatch(/\.vs-list--lead-icon \{[^}]*--vs-list-lead-w/);
   });
 });
+
+describe("правки 0.45", async () => {
+  const { allCss } = await import("./css");
+  it("двухстрочная строка: колонка слева и название по базовой линии, значок — по центру первой строки", () => {
+    expect(allCss()).toMatch(/\.vs-list-row--two \.vs-list-row__lead, \.vs-list-row--two \.vs-list-row__title \{ align-self: baseline; \}/);
+    expect(allCss()).toMatch(/\.vs-list--lead-icon \.vs-list-row__lead \{[^}]*height: var\(--vs-leading-md\)/);
+  });
+});
