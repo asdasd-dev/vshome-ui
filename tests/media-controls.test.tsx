@@ -76,6 +76,14 @@ describe("Slider line vertical", () => {
   });
 });
 
+describe("Slider line elevated", () => {
+  it("приподнятая капсула с тенью всплывающих элементов", () => {
+    const { container } = render(<Slider variant="line" orientation="vertical" elevated label="Громкость" value={40} min={0} onCommit={() => undefined} />);
+    expect(container.querySelector(".vs-slider-line")!.className).toContain("vs-slider-line--elevated");
+    expect(allCss()).toMatch(/\.vs-slider-line--elevated \{[^}]*border-radius: var\(--vs-radius-pill\)[^}]*box-shadow: var\(--vs-shadow-popover\)/);
+  });
+});
+
 describe("Tile backdrop", () => {
   it("картинка фоном под затемнением, декоративная, содержимое поверх", () => {
     const { container } = render(<Tile label="Музыка" backdrop="https://i.scdn.co/image/x">трек</Tile>);

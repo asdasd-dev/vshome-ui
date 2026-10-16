@@ -3071,6 +3071,13 @@
         "deprecated": false
       },
       {
+        "name": "elevated",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
