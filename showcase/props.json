@@ -2352,6 +2352,54 @@
     ],
     "inherits": null
   },
+  "ThemeSwitch": {
+    "file": "src/components/ThemeSwitch.tsx",
+    "props": [
+      {
+        "name": "value",
+        "type": "ThemeChoice",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onChange",
+        "type": "(v: ThemeChoice) => void",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "variant",
+        "type": "\"segment\" | \"button\"",
+        "required": false,
+        "default": "\"segment\"",
+        "deprecated": false
+      },
+      {
+        "name": "size",
+        "type": "\"sm\" | \"md\"",
+        "required": false,
+        "default": "\"sm\"",
+        "deprecated": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "default": "\"Тема\"",
+        "deprecated": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
   "Disclosure": {
     "file": "src/components/Disclosure.tsx",
     "props": [

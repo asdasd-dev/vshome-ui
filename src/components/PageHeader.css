@@ -9,7 +9,7 @@
 .vs-page-header__sub { margin: 0; font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); color: var(--vs-page-header-sub); }
 .vs-page-header__actions { display: flex; flex: 0 1 auto; flex-wrap: wrap; align-items: center; gap: var(--vs-space-2); max-width: 100%; }
 .vs-page-header__extra { min-width: 0; }
-.vs-page-header--accent { --vs-tabs-fg: color-mix(in srgb, var(--vs-on-header-accent) 80%, transparent); --vs-tabs-fg-active: var(--vs-on-header-accent); --vs-tabs-indicator: var(--vs-on-header-accent); --vs-tabs-line: transparent; --vs-focus-ring: var(--vs-focus-ring-on-header); }
+.vs-page-header--accent { --vs-tabs-fg: color-mix(in srgb, var(--vs-on-header-accent) 80%, transparent); --vs-tabs-fg-active: var(--vs-on-header-accent); --vs-tabs-indicator: var(--vs-on-header-accent); --vs-tabs-line: transparent; --vs-focus-ring: var(--vs-focus-ring-on-header); --vs-icon-button-ghost-fg: var(--vs-on-header-accent); --vs-segment-soft-bg: color-mix(in srgb, var(--vs-on-header-accent) 14%, transparent); --vs-segment-soft-fg: color-mix(in srgb, var(--vs-on-header-accent) 85%, transparent); --vs-segment-soft-active-bg: color-mix(in srgb, var(--vs-on-header-accent) 28%, transparent); --vs-segment-soft-active-fg: var(--vs-on-header-accent); }
 .vs-page-header--contained { padding-inline: 0; }
 .vs-page-header__inner { display: flex; flex-direction: column; gap: var(--vs-space-2); }
 .vs-page-header--lg .vs-page-header__title { font-family: var(--vs-font-display); font-size: var(--vs-text-xl); line-height: var(--vs-leading-xl); }
