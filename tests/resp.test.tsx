@@ -183,3 +183,15 @@ describe("правки 0.36", async () => {
     expect(fs.readFileSync(`${__dirname}/../src/styles/base.css`, "utf8")).toMatch(/html \{ scrollbar-gutter: stable; \}/);
   });
 });
+
+describe("правки 0.37", async () => {
+  const { Tile } = await import("../src");
+  it("Tile switcher: переключатель в заголовке, выбор вызывает onChange", () => {
+    const picked: string[] = [];
+    render(<Tile switcher={{ label: "Что показывать", value: "news", options: [{ value: "mm", label: "Mattermost · 3 в работе" }, { value: "news", label: "Новости" }], onChange: (v) => picked.push(v) }}><p>тело</p></Tile>);
+    expect(screen.getByRole("group", { name: "Что показывать" })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Mattermost · 3 в работе" }));
+    expect(picked).toEqual(["mm"]);
+    expect(screen.getByRole("button", { name: "Новости" })).toHaveAttribute("aria-pressed", "true");
+  });
+});

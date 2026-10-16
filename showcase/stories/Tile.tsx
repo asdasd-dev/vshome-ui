@@ -82,4 +82,22 @@ export const stories: StoryFile["stories"] = [
       </Cluster>
     ),
   },
+  {
+    name: "Переключатель в заголовке",
+    kiosk: true,
+    render: () => <TileSwitcherDemo />,
+  },
 ];
+
+function TileSwitcherDemo() {
+  const [v, setV] = useState("news");
+  return (
+    <div style={{ width: 420 }}>
+      <Tile scroll switcher={{ label: "Что показывать", value: v, onChange: setV, options: [{ value: "mm", label: "Mattermost · 3 в работе" }, { value: "news", label: "Новости" }] }}>
+        {v === "news"
+          ? <List><ListRow title="Вышел Python 3.15" meta="python" onClick={() => {}} /><ListRow title="Anthropic выпустила Claude Opus 5.5" meta="ai" onClick={() => {}} /></List>
+          : <List><ListRow title="GD · BX-55704" sub="Сделаю до пятницы" meta="до 17 окт" onClick={() => {}} /></List>}
+      </Tile>
+    </div>
+  );
+}

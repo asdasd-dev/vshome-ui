@@ -1,9 +1,11 @@
 import { useCallback, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
+import { Segment } from "./Segment";
 
 export type TileProps = {
   label?: string; aside?: ReactNode; tone?: "default" | "warn" | "danger"; children?: ReactNode; footer?: ReactNode;
   scroll?: boolean; dimmed?: boolean; className?: string; "data-tile"?: string;
+  switcher?: { label: string; value: string; options: { value: string; label: ReactNode }[]; onChange: (v: string) => void };
 };
 
 function useFade(enabled: boolean) {
@@ -27,13 +29,18 @@ function useFade(enabled: boolean) {
   return { ref, fade, measure };
 }
 
-export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, className, ...data }: TileProps) {
+export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, className, switcher, ...data }: TileProps) {
   const id = useId();
   const { ref, fade, measure } = useFade(!!scroll);
   const cls = cx("vs-tile", `vs-tile--${tone}`, dimmed && "vs-tile--dimmed", className);
   const body = (
     <>
-      {label && aside != null ? (
+      {switcher ? (
+        <div className="vs-tile__head">
+          <Segment label={switcher.label} variant="soft" size="sm" value={switcher.value} options={switcher.options} onChange={switcher.onChange} />
+          {aside != null && <div className="vs-tile__aside">{aside}</div>}
+        </div>
+      ) : label && aside != null ? (
         <div className="vs-tile__head"><div id={id} className="vs-tile__label">{label}</div><div className="vs-tile__aside">{aside}</div></div>
       ) : label && <div id={id} className="vs-tile__label">{label}</div>}
       <div ref={ref} className={cx("vs-tile__body", scroll && "vs-tile__body--scroll")} data-fade={scroll && fade ? fade : undefined}
@@ -41,5 +48,5 @@ export function Tile({ label, aside, tone = "default", children, footer, scroll,
       {footer && <div className="vs-tile__footer">{footer}</div>}
     </>
   );
-  return <section className={cls} aria-labelledby={label ? id : undefined} {...data}>{body}</section>;
+  return <section className={cls} aria-labelledby={label && !switcher ? id : undefined} aria-label={switcher?.label} {...data}>{body}</section>;
 }

@@ -979,6 +979,13 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "switcher",
+        "type": "{ label: string; value: string; options: { value: string; label: ReactNode }[]; onChange: (v: string) => void }",
+        "required": false,
+        "default": null,
+        "deprecated": false
       }
     ],
     "inherits": null
