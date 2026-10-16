@@ -2,6 +2,7 @@
 .vs-container--sm { max-width: calc(720px * var(--vs-scale, 1)); }
 .vs-container--md { max-width: calc(1100px * var(--vs-scale, 1)); }
 .vs-container--lg { max-width: calc(1280px * var(--vs-scale, 1)); }
+.vs-container--xl { max-width: calc(1600px * var(--vs-scale, 1)); }
 .vs-container--full { max-width: none; }
 .vs-show { display: contents; }
 @media (max-width: 759px) { .vs-show--above-tablet { display: none; } }

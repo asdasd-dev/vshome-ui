@@ -1160,7 +1160,7 @@
       },
       {
         "name": "size",
-        "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\"",
         "required": false,
         "default": "\"lg\"",
         "deprecated": false
@@ -1852,6 +1852,13 @@
         "deprecated": false
       },
       {
+        "name": "divided",
+        "type": "boolean",
+        "required": false,
+        "default": "true",
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
@@ -1939,6 +1946,13 @@
         "type": "\"baseline\" | \"center\"",
         "required": false,
         "default": "\"baseline\"",
+        "deprecated": false
+      },
+      {
+        "name": "selected",
+        "type": "boolean",
+        "required": false,
+        "default": null,
         "deprecated": false
       },
       {
@@ -2074,7 +2088,7 @@
       },
       {
         "name": "contained",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"",
         "required": false,
         "default": null,
         "deprecated": false

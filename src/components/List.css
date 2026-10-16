@@ -26,3 +26,8 @@ button.vs-list-row__inner { cursor: pointer; }
 a.vs-list-row__inner { cursor: pointer; text-decoration: none; }
 @media (hover: hover) { a.vs-list-row__inner:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); border-radius: var(--vs-radius-xs); } }
 .vs-list-row--center .vs-list-row__inner { align-items: center; }
+.vs-list--plain .vs-list-row + .vs-list-row { border-top: 0; }
+.vs-list--plain .vs-list-row__inner { padding-inline: var(--vs-space-2); border-radius: var(--vs-radius-sm); }
+.vs-list-row--selected .vs-list-row__inner { background: var(--vs-accent-tint); border-radius: var(--vs-radius-sm); }
+.vs-list-row--selected .vs-list-row__title, .vs-list-row--selected .vs-list-row__name { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }
+.vs-list-row--selected .vs-list-row__meta { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }

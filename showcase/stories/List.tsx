@@ -2,6 +2,16 @@ import { useState } from "react";
 import { Artwork, List, ListRow, Price, Stack, Tag, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
+function Categories() {
+  const [cat, setCat] = useState("Мясо и птица");
+  const rows: [string, string, number][] = [["🛒", "Все", 2049], ["🥩", "Мясо и птица", 186], ["🐟", "Рыба", 39], ["🧀", "Сыры", 53], ["🍷", "Алкоголь", 0]];
+  return (
+    <List divided={false}>
+      {rows.map(([e, name, n]) => <ListRow key={name} align="center" lead={e} title={name} meta={n} tone={n ? "default" : "muted"} selected={name === cat} onClick={() => setCat(name)} />)}
+    </List>
+  );
+}
+
 function Clickable() {
   const [picked, setPicked] = useState("ничего");
   return (
@@ -20,6 +30,7 @@ const photo = (color: string) => `data:image/svg+xml,${encodeURIComponent(`<svg 
 export const meta: StoryFile["meta"] = { title: "List", group: "Данные", components: ["List", "ListRow"], doc: "List" };
 
 export const stories: StoryFile["stories"] = [
+  { name: "Список-навигация: выбранная строка и число справа", render: () => <Categories /> },
   {
     name: "Строки и тоны",
     render: () => (

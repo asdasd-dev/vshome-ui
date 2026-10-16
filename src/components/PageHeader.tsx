@@ -3,7 +3,7 @@ import { cx } from "../utils/cx";
 
 export type PageHeaderProps = {
   title: ReactNode; sub?: ReactNode; lead?: ReactNode; actions?: ReactNode; children?: ReactNode;
-  sticky?: boolean; tone?: "default" | "accent" | "plain"; size?: "md" | "lg"; actionsAlign?: "end" | "start"; contained?: "sm" | "md" | "lg"; className?: string;
+  sticky?: boolean; tone?: "default" | "accent" | "plain"; size?: "md" | "lg"; actionsAlign?: "end" | "start"; contained?: "sm" | "md" | "lg" | "xl"; className?: string;
 };
 
 export function PageHeader({ title, sub, lead, actions, children, sticky, tone = "default", size = "md", actionsAlign = "end", contained, className }: PageHeaderProps) {
