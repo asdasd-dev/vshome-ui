@@ -28,6 +28,21 @@ function WithExtra() {
   );
 }
 
+function Inline() {
+  const lamps = [["Лента кабинет", 60], ["Люстра", 15], ["Стеклоблок", 0]] as const;
+  const [levels, setLevels] = useState<number[]>(lamps.map(([, v]) => v));
+  const set = (i: number, v: number) => setLevels(levels.map((x, j) => (j === i ? v : x)));
+  return (
+    <ControlList>
+      {lamps.map(([name], i) => (
+        <ControlRow key={name} inline label={name} control={<Switch label={name} checked={levels[i]! > 0} onChange={(on) => set(i, on ? 100 : 0)} />}>
+          <Slider label={`${name}: яркость`} value={levels[i] || 100} disabled={!levels[i]} onCommit={(v) => set(i, v)} format={(v) => `${v}%`} />
+        </ControlRow>
+      ))}
+    </ControlList>
+  );
+}
+
 function InTile() {
   const [bania, setBania] = useState(false);
   return (
@@ -47,5 +62,6 @@ export const meta: StoryFile["meta"] = { title: "ControlList", group: "Раск�
 export const stories: StoryFile["stories"] = [
   { name: "Настройки", render: () => <Settings /> },
   { name: "Строка с дополнением", render: () => <WithExtra /> },
+  { name: "Ползунок в строке (inline)", render: () => <Inline /> },
   { name: "В киоске", kiosk: true, render: () => <InTile /> },
 ];

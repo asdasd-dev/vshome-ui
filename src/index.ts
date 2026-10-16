@@ -7,6 +7,7 @@ export { linkify, clampText, type TextPart } from "./utils/text";
 export { api, ApiError } from "./data/api";
 export { Button, type ButtonProps } from "./components/Button";
 export { SplitButton, type SplitButtonProps } from "./components/SplitButton";
+export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItem } from "./components/ButtonGroup";
 export { Chip, ChipGroup, type ChipProps, type ChipGroupProps } from "./components/Chip";
 export { Badge, type BadgeProps } from "./components/Badge";
 export { Tag, type TagProps } from "./components/Tag";

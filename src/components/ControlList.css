@@ -3,3 +3,5 @@
 .vs-control-row__label { min-width: 0; }
 .vs-control-row__control { display: flex; justify-content: flex-end; }
 .vs-control-row__extra { grid-column: 1 / -1; }
+.vs-control-row--inline { grid-template-columns: minmax(0, 1fr) minmax(0, var(--vs-control-row-extra-w, calc(160px * var(--vs-scale, 1)))) auto; }
+.vs-control-row--inline .vs-control-row__extra { grid-column: auto; }

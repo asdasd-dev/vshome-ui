@@ -3,6 +3,7 @@
 @import "./components/Spinner.css";
 @import "./components/Button.css";
 @import "./components/SplitButton.css";
+@import "./components/ButtonGroup.css";
 @import "./components/Badge.css";
 @import "./components/Chip.css";
 @import "./components/Tag.css";
