@@ -48,4 +48,5 @@ export const stories: StoryFile["stories"] = [
   { name: "Иконки", render: () => <Cluster wrap><SplitButton icon="clock" onClick={() => undefined} more={{ label: "Добавить встречу", icon: "plus", onClick: () => undefined }}>Встречи</SplitButton></Cluster> },
   { name: "Выключенная", render: () => <Cluster wrap><SplitButton disabled onClick={() => undefined} more={{ label: "Настройки света", onClick: () => undefined }}>Двор</SplitButton></Cluster> },
   { name: "В киоске", kiosk: true, render: () => <Stack gap="3"><Light /><Scenes /></Stack> },
+  { name: "Маленькая в киоске", kiosk: true, render: () => <Cluster wrap>{["Коридор · 2", "Кухня · 4", "Спальня"].map((r, i) => <SplitButton key={r} size="sm" indicator="lamp" pressed={i < 2} onClick={() => undefined} more={{ label: `${r}: лампы`, onClick: () => undefined }}>{r}</SplitButton>)}</Cluster> },
 ];
