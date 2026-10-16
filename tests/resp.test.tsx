@@ -125,3 +125,21 @@ describe("правки 0.24", async () => {
     expect(allCss()).toMatch(/\.vs-tabs--bottom \{ --vs-tabs-fg: var\(--vs-muted\)/);
   });
 });
+
+describe("правки 0.25", async () => {
+  const { Grid, Segment } = await import("../src");
+  const { allCss } = await import("./css");
+  it("Grid dense — плотная укладка", () => {
+    const { container } = render(<Grid min="2xs" dense><span>a</span></Grid>);
+    expect(container.querySelector(".vs-grid__items--dense")).not.toBeNull();
+    expect(allCss()).toMatch(/\.vs-grid__items--dense \{ grid-auto-flow: row dense; \}/);
+  });
+  it("Segment с ползунком: подписи под ползунком — копия поверх, обрезанная по его позиции", () => {
+    const { container } = render(<Segment label="x" value="b" onChange={() => {}} progress={0.5} options={[{ value: "a", label: "A" }, { value: "b", label: "B" }]} />);
+    const thumb = container.querySelector(".vs-segment__thumb")!;
+    expect(thumb.getAttribute("aria-hidden")).toBe("true");
+    expect([...thumb.querySelectorAll("span")].map((x) => x.textContent)).toEqual(["A", "B"]);
+    expect(container.querySelectorAll("button")).toHaveLength(2);
+    expect(allCss()).toMatch(/\.vs-segment__thumb \{[^}]*clip-path: inset\(/);
+  });
+});

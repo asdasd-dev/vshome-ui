@@ -13,3 +13,4 @@
 .vs-grid__items--min-md { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(320px * var(--vs-scale, 1))), 1fr)); }
 .vs-grid__items--min-lg { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(400px * var(--vs-scale, 1))), 1fr)); }
 .vs-grid__items--min-2xs { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(72px * var(--vs-scale, 1))), 1fr)); }
+.vs-grid__items--dense { grid-auto-flow: row dense; }
