@@ -1118,6 +1118,13 @@
         "deprecated": false
       },
       {
+        "name": "fixed",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "as",
         "type": "\"div\" | \"ul\" | \"section\"",
         "required": false,
