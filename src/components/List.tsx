@@ -18,11 +18,11 @@ export function List({ children, label, max, empty, divided = true, lead, classN
 }
 
 export type ListRowProps = {
-  title: ReactNode; titleLines?: 1 | 2; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2 | 3; meta?: ReactNode; lead?: ReactNode;
+  title: ReactNode; titleLines?: 1 | 2; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2 | 3; meta?: ReactNode; lead?: ReactNode; action?: ReactNode;
   tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void; href?: string; align?: "baseline" | "center"; selected?: boolean; className?: string;
 };
 
-export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, tone = "default", onClick, href, align = "baseline", selected, className }: ListRowProps) {
+export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, action, tone = "default", onClick, href, align = "baseline", selected, className }: ListRowProps) {
   const current = selected ? { "aria-current": "true" as const } : {};
   const inner = (
     <>
@@ -34,8 +34,9 @@ export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLine
     </>
   );
   return (
-    <li className={cx("vs-list-row", `vs-list-row--${tone}`, sub != null && "vs-list-row--two", align === "center" && "vs-list-row--center", selected && "vs-list-row--selected", className)}>
+    <li className={cx("vs-list-row", `vs-list-row--${tone}`, sub != null && "vs-list-row--two", align === "center" && "vs-list-row--center", selected && "vs-list-row--selected", action != null && "vs-list-row--action", className)}>
       {href != null ? <a className="vs-list-row__inner" href={href} onClick={onClick} {...current}>{inner}</a> : onClick ? <button type="button" className="vs-list-row__inner" onClick={onClick} {...current}>{inner}</button> : <div className="vs-list-row__inner" {...current}>{inner}</div>}
+      {action != null && <span className="vs-list-row__action">{action}</span>}
     </li>
   );
 }

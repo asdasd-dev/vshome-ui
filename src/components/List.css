@@ -35,3 +35,6 @@ a.vs-list-row__inner { cursor: pointer; text-decoration: none; }
 .vs-list-row--selected .vs-list-row__inner { background: var(--vs-accent-tint); border-radius: var(--vs-radius-sm); }
 .vs-list-row--selected .vs-list-row__title, .vs-list-row--selected .vs-list-row__name { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }
 .vs-list-row--selected .vs-list-row__meta { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }
+.vs-list-row--action { display: flex; align-items: center; gap: var(--vs-space-2); }
+.vs-list-row--action .vs-list-row__inner { flex: 1; min-width: 0; }
+.vs-list-row__action { flex: none; display: flex; }

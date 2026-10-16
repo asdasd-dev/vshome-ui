@@ -1976,6 +1976,13 @@
         "deprecated": false
       },
       {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "tone",
         "type": "\"default\" | \"warn\" | \"danger\" | \"muted\"",
         "required": false,
