@@ -164,3 +164,15 @@ describe("правки 0.26", async () => {
     expect(allCss()).toMatch(/\.vs-page-header \{[^}]*var\(--vs-page-header-pe, calc\(var\(--vs-space-4\) \+ env\(safe-area-inset-right, 0px\)\)\)/);
   });
 });
+
+describe("правки 0.35", async () => {
+  const { SidebarLayout } = await import("../src");
+  const { allCss } = await import("./css");
+  it("SidebarLayout sticky: панель по высоте видимой части экрана, прокрутка не уходит странице", () => {
+    const { container } = render(<SidebarLayout sticky sidebar={<div>список</div>}><div>main</div></SidebarLayout>);
+    const side = container.querySelector(".vs-sidebar-layout__side--sticky") as HTMLElement;
+    expect(side.style.getPropertyValue("--vs-side-max")).toMatch(/px$/);
+    expect(allCss()).toMatch(/\.vs-sidebar-layout__side--sticky \{[^}]*max-height: var\(--vs-side-max/);
+    expect(allCss()).toMatch(/\.vs-sidebar-layout__side--sticky \{[^}]*overscroll-behavior: contain/);
+  });
+});
