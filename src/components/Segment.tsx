@@ -12,10 +12,10 @@ export function Segment<T extends string>({ options, value, onChange, label, ari
   const style = progress == null ? undefined : ({ "--vs-segment-pos": String(progress), "--vs-segment-n": String(options.length) } as CSSProperties);
   return (
     <div className={cx("vs-segment", variant === "soft" && "vs-segment--soft", size === "sm" && "vs-segment--sm", progress != null && "vs-segment--thumb", className)} role="group" aria-label={label ?? ariaLabel} style={style} ref={ref}>
-      {progress != null && <span className="vs-segment__thumb" aria-hidden="true" />}
-      {options.map((o) => (
-        <button key={o.value} type="button" aria-pressed={o.value === value} disabled={o.disabled} onClick={() => onChange(o.value)}>{o.label}</button>
+      {options.map((o, i) => (
+        <button key={o.value} type="button" aria-pressed={o.value === value} disabled={o.disabled} onClick={() => onChange(o.value)} style={progress == null ? undefined : ({ "--vs-segment-i": String(i) } as CSSProperties)}>{o.label}</button>
       ))}
+      {progress != null && <span className="vs-segment__thumb" aria-hidden="true">{options.map((o) => <span key={o.value}>{o.label}</span>)}</span>}
     </div>
   );
 }
