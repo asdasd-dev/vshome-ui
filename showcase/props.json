@@ -974,6 +974,13 @@
         "deprecated": false
       },
       {
+        "name": "backdropVideo",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,

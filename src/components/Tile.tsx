@@ -4,7 +4,7 @@ import { Segment } from "./Segment";
 
 export type TileProps = {
   label?: string; aside?: ReactNode; tone?: "default" | "warn" | "danger"; children?: ReactNode; footer?: ReactNode;
-  scroll?: boolean; dimmed?: boolean; backdrop?: string; className?: string; "data-tile"?: string;
+  scroll?: boolean; dimmed?: boolean; backdrop?: string; backdropVideo?: string; className?: string; "data-tile"?: string;
   switcher?: { label: string; value: string; options: { value: string; label: ReactNode }[]; onChange: (v: string) => void };
 };
 
@@ -29,13 +29,24 @@ function useFade(enabled: boolean) {
   return { ref, fade, measure };
 }
 
-export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, backdrop, className, switcher, ...data }: TileProps) {
+function BackdropVideo({ src }: { src: string }) {
+  const [broken, setBroken] = useState(false);
+  if (broken) return null;
+  return <video src={src} muted loop autoPlay playsInline preload="auto" onError={() => setBroken(true)} />;
+}
+
+export function Tile({ label, aside, tone = "default", children, footer, scroll, dimmed, backdrop, backdropVideo, className, switcher, ...data }: TileProps) {
   const id = useId();
   const { ref, fade, measure } = useFade(!!scroll);
-  const cls = cx("vs-tile", `vs-tile--${tone}`, dimmed && "vs-tile--dimmed", backdrop && "vs-tile--backdrop", className);
+  const cls = cx("vs-tile", `vs-tile--${tone}`, dimmed && "vs-tile--dimmed", (backdrop || backdropVideo) && "vs-tile--backdrop", className);
   const body = (
     <>
-      {backdrop && <span className="vs-tile__backdrop" aria-hidden="true"><img src={backdrop} alt="" /></span>}
+      {(backdrop || backdropVideo) && (
+        <span className="vs-tile__backdrop" aria-hidden="true">
+          {backdrop && <img src={backdrop} alt="" />}
+          {backdropVideo && <BackdropVideo key={backdropVideo} src={backdropVideo} />}
+        </span>
+      )}
       {switcher ? (
         <div className="vs-tile__head">
           <Segment label={switcher.label} variant="soft" size="sm" value={switcher.value} options={switcher.options} onChange={switcher.onChange} />
