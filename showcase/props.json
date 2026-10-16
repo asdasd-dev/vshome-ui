@@ -1908,7 +1908,7 @@
       },
       {
         "name": "lead",
-        "type": "\"time\"",
+        "type": "\"time\" | \"icon\"",
         "required": false,
         "default": null,
         "deprecated": false
