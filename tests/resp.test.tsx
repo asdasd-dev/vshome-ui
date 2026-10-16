@@ -143,3 +143,24 @@ describe("правки 0.25", async () => {
     expect(allCss()).toMatch(/\.vs-segment__thumb \{[^}]*clip-path: inset\(/);
   });
 });
+
+describe("правки 0.26", async () => {
+  const { Container, Grid, PageHeader } = await import("../src");
+  const { allCss } = await import("./css");
+  it("Grid fixed — колонки ровно min шириной, прижаты к началу", () => {
+    const { container } = render(<Grid min="2xs" fixed><span>a</span></Grid>);
+    expect(container.querySelector(".vs-grid__items--fixed.vs-grid__items--min-2xs")).not.toBeNull();
+    expect(allCss()).toMatch(/\.vs-grid__items--min-2xs \{ --vs-grid-min: calc\(80px/);
+    expect(allCss()).toMatch(/\.vs-grid__items\.vs-grid__items--fixed \{ grid-template-columns: repeat\(auto-fill, min\(100%, var\(--vs-grid-min\)\)\); justify-content: start; \}/);
+  });
+  it("fixed без min не действует", () => {
+    const { container } = render(<Grid fixed cols={2}><span>a</span></Grid>);
+    expect(container.querySelector(".vs-grid__items--fixed")).toBeNull();
+  });
+  it("PageHeader в Container — без своих боковых полей", () => {
+    const { container } = render(<Container><PageHeader title="x" /></Container>);
+    expect(container.querySelector(".vs-container .vs-page-header")).not.toBeNull();
+    expect(allCss()).toMatch(/\.vs-container \{ --vs-page-header-ps: 0; --vs-page-header-pe: 0;/);
+    expect(allCss()).toMatch(/\.vs-page-header \{[^}]*var\(--vs-page-header-pe, calc\(var\(--vs-space-4\) \+ env\(safe-area-inset-right, 0px\)\)\)/);
+  });
+});

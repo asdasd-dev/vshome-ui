@@ -8,9 +8,10 @@
 .vs-grid__items--cols { --vs-grid-c: var(--vs-grid-cols, 1); grid-template-columns: repeat(var(--vs-grid-c), minmax(0, 1fr)); }
 @container (min-width: 560px) { .vs-grid__items--cols { --vs-grid-c: var(--vs-grid-cols-tablet, var(--vs-grid-cols, 1)); } }
 @container (min-width: 900px) { .vs-grid__items--cols { --vs-grid-c: var(--vs-grid-cols-desktop, var(--vs-grid-cols-tablet, var(--vs-grid-cols, 1))); } }
-.vs-grid__items--min-xs { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(160px * var(--vs-scale, 1))), 1fr)); }
-.vs-grid__items--min-sm { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(240px * var(--vs-scale, 1))), 1fr)); }
-.vs-grid__items--min-md { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(320px * var(--vs-scale, 1))), 1fr)); }
-.vs-grid__items--min-lg { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(400px * var(--vs-scale, 1))), 1fr)); }
-.vs-grid__items--min-2xs { grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(72px * var(--vs-scale, 1))), 1fr)); }
+.vs-grid__items--min-xs { --vs-grid-min: calc(160px * var(--vs-scale, 1)); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vs-grid-min)), 1fr)); }
+.vs-grid__items--min-sm { --vs-grid-min: calc(240px * var(--vs-scale, 1)); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vs-grid-min)), 1fr)); }
+.vs-grid__items--min-md { --vs-grid-min: calc(320px * var(--vs-scale, 1)); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vs-grid-min)), 1fr)); }
+.vs-grid__items--min-lg { --vs-grid-min: calc(400px * var(--vs-scale, 1)); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vs-grid-min)), 1fr)); }
+.vs-grid__items--min-2xs { --vs-grid-min: calc(80px * var(--vs-scale, 1)); grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--vs-grid-min)), 1fr)); }
 .vs-grid__items--dense { grid-auto-flow: row dense; }
+.vs-grid__items.vs-grid__items--fixed { grid-template-columns: repeat(auto-fill, min(100%, var(--vs-grid-min))); justify-content: start; }

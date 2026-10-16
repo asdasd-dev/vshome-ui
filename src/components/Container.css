@@ -1,4 +1,4 @@
-.vs-container { width: 100%; margin-inline: auto; padding-inline: calc(var(--vs-page-gutter) + env(safe-area-inset-left, 0px)) calc(var(--vs-page-gutter) + env(safe-area-inset-right, 0px)); min-width: 0; }
+.vs-container { --vs-page-header-ps: 0; --vs-page-header-pe: 0; width: 100%; margin-inline: auto; padding-inline: calc(var(--vs-page-gutter) + env(safe-area-inset-left, 0px)) calc(var(--vs-page-gutter) + env(safe-area-inset-right, 0px)); min-width: 0; }
 .vs-container--sm { max-width: calc(720px * var(--vs-scale, 1)); }
 .vs-container--md { max-width: calc(1100px * var(--vs-scale, 1)); }
 .vs-container--lg { max-width: calc(1280px * var(--vs-scale, 1)); }

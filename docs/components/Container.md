@@ -70,6 +70,10 @@
 | `Show` для лёгкой разметки | Пара `Show` с двумя тяжёлыми графиками |
 | Новый порог — в дизайн-системе | Свои `@media (max-width: 800px)` на сайте |
 
+## Новое в 0.26
+
+- [PageHeader](#/c/PageHeader) внутри `Container` без своих боковых полей (`--vs-page-header-ps` и `--vs-page-header-pe` равны 0): края шапки совпадают с краем содержимого.
+
 ## Связанные
 
 [Grid](#/c/Grid) · [Layout](#/c/Layout) · [PageHeader](#/c/PageHeader) · [Адаптивность](#/g/04b-responsive)
