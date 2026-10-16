@@ -4,7 +4,8 @@
 .vs-list-row + .vs-list-row { border-top: 1px solid var(--vs-line); }
 .vs-list-row__inner { display: flex; align-items: baseline; gap: var(--vs-space-3); width: 100%; padding: var(--vs-space-2) 0; border: 0; background: none; color: inherit; font: inherit; font-size: var(--vs-text-md); line-height: var(--vs-leading-md); text-align: left; }
 button.vs-list-row__inner { cursor: pointer; }
-.vs-list-row__lead { flex: none; color: var(--vs-muted); font-variant-numeric: tabular-nums; }
+.vs-list-row__lead { flex: none; width: var(--vs-list-lead-w, auto); color: var(--vs-muted); font-size: var(--vs-list-lead-size, inherit); line-height: var(--vs-list-lead-leading, inherit); font-variant-numeric: tabular-nums; }
+.vs-list--lead-time { --vs-list-lead-w: var(--vs-space-12); --vs-list-lead-size: var(--vs-text-sm); --vs-list-lead-leading: var(--vs-leading-sm); }
 .vs-list-row__title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .vs-list-row--two .vs-list-row__inner { align-items: flex-start; }
 .vs-list-row--two .vs-list-row__title { display: flex; flex-direction: column; white-space: normal; }
