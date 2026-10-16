@@ -3,7 +3,7 @@
 .vs-icon--md { width: var(--vs-space-5); height: var(--vs-space-5); }
 .vs-icon--lg { width: var(--vs-space-6); height: var(--vs-space-6); }
 .vs-icon--lamp { color: var(--vs-lamp); filter: drop-shadow(0 0 var(--vs-space-1) var(--vs-lamp)); }
-.vs-icon--em { width: 1em; height: 1em; }
+.vs-icon--em { width: 1em; height: 1em; vertical-align: -0.15em; }
 .vs-icon--accent { color: var(--vs-accent); }
 .vs-icon--ok { color: var(--vs-ok); }
 .vs-icon--warn { color: var(--vs-warn); }
