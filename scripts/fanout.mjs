@@ -13,10 +13,18 @@ export function taskId(out) {
   return m[1];
 }
 
-async function createTask(task, args) {
+async function createTask(task, args, fixPrefix) {
   let r = await task(["create", ...args]);
   if (r.code === 3) {
-    const ids = [...r.out.matchAll(/"id":(\d+)/g)].map((m) => m[1]);
+    const { similar } = JSON.parse(r.out.split("\n")[0]);
+    const existing = fixPrefix && similar.find((t) => t.title?.startsWith(fixPrefix) && t.status !== "done");
+    if (existing) {
+      const key = `T-${existing.id}`;
+      const comment = await task(["comment", "--id", key, "--source", SOURCE, "--text", args[args.indexOf("--body") + 1]]);
+      if (comment.code !== 0) throw new Error(`task.mjs comment: ${comment.out.slice(0, 300)}`);
+      return key;
+    }
+    const ids = similar.map((t) => t.id);
     r = await task(["create", ...args, "--not-duplicate-of", ids.join(",")]);
   }
   if (r.code !== 0) throw new Error(`task.mjs create: ${r.out.slice(0, 300)}`);
@@ -36,6 +44,20 @@ async function run(sh, cmd, cwd) {
   return r.code === 0 ? { ok: true, log: "" } : { ok: false, log: `$ ${cmd}\n${tail(r.out)}` };
 }
 
+async function install(sh, cmd, cwd, delay, log) {
+  const failures = [];
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const r = await run(sh, cmd, cwd);
+    if (r.ok) return r;
+    failures.push(`Попытка ${attempt}/3:\n${r.log}`);
+    if (attempt < 3) {
+      log(`${cwd}: установка упала (${attempt}/3), повтор`);
+      await delay(attempt * 1000);
+    }
+  }
+  return { ok: false, log: failures.join("\n\n") };
+}
+
 async function check(sh, c, web) {
   for (const cmd of [c.test, c.build]) {
     const r = await run(sh, cmd, web);
@@ -49,10 +71,10 @@ function createFixTask(task, c, tag, rollout, evidence, proposal) {
     "--source", SOURCE, "--domain", "personal-os",
     "--title", `${c.name}: не собирается с @vshome/ui ${tag}`,
     "--body", `Где: раскатка @vshome/ui ${tag} (${rollout}), ${c.repo}.\nДоказательство:\n${evidence}\nЧем грозит: сайт остаётся на прежней версии UI.\nЧто предлагаю: ${proposal}`,
-  ]);
+  ], `${c.name}: не собирается с @vshome/ui `);
 }
 
-async function rollOne({ c, tag, rollout, sh, task, log }) {
+async function rollOne({ c, tag, rollout, sh, task, log, delay }) {
   const wt = `${c.path}-ui-${tag}`;
   const tmp = `ui-${tag}-tmp`;
   const web = path.join(wt, c.web);
@@ -64,7 +86,7 @@ async function rollOne({ c, tag, rollout, sh, task, log }) {
   await must(sh, `git fetch -q ${c.remote}`, c.path);
   await must(sh, `git worktree add -q ${wt} -b ${tmp} ${c.remote}/${c.base}`, c.path);
   try {
-    const installed = await run(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web);
+    const installed = await install(sh, `npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#${tag}`, web, delay, log);
     if (!installed.ok) {
       key = await createFixTask(task, c, tag, rollout, installed.log,
         `обновить @vshome/ui до ${tag} в ${c.repo} вручную и починить установку; PR не открыт — установка упала до коммита.`);
@@ -120,7 +142,7 @@ export async function fanout({ tag, consumers, sh, task, log = console.log, dela
   const red = [];
   for (const c of consumers) {
     try {
-      const r = await rollOne({ c, tag, rollout, sh, task, log });
+      const r = await rollOne({ c, tag, rollout, sh, task, log, delay });
       if (r.ok) green.push(c.name);
       else red.push({ name: c.name, task: r.task });
     } catch (e) {

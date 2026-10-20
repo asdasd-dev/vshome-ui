@@ -24,7 +24,7 @@ function fakes({ red = [] as string[], dupFirst = false, failCmd = [] as string[
     if (args[0] === "close" && failClose) return { code: 1, out: "nope" };
     return { code: 0, out: "{}" };
   };
-  return { sh, task, cmds, tasks, log: () => {} };
+  return { sh, task, cmds, tasks, log: () => {}, delay: async () => {} };
 }
 
 describe("fanout", () => {
@@ -83,6 +83,64 @@ describe("fanout", () => {
     expect(f.cmds.some((c) => /git branch -m|git commit|git push|gh pr/.test(c))).toBe(false);
     expect(f.cmds.some((c) => c.includes("git worktree remove"))).toBe(true);
   });
+  it("временный сбой установки: третья попытка успешна, без задачи на починку", async () => {
+    const f = fakes();
+    let attempts = 0;
+    const pauses: number[] = [];
+    const sh = async (cmd: string, cwd: string) => {
+      if (cmd.startsWith("npm install") && ++attempts < 3) return { code: 1, out: "npm error ECONNRESET" };
+      return f.sh(cmd, cwd);
+    };
+    const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f, sh,
+      delay: async (ms: number) => { pauses.push(ms); } });
+    expect(r.green).toEqual(["personalai"]);
+    expect(attempts).toBe(3);
+    expect(pauses).toHaveLength(2);
+    expect(pauses.every((ms) => ms > 0)).toBe(true);
+    expect(f.tasks.filter((a) => a[0] === "create")).toHaveLength(1);
+  });
+  it("постоянный сбой установки: три попытки, в задаче логи каждой попытки", async () => {
+    const f = fakes();
+    let attempts = 0;
+    const sh = async (cmd: string, cwd: string) => {
+      if (cmd.startsWith("npm install")) return { code: 1, out: `ECONNRESET connection-${++attempts}` };
+      return f.sh(cmd, cwd);
+    };
+    const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f, sh });
+    expect(r.red).toEqual([{ name: "personalai", task: "T-302" }]);
+    expect(attempts).toBe(3);
+    const fix = f.tasks.find((a) => a[0] === "create" && a.join(" ").includes("не собирается"))!;
+    const body = fix[fix.indexOf("--body") + 1];
+    for (const n of [1, 2, 3]) expect(body).toContain(`connection-${n}`);
+    expect(body).toContain("3/3");
+    expect(f.cmds.some((c) => /git commit|git push|gh pr/.test(c))).toBe(false);
+  });
+  it("повторный сбой на новой версии дописывает открытую задачу того же сайта", async () => {
+    const f = fakes({ failCmd: ["npm install"] });
+    const similar = [
+      { id: 70, title: "personalai: не собирается с @vshome/ui v0.1.0", status: "done", domain: "personal-os" },
+      { id: 71, title: "personalai-other: не собирается с @vshome/ui v0.1.0", status: "inbox", domain: "personal-os" },
+    ];
+    const task = async (args: string[]): Promise<{ code: number; out: string }> => {
+      if (args[0] !== "create" || !args.join(" ").includes("не собирается")) return f.task(args);
+      f.tasks.push(args);
+      if (args.includes("--not-duplicate-of")) return { code: 0, out: '{"created":true,"id":302,"key":"T-302"}' };
+      return { code: 3, out: `${JSON.stringify({ created: false, similar })}\nПохожие задачи уже есть.` };
+    };
+    const first = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f, task });
+    expect(first.red).toEqual([{ name: "personalai", task: "T-302" }]);
+    similar.push({ id: 302, title: "personalai: не собирается с @vshome/ui v0.2.0", status: "doing", domain: "personal-os" });
+    f.tasks.length = 0;
+    const second = await fanout({ tag: "v0.3.0", consumers: [consumer("personalai")], ...f, task });
+    expect(second.red).toEqual([{ name: "personalai", task: "T-302" }]);
+    const fix = f.tasks.filter((a) => a[0] === "create" && a.join(" ").includes("не собирается"));
+    expect(fix).toHaveLength(1);
+    expect(fix[0]).not.toContain("--not-duplicate-of");
+    const comment = f.tasks.find((a) => a[0] === "comment")!;
+    expect(comment).toEqual(expect.arrayContaining(["--id", "T-302", "--source", "fanout"]));
+    expect(comment[comment.indexOf("--text") + 1]).toContain("v0.3.0");
+    expect(comment[comment.indexOf("--text") + 1]).toContain("boom: npm install");
+  });
   it("gh pr create упал после задачи на починку: красный с ключом починки", async () => {
     const f = fakes({ red: ["personalai"], failCmd: ["gh pr create"] });
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
@@ -98,7 +156,7 @@ describe("fanout", () => {
   });
   it("закрытие задачи не удалось во всех попытках: в сводке «не закрыта»", async () => {
     const f = fakes({ failClose: true });
-    const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], delay: async () => {}, ...f });
+    const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
     expect(f.tasks.filter((a) => a[0] === "close")).toHaveLength(3);
     expect(summary("v0.2.0", r)).toContain("не закрыта");
   });
