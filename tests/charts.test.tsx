@@ -64,6 +64,30 @@ describe("LineChart", () => {
     expect(t).toContain("↻ рестарт");
   });
 
+  it("hidden: скрытый ряд не рисуется и не влияет на шкалу", () => {
+    const { container } = render(<LineChart t0={t0} step={3600} hidden={["b"]}
+      series={[{ name: "a", color: "#f00", data: [1, 2, 3] }, { name: "b", color: "#00f", data: [100, 200, 300] }]} />);
+    expect(container.querySelectorAll("path[stroke='#00f']")).toHaveLength(0);
+    expect(container.querySelectorAll("path[stroke='#f00']")).toHaveLength(1);
+    const axis = [...container.querySelectorAll("text")].map((t) => Number(t.textContent));
+    expect(Math.max(...axis.filter((v) => !Number.isNaN(v)))).toBeLessThan(10);
+  });
+
+  it("robust: выброс упирается в верх и отмечен", () => {
+    const data = [...Array.from({ length: 20 }, (_, i) => 10 + i), 2000];
+    const { container } = render(<LineChart t0={t0} step={3600} robust series={[{ name: "a", color: "#f00", data }]} />);
+    const axis = [...container.querySelectorAll("text")].map((t) => t.textContent);
+    expect(axis).toContain("40");
+    expect(container.querySelectorAll(".vs-chart-clip")).toHaveLength(1);
+  });
+
+  it("короткий период — метки часов", () => {
+    const start = new Date(2026, 9, 1, 12, 0).getTime() / 1000;
+    const { container } = render(<LineChart t0={start} step={600} series={[{ name: "a", color: "#f00", data: Array(37).fill(1) }]} />);
+    const labels = [...container.querySelectorAll("text")].map((t) => t.textContent).filter((t) => /^\d\d:\d\d$/.test(t!));
+    expect(labels).toEqual(["12:00", "15:00", "18:00"]);
+  });
+
   it("метки дней — полуночи", () => {
     const { container } = render(<LineChart t0={t0} step={43200} series={[{ name: "a", color: "#f00", data: [1, 2, 3, 4] }]} />);
     const labels = [...container.querySelectorAll("text")].map((t) => t.textContent).filter((t) => /\d\d\.\d\d/.test(t!));
@@ -89,6 +113,17 @@ describe("StackedBars", () => {
 });
 
 describe("ChartCard", () => {
+  it("onToggle: пункты легенды — кнопки, скрытый не нажат", () => {
+    const toggled: string[] = [];
+    render(<ChartCard title="Задержка" hidden={["b"]} onToggle={(n) => toggled.push(n)}
+      legend={[{ name: "a", color: "#f00" }, { name: "b", color: "#00f" }]} />);
+    const a = screen.getByRole("button", { name: /a/ }), b = screen.getByRole("button", { name: /b/ });
+    expect(a.getAttribute("aria-pressed")).toBe("true");
+    expect(b.getAttribute("aria-pressed")).toBe("false");
+    fireEvent.click(b);
+    expect(toggled).toEqual(["b"]);
+  });
+
   it("заголовок, подзаголовок, легенда с пометкой", () => {
     render(<ChartCard title="Диск" sub="растёт" legend={[{ name: "занято", color: "#f00", extra: "доступен 99%" }]} />);
     expect(screen.getByText("Диск")).toBeInTheDocument();

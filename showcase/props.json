@@ -3552,6 +3552,20 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "hidden",
+        "type": "string[]",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "robust",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
       }
     ],
     "inherits": null
@@ -3721,6 +3735,47 @@
       {
         "name": "children",
         "type": "ReactNode",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hidden",
+        "type": "string[]",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onToggle",
+        "type": "(name: string) => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      }
+    ],
+    "inherits": null
+  },
+  "ChartLegend": {
+    "file": "src/charts/ChartCard.tsx",
+    "props": [
+      {
+        "name": "items",
+        "type": "LegendItem[]",
+        "required": true,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "hidden",
+        "type": "string[]",
+        "required": false,
+        "default": "[]",
+        "deprecated": false
+      },
+      {
+        "name": "onToggle",
+        "type": "(name: string) => void",
         "required": false,
         "default": null,
         "deprecated": false
