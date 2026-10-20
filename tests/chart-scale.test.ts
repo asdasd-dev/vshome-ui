@@ -1,4 +1,4 @@
-import { dayTicks, fmtStamp, linePath, niceMax, outageBands } from "../src/charts/scale";
+import { dayTicks, fmtStamp, linePath, niceMax, outageBands, robustMax, timeTicks } from "../src/charts/scale";
 import { compact, plural } from "../src/utils/number";
 
 describe("niceMax", () => {
@@ -61,5 +61,34 @@ describe("compact", () => {
     expect(compact(34_400)).toBe("34k");
     expect(compact(999)).toBe("999");
     expect(compact(0)).toBe("0");
+  });
+});
+
+describe("robustMax", () => {
+  it("редкий выброс не задирает шкалу: верх по 95-му перцентилю", () => {
+    const vals = [...Array.from({ length: 20 }, (_, i) => 10 + i), 2000];
+    expect(robustMax(vals)).toBe(40);
+  });
+  it("без выбросов — как niceMax по максимуму", () => {
+    expect(robustMax([10, 20, 30, 95])).toBe(niceMax(95 * 1.05));
+  });
+  it("пустой ряд — 4", () => {
+    expect(robustMax([])).toBe(4);
+  });
+});
+
+describe("timeTicks", () => {
+  it("до полутора суток — метки часов «ЧЧ:ММ» каждые 3 часа", () => {
+    const t0 = new Date(2026, 9, 1, 12, 0).getTime() / 1000;
+    const ticks = timeTicks(t0, 600, 37);
+    expect(ticks.map((t) => t.label)).toEqual(["12:00", "15:00", "18:00"]);
+  });
+  it("сутки — каждые 6 часов", () => {
+    const t0 = new Date(2026, 9, 1, 0, 0).getTime() / 1000;
+    expect(timeTicks(t0, 1800, 49).map((t) => t.label)).toEqual(["00:00", "06:00", "12:00", "18:00", "00:00"]);
+  });
+  it("дольше — полуночи «ДД.ММ»", () => {
+    const t0 = new Date(2026, 9, 1, 0, 0).getTime() / 1000;
+    expect(timeTicks(t0, 43200, 4).map((t) => t.label)).toEqual(["01.10", "02.10"]);
   });
 });

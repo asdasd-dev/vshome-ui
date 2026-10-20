@@ -3,6 +3,10 @@
 .vs-chart-sub { color: var(--vs-muted); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); margin-top: var(--vs-space-0_5); }
 .vs-chart-legend { display: flex; flex-wrap: wrap; gap: var(--vs-space-1) var(--vs-space-3); font-size: var(--vs-text-xs); margin-top: var(--vs-space-2); }
 .vs-chart-legend em { color: var(--vs-muted); font-style: normal; }
+.vs-chart-legend-item { all: unset; cursor: pointer; border-radius: var(--vs-radius-xs); }
+.vs-chart-legend-item:focus-visible { outline: var(--vs-focus-ring); }
+.vs-chart-legend-item[aria-pressed="false"] { opacity: 0.4; text-decoration: line-through; }
+.vs-chart-clip { stroke: var(--vs-panel); stroke-width: 1.5; }
 .vs-chart-legend i, .vs-chart-tip i { display: inline-block; width: calc(10px * var(--vs-scale, 1)); height: calc(3px * var(--vs-scale, 1)); border-radius: var(--vs-radius-xs); margin-right: var(--vs-space-1_5); vertical-align: middle; }
 .vs-chart { position: relative; margin-top: var(--vs-space-1_5); }
 .vs-chart-view svg { display: block; max-width: 100%; height: auto; touch-action: pan-y; }

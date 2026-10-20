@@ -18,6 +18,29 @@ export function dayTicks(t0: number, step: number, n: number, every?: number): n
   return every ? days.filter((_, j) => j % every === 0) : days;
 }
 
+export function robustMax(values: number[]): number {
+  if (!values.length) return 4;
+  const s = [...values].sort((a, b) => a - b);
+  const top = s[s.length - 1]!;
+  const p95 = s[Math.max(0, Math.ceil(0.95 * s.length) - 1)]!;
+  return top > p95 * 1.5 ? niceMax(p95 * 1.3) : niceMax(top * 1.05);
+}
+
+export type Tick = { i: number; label: string };
+
+/** t0 и step — в секундах */
+export function timeTicks(t0: number, step: number, n: number, every?: number): Tick[] {
+  const span = (n - 1) * step;
+  if (span >= 36 * 3600) return dayTicks(t0, step, n, every).map((i) => ({ i, label: fmtStamp(t0 + i * step).slice(0, 5) }));
+  const h = span > 12 * 3600 ? 6 : 3;
+  const ticks: Tick[] = [];
+  for (let i = 0; i < n; i++) {
+    const d = new Date((t0 + i * step) * 1000);
+    if (d.getMinutes() === 0 && d.getHours() % h === 0) ticks.push({ i, label: fmtStamp(t0 + i * step).slice(6) });
+  }
+  return ticks;
+}
+
 export function outageBands(alive: (number | null)[]): [number, number][] {
   const bands: [number, number][] = [];
   let start: number | null = null;

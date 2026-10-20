@@ -1,6 +1,6 @@
 import { useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
-import { dayTicks, fmtStamp, linePath, niceMax } from "./scale";
+import { fmtStamp, linePath, niceMax, robustMax, timeTicks } from "./scale";
 import { CHART_H as H, PAD, pointerX, useTipLeft, useWidth, type TipPos } from "./useChartFrame";
 
 export type Series = { name: string; color: string; data: (number | null)[]; fmt?: (v: number) => string };
@@ -21,6 +21,8 @@ export type LineChartProps = {
   connect?: boolean;
   xEvery?: number;
   note?: (i: number) => string;
+  hidden?: string[];
+  robust?: boolean;
 };
 
 const { L, R, T, B } = PAD;
@@ -32,13 +34,14 @@ export function LineChart(p: LineChartProps) {
   const tipRef = useTipLeft(hover);
 
   const W = Math.max(280, width);
+  const shown = p.series.filter((s) => !p.hidden?.includes(s.name));
   const n = Math.max(0, ...p.series.map((s) => s.data.length));
-  const top = Math.max(0, ...p.series.flatMap((s) => s.data.filter((v): v is number => v != null)));
-  const max = p.yMax || niceMax(top * 1.05);
+  const vals = shown.flatMap((s) => s.data.filter((v): v is number => v != null));
+  const max = p.yMax || (p.robust ? robustMax(vals) : niceMax(Math.max(0, ...vals) * 1.05));
   const x = (i: number) => L + ((W - L - R) * i) / Math.max(1, n - 1);
   const y = (v: number) => T + (H - T - B) * (1 - Math.min(v, max) / max);
-  const days = dayTicks(p.t0, p.step, n, p.xEvery);
-  const hasValue = (j: number) => p.series.some((s) => s.data[j] != null);
+  const ticks = timeTicks(p.t0, p.step, n, p.xEvery);
+  const hasValue = (j: number) => shown.some((s) => s.data[j] != null);
 
   function move(ev: React.MouseEvent | React.TouchEvent) {
     const svg = svgRef.current;
@@ -61,7 +64,7 @@ export function LineChart(p: LineChartProps) {
     tip = (
       <>
         <b>{fmtStamp(p.t0 + i * p.step)}</b>
-        {p.series.map((s) => {
+        {shown.map((s) => {
           const v = s.data[i];
           return <span key={s.name}><br /><i style={{ background: s.color }} />{s.name}: {v == null ? "—" : s.fmt ? s.fmt(v) : v}</span>;
         })}
@@ -92,23 +95,24 @@ export function LineChart(p: LineChartProps) {
                 </g>
               );
             })}
-            {days.map((i) => (
-              <text key={i} className="vs-chart-axis" x={x(i)} y={H - 6} textAnchor="middle">{fmtStamp(p.t0 + i * p.step).slice(0, 5)}</text>
+            {ticks.map((t) => (
+              <text key={t.i} className="vs-chart-axis" x={x(t.i)} y={H - 6} textAnchor="middle">{t.label}</text>
             ))}
             {(p.marks ?? []).filter((m) => m.i >= 0 && m.i < n).map((m, k) => (
               <line key={k} className={m.dashed ? "vs-chart-restart" : "vs-chart-mark"} x1={x(m.i)} x2={x(m.i)} y1={T} y2={H - B} />
             ))}
-            {p.series.map((s) => (
+            {shown.map((s) => (
               <g key={s.name}>
                 {p.connect && s.data.map((v, i) => v != null && <circle key={i} className="vs-chart-dot" cx={x(i)} cy={y(v)} r={3} fill={s.color} strokeWidth={1.5} />)}
                 <path d={linePath(s.data, x, y, !!p.connect)} fill="none" stroke={s.color} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
                 {s.data.map((v, i) => v != null && (i === 0 || s.data[i - 1] == null) && (i === n - 1 || s.data[i + 1] == null) && (
                   <circle key={`s${i}`} cx={x(i)} cy={y(v)} r={2.5} fill={s.color} />
                 ))}
+                {s.data.map((v, i) => v != null && v > max && <circle key={`c${i}`} className="vs-chart-clip" cx={x(i)} cy={T} r={3} fill={s.color} />)}
               </g>
             ))}
             {hover && <line className="vs-chart-cross" x1={x(hover.i)} x2={x(hover.i)} y1={T} y2={H - B} />}
-            {hover && p.series.map((s) => {
+            {hover && shown.map((s) => {
               const v = s.data[hover.i];
               return v != null && <circle key={s.name} className="vs-chart-dot" r={4} cx={x(hover.i)} cy={y(v)} fill={s.color} strokeWidth={2} />;
             })}
