@@ -28,6 +28,43 @@ function fakes({ red = [] as string[], dupFirst = false, failCmd = [] as string[
 }
 
 describe("fanout", () => {
+  it("проверяет два сайта одновременно, третий ждёт свободного потока", async () => {
+    const f = fakes();
+    const started: string[] = [];
+    const release: Array<() => void> = [];
+    let waiting = true;
+    const sh = async (cmd: string, cwd: string) => {
+      if (cmd === "npm test" && waiting) {
+        started.push(cwd);
+        await new Promise<void>((resolve) => release.push(resolve));
+      }
+      return f.sh(cmd, cwd);
+    };
+    const running = fanout({ tag: "v0.2.0", consumers: [consumer("one"), consumer("two"), consumer("three")], ...f, sh });
+    try {
+      await vi.waitFor(() => expect(started).toHaveLength(2));
+      expect(started.every((cwd) => !cwd.includes("/three-"))).toBe(true);
+      release[1]!();
+      await vi.waitFor(() => expect(started).toHaveLength(3));
+    } finally {
+      waiting = false;
+      for (const done of release) done();
+    }
+    expect((await running).green).toEqual(["one", "two", "three"]);
+  });
+  it("мёржит номер созданного PR через штатный локальный CI-клиент", async () => {
+    const f = fakes();
+    await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
+    expect(f.cmds.some((cmd) => /node .*scripts\/merge-pr\.mjs.* asdasd-dev\/personalai 7$/.test(cmd))).toBe(true);
+    expect(f.cmds.some((cmd) => cmd.includes("gh pr merge"))).toBe(false);
+  });
+  it("не мёржит PR, если создание не вернуло его URL", async () => {
+    const f = fakes();
+    const sh = async (cmd: string, cwd: string) => cmd.startsWith("gh pr create") ? { code: 0, out: "unknown" } : f.sh(cmd, cwd);
+    const result = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f, sh });
+    expect(result.red).toEqual([{ name: "personalai", task: "T-301" }]);
+    expect(f.cmds.some((cmd) => cmd.includes("scripts/merge-pr.mjs"))).toBe(false);
+  });
   it("зелёный сайт: бамп, тесты и сборка до push, ветка раскатки, PR и автомёрж; задача раскатки закрыта", async () => {
     const f = fakes();
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
@@ -37,7 +74,7 @@ describe("fanout", () => {
     expect(order.indexOf("npm test")).toBeLessThan(order.findIndex((c) => c.startsWith("git push")));
     expect(f.cmds).toContain(`${wt}/web $ npm install --save-exact @vshome/ui@github:asdasd-dev/vshome-ui#v0.2.0`);
     expect(f.cmds.some((c) => c.includes("git push -q -u github T-301-ui-v0.2.0"))).toBe(true);
-    expect(f.cmds.some((c) => c.startsWith(`${wt} $ gh pr merge`) && c.includes("--squash"))).toBe(true);
+    expect(f.cmds.some((c) => c.startsWith(`${wt} $ node `) && c.includes("scripts/merge-pr.mjs"))).toBe(true);
     expect(f.cmds.some((c) => c.includes("git worktree remove"))).toBe(true);
     expect(f.cmds.some((c) => c.includes("--delete-branch"))).toBe(false);
     expect(f.cmds.some((c) => c.includes("git push -q github --delete T-301-ui-v0.2.0"))).toBe(true);
@@ -148,7 +185,7 @@ describe("fanout", () => {
     expect(f.cmds.some((c) => c.includes("gh pr merge"))).toBe(false);
   });
   it("зелёный, но gh pr merge упал: красный с ключом раскатки, задача не закрыта", async () => {
-    const f = fakes({ failCmd: ["gh pr merge"] });
+    const f = fakes({ failCmd: ["node "] });
     const r = await fanout({ tag: "v0.2.0", consumers: [consumer("personalai")], ...f });
     expect(r.red).toEqual([{ name: "personalai", task: "T-301" }]);
     expect(f.tasks.some((a) => a[0] === "close")).toBe(false);
