@@ -6,6 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const SOURCE = "fanout";
+const MERGE_CLI = path.join(os.homedir(), "personalai", "scripts", "merge-pr.mjs");
 
 export function taskId(out) {
   const m = /"key":"(T-\d+)"/.exec(out);
@@ -107,12 +108,14 @@ async function rollOne({ c, tag, rollout, sh, task, log, delay }) {
     await must(sh, `git commit -q -m "${key} @vshome/ui ${tag}" -m "Раскатка ${rollout}."`, wt);
     await must(sh, `git push -q -u ${c.remote} ${branch}`, wt);
     const title = result.ok ? `[${key}] @vshome/ui ${tag}` : `[${key}] @vshome/ui ${tag} — не собирается`;
-    await must(sh, `gh pr create --repo ${c.repo} --base ${c.base} --head ${branch} --title "${title}" --body "Раскатка @vshome/ui ${tag} (${rollout})."`, wt);
+    const pr = await must(sh, `gh pr create --repo ${c.repo} --base ${c.base} --head ${branch} --title "${title}" --body "Раскатка @vshome/ui ${tag} (${rollout})."`, wt);
     if (!result.ok) {
       log(`${c.name}: красный → ${key}`);
       return { ok: false, task: key };
     }
-    const merged = await sh(`gh pr merge ${branch} --repo ${c.repo} --squash`, wt);
+    const number = /\/pull\/(\d+)\s*$/.exec(pr)?.[1];
+    if (!number) throw new Error(`gh pr create не вернул URL PR: ${pr.slice(-300)}`);
+    const merged = await sh(`node "${MERGE_CLI}" ${c.repo} ${number}`, wt);
     if (merged.code !== 0) {
       log(`${c.name}: мёрж не удался — ${merged.out.slice(-300)}`);
       return { ok: false, task: rollout };
@@ -140,15 +143,24 @@ export async function fanout({ tag, consumers, sh, task, log = console.log, dela
   ]);
   const green = [];
   const red = [];
-  for (const c of consumers) {
-    try {
-      const r = await rollOne({ c, tag, rollout, sh, task, log, delay });
-      if (r.ok) green.push(c.name);
-      else red.push({ name: c.name, task: r.task });
-    } catch (e) {
-      log(`${c.name}: ошибка раскатки — ${e.message}`);
-      red.push({ name: c.name, task: "—" });
+  const results = new Array(consumers.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(2, consumers.length) }, async () => {
+    while (next < consumers.length) {
+      const i = next++;
+      const c = consumers[i];
+      try {
+        results[i] = await rollOne({ c, tag, rollout, sh, task, log, delay });
+      } catch (e) {
+        log(`${c.name}: ошибка раскатки — ${e.message}`);
+        results[i] = { ok: false, task: "—" };
+      }
     }
+  }));
+  for (const [i, c] of consumers.entries()) {
+    const r = results[i];
+    if (r.ok) green.push(c.name);
+    else red.push({ name: c.name, task: r.task });
   }
   const result = { rollout, green, red };
   let closed = false;
