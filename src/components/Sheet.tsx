@@ -1,4 +1,4 @@
-import { useEffect, useRef, type PointerEvent, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode, type TouchEvent } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Drawer } from "@base-ui/react/drawer";
 import { cx } from "../utils/cx";
@@ -50,7 +50,8 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
   }).current;
   useAndroidBack(open, requestClose);
   const onOpenChange = sheetOpenChange(requestClose);
-  const onBackdropUp = (e: PointerEvent) => { if (e.pointerType === "touch") requestClose(); };
+  // отменённый touchend не даёт браузеру прислать click: фон к нему уже без pointer-events, и click попал бы в элемент под листом
+  const onBackdropTouchEnd = (e: TouchEvent) => { e.preventDefault(); requestClose(); };
   const Parts = mobile ? Drawer : Dialog;
   const frame = (
     <>
@@ -70,7 +71,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
       <Drawer.Root open={open} onOpenChange={onOpenChange}>
         <Drawer.VirtualKeyboardProvider>
           <Drawer.Portal>
-            <Drawer.Backdrop className="vs-sheet-backdrop" onPointerUp={onBackdropUp} />
+            <Drawer.Backdrop className="vs-sheet-backdrop" onTouchEnd={onBackdropTouchEnd} />
             <Drawer.Viewport className="vs-sheet-viewport">
               <Drawer.Popup className={cx("vs-sheet", "vs-sheet--drawer", className)}>
                 <span className="vs-sheet__grip" aria-hidden="true" />
@@ -85,7 +86,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className="vs-sheet-backdrop" onPointerUp={onBackdropUp} />
+        <Dialog.Backdrop className="vs-sheet-backdrop" onTouchEnd={onBackdropTouchEnd} />
         <Dialog.Popup className={cx("vs-sheet", className)}>{frame}</Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>

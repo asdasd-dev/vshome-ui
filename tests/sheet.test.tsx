@@ -115,9 +115,15 @@ describe("Sheet: касание фона пальцем", () => {
     const onRequest = vi.fn();
     render(<Harness onRequest={onRequest} />);
     const backdrop = document.querySelector(".vs-sheet-backdrop")!;
-    fireEvent.pointerDown(backdrop, { pointerType: "touch" });
-    fireEvent.pointerUp(backdrop, { pointerType: "touch" });
+    fireEvent.touchStart(backdrop);
+    fireEvent.touchEnd(backdrop);
     await waitFor(() => expect(onRequest).toHaveBeenCalledTimes(1));
+  });
+  it("отменяет touchend, чтобы click после касания не попал в элемент под фоном", () => {
+    render(<Harness />);
+    const backdrop = document.querySelector(".vs-sheet-backdrop")!;
+    fireEvent.touchStart(backdrop);
+    expect(fireEvent.touchEnd(backdrop)).toBe(false);
   });
   it("мышь по-прежнему закрывает только кликом Base UI", () => {
     const onRequest = vi.fn();
