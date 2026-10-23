@@ -1,34 +1,25 @@
-import { useCallback, useEffect, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useLayoutEffect, useSyncExternalStore } from "react";
 import { storage } from "./useLocalStorage";
 import { useMediaQuery } from "./useMediaQuery";
+import { SYSTEM_DARK, THEME_DEFAULTS, type ThemeChoice, type ThemeConfig } from "../node/theme-boot";
 
-export type ThemeChoice = "light" | "dark" | "system";
-export type ThemeOptions = { key?: string; fallback?: ThemeChoice; themeColor?: { light: string; dark: string } };
+export { themeBootScript, type ThemeChoice, type ThemeConfig } from "../node/theme-boot";
+export type ThemeOptions = ThemeConfig & { themeColor?: { light: string; dark: string } };
 
 const listeners = new Set<() => void>();
 const isChoice = (v: string | null): v is ThemeChoice => v === "light" || v === "dark" || v === "system";
 
-export function readTheme(key = "vs-theme", fallback: ThemeChoice = "system"): ThemeChoice {
+export function readTheme({ key = THEME_DEFAULTS.key, fallback = THEME_DEFAULTS.fallback }: ThemeConfig = {}): ThemeChoice {
   const v = storage.get(key, "");
   return isChoice(v) ? v : fallback;
 }
 
-export function applyTheme(choice: ThemeChoice) {
-  const root = document.documentElement;
-  if (choice === "system") delete root.dataset.theme;
-  else root.dataset.theme = choice;
-}
-
-export function themeBootScript(key = "vs-theme", fallback: ThemeChoice = "system"): string {
-  return `try{var t=localStorage.getItem(${JSON.stringify(key)});if(t!=="light"&&t!=="dark"&&t!=="system")t=${JSON.stringify(fallback)};if(t!=="system")document.documentElement.dataset.theme=t}catch(e){${fallback === "system" ? "" : `document.documentElement.dataset.theme=${JSON.stringify(fallback)}`}}`;
-}
-
-export function useTheme({ key = "vs-theme", fallback = "system", themeColor }: ThemeOptions = {}) {
+export function useTheme({ key = THEME_DEFAULTS.key, fallback = THEME_DEFAULTS.fallback, themeColor }: ThemeOptions = {}) {
   const subscribe = useCallback((notify: () => void) => { listeners.add(notify); return () => { listeners.delete(notify); }; }, []);
-  const value = useSyncExternalStore(subscribe, () => readTheme(key, fallback), () => fallback);
-  const systemDark = useMediaQuery("(prefers-color-scheme: dark)");
-  const resolved: "light" | "dark" = value === "system" ? (systemDark ? "dark" : "light") : value;
-  useEffect(() => applyTheme(value), [value]);
+  const choice = useSyncExternalStore(subscribe, () => readTheme({ key, fallback }), () => fallback);
+  const systemDark = useMediaQuery(SYSTEM_DARK);
+  const resolved: "light" | "dark" = choice === "system" ? (systemDark ? "dark" : "light") : choice;
+  useLayoutEffect(() => { document.documentElement.dataset.theme = resolved; }, [resolved]);
   useEffect(() => {
     if (!themeColor) return;
     let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
@@ -36,5 +27,5 @@ export function useTheme({ key = "vs-theme", fallback = "system", themeColor }: 
     meta.content = themeColor[resolved];
   }, [resolved, themeColor?.light, themeColor?.dark]);
   const set = useCallback((next: ThemeChoice) => { storage.set(key, next); for (const l of listeners) l(); }, [key]);
-  return { value, set, resolved };
+  return { choice, set, resolved };
 }

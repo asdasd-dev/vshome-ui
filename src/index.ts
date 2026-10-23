@@ -61,4 +61,4 @@ export { ContextMenu, type ContextMenuProps, type ContextMenuEntry, type Context
 export { storage, useLocalStorage } from "./hooks/useLocalStorage";
 export { useMediaQuery } from "./hooks/useMediaQuery";
 export { useAction, ACTION_FAILED_MS } from "./hooks/useAction";
-export { useTheme, readTheme, applyTheme, themeBootScript, type ThemeChoice, type ThemeOptions } from "./hooks/useTheme";
+export { useTheme, readTheme, themeBootScript, type ThemeChoice, type ThemeConfig, type ThemeOptions } from "./hooks/useTheme";

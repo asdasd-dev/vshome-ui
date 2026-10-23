@@ -143,7 +143,7 @@ function App() {
 }
 
 function Catalog({ route }: { route: Exclude<Route, { kind: "frame" }> }) {
-  const { value: theme, set: setTheme } = useTheme({ key: "cat.theme" });
+  const { choice: themeChoice, set: setTheme, resolved: theme } = useTheme({ key: "cat.theme" });
   const [kiosk, setKiosk] = useState(() => localStorage.getItem("cat.kiosk") === "1");
   const [query, setQuery] = useState("");
   const [menu, setMenu] = useState(false);
@@ -154,7 +154,7 @@ function Catalog({ route }: { route: Exclude<Route, { kind: "frame" }> }) {
   const guide = route.kind === "guide" ? guides.find((g) => g.slug === route.slug) : undefined;
   const guideHtml = useMemo(() => (guide ? html(guide.md) : ""), [guide]);
   const nav = <Nav query={query} route={route} />;
-  const controls = <><ThemeSwitch size={phone ? "sm" : "md"} value={theme} onChange={setTheme} />
+  const controls = <><ThemeSwitch size={phone ? "sm" : "md"} value={themeChoice} onChange={setTheme} />
                     <Cluster gap="2"><Text variant="caption" tone="muted">Киоск</Text><Switch label="Киоск" checked={kiosk} onChange={setKiosk} /></Cluster></>;
   const search = <TextField label="Поиск" hideLabel type="search" placeholder="Найти компонент" value={query} onChange={setQuery} size="sm" />;
   return (
