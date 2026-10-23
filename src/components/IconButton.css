@@ -5,7 +5,7 @@
 .vs-icon-button:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
 @media (hover: hover) { .vs-icon-button:hover:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }
 .vs-icon-button--sm { min-width: calc(32px * var(--vs-scale, 1)); min-height: calc(32px * var(--vs-scale, 1)); }
-.vs-icon-button--ghost { background: transparent; color: var(--vs-icon-button-ghost-fg, var(--vs-ink)); }
+.vs-icon-button--ghost { background: var(--vs-ghost-bg); color: var(--vs-icon-button-ghost-fg, var(--vs-ink)); }
 .vs-icon-button[aria-busy="true"] { cursor: progress; }
 .vs-icon-button:active:not(:disabled), .vs-icon-button[aria-busy="true"]:active { box-shadow: inset 0 0 0 100vmax var(--vs-press); transform: scale(var(--vs-press-scale)); }
 .vs-icon-button[aria-busy="true"]:disabled { opacity: 1; }

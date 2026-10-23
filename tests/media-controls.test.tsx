@@ -13,17 +13,15 @@ describe("Seek", () => {
     expect(r).toHaveAttribute("aria-valuetext", "1:26 из 4:23");
     expect(screen.getByText("1:26")).toBeTruthy();
     expect(screen.getByText("4:23")).toBeTruthy();
-    fireEvent.pointerDown(r);
     fireEvent.change(r, { target: { value: "200" } });
     expect(screen.getByText("3:20")).toBeTruthy();
     expect(onCommit).not.toHaveBeenCalled();
-    fireEvent.pointerUp(r);
+    fireEvent.blur(r);
     expect(onCommit).toHaveBeenCalledWith(200);
   });
   it("пока палец на полосе, новое value сверху не сбивает положение", () => {
     const { rerender } = render(<Seek label="x" value={10} max={100} onCommit={() => undefined} />);
     const r = screen.getByRole("slider");
-    fireEvent.pointerDown(r);
     fireEvent.change(r, { target: { value: "50" } });
     rerender(<Seek label="x" value={11} max={100} onCommit={() => undefined} />);
     expect(screen.getByText("0:50")).toBeTruthy();
@@ -58,7 +56,7 @@ describe("Slider line", () => {
     expect(container.querySelector(".vs-slider-line [data-icon=\"volume\"]")).not.toBeNull();
     expect(container.querySelector(".vs-slider__value")).toBeNull();
     fireEvent.change(r, { target: { value: "30" } });
-    fireEvent.pointerUp(r);
+    fireEvent.blur(r);
     expect(onCommit).toHaveBeenCalledWith(30);
   });
 });

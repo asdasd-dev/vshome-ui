@@ -1,6 +1,7 @@
 import { Children, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Text } from "./Text";
+import { Icon } from "./Icon";
 
 export type ListProps = {
   children: ReactNode; label?: ReactNode; max?: number; fit?: boolean; onMore?: () => void; empty?: ReactNode; divided?: boolean; lead?: "time" | "icon"; className?: string;
@@ -82,6 +83,7 @@ export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLine
         <span className="vs-list-row__title"><span className={cx("vs-list-row__name", titleLines === 2 && "vs-list-row__name--2")}>{title}</span><span className={cx("vs-list-row__sub", `vs-list-row__sub--${subTone}`, subLines > 1 && `vs-list-row__sub--${subLines}`)}>{sub}</span></span>
       ) : <span className={cx("vs-list-row__title", titleLines === 2 && "vs-list-row__title--2")}>{title}</span>}
       {meta != null && meta !== false && <span className="vs-list-row__meta">{meta}</span>}
+      {(onClick || href != null) && <Icon name="chevron-right" size="sm" className="vs-list-row__go" />}
     </>
   );
   return (

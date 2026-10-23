@@ -1,24 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { useRangeGesture } from "./useRangeGesture";
 
-export function useRangeCommit(value: number, onCommit: (v: number) => void) {
+export type RangeCommitOptions = { min: number; max: number; step: number; vertical?: boolean; disabled?: boolean };
+
+export function useRangeCommit(value: number, onCommit: (v: number) => void, range: RangeCommitOptions) {
   const [v, setV] = useState(value);
+  const current = useRef(value);
   const dragging = useRef(false);
   const sent = useRef(value);
   useEffect(() => {
     sent.current = value;
-    if (!dragging.current) setV(value);
+    if (!dragging.current) { current.current = value; setV(value); }
   }, [value]);
+  const set = (n: number) => { dragging.current = true; current.current = n; setV(n); };
   const commit = () => {
     dragging.current = false;
-    if (v === sent.current) return;
-    sent.current = v;
-    onCommit(v);
+    if (current.current === sent.current) return;
+    sent.current = current.current;
+    onCommit(current.current);
   };
-  const input = {
-    value: v,
-    onPointerDown: () => { dragging.current = true; },
-    onChange: (e: { target: { value: string } }) => setV(Number(e.target.value)),
-    onPointerUp: commit, onPointerCancel: commit, onKeyUp: commit, onTouchEnd: commit,
-  };
-  return { v, input };
+  const track = useRangeGesture({ ...range, onMove: set, onEnd: commit });
+  const input = { value: v, onChange: (e: { target: { value: string } }) => set(Number(e.target.value)), onKeyUp: commit, onBlur: commit };
+  return { v, input, track };
 }
