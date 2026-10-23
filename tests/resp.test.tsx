@@ -210,10 +210,6 @@ describe("правки 0.38", async () => {
 
 describe("правки 0.41", async () => {
   const { allCss } = await import("./css");
-  it("в киоске перенос строк списка по символам — переменной на .vs-kiosk", () => {
-    expect(allCss()).toMatch(/\.vs-list-row__name, \.vs-list-row__sub \{[^}]*word-break: var\(--vs-list-break, normal\)/);
-    expect(allCss()).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-list-break: break-all/);
-  });
   it("lead=time — колонка ближе к названию", () => {
     expect(allCss()).toMatch(/\.vs-list--lead-time \{[^}]*--vs-list-gap: var\(--vs-space-2\)/);
     expect(allCss()).toMatch(/\.vs-list-row__inner \{[^}]*gap: var\(--vs-list-gap, var\(--vs-space-3\)\)/);
@@ -236,5 +232,19 @@ describe("правки 0.45", async () => {
   it("двухстрочная строка: колонка слева и название по базовой линии, значок — по центру первой строки", () => {
     expect(allCss()).toMatch(/\.vs-list-row--two \.vs-list-row__lead, \.vs-list-row--two \.vs-list-row__title \{ align-self: baseline; \}/);
     expect(allCss()).toMatch(/\.vs-list--lead-icon \.vs-list-row__lead \{[^}]*height: var\(--vs-leading-md\)/);
+  });
+});
+
+describe("правки 0.56", async () => {
+  const { allCss } = await import("./css");
+  it("в киоске строки списка переносятся по словам и слогам, по символам только длинные токены", () => {
+    for (const sel of [/\.vs-list-row__title \{[^}]*/, /\.vs-list-row__name, \.vs-list-row__sub \{[^}]*/]) {
+      const rule = allCss().match(sel)?.[0] ?? "";
+      expect(rule).toMatch(/overflow-wrap: var\(--vs-list-wrap, normal\)/);
+      expect(rule).toMatch(/hyphens: var\(--vs-list-hyphens, manual\)/);
+      expect(rule).not.toMatch(/word-break/);
+    }
+    expect(allCss()).toMatch(/(?:^|\n)\.vs-kiosk \{[^}]*--vs-list-wrap: anywhere; --vs-list-hyphens: auto/);
+    expect(allCss()).not.toMatch(/break-all/);
   });
 });

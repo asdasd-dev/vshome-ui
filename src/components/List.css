@@ -7,12 +7,12 @@ button.vs-list-row__inner { cursor: pointer; }
 .vs-list-row__lead { flex: none; width: var(--vs-list-lead-w, auto); color: var(--vs-muted); font-size: var(--vs-list-lead-size, inherit); line-height: var(--vs-list-lead-leading, inherit); font-variant-numeric: tabular-nums; }
 .vs-list--lead-time { --vs-list-lead-w: var(--vs-space-12); --vs-list-lead-size: var(--vs-text-sm); --vs-list-lead-leading: var(--vs-leading-sm); --vs-list-gap: var(--vs-space-2); }
 .vs-list--lead-icon { --vs-list-gap: var(--vs-space-2); }
-.vs-list-row__title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; word-break: var(--vs-list-break, normal); }
+.vs-list-row__title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; overflow-wrap: var(--vs-list-wrap, normal); hyphens: var(--vs-list-hyphens, manual); }
 .vs-list-row--two .vs-list-row__inner { align-items: flex-start; }
 .vs-list-row--two .vs-list-row__lead, .vs-list-row--two .vs-list-row__title { align-self: baseline; }
 .vs-list--lead-icon .vs-list-row__lead { align-self: flex-start; display: flex; align-items: center; height: var(--vs-leading-md); }
 .vs-list-row--two .vs-list-row__title { display: flex; flex-direction: column; white-space: normal; }
-.vs-list-row__name, .vs-list-row__sub { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; word-break: var(--vs-list-break, normal); }
+.vs-list-row__name, .vs-list-row__sub { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; overflow-wrap: var(--vs-list-wrap, normal); hyphens: var(--vs-list-hyphens, manual); }
 .vs-list-row__sub { font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); color: var(--vs-muted); }
 .vs-list-row__sub--warn { color: var(--vs-warn); }
 .vs-list-row__sub--2, .vs-list-row__sub--3 { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
@@ -24,7 +24,7 @@ button.vs-list-row__inner { cursor: pointer; }
 .vs-list-row--muted .vs-list-row__title { color: var(--vs-muted); }
 .vs-list-more, .vs-list-empty { color: var(--vs-muted); font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); }
 .vs-list-row--two .vs-list-row__name { font-weight: var(--vs-list-name-weight, inherit); }
-.vs-kiosk { --vs-list-name-weight: var(--vs-weight-medium); --vs-list-break: break-all; }
+.vs-kiosk { --vs-list-name-weight: var(--vs-weight-medium); --vs-list-wrap: anywhere; --vs-list-hyphens: auto; }
 .vs-list-row__inner:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }
 @media (hover: hover) { button.vs-list-row__inner:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); border-radius: var(--vs-radius-xs); } }
 a.vs-list-row__inner { cursor: pointer; text-decoration: none; }
