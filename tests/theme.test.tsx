@@ -1,7 +1,7 @@
 import { act, render, renderHook, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
-import { ThemeSwitch, themeBootScript, useTheme } from "../src";
+import { ThemeSwitch, themeBootScript, useSystemTheme, useTheme } from "../src";
 import { setSystemDark } from "./media";
 
 afterEach(() => { localStorage.clear(); delete document.documentElement.dataset.theme; document.querySelector('meta[name="theme-color"]')?.remove(); setSystemDark(false); });
@@ -33,6 +33,15 @@ describe("useTheme", () => {
   it("мусор в хранилище — fallback", () => {
     localStorage.setItem("t", "purple");
     expect(renderHook(() => useTheme({ key: "t", fallback: "light" })).result.current.choice).toBe("light");
+  });
+});
+
+describe("useSystemTheme", () => {
+  it("тема системы для сайтов, которые ставят data-theme сами", () => {
+    const t = renderHook(() => useSystemTheme());
+    expect(t.result.current).toBe("light");
+    act(() => setSystemDark(true));
+    expect(t.result.current).toBe("dark");
   });
 });
 

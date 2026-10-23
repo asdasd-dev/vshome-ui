@@ -14,11 +14,15 @@ export function readTheme({ key = THEME_DEFAULTS.key, fallback = THEME_DEFAULTS.
   return isChoice(v) ? v : fallback;
 }
 
+export function useSystemTheme(): "light" | "dark" {
+  return useMediaQuery(SYSTEM_DARK) ? "dark" : "light";
+}
+
 export function useTheme({ key = THEME_DEFAULTS.key, fallback = THEME_DEFAULTS.fallback, themeColor }: ThemeOptions = {}) {
   const subscribe = useCallback((notify: () => void) => { listeners.add(notify); return () => { listeners.delete(notify); }; }, []);
   const choice = useSyncExternalStore(subscribe, () => readTheme({ key, fallback }), () => fallback);
-  const systemDark = useMediaQuery(SYSTEM_DARK);
-  const resolved: "light" | "dark" = choice === "system" ? (systemDark ? "dark" : "light") : choice;
+  const system = useSystemTheme();
+  const resolved = choice === "system" ? system : choice;
   useLayoutEffect(() => { document.documentElement.dataset.theme = resolved; }, [resolved]);
   useEffect(() => {
     if (!themeColor) return;
