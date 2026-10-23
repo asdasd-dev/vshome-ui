@@ -26,6 +26,14 @@ describe("List fit", () => {
     expect(container.querySelector(".vs-list-more")).toBeNull();
     expect(container.querySelector(".vs-list-wrap")).toHaveClass("vs-list-wrap--fit");
   });
+  it("без «ещё N» не оставляет под него зазор: строка впритык помещается", () => {
+    avail = 152;
+    layout();
+    const style = window.getComputedStyle;
+    vi.spyOn(window, "getComputedStyle").mockImplementation((el) => Object.assign(style(el), { rowGap: "12px" }));
+    const { container } = render(<List fit>{rows(4)}</List>);
+    expect(container.querySelectorAll("li")).toHaveLength(3);
+  });
   it("всё помещается — без «ещё»", () => {
     avail = 200;
     layout();
