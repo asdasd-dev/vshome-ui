@@ -13,7 +13,7 @@ function fitCount(wrap: HTMLElement, list: HTMLElement | null, more: HTMLElement
   const top = wrap.getBoundingClientRect().top;
   const bottom = (i: number) => rows[i]!.getBoundingClientRect().bottom - top;
   if (bottom(rows.length - 1) <= avail + 0.5) return rows.length;
-  const reserve = (more?.getBoundingClientRect().height ?? 0) + (parseFloat(getComputedStyle(wrap).rowGap) || 0);
+  const reserve = more ? more.getBoundingClientRect().height + (parseFloat(getComputedStyle(wrap).rowGap) || 0) : 0;
   let n = rows.length - 1;
   while (n > 0 && bottom(n - 1) + reserve > avail + 0.5) n--;
   return n;
