@@ -29,14 +29,15 @@ describe("защита темы", () => {
   ])("пропускает %s", (line) => {
     expect(themeViolations(line)).toEqual([]);
   });
-  it("в сборке: файл сайта с нарушением роняет сборку, пакеты из node_modules не проверяются", () => {
+  it("в сборке: файл сайта с нарушением роняет сборку, пакеты из node_modules и тесты не проверяются", () => {
     const guard = plugin(vshomeBuild({ outDir: "x" }), "vshome-theme-guard")!;
     const transform = guard.transform as (this: unknown, code: string, id: string) => unknown;
     const ctx = { error: (m: string) => { throw new Error(m); } };
     const bad = "@media (prefers-color-scheme: dark) {}";
-    expect(() => transform.call(ctx, bad, "/app/src/app.css")).toThrow(/app\.css: тема в обход @vshome\/ui[\s\S]*1: @media/);
+    expect(() => transform.call(ctx, bad, "/app/src/app.css")).toThrow(/тема в обход @vshome\/ui[\s\S]*1: @media/);
     expect(transform.call(ctx, bad, "/app/node_modules/@vshome/ui/dist/style.css")).toBeNull();
     expect(transform.call(ctx, bad, "/app/src/logo.svg")).toBeNull();
+    expect(transform.call(ctx, bad, "/app/src/wall.test.tsx")).toBeNull();
   });
 });
 

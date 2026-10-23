@@ -36,9 +36,9 @@ function themeGuard(): Plugin {
     enforce: "pre",
     transform(code, id) {
       const file = id.split("?")[0]!;
-      if (id.startsWith("\0") || file.includes("/node_modules/") || !/\.(css|[cm]?[jt]sx?)$/.test(file)) return null;
+      if (id.startsWith("\0") || file.includes("/node_modules/") || !/\.(css|[cm]?[jt]sx?)$/.test(file) || /\.(test|spec)\.[cm]?[jt]sx?$/.test(file)) return null;
       const found = themeViolations(code);
-      if (found.length) this.error(`${file}: тема в обход @vshome/ui (docs/guidelines/07-themes-kiosk.md)\n${found.join("\n")}`);
+      if (found.length) this.error(`тема в обход @vshome/ui (docs/guidelines/07-themes-kiosk.md)\n${found.join("\n")}`);
       return null;
     },
   };
