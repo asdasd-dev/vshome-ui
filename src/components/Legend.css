@@ -14,6 +14,10 @@
 .vs-status-dot--violet { --vs-status-color: var(--vs-violet); }
 .vs-status-dot--pink { --vs-status-color: var(--vs-pink); }
 .vs-status-dot--gold { --vs-status-color: var(--vs-gold); }
+.vs-status-dot--calendar-orange { --vs-status-color: var(--vs-calendar-orange); }
+.vs-status-dot--calendar-purple { --vs-status-color: var(--vs-calendar-purple); }
+.vs-status-dot--calendar-blue { --vs-status-color: var(--vs-calendar-blue); }
+.vs-status-dot--calendar-green { --vs-status-color: var(--vs-calendar-green); }
 .vs-status-dot--pulse { animation: vs-pulse calc(var(--vs-duration-spin) * 2) ease-in-out infinite; }
 @keyframes vs-pulse { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .vs-status-dot--pulse { animation: none; } }

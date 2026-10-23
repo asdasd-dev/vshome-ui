@@ -131,6 +131,10 @@ describe("KeyValue, Legend, StatusDot, SectionHeader", () => {
     render(<StatusDot tone="ok" pulse label="работает" />);
     expect(screen.getByRole("img", { name: "работает" }).className).toBe("vs-status-dot vs-status-dot--ok vs-status-dot--pulse");
   });
+  it("StatusDot: цвет календаря вместо тона", () => {
+    render(<StatusDot calendar="purple" label="Полина" />);
+    expect(screen.getByRole("img", { name: "Полина" }).className).toBe("vs-status-dot vs-status-dot--calendar-purple");
+  });
   it("SectionHeader: заголовок нужного уровня, счётчик, справа", () => {
     render(<SectionHeader title="Бэклог" count={4} aside="по дате" as="h3" />);
     const h = screen.getByRole("heading", { level: 3, name: /Бэклог/ });
