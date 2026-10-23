@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Artwork, Icon, List, ListRow, Price, Stack, Tag, Text } from "../../src";
+import { Artwork, Icon, List, ListRow, Price, Stack, Tag, Text, Tile } from "../../src";
 import type { StoryFile } from "../catalog";
 
 function Categories() {
@@ -29,7 +29,23 @@ const photo = (color: string) => `data:image/svg+xml,${encodeURIComponent(`<svg 
 
 export const meta: StoryFile["meta"] = { title: "List", group: "Данные", components: ["List", "ListRow"], doc: "List" };
 
+function Fit() {
+  const [opened, setOpened] = useState(false);
+  const rows = ["Полить цветы", "Кардиолог/терапевт — консультация по анализам", "Вакцинация Йен", "Вернуть деньги за билеты", "Заменить фильтр бризера", "Оплатить интернет"];
+  return (
+    <Stack gap="3">
+      <div style={{ height: 320, display: "grid" }}>
+        <Tile label="Дела">
+          <List fit onMore={() => setOpened(true)}>{rows.map((t) => <ListRow key={t} title={t} titleLines={2} sub="в планах" />)}</List>
+        </Tile>
+      </div>
+      <Text variant="caption" tone="muted">{opened ? "Открыта доска" : "Нажми «ещё N»"}</Text>
+    </Stack>
+  );
+}
+
 export const stories: StoryFile["stories"] = [
+  { name: "fit: только целые строки по высоте плитки и «ещё N»", render: () => <Fit /> },
   { name: "Список-навигация: выбранная строка и число справа", render: () => <Categories /> },
   {
     name: "Колонка времени: lead=\"time\"",
