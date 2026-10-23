@@ -4,7 +4,7 @@
 
 ## Можно в стилях сайта
 
-- Корень страницы: фон, шрифт, `data-theme`.
+- Корень страницы: фон, шрифт. Тёмная тема — `:root[data-theme="dark"] …`, см. [Темы и киоск](#/g/07-themes-kiosk).
 - Раскладка: `display`, `grid-*`, `flex-*`, `gap`, `padding`, `margin`, размеры, позиционирование, `overflow`.
 - Привязка к области сетки: `[data-tile="news"] { grid-area: news; }`.
 

@@ -2,8 +2,9 @@ type Listener = (e: { matches: boolean }) => void;
 
 const listeners = new Set<Listener>();
 let mobile = false;
+let dark = false;
 
-const matches = (query: string) => (query.includes("max-width: 759px") ? mobile : query.includes("min-width") ? !mobile : false);
+const matches = (query: string) => (query.includes("prefers-color-scheme: dark") ? dark : query.includes("max-width: 759px") ? mobile : query.includes("min-width") ? !mobile : false);
 
 export function installMatchMedia(): void {
   window.matchMedia = (query: string) =>
@@ -21,5 +22,10 @@ export function installMatchMedia(): void {
 
 export function setMobile(next: boolean): void {
   mobile = next;
+  for (const l of listeners) l({ matches: next });
+}
+
+export function setSystemDark(next: boolean): void {
+  dark = next;
   for (const l of listeners) l({ matches: next });
 }

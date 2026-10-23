@@ -10,7 +10,7 @@
 ## Когда не применять
 
 - Киоск со сменой темы по времени суток (стена, «Стол») — тему ставит сам сайт, без переключателя.
-- Дашборд, которому всегда нужна тёмная тема, — `document.documentElement.dataset.theme = "dark"` без выбора.
+- Дашборд, которому всегда нужна тёмная тема, — `document.documentElement.dataset.theme = "dark"` без выбора, сборка с `theme: false`.
 
 ## Анатомия
 
@@ -21,24 +21,21 @@
 ## Хук useTheme
 
 ```tsx
-const { value, set, resolved } = useTheme({ key: "lenta-theme", fallback: "light", themeColor: { light: "#2450d8", dark: "#1f3f9e" } });
-<ThemeSwitch value={value} onChange={set} />
+const THEME = { key: "lenta-theme", fallback: "light" } as const;
+// vite.config.ts: vshomeBuild({ outDir, theme: THEME })
+const { choice, set, resolved } = useTheme({ ...THEME, themeColor: { light: "#2450d8", dark: "#1f3f9e" } });
+<ThemeSwitch value={choice} onChange={set} />
 ```
 
-- `value` — выбор: `light`, `dark` или `system`; `resolved` — фактическая тема с учётом системы.
-- `key` — ключ в `localStorage`; `fallback` — тема, пока выбора нет (у Ленты — светлая).
+- `choice` — выбор пользователя: `light`, `dark` или `system`. Нужен только переключателю.
+- `resolved` — итоговая тема, `light` или `dark`; она же стоит в `data-theme` на `<html>`.
+- `key` — ключ в `localStorage`, `fallback` — тема, пока выбора нет; по умолчанию `vs-theme` и `system`.
 - `set` сохраняет выбор (ошибки хранилища глушит), обновляет все экземпляры хука и `data-theme`.
 - `themeColor` — цвет полосы браузера и шапки PWA для каждой темы.
 
 ## Без вспышки при загрузке
 
-`data-theme` нужно поставить до первой отрисовки, иначе страница мигнёт системной темой. `themeBootScript(key, fallback)` возвращает строку для инлайн-скрипта в `<head>`:
-
-```html
-<script>try{var t=localStorage.getItem("lenta-theme");…}catch(e){…}</script>
-```
-
-Скрипт и хук должны получать одинаковые `key` и `fallback`.
+`vshomeBuild({ theme })` сам вставляет первым в `<head>` скрипт `themeBootScript(theme)`: он ставит `data-theme` до первой отрисовки и следит за системной темой. `theme` у сборки и хука должны совпадать.
 
 ## Состояния
 
@@ -54,8 +51,9 @@ const { value, set, resolved } = useTheme({ key: "lenta-theme", fallback: "light
 
 | Делай | Не делай |
 |---|---|
-| Хранить выбор через `useTheme` и ставить тему инлайн-скриптом | Ставить `data-theme` в эффекте после отрисовки — страница мигнёт |
+| Хранить выбор через `useTheme`, тему ставит скрипт из `vshomeBuild({ theme })` | Ставить `data-theme` в эффекте после отрисовки — страница мигнёт |
 | `fallback` по вкусу сайта: «Лента — светлая» | Свои токены цветов для «своей» тёмной темы |
+| Стили под тёмную — `:root[data-theme="dark"]`, в коде — `resolved` | `prefers-color-scheme` и `choice` для выбора цветов |
 
 ## Связанные
 

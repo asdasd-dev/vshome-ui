@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 const css = fs.readFileSync(path.join(__dirname, "..", "src", "styles", "tokens.css"), "utf8");
 const block = (sel: RegExp) => css.match(sel)?.[1] ?? "";
 const light = block(/:root\s*\{([^}]*)\}/);
-const dark = block(/prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme="light"\]\)\s*\{([^}]*)\}/);
+const dark = block(/prefers-color-scheme: dark\)\s*\{\s*:root:not\(\[data-theme\]\)\s*\{([^}]*)\}/);
 const kiosk = block(/(?:^|\n)\.vs-kiosk\s*\{([^}]*)\}/);
 const has = (body: string, name: string) => new RegExp(`${name}\\s*:`).test(body);
 const value = (name: string) => (light + (css.match(/:root,\s*\.vs-kiosk\s*\{([^}]*)\}/)?.[1] ?? "")).match(new RegExp(`${name}\\s*:\\s*([^;]+);`))?.[1]?.trim();
@@ -126,9 +126,9 @@ describe("принудительная тема", () => {
     const open = css.indexOf("{", at);
     return css.slice(open + 1, css.indexOf("}", open)).replace(/\s+/g, " ").trim();
   };
-  it("data-theme=light отключает системную тёмную, data-theme=dark включает тёмную при светлой системе", () => {
-    expect(css).toMatch(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{/);
-    expect(darkBlock(":root:not([data-theme=\"light\"])")).toBe(darkBlock(":root[data-theme=\"dark\"]"));
+  it("data-theme на <html> решает тему, системная тёмная — только пока его нет", () => {
+    expect(css).toMatch(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme\]\) \{/);
+    expect(darkBlock(":root:not([data-theme])")).toBe(darkBlock(":root[data-theme=\"dark\"]"));
     expect(darkBlock(":root[data-theme=\"dark\"]")).toContain("color-scheme: dark");
   });
 });
