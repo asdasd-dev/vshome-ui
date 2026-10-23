@@ -11,6 +11,7 @@ button.vs-list-row__inner:active, a.vs-list-row__inner:active { box-shadow: inse
 .vs-list-row__title { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; overflow-wrap: var(--vs-list-wrap, normal); hyphens: var(--vs-list-hyphens, manual); }
 .vs-list-row--two .vs-list-row__inner { align-items: flex-start; }
 .vs-list-row--two .vs-list-row__lead, .vs-list-row--two .vs-list-row__title { align-self: baseline; }
+.vs-list-row__title > .vs-status-dot:first-child { margin-inline-end: var(--vs-space-2); }
 .vs-list--lead-icon .vs-list-row__lead { align-self: flex-start; display: flex; align-items: center; height: var(--vs-leading-md); }
 .vs-list-row--two .vs-list-row__title { display: flex; flex-direction: column; white-space: normal; }
 .vs-list-row__name, .vs-list-row__sub { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; overflow-wrap: var(--vs-list-wrap, normal); hyphens: var(--vs-list-hyphens, manual); }
