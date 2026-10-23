@@ -46,7 +46,7 @@ export { EmptyState, type EmptyStateProps } from "./components/EmptyState";
 export { Progress, SplitBar, type ProgressProps, type SplitBarProps } from "./components/Progress";
 export { Table, type TableProps, type TableColumn } from "./components/Table";
 export { KeyValue, type KeyValueProps } from "./components/KeyValue";
-export { Legend, StatusDot, type LegendProps, type StatusDotProps } from "./components/Legend";
+export { Legend, StatusDot, type CalendarColor, type LegendProps, type StatusDotProps } from "./components/Legend";
 export { SectionHeader, type SectionHeaderProps } from "./components/SectionHeader";
 export { Segment, type SegmentProps } from "./components/Segment";
 export { Switch, type SwitchProps } from "./components/Switch";

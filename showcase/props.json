@@ -2878,6 +2878,13 @@
         "deprecated": false
       },
       {
+        "name": "calendar",
+        "type": "CalendarColor",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "pulse",
         "type": "boolean",
         "required": false,

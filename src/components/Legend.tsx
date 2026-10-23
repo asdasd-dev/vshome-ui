@@ -17,8 +17,10 @@ export function Legend({ items, className }: LegendProps) {
   );
 }
 
-export type StatusDotProps = { tone?: Tone; pulse?: boolean; label?: string; className?: string };
+export type CalendarColor = "orange" | "purple" | "blue" | "green";
 
-export function StatusDot({ tone = "ok", pulse, label, className }: StatusDotProps) {
-  return <span className={cx("vs-status-dot", `vs-status-dot--${tone}`, pulse && "vs-status-dot--pulse", className)} {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })} />;
+export type StatusDotProps = { tone?: Tone; calendar?: CalendarColor; pulse?: boolean; label?: string; className?: string };
+
+export function StatusDot({ tone = "ok", calendar, pulse, label, className }: StatusDotProps) {
+  return <span className={cx("vs-status-dot", calendar ? `vs-status-dot--calendar-${calendar}` : `vs-status-dot--${tone}`, pulse && "vs-status-dot--pulse", className)} {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })} />;
 }

@@ -3,6 +3,7 @@
   --vs-accent: #2f6fdf; --vs-danger: #be123c; --vs-warn: #c2410c; --vs-ok: #15803d;
   --vs-on-accent: #ffffff; --vs-lamp: #d97706;
   --vs-violet: #7c3aed; --vs-pink: #db2777; --vs-gold: #b7791f;
+  --vs-calendar-orange: #ff9500; --vs-calendar-purple: #cc73e1; --vs-calendar-blue: #007aff; --vs-calendar-green: #34c759;
   --vs-deal: #ffd43b; --vs-on-deal: #1d1d1b;
   --vs-header-accent-bg: linear-gradient(160deg, #2450d8 0%, #1a3aa8 100%); --vs-on-header-accent: #ffffff;
   --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #efede7;
