@@ -12,6 +12,10 @@ describe("нажимаемое видно в покое, без наведени
     expect(bad.map((r) => r.sel)).toEqual([]);
   });
 
+  it("на плитке с обложкой подложка ghost-кнопок плотнее, чтобы читалась поверх картинки", () => {
+    expect(rules(allCss()).find((r) => r.sel === ".vs-tile--backdrop" && r.body.includes("--vs-ghost-bg"))!.body).toMatch(/--vs-ghost-bg: color-mix\(in srgb, var\(--vs-surface-1\) \d+%, transparent\)/);
+  });
+
   it("переключатель soft — дорожка на поверхности кнопок, выбранный — как нажатая кнопка", () => {
     const soft = rules(allCss()).filter((r) => r.sel.startsWith(".vs-segment--soft"));
     expect(soft.find((r) => r.sel === ".vs-segment--soft")!.body).toContain("var(--vs-surface-2)");
