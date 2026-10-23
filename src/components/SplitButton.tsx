@@ -2,10 +2,12 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Icon } from "./Icon";
 import type { IconName } from "./icons";
+import { Spinner } from "./Spinner";
+import { useAction } from "../hooks/useAction";
 
 export type SplitButtonProps = {
   children: ReactNode;
-  onClick: () => void;
+  onClick: () => unknown;
   onHold?: () => void;
   holdMs?: number;
   pressed?: boolean;
@@ -18,6 +20,7 @@ export type SplitButtonProps = {
 };
 
 export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, icon, indicator, size = "md", disabled, more, className }: SplitButtonProps) {
+  const action = useAction(onClick);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const held = useRef(false);
   const stop = () => clearTimeout(timer.current);
@@ -28,15 +31,15 @@ export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, 
   };
   const click = () => {
     if (held.current) { held.current = false; return; }
-    onClick();
+    action.run();
   };
   return (
-    <span className={cx("vs-split", indicator && `vs-split--${indicator}`, size === "sm" && "vs-split--sm", className)} data-pressed={pressed || undefined}>
-      <button type="button" className="vs-split__main" aria-pressed={pressed} disabled={disabled} onClick={click}
+    <span className={cx("vs-split", indicator && `vs-split--${indicator}`, size === "sm" && "vs-split--sm", className)} data-pressed={pressed || undefined} data-failed={action.failed || undefined}>
+      <button type="button" className="vs-split__main" aria-pressed={pressed} aria-busy={action.pending || undefined} disabled={disabled || action.pending} onClick={click}
               onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
               onContextMenu={onHold ? (e) => e.preventDefault() : undefined}>
-        {indicator === "lamp" && <Icon name="dot" size="md" tone={pressed ? "lamp" : undefined} className={cx("vs-split__lamp", !pressed && "vs-split__lamp--off")} />}
-        {icon && <Icon name={icon} size="sm" />}
+        {action.pending ? <Spinner size="sm" className="vs-split__spinner" /> : indicator === "lamp" && <Icon name="dot" size="md" tone={pressed ? "lamp" : undefined} className={cx("vs-split__lamp", !pressed && "vs-split__lamp--off")} />}
+        {icon && !action.pending && <Icon name={icon} size="sm" />}
         {children}
       </button>
       <button type="button" className="vs-split__more" aria-label={more.label} title={more.label} aria-haspopup="dialog" disabled={disabled} onClick={more.onClick}>

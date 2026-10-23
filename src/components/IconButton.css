@@ -7,4 +7,7 @@
 .vs-icon-button--sm { min-width: calc(32px * var(--vs-scale, 1)); min-height: calc(32px * var(--vs-scale, 1)); }
 .vs-icon-button--ghost { background: transparent; color: var(--vs-icon-button-ghost-fg, var(--vs-ink)); }
 .vs-icon-button[aria-busy="true"] { cursor: progress; }
+.vs-icon-button:active:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-press); transform: scale(var(--vs-press-scale)); }
+.vs-icon-button[aria-busy="true"]:disabled { opacity: 1; }
+.vs-icon-button[data-failed] { color: var(--vs-danger); outline: var(--vs-fail-ring); outline-offset: -2px; }
 .vs-icon-button[aria-pressed="true"] { background: var(--vs-accent-soft); color: var(--vs-accent); }

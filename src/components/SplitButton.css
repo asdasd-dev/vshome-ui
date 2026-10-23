@@ -10,6 +10,11 @@
 .vs-split__lamp--off { color: var(--vs-muted); opacity: .45; filter: none; }
 .vs-kiosk { --vs-split-h: calc(44px * var(--vs-scale, 1)); --vs-split-size: var(--vs-text-md); --vs-split-leading: var(--vs-leading-md); --vs-split-weight: var(--vs-weight-medium); --vs-split-main-py: var(--vs-space-2); --vs-split-main-pr: var(--vs-space-4); --vs-split-main-pl: var(--vs-space-5); --vs-split-more-w: calc(44px * var(--vs-scale, 1)); --vs-split-more-pr: var(--vs-space-3); --vs-split-more-pl: var(--vs-space-2); }
 @media (hover: hover) { .vs-split button:hover { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }
-.vs-split:has(button:disabled) { opacity: .5; }
+.vs-split:has(button:disabled:not([aria-busy="true"])) { opacity: .5; }
+.vs-split button:active:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-press); }
+.vs-split:has(button:active:not(:disabled)) { transform: scale(var(--vs-press-scale)); }
+.vs-split__main[aria-busy="true"] { cursor: progress; }
+.vs-split__spinner { margin-left: calc(var(--vs-space-5) / -3); }
+.vs-split[data-failed] { color: var(--vs-danger); outline: var(--vs-fail-ring); outline-offset: -2px; }
 .vs-split button:disabled { cursor: not-allowed; }
 .vs-split.vs-split--sm { --vs-split-h: calc(32px * var(--vs-scale, 1)); --vs-split-size: var(--vs-text-sm); --vs-split-leading: var(--vs-leading-sm); --vs-split-main-py: var(--vs-space-1); --vs-split-main-pr: var(--vs-space-2); --vs-split-main-pl: var(--vs-space-3); --vs-split-more-w: calc(32px * var(--vs-scale, 1)); --vs-split-more-pr: var(--vs-space-2); --vs-split-more-pl: var(--vs-space-1); }

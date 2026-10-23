@@ -3,6 +3,13 @@
     "file": "src/components/Button.tsx",
     "props": [
       {
+        "name": "onClick",
+        "type": "(e: MouseEvent<HTMLButtonElement>) => unknown",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "variant",
         "type": "\"primary\" | \"secondary\" | \"ghost\" | \"danger\" | \"warn\"",
         "required": false,
@@ -73,7 +80,7 @@
       },
       {
         "name": "onClick",
-        "type": "() => void",
+        "type": "() => unknown",
         "required": true,
         "default": null,
         "deprecated": false
@@ -706,7 +713,7 @@
         "deprecated": false
       }
     ],
-    "inherits": "TextareaHTMLAttributes"
+    "inherits": "DOMAttributes"
   },
   "Checkbox": {
     "file": "src/components/Checkbox.tsx",
@@ -911,6 +918,13 @@
     "file": "src/components/IconButton.tsx",
     "props": [
       {
+        "name": "onClick",
+        "type": "(e: MouseEvent<HTMLButtonElement>) => unknown",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "icon",
         "type": "IconName",
         "required": true,
@@ -953,7 +967,7 @@
         "deprecated": false
       }
     ],
-    "inherits": "DOMAttributes"
+    "inherits": "ButtonHTMLAttributes"
   },
   "Tile": {
     "file": "src/components/Tile.tsx",
