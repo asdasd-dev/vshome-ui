@@ -60,4 +60,5 @@ export { Select, type SelectProps, type SelectOption } from "./components/Select
 export { ContextMenu, type ContextMenuProps, type ContextMenuEntry, type ContextMenuAction, type ContextMenuCheckbox, type ContextMenuRadio } from "./components/ContextMenu";
 export { storage, useLocalStorage } from "./hooks/useLocalStorage";
 export { useMediaQuery } from "./hooks/useMediaQuery";
+export { useAction, ACTION_FAILED_MS } from "./hooks/useAction";
 export { useTheme, readTheme, applyTheme, themeBootScript, type ThemeChoice, type ThemeOptions } from "./hooks/useTheme";

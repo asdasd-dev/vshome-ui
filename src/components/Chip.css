@@ -1,4 +1,5 @@
 .vs-chip { display: inline-flex; align-items: center; gap: var(--vs-space-1_5); text-decoration: none; border: 1px solid var(--vs-line); background: transparent; color: var(--vs-muted); border-radius: var(--vs-radius-pill); padding: var(--vs-space-1) var(--vs-space-3); font: inherit; font-size: var(--vs-chip-size, inherit); line-height: var(--vs-chip-leading, inherit); white-space: nowrap; cursor: pointer; }
+.vs-chip:active { box-shadow: inset 0 0 0 100vmax var(--vs-press); }
 .vs-chip[aria-pressed="true"] { border-color: var(--vs-accent); color: var(--vs-accent); background: var(--vs-accent-tint); font-weight: var(--vs-weight-semibold); }
 .vs-kiosk { --vs-chip-size: var(--vs-text-md); --vs-chip-leading: var(--vs-leading-md); }
 .vs-chip:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }

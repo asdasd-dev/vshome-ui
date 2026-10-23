@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Cluster, IconButton } from "../../src";
 import type { StoryFile } from "../catalog";
 
+const slow = (ok: boolean) => () => new Promise<boolean>((r) => setTimeout(() => r(ok), 1500));
+
 function Player() {
   const [playing, setPlaying] = useState(false);
   return (
@@ -20,6 +22,7 @@ export const stories: StoryFile["stories"] = [
   { name: "Размеры", render: () => <Cluster wrap><IconButton icon="search" label="Искать товар" size="sm" /><IconButton icon="search" label="Искать товар" /><IconButton icon="search" label="Искать товар" size="lg" /></Cluster> },
   { name: "Выключенная", render: () => <Cluster wrap><IconButton icon="plus" label="Добавить в список" disabled /><IconButton icon="check" label="Отметить купленным" variant="primary" disabled /></Cluster> },
   { name: "Загрузка", render: () => <Cluster wrap><IconButton icon="check" label="Отметить купленным" loading /><IconButton icon="plus" label="Добавить задачу" variant="primary" loading /></Cluster> },
+  { name: "Ждёт ответа", render: () => <Cluster wrap><IconButton icon="next" label="Следующий трек" onClick={slow(true)} /><IconButton icon="heart" label="В любимые (ошибка)" onClick={slow(false)} /></Cluster> },
   { name: "Плеер", render: () => <Player /> },
   { name: "В киоске", kiosk: true, render: () => <Player /> },
 ];
