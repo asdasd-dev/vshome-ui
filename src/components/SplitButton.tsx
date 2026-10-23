@@ -35,7 +35,7 @@ export function SplitButton({ children, onClick, onHold, holdMs = 500, pressed, 
   };
   return (
     <span className={cx("vs-split", indicator && `vs-split--${indicator}`, size === "sm" && "vs-split--sm", className)} data-pressed={pressed || undefined} data-failed={action.failed || undefined}>
-      <button type="button" className="vs-split__main" aria-pressed={pressed} aria-busy={action.pending || undefined} disabled={disabled || action.pending} onClick={click}
+      <button type="button" className="vs-split__main" aria-pressed={pressed} aria-busy={action.pending || undefined} disabled={disabled} onClick={click}
               onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
               onContextMenu={onHold ? (e) => e.preventDefault() : undefined}>
         {action.pending ? <Spinner size="sm" className="vs-split__spinner" /> : indicator === "lamp" && <Icon name="dot" size="md" tone={pressed ? "lamp" : undefined} className={cx("vs-split__lamp", !pressed && "vs-split__lamp--off")} />}

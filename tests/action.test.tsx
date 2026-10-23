@@ -9,17 +9,20 @@ const deferred = <T,>() => {
 };
 
 describe("кнопка с Promise в onClick", () => {
-  it("IconButton: занята и со спиннером, пока Promise не выполнен; повторное нажатие не уходит", async () => {
+  it("IconButton: занята и со спиннером, пока не выполнены все нажатия; повторное нажатие уходит", async () => {
     const d = deferred<boolean>();
-    const onClick = vi.fn(() => d.promise);
+    const d2 = deferred<boolean>();
+    const onClick = vi.fn().mockReturnValueOnce(d.promise).mockReturnValueOnce(d2.promise);
     render(<IconButton icon="next" label="Следующий трек" onClick={onClick} />);
     const b = screen.getByRole("button", { name: "Следующий трек" });
     await userEvent.click(b);
     expect(b).toHaveAttribute("aria-busy", "true");
     expect(b.querySelector(".vs-spinner")).not.toBeNull();
     await userEvent.click(b);
-    expect(onClick).toHaveBeenCalledOnce();
+    expect(onClick).toHaveBeenCalledTimes(2);
     await act(async () => { d.resolve(true); await d.promise; });
+    expect(b).toHaveAttribute("aria-busy", "true");
+    await act(async () => { d2.resolve(true); await d2.promise; });
     expect(b).not.toHaveAttribute("aria-busy");
     expect(b).not.toHaveAttribute("data-failed");
     expect(b.querySelector(".vs-spinner")).toBeNull();
@@ -65,6 +68,7 @@ describe("кнопка с Promise в onClick", () => {
     await userEvent.click(main);
     expect(main).toHaveAttribute("aria-busy", "true");
     expect(container.querySelector(".vs-split__spinner")).not.toBeNull();
+    expect(main).not.toBeDisabled();
     expect(screen.getByRole("button", { name: "Кухня: лампы" })).not.toBeDisabled();
     await act(async () => { d.resolve(true); await d.promise; });
     expect(main).not.toHaveAttribute("aria-busy");

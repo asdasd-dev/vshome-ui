@@ -17,7 +17,7 @@ export function IconButton({ icon, label, size = "md", variant = "secondary", lo
   const busy = loading || action.pending;
   const v = variant === "plain" ? "secondary" : variant;
   return (
-    <button type={type} aria-label={label} title={label} disabled={disabled || busy} aria-busy={busy || undefined} aria-pressed={pressed} data-failed={action.failed || undefined} onClick={action.run}
+    <button type={type} aria-label={label} title={label} disabled={disabled || loading} aria-busy={busy || undefined} aria-pressed={pressed} data-failed={action.failed || undefined} onClick={action.run}
             className={cx("vs-icon-button", `vs-icon-button--${size}`, `vs-icon-button--${v}`, className)} {...rest}>
       {busy ? <Spinner size={size === "lg" ? "md" : "sm"} /> : <Icon name={icon} size={size === "lg" ? "lg" : size === "sm" ? "sm" : "md"} />}
     </button>
