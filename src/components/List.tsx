@@ -54,13 +54,14 @@ export function List({ children, label, max, fit, onMore, empty, divided = true,
   const shown = f.n === null ? capped : capped.slice(0, f.n);
   const measuring = !!fit && f.n === null;
   const hidden = rows.length - shown.length;
+  const more = (measuring || hidden > 0) && (!fit || !!onMore);
   const text = `ещё ${measuring ? rows.length : hidden}`;
   const setMore = (el: HTMLElement | null) => { f.more.current = el; };
   return (
     <div ref={f.wrap} className={cx("vs-list-wrap", fit && "vs-list-wrap--fit", className)}>
       {label && <Text as="p" variant="label" className="vs-list__label">{label}</Text>}
       <ul ref={f.list} className={cx("vs-list", !divided && "vs-list--plain", lead && `vs-list--lead-${lead}`)}>{shown}</ul>
-      {(measuring || hidden > 0) && (onMore
+      {more && (onMore
         ? <button ref={setMore} type="button" className="vs-list-more vs-list-more--button" onClick={onMore}>{text}</button>
         : <div ref={setMore} className="vs-list-more">{text}</div>)}
     </div>

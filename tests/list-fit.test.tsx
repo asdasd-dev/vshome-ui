@@ -18,12 +18,12 @@ afterEach(() => vi.restoreAllMocks());
 const rows = (n: number) => Array.from({ length: n }, (_, i) => <ListRow key={i} title={`Дело ${i + 1}`} />);
 
 describe("List fit", () => {
-  it("показывает только целые строки и «ещё N» под ними", () => {
-    avail = 140;
+  it("показывает только целые строки, без «ещё N» и без места под него", () => {
+    avail = 160;
     layout();
     const { container } = render(<List fit>{rows(4)}</List>);
-    expect(container.querySelectorAll("li")).toHaveLength(2);
-    expect(screen.getByText("ещё 2")).toBeTruthy();
+    expect(container.querySelectorAll("li")).toHaveLength(3);
+    expect(container.querySelector(".vs-list-more")).toBeNull();
     expect(container.querySelector(".vs-list-wrap")).toHaveClass("vs-list-wrap--fit");
   });
   it("всё помещается — без «ещё»", () => {
@@ -33,20 +33,26 @@ describe("List fit", () => {
     expect(container.querySelectorAll("li")).toHaveLength(4);
     expect(container.querySelector(".vs-list-more")).toBeNull();
   });
-  it("с max считает скрытые и за пределом, и не влезшие", () => {
+  it("onMore — под строками нажимаемое «ещё N», место под него оставлено", () => {
+    avail = 160;
+    layout();
+    const more = vi.fn();
+    const { container } = render(<List fit onMore={more}>{rows(4)}</List>);
+    expect(container.querySelectorAll("li")).toHaveLength(2);
+    fireEvent.click(screen.getByRole("button", { name: "ещё 2" }));
+    expect(more).toHaveBeenCalledOnce();
+  });
+  it("onMore с max считает скрытые и за пределом, и не влезшие", () => {
     avail = 140;
     layout();
-    const { container } = render(<List fit max={3}>{rows(6)}</List>);
+    const { container } = render(<List fit max={3} onMore={() => {}}>{rows(6)}</List>);
     expect(container.querySelectorAll("li")).toHaveLength(2);
     expect(screen.getByText("ещё 4")).toBeTruthy();
   });
-  it("onMore — «ещё N» нажимается", () => {
-    avail = 140;
-    layout();
-    const more = vi.fn();
-    render(<List fit onMore={more}>{rows(4)}</List>);
-    fireEvent.click(screen.getByRole("button", { name: "ещё 2" }));
-    expect(more).toHaveBeenCalledOnce();
+  it("max без fit — «ещё N» как раньше", () => {
+    const { container } = render(<List max={2}>{rows(4)}</List>);
+    expect(container.querySelectorAll("li")).toHaveLength(2);
+    expect(screen.getByText("ещё 2")).toBeTruthy();
   });
   it("без раскладки (высота 0) — все строки", () => {
     avail = 0;
