@@ -29,9 +29,11 @@ const photo = (color: string) => `data:image/svg+xml,${encodeURIComponent(`<svg 
 
 export const meta: StoryFile["meta"] = { title: "List", group: "Данные", components: ["List", "ListRow"], doc: "List" };
 
+const FIT_ROWS = ["Полить цветы", "Кардиолог/терапевт — консультация по анализам", "Вакцинация Йен", "Вернуть деньги за билеты", "Заменить фильтр бризера", "Оплатить интернет"];
+
 function Fit() {
   const [opened, setOpened] = useState(false);
-  const rows = ["Полить цветы", "Кардиолог/терапевт — консультация по анализам", "Вакцинация Йен", "Вернуть деньги за билеты", "Заменить фильтр бризера", "Оплатить интернет"];
+  const rows = FIT_ROWS;
   return (
     <Stack gap="3">
       <div style={{ height: 320, display: "grid" }}>
@@ -45,7 +47,8 @@ function Fit() {
 }
 
 export const stories: StoryFile["stories"] = [
-  { name: "fit: только целые строки по высоте плитки и «ещё N»", render: () => <Fit /> },
+  { name: "fit: только целые строки по высоте плитки, без «ещё N»", render: () => <div style={{ height: 320, display: "grid" }}><Tile label="Скоро"><List fit>{FIT_ROWS.map((t) => <ListRow key={t} title={t} titleLines={2} sub="в планах" />)}</List></Tile></div> },
+  { name: "fit и onMore: целые строки и нажимаемое «ещё N»", render: () => <Fit /> },
   { name: "Список-навигация: выбранная строка и число справа", render: () => <Categories /> },
   {
     name: "Колонка времени: lead=\"time\"",
