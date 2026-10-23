@@ -17,6 +17,6 @@
 .vs-kiosk { --vs-button-surface: var(--vs-surface-2); --vs-button-line: transparent; --vs-button-accent-line: transparent; --vs-button-radius: var(--vs-radius-pill); --vs-button-py: var(--vs-space-2); --vs-button-px: var(--vs-space-5); --vs-button-sm-px: var(--vs-space-4); --vs-button-h: calc(44px * var(--vs-scale, 1)); --vs-button-size: var(--vs-text-md); --vs-button-leading: var(--vs-leading-md); --vs-button-weight: var(--vs-weight-medium); --vs-button-pressed: var(--vs-accent-soft); --vs-button-pressed-fg: var(--vs-ink); }
 @media (hover: hover) { .vs-button:hover:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-hover); } }
 .vs-button[aria-busy="true"] { cursor: progress; }
-.vs-button:active:not(:disabled) { box-shadow: inset 0 0 0 100vmax var(--vs-press); transform: scale(var(--vs-press-scale)); }
+.vs-button:active:not(:disabled), .vs-button[aria-busy="true"]:active { box-shadow: inset 0 0 0 100vmax var(--vs-press); transform: scale(var(--vs-press-scale)); }
 .vs-button[aria-busy="true"]:disabled { opacity: 1; }
 .vs-button[data-failed] { --vs-button-fg: var(--vs-danger); outline: var(--vs-fail-ring); outline-offset: -2px; }

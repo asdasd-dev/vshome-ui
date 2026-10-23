@@ -5,9 +5,8 @@ export const ACTION_FAILED_MS = 2_000;
 const isThenable = (v: unknown): v is PromiseLike<unknown> => !!v && typeof (v as PromiseLike<unknown>).then === "function";
 
 export function useAction<A extends unknown[]>(handler: ((...args: A) => unknown) | undefined) {
-  const [pending, setPending] = useState(false);
+  const [inFlight, setInFlight] = useState(0);
   const [failed, setFailed] = useState(false);
-  const busy = useRef(false);
   const alive = useRef(true);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => {
@@ -21,16 +20,14 @@ export function useAction<A extends unknown[]>(handler: ((...args: A) => unknown
     timer.current = setTimeout(() => { if (alive.current) setFailed(false); }, ACTION_FAILED_MS);
   };
   const run = (...args: A) => {
-    if (busy.current || !handler) return;
+    if (!handler) return;
     const r = handler(...args);
     if (!isThenable(r)) return;
-    busy.current = true;
-    setPending(true);
+    setInFlight((n) => n + 1);
     setFailed(false);
     Promise.resolve(r).then((v) => { if (v === false) fail(); }, fail).finally(() => {
-      busy.current = false;
-      if (alive.current) setPending(false);
+      if (alive.current) setInFlight((n) => n - 1);
     });
   };
-  return { run, pending, failed };
+  return { run, pending: inFlight > 0, failed };
 }
