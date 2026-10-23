@@ -45,7 +45,7 @@ describe("доработки для сайтов", () => {
     const lo = screen.getByRole("slider", { name: "Скидка: от" });
     expect(lo).toHaveAttribute("aria-valuetext", "40%");
     fireEvent.change(lo, { target: { value: "50" } });
-    fireEvent.pointerUp(lo);
+    fireEvent.blur(lo);
     expect(onCommit).toHaveBeenCalledWith(50, 100);
   });
   it("TimeChart рисуется по точкам с датами", () => {

@@ -13,12 +13,12 @@ export function formatDuration(seconds: number) {
 }
 
 export function Seek({ value, max, label, onCommit, disabled, className }: SeekProps) {
-  const { v, input } = useRangeCommit(Math.min(value, max), onCommit);
+  const { v, input, track } = useRangeCommit(Math.min(value, max), onCommit, { min: 0, max, step: 1, disabled });
   const fill = `${max > 0 ? (v / max) * 100 : 0}%`;
   return (
     <div className={cx("vs-seek", className)}>
       <span className="vs-seek__time">{formatDuration(v)}</span>
-      <label className="vs-range-line" style={{ "--vs-range-fill": fill } as CSSProperties}>
+      <label className="vs-range-line" style={{ "--vs-range-fill": fill } as CSSProperties} {...track}>
         <input type="range" aria-label={label} aria-valuetext={`${formatDuration(v)} из ${formatDuration(max)}`} min={0} max={max} step={1} disabled={disabled} {...input} />
       </label>
       <span className="vs-seek__time">{formatDuration(max)}</span>

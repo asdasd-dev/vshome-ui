@@ -4,7 +4,7 @@
 .vs-button:disabled { opacity: .5; cursor: not-allowed; }
 .vs-button--primary { --vs-button-bg: var(--vs-accent); --vs-button-line: var(--vs-button-accent-line, var(--vs-accent)); --vs-button-fg: var(--vs-on-accent); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--lg { --vs-button-h: calc(48px * var(--vs-scale, 1)); --vs-button-px: var(--vs-space-5); --vs-button-size: var(--vs-text-md); --vs-button-leading: var(--vs-leading-md); }
-.vs-button--ghost { --vs-button-bg: transparent; --vs-button-line: transparent; }
+.vs-button--ghost { --vs-button-bg: var(--vs-ghost-bg); --vs-button-line: transparent; }
 .vs-button--pill { --vs-button-radius: var(--vs-radius-pill); }
 .vs-button--block { display: flex; width: 100%; align-items: center; justify-content: center; }
 .vs-button--danger { --vs-button-fg: var(--vs-danger); }

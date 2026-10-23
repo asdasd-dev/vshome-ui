@@ -78,10 +78,10 @@ describe("киоск и контраст", () => {
 });
 
 describe("Segment soft", () => {
-  it("без рамки, капсулы, выбранный — мягкая поверхность", () => {
+  it("без рамки, капсулы, выбранный — как нажатая кнопка", () => {
     const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Segment.css"), "utf8");
     expect(css).toMatch(/\.vs-segment--soft \{[^}]*border-color: transparent[^}]*border-radius: var\(--vs-radius-pill\)/);
-    expect(css).toMatch(/\.vs-segment--soft button\[aria-pressed="true"\] \{[^}]*background: var\(--vs-segment-soft-active-bg, var\(--vs-surface-2\)\)[^}]*color: var\(--vs-segment-soft-active-fg, var\(--vs-ink\)\)/);
+    expect(css).toMatch(/\.vs-segment--soft button\[aria-pressed="true"\] \{[^}]*background: var\(--vs-segment-soft-active-bg, var\(--vs-accent-soft\)\)[^}]*color: var\(--vs-segment-soft-active-fg, var\(--vs-ink\)\)/);
   });
 });
 
