@@ -1,0 +1,30 @@
+import { type ReactNode } from "react";
+export type ListProps = {
+    children: ReactNode;
+    label?: ReactNode;
+    max?: number;
+    fit?: boolean;
+    onMore?: () => void;
+    empty?: ReactNode;
+    divided?: boolean;
+    lead?: "time" | "icon";
+    className?: string;
+};
+export declare function List({ children, label, max, fit, onMore, empty, divided, lead, className }: ListProps): import("react").JSX.Element | null;
+export type ListRowProps = {
+    title: ReactNode;
+    titleLines?: 1 | 2;
+    sub?: ReactNode;
+    subTone?: "muted" | "warn";
+    subLines?: 1 | 2 | 3;
+    meta?: ReactNode;
+    lead?: ReactNode;
+    action?: ReactNode;
+    tone?: "default" | "warn" | "danger" | "muted";
+    onClick?: () => void;
+    href?: string;
+    align?: "baseline" | "center";
+    selected?: boolean;
+    className?: string;
+};
+export declare function ListRow({ title, titleLines, sub, subTone, subLines, meta, lead, action, tone, onClick, href, align, selected, className }: ListRowProps): import("react").JSX.Element;
