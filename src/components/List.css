@@ -39,3 +39,6 @@ a.vs-list-row__inner { cursor: pointer; text-decoration: none; }
 .vs-list-row--action { display: flex; align-items: center; gap: var(--vs-space-2); }
 .vs-list-row--action .vs-list-row__inner { flex: 1; min-width: 0; }
 .vs-list-row__action { flex: none; display: flex; }
+.vs-list-wrap--fit { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+.vs-list-more--button { align-self: flex-start; padding: var(--vs-space-1) 0; border: 0; background: none; font: inherit; font-size: var(--vs-text-sm); line-height: var(--vs-leading-sm); color: var(--vs-accent); cursor: pointer; }
+.vs-list-more--button:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; border-radius: var(--vs-radius-xs); }

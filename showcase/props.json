@@ -1955,6 +1955,20 @@
         "deprecated": false
       },
       {
+        "name": "fit",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "onMore",
+        "type": "() => void",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "empty",
         "type": "ReactNode",
         "required": false,
