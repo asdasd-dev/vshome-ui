@@ -15,6 +15,12 @@ describe("Frame", () => {
     const { container } = render(<Frame src="/x" title="x" loading="eager" />);
     expect(container.querySelector("iframe")!.getAttribute("loading")).toBe("eager");
   });
+  it("allow передаёт странице доступ к микрофону, без него атрибута нет", () => {
+    const { container } = render(<Frame src="/x" title="x" allow="microphone" />);
+    expect(container.querySelector("iframe")!.getAttribute("allow")).toBe("microphone");
+    const { container: plain } = render(<Frame src="/x" title="x" />);
+    expect(plain.querySelector("iframe")!.hasAttribute("allow")).toBe(false);
+  });
   it("в плитке занимает всё тело", () => {
     const { container } = render(<Tile label="Задачи"><Frame src="/x" title="x" /></Tile>);
     expect(container.querySelector(".vs-tile__body > .vs-frame")).not.toBeNull();

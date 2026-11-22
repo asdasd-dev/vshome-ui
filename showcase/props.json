@@ -1880,6 +1880,13 @@
         "deprecated": false
       },
       {
+        "name": "allow",
+        "type": "string",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false,
