@@ -1,5 +1,6 @@
 [
-  { "name": "personalai", "repo": "asdasd-dev/personalai", "path": "/home/vyacheslav/personalai", "remote": "github", "base": "main", "web": ".", "test": "npm test", "build": "npm run build" },
-  { "name": "lenta-tracker", "repo": "asdasd-dev/lenta-tracker", "path": "/home/vyacheslav/lenta-tracker", "remote": "github", "base": "main", "web": "web", "test": "npm test", "build": "npm run build" },
-  { "name": "monitoring", "repo": "asdasd-dev/monitoring", "path": "/home/vyacheslav/monitoring", "remote": "github", "base": "main", "web": "dashboard/web", "test": "npm test", "build": "npm run build" }
+  {"name": "personalai", "repo": "asdasd-dev/personalai", "path": "/home/vyacheslav/personalai", "remote": "github", "base": "main", "web": ".", "test": "npm test", "build": "npm run build"},
+  {"name": "lenta-tracker", "repo": "asdasd-dev/lenta-tracker", "path": "/home/vyacheslav/lenta-tracker", "remote": "github", "base": "main", "web": "web", "test": "npm test", "build": "npm run build"},
+  {"name": "monitoring", "repo": "asdasd-dev/monitoring", "path": "/home/vyacheslav/monitoring", "remote": "github", "base": "main", "web": "dashboard/web", "test": "npm test", "build": "npm run build"},
+  {"name": "ritm-zavodov", "repo": "asdasd-dev/ritm-zavodov", "path": "/home/vyacheslav/src/ritm-zavodov", "remote": "origin", "base": "master", "web": "web", "test": "npm test", "build": "npm run build"}
 ]
