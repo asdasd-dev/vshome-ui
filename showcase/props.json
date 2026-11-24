@@ -2295,7 +2295,7 @@
       },
       {
         "name": "variant",
-        "type": "\"underline\" | \"bottom\"",
+        "type": "\"underline\" | \"bottom\" | \"floating\"",
         "required": false,
         "default": "\"underline\"",
         "deprecated": false

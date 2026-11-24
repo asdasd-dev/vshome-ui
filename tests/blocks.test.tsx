@@ -16,6 +16,11 @@ describe("PageHeader", () => {
 });
 
 describe("Tabs", () => {
+  it("плавающая панель: у иконки есть имя и подсказка, без иконки видна подпись", () => {
+    render(<Tabs label="Поездка" variant="floating" value="route" items={[{value:"route",label:"Маршрут",icon:"map"},{value:"info",label:"Инфо"}]} />);
+    expect(screen.getByRole("tab",{name:"Маршрут"})).toHaveAttribute("title","Маршрут");
+    expect(screen.getByRole("tab",{name:"Инфо"})).not.toHaveAttribute("title");
+  });
   it("вкладки: выбранная, иконка, счётчик, переключение", async () => {
     const onChange = vi.fn();
     render(<Tabs label="Разделы" value="list" onChange={onChange} items={[{ value: "list", label: "Список", icon: "check", count: 3 }, { value: "search", label: "Поиск", icon: "search" }]} />);
