@@ -1,0 +1,15 @@
+:root.vs-travel {
+  --vs-bg: #fefbf6; --vs-panel: #fff; --vs-surface-2: #fff7ed; --vs-line: #f0dcc0; --vs-ink: #1a1a1a; --vs-muted: #6a737d;
+  --vs-travel-red: #c0392b; --vs-travel-orange: #d35400; --vs-travel-gold: #b7860b; --vs-travel-green: #21894c; --vs-travel-blue: #1a6fa8; --vs-travel-purple: #7d3c98;
+  --vs-accent: var(--vs-travel-red); --vs-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+:root.vs-travel[data-theme="dark"] {
+  --vs-bg: #0d1117; --vs-panel: #0d1117; --vs-surface-2: #161b22; --vs-line: #30363d; --vs-ink: #e6edf3; --vs-muted: #9ca5b0;
+  --vs-travel-red: #ff6b6b; --vs-travel-orange: #ff9f43; --vs-travel-gold: #f0c040; --vs-travel-green: #55efc4; --vs-travel-blue: #74b9ff; --vs-travel-purple: #a29bfe;
+}
+:root.vs-travel:has([data-vs-accent="orange"]) { --vs-accent: var(--vs-travel-orange); }
+:root.vs-travel:has([data-vs-accent="gold"]) { --vs-accent: var(--vs-travel-gold); }
+:root.vs-travel:has([data-vs-accent="green"]) { --vs-accent: var(--vs-travel-green); }
+:root.vs-travel:has([data-vs-accent="blue"]) { --vs-accent: var(--vs-travel-blue); }
+:root.vs-travel:has([data-vs-accent="purple"]) { --vs-accent: var(--vs-travel-purple); }
+.vs-travel .vs-travel-night { --vs-bg:#111; --vs-panel:#252525; --vs-surface-1:#252525; --vs-ink:#fff; --vs-muted:#b9b9b9; }
