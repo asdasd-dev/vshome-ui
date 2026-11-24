@@ -28,10 +28,10 @@ function Links() {
   );
 }
 
-function Bottom() {
+function Bottom({floating = false}:{floating?:boolean}) {
   const [tab, setTab] = useState("home");
   return (
-    <Tabs label="Разделы" variant="bottom" value={tab} onChange={setTab} items={[
+    <Tabs label="Разделы" variant={floating ? "floating" : "bottom"} value={tab} onChange={setTab} items={[
       { value: "home", label: "Главная", icon: "clock" },
       { value: "search", label: "Поиск", icon: "search" },
       { value: "info", label: "Сводка", icon: "info", count: 3 },
@@ -74,6 +74,7 @@ export const stories: StoryFile["stories"] = [
   { name: "Подчёркивание и счётчики", render: () => <Underline /> },
   { name: "Ссылки", render: () => <Links /> },
   { name: "Нижняя панель на телефоне", render: () => <Bottom /> },
+  { name: "Плавающая панель с иконками", render: () => <Bottom floating /> },
   { name: "В акцентной шапке", render: () => <InAccentHeader /> },
   { name: "Липкие при прокрутке", render: () => <Sticky /> },
 ];
