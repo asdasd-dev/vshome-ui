@@ -14,7 +14,7 @@ export function Tabs<T extends string>({ items, value, onChange, label, variant 
   const cls = cx("vs-tabs", `vs-tabs--${variant}`, sticky && "vs-tabs--sticky", className);
   const title = (i: TabItem<T>) => variant === "floating" && i.icon && typeof i.label === "string" ? i.label : undefined;
   const inner = (i: TabItem<T>) => <>
-    {i.icon && <Icon name={i.icon} size={variant === "floating" ? "lg" : "md"} />}
+    {i.icon && <Icon name={i.icon} size="md" />}
     <span className="vs-tabs__label">{i.label}</span>
     {i.count != null && <Badge tone={i.value === value ? "accent" : "muted"}>{i.count}</Badge>}
   </>;

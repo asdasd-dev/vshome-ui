@@ -28,6 +28,7 @@ describe.each([["комп", false], ["телефон", true]])("Sheet (%s)", (_n
     expect(screen.getByText("Тело")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Апрув" })).toBeInTheDocument();
     expect(sheet()).toHaveClass("vs-sheet");
+    expect(sheet()).toHaveAttribute("aria-modal", "true");
     expect(sheet()!.classList.contains("vs-sheet--drawer")).toBe(mobile);
   });
   it("✕ закрывает через onRequestClose", async () => {
@@ -176,5 +177,25 @@ describe("Sheet: «Назад» на Android", () => {
     await act(() => new Promise((r) => setTimeout(r, 0)));
     act(() => { FakeWatcher.all.filter((w) => !w.destroyed).at(-1)!.onclose?.(); });
     expect(onRequest).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe.each([["комп", false], ["телефон", true]])("Sheet (%s): удержание фокуса", (_name, mobile) => {
+  beforeEach(() => setMobile(mobile));
+
+  it("Tab и Shift+Tab циклически ходят внутри открытого листа и не уходят в фон", async () => {
+    render(<><button type="button">Фоновая кнопка</button><Harness /></>);
+    const bg = screen.getByRole("button", { name: "Фоновая кнопка", hidden: true });
+    const close = screen.getByRole("button", { name: "Закрыть" });
+    const input = screen.getByRole("textbox", { name: "Черновик" });
+    const approve = screen.getByRole("button", { name: "Апрув" });
+    approve.focus();
+    await userEvent.tab();
+    expect(document.activeElement).toBe(close);
+    expect(document.activeElement).not.toBe(bg);
+    await userEvent.tab({ shift: true });
+    expect(document.activeElement).toBe(approve);
+    await userEvent.tab({ shift: true });
+    expect(document.activeElement).toBe(input);
   });
 });
