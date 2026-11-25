@@ -1,3 +1,4 @@
+import { allCss } from "./css";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Button, Chip, Segment } from "../src";
@@ -26,6 +27,11 @@ describe("Button", () => {
   it("type=submit пробрасывается", () => {
     render(<Button type="submit">Сохранить</Button>);
     expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
+  });
+  it("primary и lamp в нажатом состоянии задают контрастный текст", () => {
+    const css = allCss();
+    expect(css).toMatch(/\.vs-button--primary \{[^}]*--vs-button-pressed-fg: var\(--vs-ink\)/);
+    expect(css).toMatch(/\.vs-button--lamp \{[^}]*--vs-button-pressed-fg: var\(--vs-button-fg, var\(--vs-ink\)\)/);
   });
 });
 

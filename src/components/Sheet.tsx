@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode, type TouchEvent } from "react";
+import { useEffect, useRef, type KeyboardEvent, type ReactNode, type TouchEvent } from "react";
 import { Dialog } from "@base-ui/react/dialog";
 import { Drawer } from "@base-ui/react/drawer";
 import { cx } from "../utils/cx";
@@ -32,9 +32,38 @@ export type SheetProps = {
   className?: string;
 };
 
+const FOCUSABLE = "a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex=\"-1\"])";
+
+function trapSheetTab(e: KeyboardEvent<HTMLElement>, container: HTMLElement | null) {
+  if (e.key !== "Tab" || !container) return;
+  const list = [...container.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => {
+    if (el.closest("[hidden],[inert]") || el.tabIndex < 0) return false;
+    const cs = getComputedStyle(el);
+    return cs.display !== "none" && cs.visibility !== "hidden";
+  });
+  if (list.length === 0) {
+    e.preventDefault();
+    container.focus();
+    return;
+  }
+  const first = list[0]!;
+  const last = list[list.length - 1]!;
+  const active = document.activeElement;
+  if (e.shiftKey) {
+    if (active === first || active === container || !container.contains(active)) {
+      e.preventDefault();
+      last.focus();
+    }
+  } else if (active === last || !container.contains(active)) {
+    e.preventDefault();
+    first.focus();
+  }
+}
+
 export function Sheet({ open, onRequestClose, head, actions, footer, children, scrollKey, className }: SheetProps) {
   const mobile = useMediaQuery(SHEET_MOBILE);
   const body = useRef<HTMLDivElement>(null);
+  const popup = useRef<HTMLDivElement>(null);
   useEffect(() => { if (body.current) body.current.scrollTop = 0; }, [scrollKey]);
   const inFlight = useRef(false);
   const lastResult = useRef<boolean | void>(undefined);
@@ -73,7 +102,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
           <Drawer.Portal>
             <Drawer.Backdrop className="vs-sheet-backdrop" onTouchEnd={onBackdropTouchEnd} />
             <Drawer.Viewport className="vs-sheet-viewport">
-              <Drawer.Popup className={cx("vs-sheet", "vs-sheet--drawer", className)}>
+              <Drawer.Popup ref={popup} aria-modal="true" onKeyDown={(e) => trapSheetTab(e, popup.current)} className={cx("vs-sheet", "vs-sheet--drawer", className)}>
                 <span className="vs-sheet__grip" aria-hidden="true" />
                 <Drawer.Content className="vs-sheet__content">{frame}</Drawer.Content>
               </Drawer.Popup>
@@ -87,7 +116,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Backdrop className="vs-sheet-backdrop" onTouchEnd={onBackdropTouchEnd} />
-        <Dialog.Popup className={cx("vs-sheet", className)}>{frame}</Dialog.Popup>
+        <Dialog.Popup ref={popup} aria-modal="true" onKeyDown={(e) => trapSheetTab(e, popup.current)} className={cx("vs-sheet", className)}>{frame}</Dialog.Popup>
       </Dialog.Portal>
     </Dialog.Root>
   );

@@ -2,7 +2,7 @@
 .vs-button[aria-pressed="true"] { background: var(--vs-button-pressed, var(--vs-accent-soft)); color: var(--vs-button-pressed-fg, var(--vs-button-fg, var(--vs-ink))); }
 .vs-button--sm { --vs-button-h: calc(32px * var(--vs-scale, 1)); --vs-button-py: var(--vs-space-1); --vs-button-px: var(--vs-button-sm-px, var(--vs-space-2)); --vs-button-size: var(--vs-text-sm); --vs-button-leading: var(--vs-leading-sm); }
 .vs-button:disabled { opacity: .5; cursor: not-allowed; }
-.vs-button--primary { --vs-button-bg: var(--vs-accent); --vs-button-line: var(--vs-button-accent-line, var(--vs-accent)); --vs-button-fg: var(--vs-on-accent); --vs-button-weight: var(--vs-weight-semibold); }
+.vs-button--primary { --vs-button-bg: var(--vs-accent); --vs-button-line: var(--vs-button-accent-line, var(--vs-accent)); --vs-button-fg: var(--vs-on-accent); --vs-button-pressed-fg: var(--vs-ink); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--lg { --vs-button-h: calc(48px * var(--vs-scale, 1)); --vs-button-px: var(--vs-space-5); --vs-button-size: var(--vs-text-md); --vs-button-leading: var(--vs-leading-md); }
 .vs-button--ghost { --vs-button-bg: var(--vs-ghost-bg); --vs-button-line: transparent; }
 .vs-button--pill { --vs-button-radius: var(--vs-radius-pill); }
@@ -10,7 +10,7 @@
 .vs-button--danger { --vs-button-fg: var(--vs-danger); }
 .vs-button--warn { --vs-button-bg: var(--vs-warn-soft); --vs-button-line: var(--vs-button-accent-line, var(--vs-warn)); --vs-button-fg: var(--vs-warn); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-button--icon { display: inline-flex; align-items: center; justify-content: center; gap: var(--vs-space-2); }
-.vs-button--lamp { --vs-button-pressed: var(--vs-button-bg); }
+.vs-button--lamp { --vs-button-pressed: var(--vs-button-bg); --vs-button-pressed-fg: var(--vs-button-fg, var(--vs-ink)); }
 .vs-button__lamp { margin-left: calc(var(--vs-space-5) / -3); }
 .vs-button__lamp--off { color: var(--vs-muted); opacity: .45; filter: none; }
 .vs-button:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }
