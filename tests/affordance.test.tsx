@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { allCss } from "./css";
-import { List, ListRow } from "../src";
+import { Link, List, ListRow } from "../src";
 
 const rules = (css: string) => [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}@]+)\{([^{}]*)\}/g)].map((m) => ({ sel: m[1]!.trim(), body: m[2]! }));
 const PRESSABLE = /\.vs-(button|icon-button|split)(--[\w-]+)?(?=[\s.:\[,]|$)/;
@@ -32,5 +32,15 @@ describe("нажимаемое видно в покое, без наведени
     const css = allCss();
     expect(css).toMatch(/@media \(hover: none\) \{ \.vs-link \{[^}]*text-decoration: underline/);
     expect(rules(css).find((r) => r.sel === ".vs-link--muted")!.body).toMatch(/text-decoration: underline/);
+  });
+
+  it("ссылка-блок без подчёркивания в покое, подчёркивается только при наведении", () => {
+    const { container } = render(<Link href="#/x" block tone="muted"><span>Заголовок</span><span>Подпись</span></Link>);
+    expect(container.querySelector("a")!.className).toContain("vs-link--block");
+    const css = allCss();
+    const at = (sel: string) => css.indexOf(sel);
+    expect(rules(css).find((r) => r.sel === ".vs-link.vs-link--block")!.body).toMatch(/text-decoration: none/);
+    expect(at(".vs-link.vs-link--block")).toBeGreaterThan(at("@media (hover: none) { .vs-link {"));
+    expect(at(".vs-link.vs-link--block")).toBeLessThan(at(".vs-link--underline-hover:hover"));
   });
 });

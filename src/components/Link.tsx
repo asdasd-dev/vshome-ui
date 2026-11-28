@@ -4,11 +4,11 @@ import { Icon } from "./Icon";
 
 export type LinkProps = {
   children: ReactNode; href?: string; onClick?: (e: MouseEvent<HTMLElement>) => void; tone?: "accent" | "muted" | "danger"; external?: boolean;
-  underline?: "hover" | "always"; disabled?: boolean; title?: string; className?: string;
+  underline?: "hover" | "always"; block?: boolean; disabled?: boolean; title?: string; className?: string;
 };
 
-export function Link({ children, href, onClick, tone = "accent", external, underline = "hover", disabled, title, className }: LinkProps) {
-  const cls = cx("vs-link", `vs-link--${tone}`, `vs-link--underline-${underline}`, className);
+export function Link({ children, href, onClick, tone = "accent", external, underline = "hover", block, disabled, title, className }: LinkProps) {
+  const cls = cx("vs-link", `vs-link--${tone}`, `vs-link--underline-${underline}`, block && "vs-link--block", className);
   if (href == null || disabled) return <button type="button" className={cls} onClick={onClick} title={title} disabled={disabled}>{children}</button>;
   return (
     <a className={cls} href={href} onClick={onClick} title={title} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
