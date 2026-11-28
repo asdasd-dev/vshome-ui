@@ -8,3 +8,4 @@
 .vs-disclosure[open] > .vs-disclosure__summary .vs-disclosure__chevron { transform: rotate(90deg); }
 .vs-disclosure__body { padding-top: var(--vs-space-2); }
 @media (prefers-reduced-motion: reduce) { .vs-disclosure__chevron { transition: none; } }
+@media (pointer: coarse) { .vs-disclosure__summary { min-height: calc(44px * var(--vs-scale, 1)); } }

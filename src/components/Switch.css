@@ -11,3 +11,4 @@
 .vs-switch--sm input:checked::before { transform: translateX(var(--vs-switch-travel, calc(12px * var(--vs-scale, 1)))); }
 @media (prefers-reduced-motion: reduce) { .vs-switch input, .vs-switch input::before { transition: none; } }
 .vs-kiosk { --vs-switch-w: calc(56px * var(--vs-scale, 1)); --vs-switch-h: calc(32px * var(--vs-scale, 1)); --vs-switch-inset: calc(4px * var(--vs-scale, 1)); --vs-switch-knob: calc(24px * var(--vs-scale, 1)); --vs-switch-travel: calc(24px * var(--vs-scale, 1)); }
+@media (pointer: coarse) { .vs-switch { min-height: calc(44px * var(--vs-scale, 1)); } }
