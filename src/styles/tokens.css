@@ -47,13 +47,13 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
+    --vs-bg: #111110; --vs-panel: #262623; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #43423d;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
     --vs-header-accent-bg: linear-gradient(160deg, #1f3f9e 0%, #152c72 100%); --vs-on-header-accent: #ffffff;
-    --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
+    --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #31312d;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
     --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 14%, var(--vs-panel));
@@ -61,13 +61,13 @@
   }
 }
 :root[data-theme="dark"] {
-    --vs-bg: #161615; --vs-panel: #1f1f1d; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #34332f;
+    --vs-bg: #111110; --vs-panel: #262623; --vs-ink: #ecebe6; --vs-muted: #9b9a94; --vs-line: #43423d;
     --vs-accent: #7aa7ff; --vs-danger: #fb7185; --vs-warn: #fb923c; --vs-ok: #4ade80;
     --vs-on-accent: #0b1a33; --vs-lamp: #fbbf24;
     --vs-violet: #b48cff; --vs-pink: #f472b6; --vs-gold: #f5a300;
     --vs-deal: #f5c542; --vs-on-deal: #1d1d1b;
     --vs-header-accent-bg: linear-gradient(160deg, #1f3f9e 0%, #152c72 100%); --vs-on-header-accent: #ffffff;
-    --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #2a2a27;
+    --vs-surface-0: var(--vs-bg); --vs-surface-1: var(--vs-panel); --vs-surface-2: #31312d;
     --vs-ok-soft: color-mix(in srgb, var(--vs-ok) 14%, var(--vs-panel));
     --vs-warn-soft: color-mix(in srgb, var(--vs-warn) 14%, var(--vs-panel));
     --vs-danger-soft: color-mix(in srgb, var(--vs-danger) 14%, var(--vs-panel));
