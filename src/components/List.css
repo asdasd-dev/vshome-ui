@@ -36,6 +36,8 @@ a.vs-list-row__inner { cursor: pointer; text-decoration: none; }
 .vs-list--plain .vs-list-row + .vs-list-row { border-top: 0; }
 .vs-list--plain .vs-list-row__inner { padding-inline: var(--vs-space-2); border-radius: var(--vs-radius-sm); }
 .vs-list-row--selected .vs-list-row__inner { background: var(--vs-accent-tint); border-radius: var(--vs-radius-sm); }
+.vs-list:not(.vs-list--plain) .vs-list-row--selected, .vs-list:not(.vs-list--plain) .vs-list-row--selected + .vs-list-row { border-top-color: transparent; }
+.vs-list:not(.vs-list--plain) .vs-list-row--selected .vs-list-row__inner { box-sizing: border-box; width: calc(100% + 2 * var(--vs-space-2)); margin-inline: calc(-1 * var(--vs-space-2)); padding-inline: var(--vs-space-2); }
 .vs-list-row--selected .vs-list-row__title, .vs-list-row--selected .vs-list-row__name { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }
 .vs-list-row--selected .vs-list-row__meta { color: var(--vs-accent); font-weight: var(--vs-weight-semibold); }
 .vs-list-row--action { display: flex; align-items: center; gap: var(--vs-space-2); }
