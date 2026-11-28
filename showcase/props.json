@@ -458,6 +458,13 @@
         "deprecated": false
       },
       {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
+      },
+      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
