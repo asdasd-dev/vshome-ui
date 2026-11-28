@@ -14,3 +14,4 @@ a.vs-chip[aria-current="page"] { border-color: var(--vs-accent); color: var(--vs
 .vs-chip-group--fade-start { --vs-chip-fade-start: var(--vs-space-6); }
 .vs-chip-group--fade-end { --vs-chip-fade-end: var(--vs-space-6); }
 .vs-chip-group--fade-start, .vs-chip-group--fade-end { mask-image: linear-gradient(to right, transparent 0, var(--vs-ink) var(--vs-chip-fade-start, 0%), var(--vs-ink) calc(100% - var(--vs-chip-fade-end, 0%)), transparent 100%); }
+@media (pointer: coarse) { .vs-chip--sm { min-height: calc(32px * var(--vs-scale, 1)); } }

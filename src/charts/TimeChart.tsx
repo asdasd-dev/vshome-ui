@@ -1,6 +1,5 @@
 import { useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
-import { niceMax } from "./scale";
 import { CHART_H as H, PAD, pointerX, useTipLeft, useWidth, type TipPos } from "./useChartFrame";
 
 export type TimeSeries = { name: string; color: string; points: [number, number][]; dots?: boolean; line?: boolean; area?: boolean; fmt?: (v: number) => string };
@@ -38,12 +37,21 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
   const vs = all.map((p) => p[1]).concat(refLines.map((r) => r.y));
   const t0 = Math.min(...ts), t1 = Math.max(...ts);
   const rawHi = Math.max(0, ...vs), rawLo = yFrom === "data" && vs.length ? Math.max(0, Math.min(...vs)) : 0;
-  const step = niceStep((rawHi - rawLo || rawHi || 1) / 4);
+  const step = niceStep((rawHi * (yFrom === "data" ? 1 : 1.05) - rawLo || rawHi || 1) / 4);
   const lo = yFrom === "data" ? Math.floor(rawLo / step) * step : 0;
-  const hi = yFrom === "data" ? Math.max(lo + step * 4, Math.ceil(rawHi / step) * step) : niceMax(rawHi * 1.05);
+  const hi = Math.max(lo + step, Math.ceil((rawHi * (yFrom === "data" ? 1 : 1.05)) / step) * step);
+  const grid = Array.from({ length: Math.round((hi - lo) / step) + 1 }, (_, k) => lo + k * step);
   const x = (t: number) => L + ((W - L - R) * (t - t0)) / Math.max(1, t1 - t0);
   const y = (v: number) => T + (H - T - B) * (1 - (v - lo) / Math.max(1e-9, hi - lo));
   const ticks = [0, 1, 2, 3].map((k) => t0 + ((t1 - t0) * k) / 3);
+  const near = (W - L - R) > 0 ? ((t1 - t0) / (W - L - R)) * 8 : 0;
+  const valueAt = (s: TimeSeries, t: number) => {
+    const p = s.points.reduce<[number, number] | undefined>((best, q) => (!best || Math.abs(q[0] - t) < Math.abs(best[0] - t) ? q : best), undefined);
+    if (!p) return undefined;
+    const ends = s.points.map((q) => q[0]);
+    const inside = (s.line ?? !s.dots) ? t >= Math.min(...ends) - near && t <= Math.max(...ends) + near : Math.abs(p[0] - t) <= near;
+    return inside ? p : undefined;
+  };
   const nearest = (t: number) => all.reduce((best, p) => (Math.abs(p[0] - t) < Math.abs(best - t) ? p[0] : best), all[0]?.[0] ?? t);
   function move(ev: React.MouseEvent | React.TouchEvent) {
     const svg = svgRef.current;
@@ -54,7 +62,7 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
   }
   let tip: ReactNode = null;
   if (hover) {
-    tip = <><b>{tipFormat(hover.t)}</b>{series.map((s) => { const p = s.points.reduce<[number, number] | undefined>((best, q) => (!best || Math.abs(q[0] - hover.t) < Math.abs(best[0] - hover.t) ? q : best), undefined); return p ? <span key={s.name}><br /><i style={{ background: s.color }} />{s.name}: {s.fmt ? s.fmt(p[1]) : p[1]}</span> : null; })}</>;
+    tip = <><b>{tipFormat(hover.t)}</b>{series.map((s) => { const p = valueAt(s, hover.t); return p ? <span key={s.name}><br /><i style={{ background: s.color }} />{s.name}: {s.fmt ? s.fmt(p[1]) : p[1]}</span> : null; })}</>;
   }
   const refX = (now != null ? Math.min(x(now), W - R) : W - R) - 8;
   const path = (pts: [number, number][]) => pts.map((p, i) => `${i ? "L" : "M"}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join("");
@@ -64,10 +72,7 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
       <div className="vs-chart-view" ref={box}>
         {width > 0 && (
           <svg ref={svgRef} viewBox={`0 0 ${W} ${H}`} width={W} height={H} role="img" aria-label={label}>
-            {[0, 1, 2, 3, 4].map((g) => {
-              const v = lo + ((hi - lo) * g) / 4;
-              return <g key={g}><line className="vs-chart-grid" x1={L} x2={W - R} y1={y(v)} y2={y(v)} /><text className="vs-chart-axis" x={L - 6} y={y(v) + 4} textAnchor="end">{yFormat(v) + (g === 4 ? unit ?? "" : "")}</text></g>;
-            })}
+            {grid.map((v, g) => <g key={g}><line className="vs-chart-grid" x1={L} x2={W - R} y1={y(v)} y2={y(v)} /><text className="vs-chart-axis" x={L - 6} y={y(v) + 4} textAnchor="end">{yFormat(v) + (g === grid.length - 1 ? unit ?? "" : "")}</text></g>)}
             {ticks.map((t, k) => <text key={k} className="vs-chart-axis" x={x(t)} y={H - 6} textAnchor={k === 0 ? "start" : k === 3 ? "end" : "middle"}>{xFormat(t)}</text>)}
             {placeRefs(refLines, y).map(({ r, below }, k) => (
               <g key={`r${k}`}>
@@ -87,6 +92,7 @@ export function TimeChart({ series, refLines = [], yFrom = "zero", now, unit, xF
               );
             })}
             {hover && <line className="vs-chart-cross" x1={x(hover.t)} x2={x(hover.t)} y1={T} y2={H - B} />}
+            {hover && series.map((s) => { const p = valueAt(s, hover.t); return p && <circle key={`h${s.name}`} className="vs-chart-dot" r={4} cx={x(p[0])} cy={y(p[1])} fill={s.color} strokeWidth={2} />; })}
             <rect x={L} y={0} width={W - L - R} height={H} fill="transparent" onMouseMove={move} onTouchStart={move} onTouchMove={move} onMouseLeave={() => setHover(null)} />
           </svg>
         )}

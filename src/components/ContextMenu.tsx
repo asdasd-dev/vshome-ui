@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent, type ReactElement, type TouchEvent } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type MouseEvent, type ReactElement, type TouchEvent } from "react";
 import { CSPProvider } from "@base-ui/react/csp-provider";
 import { ContextMenu as Base } from "@base-ui/react/context-menu";
 import type { BaseUIEvent } from "@base-ui/react";
@@ -7,6 +7,10 @@ import { Icon } from "./Icon";
 import { trackOpenPopup } from "../utils/openPopups";
 
 const TOUCH_CONTEXTMENU_MS = 1500;
+const RELEASE_MS = 350;
+const RELEASES = ["pointerup", "pointercancel", "touchend", "touchcancel"] as const;
+const Ready = createContext<() => boolean>(() => true);
+const guard = (ready: () => boolean) => (e: BaseUIEvent<MouseEvent>) => { if (!ready()) e.preventBaseUIHandler(); };
 
 export type ContextMenuAction = { label: string; onSelect: () => void; disabled?: boolean };
 export type ContextMenuCheckbox = { label: string; checked: boolean; onCheckedChange: (checked: boolean) => void; disabled?: boolean };
@@ -27,13 +31,14 @@ export type ContextMenuProps = {
 };
 
 function Entry({ item }: { item: Exclude<ContextMenuEntry, "separator"> }) {
+  const ready = useContext(Ready);
   if ("options" in item) {
     return (
       <Base.Group className="vs-menu__group">
         <Base.GroupLabel className="vs-menu__label">{item.label}</Base.GroupLabel>
         <Base.RadioGroup value={item.value} onValueChange={(v) => { if (v !== item.value) item.onValueChange(v as string); }}>
           {item.options.map((o) => (
-            <Base.RadioItem key={o.value} value={o.value} disabled={o.disabled} closeOnClick className="vs-menu__item">
+            <Base.RadioItem key={o.value} value={o.value} disabled={o.disabled} closeOnClick onClick={guard(ready)} className="vs-menu__item">
               <Base.RadioItemIndicator className="vs-menu__check"><Icon name="check" size="sm" /></Base.RadioItemIndicator>
               <span className="vs-menu__text">{o.label}</span>
             </Base.RadioItem>
@@ -44,14 +49,14 @@ function Entry({ item }: { item: Exclude<ContextMenuEntry, "separator"> }) {
   }
   if ("checked" in item) {
     return (
-      <Base.CheckboxItem checked={item.checked} onCheckedChange={item.onCheckedChange} disabled={item.disabled} closeOnClick className="vs-menu__item">
+      <Base.CheckboxItem checked={item.checked} onCheckedChange={item.onCheckedChange} disabled={item.disabled} closeOnClick onClick={guard(ready)} className="vs-menu__item">
         <Base.CheckboxItemIndicator className="vs-menu__check"><Icon name="check" size="sm" /></Base.CheckboxItemIndicator>
         <span className="vs-menu__text">{item.label}</span>
       </Base.CheckboxItem>
     );
   }
   return (
-    <Base.Item onClick={item.onSelect} disabled={item.disabled} className="vs-menu__item">
+    <Base.Item onClick={(e) => { if (ready()) item.onSelect(); else e.preventBaseUIHandler(); }} disabled={item.disabled} className="vs-menu__item">
       <span className="vs-menu__text">{item.label}</span>
     </Base.Item>
   );
@@ -61,9 +66,27 @@ export function ContextMenu({ items, children, longPress = true, disabled, class
   const [open, setOpen] = useState(false);
   useEffect(() => (open ? trackOpenPopup() : undefined), [open]);
   const lastTouch = useRef(0);
+  const held = useRef(false);
+  const armed = useRef(true);
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const release = () => {
+      if (!held.current) return;
+      held.current = false;
+      timer = setTimeout(() => { armed.current = true; }, RELEASE_MS);
+    };
+    for (const t of RELEASES) document.addEventListener(t, release, true);
+    return () => { clearTimeout(timer); for (const t of RELEASES) document.removeEventListener(t, release, true); };
+  }, []);
+  const onOpenChange = (next: boolean) => { if (next) armed.current = !held.current; setOpen(next); };
+  const press = {
+    onTouchStart: () => { held.current = true; },
+    onPointerDown: (e: BaseUIEvent<MouseEvent>) => { if ((e.nativeEvent as PointerEvent).pointerType === "touch") held.current = true; },
+  };
   // Без долгого нажатия касание отдаём странице как есть: Base UI на touchstart зовёт stopPropagation, а это глушит TouchSensor у предков
-  const touchProps = longPress ? {} : {
-    onTouchStart: (e: BaseUIEvent<TouchEvent>) => { lastTouch.current = Date.now(); e.preventBaseUIHandler(); },
+  const touchProps = longPress ? press : {
+    onPointerDown: press.onPointerDown,
+    onTouchStart: (e: BaseUIEvent<TouchEvent>) => { lastTouch.current = Date.now(); held.current = true; e.preventBaseUIHandler(); },
     // Android шлёт contextmenu и на долгое нажатие пальцем
     onContextMenu: (e: BaseUIEvent<MouseEvent>) => {
       const touch = (e.nativeEvent as PointerEvent).pointerType === "touch" || Date.now() - lastTouch.current < TOUCH_CONTEXTMENU_MS;
@@ -72,14 +95,16 @@ export function ContextMenu({ items, children, longPress = true, disabled, class
   };
   return (
     <CSPProvider disableStyleElements>
-      <Base.Root open={open} onOpenChange={setOpen} disabled={disabled}>
+      <Base.Root open={open} onOpenChange={onOpenChange} disabled={disabled}>
         <Base.Trigger render={children} {...touchProps} />
         <Base.Portal>
           <Base.Positioner className="vs-menu__positioner">
             <Base.Popup className={cx("vs-menu", className)}>
-              {items.map((item, i) => item === "separator"
-                ? <Base.Separator key={i} className="vs-menu__separator" />
-                : <Entry key={i} item={item} />)}
+              <Ready.Provider value={() => armed.current}>
+                {items.map((item, i) => item === "separator"
+                  ? <Base.Separator key={i} className="vs-menu__separator" />
+                  : <Entry key={i} item={item} />)}
+              </Ready.Provider>
             </Base.Popup>
           </Base.Positioner>
         </Base.Portal>

@@ -107,6 +107,22 @@ describe("ContextMenu", () => {
       expect(screen.getByRole("menu")).toBeInTheDocument();
     });
 
+    it("отпускание пальца, открывшего меню, не выбирает пункт под ним", () => {
+      const onOpen = vi.fn(), onStatus = vi.fn();
+      render(<Harness onOpen={onOpen} onStatus={onStatus} />);
+      hold(screen.getByTestId("tile"));
+      const first = screen.getByRole("menuitem", { name: "Открыть" });
+      fireEvent.touchEnd(first);
+      fireEvent.click(first);
+      fireEvent.click(screen.getByRole("menuitemradio", { name: "Review" }));
+      expect(onOpen).not.toHaveBeenCalled();
+      expect(onStatus).not.toHaveBeenCalled();
+      expect(screen.getByRole("menu")).toBeInTheDocument();
+      act(() => vi.advanceTimersByTime(400));
+      fireEvent.click(screen.getByRole("menuitem", { name: "Открыть" }));
+      expect(onOpen).toHaveBeenCalledTimes(1);
+    });
+
     it("longPress={false}: не открывает ни таймер, ни contextmenu от касания", () => {
       render(<Harness longPress={false} />);
       const tile = screen.getByTestId("tile");

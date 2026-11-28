@@ -1,4 +1,4 @@
-.vs-tag { --vs-tag-fg: var(--vs-ink); --vs-tag-soft: var(--vs-surface-2); display: inline-flex; align-items: center; gap: var(--vs-space-1); max-width: 100%; border-radius: var(--vs-radius-pill); font-weight: var(--vs-weight-medium); white-space: nowrap; color: var(--vs-tag-fg); }
+.vs-tag { --vs-tag-fg: var(--vs-ink); --vs-tag-soft: var(--vs-chip-neutral, var(--vs-surface-2)); display: inline-flex; align-items: center; gap: var(--vs-space-1); max-width: 100%; border-radius: var(--vs-radius-pill); font-weight: var(--vs-weight-medium); white-space: nowrap; color: var(--vs-tag-fg); }
 .vs-tag--md { padding: var(--vs-space-0_5) var(--vs-space-2); font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); }
 .vs-tag--sm { padding: 0 var(--vs-space-1_5); font-size: var(--vs-text-2xs); line-height: var(--vs-leading-2xs); }
 .vs-tag--soft { background: var(--vs-tag-soft); }

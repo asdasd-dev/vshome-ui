@@ -20,3 +20,4 @@
 .vs-checkbox--disabled { opacity: .5; cursor: not-allowed; }
 .vs-checkbox--disabled .vs-checkbox__input:disabled, .vs-checkbox--disabled .vs-radio__input:disabled { opacity: 1; }
 .vs-radio-group--lg .vs-radio__input { width: calc(28px * var(--vs-scale, 1)); height: calc(28px * var(--vs-scale, 1)); }
+@media (pointer: coarse) { .vs-checkbox, .vs-radio { padding-block: var(--vs-space-1_5); } }

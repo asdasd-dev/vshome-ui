@@ -1,4 +1,4 @@
-.vs-field { display: flex; flex-direction: column; gap: var(--vs-space-1); min-width: 0; }
+.vs-field { position: relative; display: flex; flex-direction: column; gap: var(--vs-space-1); min-width: 0; }
 .vs-field__label { font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); font-weight: var(--vs-weight-medium); color: var(--vs-muted); }
 .vs-field__control { position: relative; display: flex; min-width: 0; }
 .vs-field__hint, .vs-field__error { margin: 0; font-size: var(--vs-text-xs); line-height: var(--vs-leading-xs); color: var(--vs-muted); }

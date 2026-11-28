@@ -10,8 +10,8 @@
 .vs-sheet__actions button { border: 0; color: inherit; font: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; min-width: var(--vs-sheet-action, calc(44px * var(--vs-scale, 1))); min-height: var(--vs-sheet-action, calc(44px * var(--vs-scale, 1))); border-radius: var(--vs-sheet-action-radius, var(--vs-radius-sm)); background: var(--vs-sheet-action-bg, none); }
 .vs-sheet__actions button:focus-visible { outline: var(--vs-focus-ring); outline-offset: -2px; }
 .vs-sheet__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--vs-sheet-body-pad, var(--vs-space-3) var(--vs-space-4) var(--vs-space-4)); }
-.vs-sheet__foot { border-top: 1px solid var(--vs-line); padding: var(--vs-space-2) var(--vs-space-4); display: flex; gap: var(--vs-space-2); }
-.vs-sheet__foot > .vs-button { flex: 1; --vs-button-h: calc(44px * var(--vs-scale, 1)); --vs-button-radius: var(--vs-radius); --vs-button-weight: var(--vs-weight-semibold); }
+.vs-sheet__foot { border-top: 1px solid var(--vs-line); padding: var(--vs-space-2) var(--vs-space-4); display: flex; flex-wrap: wrap; gap: var(--vs-space-2); }
+.vs-sheet__foot > .vs-button { flex: 1 1 0; min-width: fit-content; --vs-button-h: calc(44px * var(--vs-scale, 1)); --vs-button-radius: var(--vs-radius); --vs-button-weight: var(--vs-weight-semibold); }
 .vs-sheet__grip { display: none; }
 
 .vs-sheet-viewport { position: fixed; inset: 0; z-index: var(--vs-z-sheet); display: flex; align-items: flex-end; justify-content: center; }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
 import { Badge } from "./Badge";
 import { Icon } from "./Icon";
+import { useKeepSelectedInView } from "../hooks/useKeepSelectedInView";
 
 export type ChipProps = {
   children: ReactNode; pressed?: boolean; onClick?: () => void; href?: string; size?: "sm" | "md"; disabled?: boolean; count?: number;
@@ -27,6 +28,7 @@ export type ChipGroupProps<T extends string> = {
 export function ChipGroup<T extends string>({ options, value, onChange, label, scroll, size, className }: ChipGroupProps<T>) {
   const ref = useRef<HTMLDivElement>(null);
   const [fade, setFade] = useState({ start: false, end: false });
+  useKeepSelectedInView(ref, "[aria-pressed=true]", scroll ? value : null);
   useEffect(() => {
     const el = ref.current;
     if (!scroll || !el) return;

@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { useKeepSelectedInView } from "../hooks/useKeepSelectedInView";
 import { cx } from "../utils/cx";
 import { Badge } from "./Badge";
 import { Icon } from "./Icon";
@@ -12,6 +13,8 @@ export type TabsProps<T extends string> = {
 
 export function Tabs<T extends string>({ items, value, onChange, label, variant = "underline", sticky, className }: TabsProps<T>) {
   const cls = cx("vs-tabs", `vs-tabs--${variant}`, sticky && "vs-tabs--sticky", className);
+  const ref = useRef<HTMLElement>(null);
+  useKeepSelectedInView(ref, "[aria-selected=true],[aria-current=page]", value);
   const title = (i: TabItem<T>) => variant === "floating" && i.icon && typeof i.label === "string" ? i.label : undefined;
   const inner = (i: TabItem<T>) => <>
     {i.icon && <Icon name={i.icon} size="md" />}
@@ -20,13 +23,13 @@ export function Tabs<T extends string>({ items, value, onChange, label, variant 
   </>;
   if (items.some((i) => i.href != null)) {
     return (
-      <nav aria-label={label} className={cls}>
+      <nav ref={ref} aria-label={label} className={cls}>
         {items.map((i) => <a key={i.value} title={title(i)} className="vs-tabs__item" href={i.href} aria-current={i.value === value ? "page" : undefined} onClick={onChange ? () => onChange(i.value) : undefined}>{inner(i)}</a>)}
       </nav>
     );
   }
   return (
-    <div role="tablist" aria-label={label} className={cls}>
+    <div ref={ref as React.RefObject<HTMLDivElement>} role="tablist" aria-label={label} className={cls}>
       {items.map((i) => <button key={i.value} title={title(i)} type="button" role="tab" className="vs-tabs__item" aria-selected={i.value === value} onClick={() => onChange?.(i.value)}>{inner(i)}</button>)}
     </div>
   );
