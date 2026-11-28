@@ -8,6 +8,24 @@ function svgRect(svg: SVGSVGElement, width: number) {
 }
 
 describe("LineChart", () => {
+  it("на сенсорном экране подсказка над графиком во всю ширину, а не поверх линий", () => {
+    const prev = window.matchMedia;
+    window.matchMedia = ((q: string) => ({ media: q, matches: q.includes("pointer: coarse"), addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, onchange: null, dispatchEvent: () => false })) as unknown as typeof window.matchMedia;
+    try {
+      const { container } = render(<LineChart t0={t0} step={3600} series={[{ name: "a", color: "#f00", data: [1, 2, 3, 4, 5] }]} />);
+      const svg = container.querySelector("svg")!;
+      svgRect(svg, Number(svg.getAttribute("width")));
+      fireEvent.mouseMove(svg.lastElementChild!, { clientX: 200 });
+      const tip = container.querySelector(".vs-chart-tip") as HTMLElement;
+      expect(tip.hidden).toBe(false);
+      expect(tip.style.left).toBe("0px");
+    } finally {
+      window.matchMedia = prev;
+    }
+    const css = require("node:fs").readFileSync(require("node:path").join(__dirname, "..", "src", "charts", "charts.css"), "utf8");
+    expect(css).toMatch(/@media \(pointer: coarse\) \{ \.vs-chart-tip \{[^}]*bottom: calc\(100% \+ var\(--vs-space-1\)\)/);
+  });
+
   it("рисует ряд внутри ширины графика, null рвёт линию", () => {
     const { container } = render(<LineChart t0={t0} step={3600} series={[{ name: "a", color: "#f00", data: [1, 2, null, 4, 5] }]} />);
     const svg = container.querySelector("svg")!;

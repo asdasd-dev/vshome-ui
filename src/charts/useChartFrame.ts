@@ -24,7 +24,8 @@ export function useTipLeft(pos: TipPos | null) {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el || !pos) return;
-    el.style.left = `${Math.min(pos.boxW - el.offsetWidth, Math.max(0, pos.px + pos.gap))}px`;
+    const touch = typeof window.matchMedia === "function" && window.matchMedia("(pointer: coarse)").matches;
+    el.style.left = touch ? "0px" : `${Math.min(pos.boxW - el.offsetWidth, Math.max(0, pos.px + pos.gap))}px`;
   });
   return ref;
 }
