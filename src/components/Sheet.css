@@ -16,6 +16,7 @@
 
 .vs-sheet-viewport { position: fixed; inset: 0; z-index: var(--vs-z-sheet); display: flex; align-items: flex-end; justify-content: center; }
 .vs-sheet--drawer { position: relative; top: auto; left: auto; width: var(--vs-sheet-w, 100%); max-width: 100%; height: calc(100dvh - env(safe-area-inset-top, 0px) - var(--vs-space-3)); max-height: none; border: var(--vs-sheet-border, 0); border-radius: var(--vs-sheet-radius, var(--vs-radius-lg) var(--vs-radius-lg) 0 0); transform: translateY(var(--drawer-swipe-movement-y, 0px)); transition: transform var(--vs-duration-sheet) var(--vs-ease-sheet); }
+.vs-sheet--drawer.vs-sheet--fit { height: auto; max-height: calc(100dvh - env(safe-area-inset-top, 0px) - var(--vs-space-3)); }
 .vs-sheet--drawer[data-starting-style], .vs-sheet--drawer[data-ending-style] { opacity: 1; transform: translateY(100%); }
 .vs-sheet--drawer[data-swiping] { transition: none; }
 .vs-sheet--drawer[data-ending-style] { transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--vs-duration-sheet)); }

@@ -1,6 +1,6 @@
 import { useRef, useState, type ReactNode } from "react";
 import { cx } from "../utils/cx";
-import { fmtStamp, linePath, niceMax, robustMax, timeTicks } from "./scale";
+import { fmtStamp, linePath, niceMax, robustMax, thinTicks, timeTicks } from "./scale";
 import { CHART_H as H, PAD, pointerX, useTipLeft, useWidth, type TipPos } from "./useChartFrame";
 
 export type Series = { name: string; color: string; data: (number | null)[]; fmt?: (v: number) => string };
@@ -40,7 +40,7 @@ export function LineChart(p: LineChartProps) {
   const max = p.yMax || (p.robust ? robustMax(vals) : niceMax(Math.max(0, ...vals) * 1.05));
   const x = (i: number) => L + ((W - L - R) * i) / Math.max(1, n - 1);
   const y = (v: number) => T + (H - T - B) * (1 - Math.min(v, max) / max);
-  const ticks = timeTicks(p.t0, p.step, n, p.xEvery);
+  const ticks = thinTicks(timeTicks(p.t0, p.step, n, p.xEvery), (W - L - R) / Math.max(1, n - 1));
   const hasValue = (j: number) => shown.some((s) => s.data[j] != null);
 
   function move(ev: React.MouseEvent | React.TouchEvent) {

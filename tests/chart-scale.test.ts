@@ -1,4 +1,4 @@
-import { dayTicks, fmtStamp, linePath, niceMax, outageBands, robustMax, timeTicks } from "../src/charts/scale";
+import { dayTicks, fmtStamp, linePath, niceMax, outageBands, robustMax, thinTicks, timeTicks } from "../src/charts/scale";
 import { compact, plural } from "../src/utils/number";
 
 describe("niceMax", () => {
@@ -90,5 +90,13 @@ describe("timeTicks", () => {
   it("дольше — полуночи «ДД.ММ»", () => {
     const t0 = new Date(2026, 9, 1, 0, 0).getTime() / 1000;
     expect(timeTicks(t0, 43200, 4).map((t) => t.label)).toEqual(["01.10", "02.10"]);
+  });
+  it("подписи оси не ближе minGap: 30 полуночей на узком графике прореживаются", () => {
+    const ticks = Array.from({ length: 30 }, (_, d) => ({ i: d * 48, label: String(d) }));
+    const thin = thinTicks(ticks, 300 / (29 * 48));
+    expect(thin.length).toBeLessThanOrEqual(7);
+    expect(thin[0]).toEqual(ticks[0]);
+    expect(thinTicks(ticks, 1500 / (29 * 48))).toHaveLength(30);
+    expect(thinTicks(ticks.slice(0, 1), 0.1)).toHaveLength(1);
   });
 });
