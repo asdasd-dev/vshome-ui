@@ -10,7 +10,7 @@
 .vs-card--ok { --vs-card-bg: var(--vs-ok-soft); border-color: transparent; }
 .vs-card--warn { --vs-card-bg: var(--vs-warn-soft); border-color: transparent; }
 .vs-card--danger { --vs-card-bg: var(--vs-danger-soft); border-color: transparent; }
-.vs-card--muted { --vs-card-bg: var(--vs-surface-2); border-color: transparent; }
+.vs-card--muted { --vs-card-bg: var(--vs-surface-2); --vs-chip-neutral: var(--vs-panel); border-color: transparent; }
 .vs-card--stripe { border-left: 4px solid var(--vs-card-stripe); }
 .vs-card--interactive { width: 100%; cursor: pointer; }
 .vs-card--interactive:focus-visible { outline: var(--vs-focus-ring); outline-offset: 2px; }

@@ -37,7 +37,7 @@ export function Select<T extends string>({ value, onChange, options, label, hint
           {error && <p id={`${id}-error`} className="vs-field__error">{error}</p>}
         </div>
         <Base.Portal>
-          <Base.Positioner className="vs-select__positioner" sideOffset={4}>
+          <Base.Positioner className="vs-select__positioner" sideOffset={4} alignItemWithTrigger={false}>
             <Base.Popup className="vs-select__popup">
               <Base.List className="vs-select__list">
                 {options.map((o) => (

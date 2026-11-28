@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ChartCard, LineChart, StackedBars } from "../src/charts";
+import { ChartCard, LineChart, StackedBars, TimeChart } from "../src/charts";
+import { PAD } from "../src/charts/useChartFrame";
 
 const t0 = new Date(2026, 9, 1, 0, 0).getTime() / 1000;
 
@@ -147,5 +148,33 @@ describe("ChartCard", () => {
     expect(screen.getByText("Диск")).toBeInTheDocument();
     expect(screen.getByText("растёт")).toBeInTheDocument();
     expect(screen.getByText("доступен 99%").tagName).toBe("EM");
+  });
+});
+
+describe("TimeChart", () => {
+  const yLabels = (c: HTMLElement) => [...c.querySelectorAll("text.vs-chart-axis")].filter((t) => t.getAttribute("x") === String(PAD.L - 6)).map((t) => Number(t.textContent));
+
+  it("деления оси Y круглые: каждое кратно шагу сетки", () => {
+    const { container } = render(<TimeChart yFrom="data" series={[{ name: "цена", color: "#f00", points: [[1, 140], [2, 240]] }]} />);
+    const ys = yLabels(container);
+    expect(ys.length).toBeGreaterThanOrEqual(3);
+    expect(ys.filter((v) => v % 25 !== 0)).toEqual([]);
+    expect(Math.min(...ys)).toBeLessThanOrEqual(140);
+    expect(Math.max(...ys)).toBeGreaterThanOrEqual(240);
+  });
+
+  it("точка-событие попадает в подсказку только рядом с собой, у каждого значения маркер на графике", () => {
+    const { container } = render(<TimeChart series={[{ name: "цена", color: "#f00", points: [[0, 10], [100, 20]] }, { name: "мои покупки", color: "#00f", dots: true, points: [[0, 12]] }]} />);
+    const svg = container.querySelector("svg")!;
+    const W = Number(svg.getAttribute("width"));
+    svgRect(svg, W);
+    const tip = container.querySelector(".vs-chart-tip")!;
+    fireEvent.mouseMove(svg.lastElementChild!, { clientX: W - PAD.R });
+    expect(tip.textContent).toContain("цена: 20");
+    expect(tip.textContent).not.toContain("мои покупки");
+    expect(svg.querySelectorAll("circle.vs-chart-dot")).toHaveLength(1);
+    fireEvent.mouseMove(svg.lastElementChild!, { clientX: PAD.L });
+    expect(tip.textContent).toContain("мои покупки: 12");
+    expect(svg.querySelectorAll("circle.vs-chart-dot")).toHaveLength(2);
   });
 });

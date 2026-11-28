@@ -28,6 +28,31 @@ describe("нажимаемое видно в покое, без наведени
     expect(rows.map((r) => !!r.querySelector(".vs-list-row__go"))).toEqual([true, true, false]);
   });
 
+  it("строка выбора без шеврона: тап выбирает, а не открывает подробности", () => {
+    const { container } = render(<List><ListRow title="Молочное" onClick={() => {}} chevron={false} /></List>);
+    expect(container.querySelector(".vs-list-row__go")).toBeNull();
+    expect(container.querySelector("button.vs-list-row__inner")).not.toBeNull();
+  });
+
+  it("нейтральная метка на приглушённой карточке получает светлую подложку, а не цвет самой карточки", () => {
+    const sheet = rules(allCss());
+    expect(sheet.find((r) => r.sel === ".vs-card--muted")!.body).toMatch(/--vs-chip-neutral: var\(--vs-panel\)/);
+    expect(sheet.find((r) => r.sel === ".vs-tag")!.body).toMatch(/--vs-tag-soft: var\(--vs-chip-neutral, var\(--vs-surface-2\)\)/);
+    expect(sheet.find((r) => r.sel === ".vs-badge--muted")!.body).toMatch(/--vs-badge-bg: var\(--vs-chip-neutral, var\(--vs-surface-2\)\)/);
+  });
+
+  it("на сенсорном экране маленький чип и ссылка дают зону нажатия не меньше 32 px, не сдвигая текст", () => {
+    const css = allCss();
+    expect(css).toMatch(/@media \(pointer: coarse\) \{ \.vs-chip--sm \{ min-height: calc\(32px/);
+    expect(css).toMatch(/@media \(pointer: coarse\) \{ \.vs-link \{ padding-block: var\(--vs-space-1_5\); margin-block: calc\(-1 \* var\(--vs-space-1_5\)\); \} \}/);
+  });
+
+  it("заголовок строки можно показать в три строки", () => {
+    const { container } = render(<List><ListRow title="Чай черный DOLCE ALBERO с бергамотом" titleLines={3} sub="Лента" /></List>);
+    expect(container.querySelector(".vs-list-row__name--3")).not.toBeNull();
+    expect(rules(allCss()).find((r) => r.sel === ".vs-list-row__name--3, .vs-list-row__title--3")!.body).toMatch(/-webkit-line-clamp: 3/);
+  });
+
   it("ссылка на касании подчёркнута, приглушённая — всегда", () => {
     const css = allCss();
     expect(css).toMatch(/@media \(hover: none\) \{ \.vs-link \{[^}]*text-decoration: underline/);

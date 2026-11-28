@@ -2039,7 +2039,7 @@
       },
       {
         "name": "titleLines",
-        "type": "1 | 2",
+        "type": "1 | 2 | 3",
         "required": false,
         "default": "1",
         "deprecated": false
@@ -2119,6 +2119,13 @@
         "type": "boolean",
         "required": false,
         "default": null,
+        "deprecated": false
+      },
+      {
+        "name": "chevron",
+        "type": "boolean",
+        "required": false,
+        "default": "Boolean(onClick || href != null)",
         "deprecated": false
       },
       {

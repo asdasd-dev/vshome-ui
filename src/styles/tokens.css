@@ -1,8 +1,8 @@
 :root {
   --vs-bg: #f6f5f1; --vs-panel: #ffffff; --vs-ink: #1d1d1b; --vs-muted: #6b6a66; --vs-line: #e3e1da;
-  --vs-accent: #2864d0; --vs-danger: #be123c; --vs-warn: #c2410c; --vs-ok: #15803d;
+  --vs-accent: #2864d0; --vs-danger: #be123c; --vs-warn: #b93d0b; --vs-ok: #137a39;
   --vs-on-accent: #ffffff; --vs-lamp: #d97706;
-  --vs-violet: #7c3aed; --vs-pink: #db2777; --vs-gold: #b7791f;
+  --vs-violet: #7c3aed; --vs-pink: #c21f63; --vs-gold: #8f5f0b;
   --vs-calendar-orange: #ff9500; --vs-calendar-purple: #cc73e1; --vs-calendar-blue: #007aff; --vs-calendar-green: #34c759;
   --vs-deal: #ffd43b; --vs-on-deal: #1d1d1b;
   --vs-header-accent-bg: linear-gradient(160deg, #2450d8 0%, #1a3aa8 100%); --vs-on-header-accent: #ffffff;

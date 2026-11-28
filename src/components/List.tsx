@@ -70,20 +70,20 @@ export function List({ children, label, max, fit, onMore, empty, divided = true,
 }
 
 export type ListRowProps = {
-  title: ReactNode; titleLines?: 1 | 2; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2 | 3; meta?: ReactNode; lead?: ReactNode; action?: ReactNode;
-  tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void; href?: string; align?: "baseline" | "center"; selected?: boolean; className?: string;
+  title: ReactNode; titleLines?: 1 | 2 | 3; sub?: ReactNode; subTone?: "muted" | "warn"; subLines?: 1 | 2 | 3; meta?: ReactNode; lead?: ReactNode; action?: ReactNode;
+  tone?: "default" | "warn" | "danger" | "muted"; onClick?: () => void; href?: string; align?: "baseline" | "center"; selected?: boolean; chevron?: boolean; className?: string;
 };
 
-export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, action, tone = "default", onClick, href, align = "baseline", selected, className }: ListRowProps) {
+export function ListRow({ title, titleLines = 1, sub, subTone = "muted", subLines = 1, meta, lead, action, tone = "default", onClick, href, align = "baseline", selected, chevron = Boolean(onClick || href != null), className }: ListRowProps) {
   const current = selected ? { "aria-current": "true" as const } : {};
   const inner = (
     <>
       {lead && <span className="vs-list-row__lead">{lead}</span>}
       {sub != null ? (
-        <span className="vs-list-row__title"><span className={cx("vs-list-row__name", titleLines === 2 && "vs-list-row__name--2")}>{title}</span><span className={cx("vs-list-row__sub", `vs-list-row__sub--${subTone}`, subLines > 1 && `vs-list-row__sub--${subLines}`)}>{sub}</span></span>
-      ) : <span className={cx("vs-list-row__title", titleLines === 2 && "vs-list-row__title--2")}>{title}</span>}
+        <span className="vs-list-row__title"><span className={cx("vs-list-row__name", titleLines > 1 && `vs-list-row__name--${titleLines}`)}>{title}</span><span className={cx("vs-list-row__sub", `vs-list-row__sub--${subTone}`, subLines > 1 && `vs-list-row__sub--${subLines}`)}>{sub}</span></span>
+      ) : <span className={cx("vs-list-row__title", titleLines > 1 && `vs-list-row__title--${titleLines}`)}>{title}</span>}
       {meta != null && meta !== false && <span className="vs-list-row__meta">{meta}</span>}
-      {(onClick || href != null) && <Icon name="chevron-right" size="sm" className="vs-list-row__go" />}
+      {chevron && <Icon name="chevron-right" size="sm" className="vs-list-row__go" />}
     </>
   );
   return (
