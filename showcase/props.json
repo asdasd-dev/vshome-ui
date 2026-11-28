@@ -3311,6 +3311,13 @@
         "required": false,
         "default": null,
         "deprecated": false
+      },
+      {
+        "name": "fit",
+        "type": "boolean",
+        "required": false,
+        "default": null,
+        "deprecated": false
       }
     ],
     "inherits": null

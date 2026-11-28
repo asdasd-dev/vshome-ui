@@ -30,6 +30,8 @@ export type SheetProps = {
   children: ReactNode;
   scrollKey?: unknown;
   className?: string;
+  /** на телефоне — по высоте содержимого, а не во весь экран */
+  fit?: boolean;
 };
 
 const FOCUSABLE = "a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex=\"-1\"])";
@@ -60,7 +62,7 @@ function trapSheetTab(e: KeyboardEvent<HTMLElement>, container: HTMLElement | nu
   }
 }
 
-export function Sheet({ open, onRequestClose, head, actions, footer, children, scrollKey, className }: SheetProps) {
+export function Sheet({ open, onRequestClose, head, actions, footer, children, scrollKey, className, fit }: SheetProps) {
   const mobile = useMediaQuery(SHEET_MOBILE);
   const body = useRef<HTMLDivElement>(null);
   const popup = useRef<HTMLDivElement>(null);
@@ -102,7 +104,7 @@ export function Sheet({ open, onRequestClose, head, actions, footer, children, s
           <Drawer.Portal>
             <Drawer.Backdrop className="vs-sheet-backdrop" onTouchEnd={onBackdropTouchEnd} />
             <Drawer.Viewport className="vs-sheet-viewport">
-              <Drawer.Popup ref={popup} aria-modal="true" onKeyDown={(e) => trapSheetTab(e, popup.current)} className={cx("vs-sheet", "vs-sheet--drawer", className)}>
+              <Drawer.Popup ref={popup} aria-modal="true" onKeyDown={(e) => trapSheetTab(e, popup.current)} className={cx("vs-sheet", "vs-sheet--drawer", fit && "vs-sheet--fit", className)}>
                 <span className="vs-sheet__grip" aria-hidden="true" />
                 <Drawer.Content className="vs-sheet__content">{frame}</Drawer.Content>
               </Drawer.Popup>

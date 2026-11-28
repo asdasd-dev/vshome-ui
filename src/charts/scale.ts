@@ -41,6 +41,14 @@ export function timeTicks(t0: number, step: number, n: number, every?: number): 
   return ticks;
 }
 
+/** pxPerPoint — ширина одного шага ряда в пикселях; подписи не ближе minGap */
+export function thinTicks(ticks: Tick[], pxPerPoint: number, minGap = 44): Tick[] {
+  if (ticks.length < 2) return ticks;
+  const gap = ((ticks[ticks.length - 1]!.i - ticks[0]!.i) / (ticks.length - 1)) * pxPerPoint;
+  const k = Math.max(1, Math.ceil(minGap / Math.max(gap, 1)));
+  return ticks.filter((_, j) => j % k === 0);
+}
+
 export function outageBands(alive: (number | null)[]): [number, number][] {
   const bands: [number, number][] = [];
   let start: number | null = null;
