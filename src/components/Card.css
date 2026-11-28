@@ -5,6 +5,7 @@
 .vs-card--pad-md { padding: var(--vs-space-4); }
 .vs-card--pad-lg { padding: var(--vs-space-6); }
 .vs-card--elevated { border-color: transparent; box-shadow: var(--vs-shadow-card); }
+.vs-card--default { --vs-card-bg: var(--vs-surface-1); }
 .vs-card--sunken { --vs-card-bg: color-mix(in srgb, var(--vs-surface-1) 55%, var(--vs-surface-0)); }
 .vs-card--accent { --vs-card-bg: var(--vs-accent-tint); border-color: transparent; }
 .vs-card--ok { --vs-card-bg: var(--vs-ok-soft); border-color: transparent; }

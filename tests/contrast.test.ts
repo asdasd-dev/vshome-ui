@@ -18,7 +18,7 @@ describe.each([["светлая", LIGHT], ["тёмная", DARK]])("контра
   const get = (name: string) => rgb(hex(theme, name) ?? hex(LIGHT, name)!);
   it.each(TONES)("%s читается на карточке, фоне, приглушённой и своей мягкой подложке", (tone) => {
     const fg = get(tone), panel = get("panel");
-    const grounds = { panel, bg: get("bg"), "surface-2": get("surface-2"), soft: mix(fg, panel, theme.includes(`--vs-${soft(tone)}`) ? share(theme, tone) : share(LIGHT, tone)) };
+    const grounds = { panel, bg: get("bg"), "surface-2": get("surface-2"), soft: mix(fg, panel, theme.includes(`--vs-${soft(tone)}`) ? share(theme, tone) : share(LIGHT, tone)), ...(tone === "accent" ? { "tint-on-bg": mix(fg, get("bg"), share(LIGHT, tone)), "tint-on-surface-2": mix(fg, get("surface-2"), share(LIGHT, tone)) } : {}) };
     const low = Object.entries(grounds).map(([name, ground]) => `${name} ${ratio(fg, ground).toFixed(2)}`).filter((x) => Number(x.split(" ")[1]) < 4.5);
     expect(low).toEqual([]);
   });

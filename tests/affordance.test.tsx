@@ -47,6 +47,24 @@ describe("нажимаемое видно в покое, без наведени
     expect(css).toMatch(/@media \(pointer: coarse\) \{ \.vs-link \{ padding-block: var\(--vs-space-1_5\); margin-block: calc\(-1 \* var\(--vs-space-1_5\)\); \} \}/);
   });
 
+  it("вложенная карточка по умолчанию своего цвета, а не цвета родителя с тоном", () => {
+    expect(rules(allCss()).find((r) => r.sel === ".vs-card--default")!.body).toMatch(/--vs-card-bg: var\(--vs-surface-1\)/);
+  });
+
+  it("скрытая подпись поля не выпадает за край экрана: поле — опора для неё", () => {
+    expect(rules(allCss()).find((r) => r.sel === ".vs-field")!.body).toMatch(/position: relative/);
+  });
+
+  it("кнопки в подвале листа переносятся на новую строку, а не обрезаются", () => {
+    const sheet = rules(allCss());
+    expect(sheet.find((r) => r.sel === ".vs-sheet__foot")!.body).toMatch(/flex-wrap: wrap/);
+    expect(sheet.find((r) => r.sel === ".vs-sheet__foot > .vs-button")!.body).toMatch(/flex: 1 1 0; min-width: fit-content/);
+  });
+
+  it("на сенсорном экране флажок и радиокнопка с подписью дают зону нажатия не меньше 32 px", () => {
+    expect(allCss()).toMatch(/@media \(pointer: coarse\) \{ \.vs-checkbox, \.vs-radio \{ padding-block: var\(--vs-space-1_5\); \} \}/);
+  });
+
   it("заголовок строки можно показать в три строки", () => {
     const { container } = render(<List><ListRow title="Чай черный DOLCE ALBERO с бергамотом" titleLines={3} sub="Лента" /></List>);
     expect(container.querySelector(".vs-list-row__name--3")).not.toBeNull();
