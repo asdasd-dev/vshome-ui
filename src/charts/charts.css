@@ -24,3 +24,4 @@
 .vs-chart-ref { paint-order: stroke; stroke: var(--vs-chart-bg, var(--vs-panel)); stroke-width: calc(var(--vs-space-0_5) * 1.5); stroke-linejoin: round; }
 @media (pointer: coarse) { .vs-chart-legend-item { padding-block: calc(4px * var(--vs-scale, 1)); } }
 @media (pointer: coarse) { .vs-chart-tip { top: auto; bottom: calc(100% + var(--vs-space-1)); right: 0; white-space: normal; box-shadow: var(--vs-shadow-popover); } }
+@media (pointer: coarse) { .vs-chart-legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(140px * var(--vs-scale, 1)), 1fr)); column-gap: var(--vs-space-3); row-gap: 0; } }
