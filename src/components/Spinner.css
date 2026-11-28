@@ -2,5 +2,6 @@
 .vs-spinner--sm { width: var(--vs-space-4); height: var(--vs-space-4); }
 .vs-spinner--md { width: var(--vs-space-5); height: var(--vs-space-5); }
 .vs-spinner--lg { width: var(--vs-space-8); height: var(--vs-space-8); }
+.vs-spinner--em { width: 1em; height: 1em; vertical-align: -0.15em; border: max(1.5px, 0.1em) solid currentColor; border-right-color: transparent; scale: 0.8; }
 @keyframes vs-spin { to { transform: rotate(1turn); } }
 @media (prefers-reduced-motion: reduce) { .vs-spinner { animation-duration: calc(var(--vs-duration-spin) * 3); } }

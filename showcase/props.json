@@ -844,7 +844,7 @@
     "props": [
       {
         "name": "size",
-        "type": "\"sm\" | \"md\" | \"lg\"",
+        "type": "\"sm\" | \"md\" | \"lg\" | \"em\"",
         "required": false,
         "default": "\"md\"",
         "deprecated": false

@@ -1,4 +1,4 @@
-import { Cluster, EmptyState, Spinner, Text } from "../../src";
+import { Cluster, EmptyState, Spinner, Stack, Text } from "../../src";
 import type { StoryFile } from "../catalog";
 
 export const meta: StoryFile["meta"] = { title: "Spinner", group: "Обратная связь", components: ["Spinner"], doc: "Spinner" };
@@ -17,7 +17,10 @@ export const stories: StoryFile["stories"] = [
   {
     name: "Рядом с текстом",
     render: () => (
-      <Text as="div" tone="muted"><Cluster gap="2"><Spinner size="sm" /><Text tone="muted">Обновляю цены Ленты…</Text></Cluster></Text>
+      <Stack gap="3">
+        <Text as="div" tone="muted"><Cluster gap="2"><Spinner size="sm" /><Text tone="muted">Обновляю цены Ленты…</Text></Cluster></Text>
+        <Text as="div" weight="medium"><Cluster as="span" gap="1">Стирка<Spinner size="em" tone="muted" label="Стирка идёт" /></Cluster></Text>
+      </Stack>
     ),
   },
   {
