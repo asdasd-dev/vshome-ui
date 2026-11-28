@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
@@ -117,5 +119,11 @@ describe("Spinner", () => {
     render(<Spinner size="lg" label="Загружаю" />);
     const s = screen.getByRole("status", { name: "Загружаю" });
     expect(s.className).toContain("vs-spinner--lg");
+  });
+  it("em — бокс 1em как у иконки, кольцо 0,8 и тоньше, центр по заглавным", () => {
+    render(<p>Стирка <Spinner size="em" tone="muted" label="Стирка идёт" /></p>);
+    expect(screen.getByRole("status", { name: "Стирка идёт" }).className).toContain("vs-spinner--em");
+    const css = fs.readFileSync(path.join(__dirname, "..", "src", "components", "Spinner.css"), "utf8");
+    expect(css).toMatch(/\.vs-spinner--em \{[^}]*width: 1em; height: 1em; vertical-align: -0\.15em; border: max\(1\.5px, 0\.1em\) solid currentColor; border-right-color: transparent; scale: 0\.8; \}/);
   });
 });
