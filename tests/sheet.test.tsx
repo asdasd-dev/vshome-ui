@@ -189,6 +189,7 @@ describe.each([["комп", false], ["телефон", true]])("Sheet (%s): уд
     const close = screen.getByRole("button", { name: "Закрыть" });
     const input = screen.getByRole("textbox", { name: "Черновик" });
     const approve = screen.getByRole("button", { name: "Апрув" });
+    await waitFor(() => expect(screen.getByRole("dialog").contains(document.activeElement)).toBe(true));
     approve.focus();
     await userEvent.tab();
     expect(document.activeElement).toBe(close);

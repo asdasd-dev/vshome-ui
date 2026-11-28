@@ -56,7 +56,7 @@ function trapSheetTab(e: KeyboardEvent<HTMLElement>, container: HTMLElement | nu
       e.preventDefault();
       last.focus();
     }
-  } else if (active === last || !container.contains(active)) {
+  } else if (active === last || active === container || !container.contains(active)) {
     e.preventDefault();
     first.focus();
   }
